@@ -12,6 +12,7 @@
     "@types/node": "^12.19.4",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
+    "dotenv": "^8.2.0", 
     "emotion-reset": "^2.0.7",
     "emotion-theming": "^10.0.27",
     "mapbox-gl": "^1.12.0",
