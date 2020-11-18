@@ -1,18 +1,22 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import styled from '../../utils/styles/styled';
 
 const SidebarWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   flex: 0 0 370px;
   height: 100vh;
-  background-color: #444;
 `;
 
-function SidebarPresenter(): React.ReactElement {
-  return <SidebarWrapper />;
+interface SidebarPresenterProps {
+  children: any; // 여기 타입이 뭐가 되야 할까요..?
+}
+
+function SidebarPresenter({
+  children,
+}: SidebarPresenterProps): React.ReactElement {
+  return <SidebarWrapper>{children}</SidebarWrapper>;
 }
 
 export default SidebarPresenter;
