@@ -18,11 +18,24 @@ const Range = styled.input`
   opacity: 0.7;
   width: 70%;
   height: 3px;
-  background-color: #d3d3d3;
+  background-color: gray;
   outline: none;
-  cursor: pointer;
+  border: none;
   &::-webkit-slider-thumb {
-    background-color: black;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: ${(props) => props.theme.GREEN};
+    cursor: pointer;
+  }
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: ${(props) => props.theme.GREEN};
+    cursor: pointer;
+    border: none;
   }
 `;
 
