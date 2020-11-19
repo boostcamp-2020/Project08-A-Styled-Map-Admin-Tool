@@ -4,7 +4,5 @@ export default interface ButtonProps {
   width?: string;
   height?: string;
   textContent?: string;
-  // FIXME
-  // onClick?: MouseEvent<HTMLElement>;
-  onClick?: any;
+  onClick?: (e: MouseEvent<HTMLElement, globalThis.MouseEvent>) => void;
 }

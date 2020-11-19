@@ -1,15 +1,23 @@
-import React, { ReactElement, MouseEvent } from 'react';
+import React, { ReactElement } from 'react';
 import styled from '@emotion/styled';
 
-import UpperButtonsPropsInterface from './UpperButtonsPropsInterface';
 import SearchInput from '../../SearchInput/SearchInputContainer';
 import Button from '../../Button/ButtonContainer';
+
+interface UpperButtonsPropsInterface {
+  compareButtonClickHandler?: (
+    e: React.MouseEvent<HTMLElement, globalThis.MouseEvent>
+  ) => void;
+  fullScreenButtonClickHandler?: (
+    e: React.MouseEvent<HTMLElement, globalThis.MouseEvent>
+  ) => void;
+}
 
 const UpperButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: flex-end;
+  /* align-items: center; */
 
   position: fixed;
   top: 10px;
@@ -23,21 +31,19 @@ const UpperButtonsWrapper = styled.div`
 const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 `;
 
 function UpperButtonsPresenter({
   compareButtonClickHandler,
+  fullScreenButtonClickHandler,
 }: UpperButtonsPropsInterface): ReactElement {
-  const onCompareButtonClick = (e: MouseEvent<HTMLElement>) => {
-    compareButtonClickHandler(e);
-  };
-
   return (
     <UpperButtonsWrapper>
       <SearchInput />
       <ButtonsWrapper>
-        <Button textContent="비교하기" onClick={onCompareButtonClick} />
-        <Button textContent="전체화면" />
+        <Button textContent="비교하기" onClick={compareButtonClickHandler} />
+        <Button textContent="전체화면" onClick={fullScreenButtonClickHandler} />
       </ButtonsWrapper>
     </UpperButtonsWrapper>
   );
