@@ -19,10 +19,20 @@ const Button = styled.button`
   padding: 12px 0;
 `;
 
-function SidebarFooterPresenter(): React.ReactElement {
+interface SidebarFooterPresenterProps {
+  isAdvanced: boolean;
+  clickHandler: () => void;
+}
+
+function SidebarFooterPresenter({
+  isAdvanced,
+  clickHandler,
+}: SidebarFooterPresenterProps): React.ReactElement {
   return (
     <FooterWrapper>
-      <Button>고급설정</Button>
+      <Button onClick={clickHandler}>
+        {isAdvanced ? '돌아가기' : '고급설정'}
+      </Button>
       <Button>내보내기</Button>
     </FooterWrapper>
   );

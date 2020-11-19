@@ -1,8 +1,14 @@
 import React from 'react';
 import SidebarHeaderPresenter from './SidebarHeaderPresenter';
 
-function SidebarHeaderContainer(): React.ReactElement {
-  return <SidebarHeaderPresenter />;
+interface SidebarHeaderContainerProps {
+  isAdvanced: boolean;
+}
+
+function SidebarHeaderContainer({
+  isAdvanced,
+}: SidebarHeaderContainerProps): React.ReactElement {
+  return <SidebarHeaderPresenter isAdvanced={isAdvanced} />;
 }
 
 export default SidebarHeaderContainer;

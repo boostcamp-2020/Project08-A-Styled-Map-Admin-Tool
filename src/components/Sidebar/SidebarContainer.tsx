@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SidebarPresenter from './SidebarPresenter';
 import SidebarHeader from './SidebarHeader/SidebarHeaderContainer';
-import SidebarContent from './SidebarContent/SidebarContentContainer';
+import SidebarContentFewer from './SidebarContentFewer/SidebarContentContainer';
+import SidebarContentMore from './SidebarContentMore/SidebarContentContainer';
 import SidebarFooter from './SidebarFooter/SidebarFooterContainer';
 
 function SidebarContainer(): React.ReactElement {
+  const [isAdvanced, setIsAdvanced] = useState(false);
+
   return (
     <SidebarPresenter>
-      <SidebarHeader />
-      <SidebarContent />
-      <SidebarFooter />
+      <SidebarHeader isAdvanced={isAdvanced} />
+      {isAdvanced ? <SidebarContentMore /> : <SidebarContentFewer />}
+      <SidebarFooter isAdvanced={isAdvanced} setIsAdvanced={setIsAdvanced} />
     </SidebarPresenter>
   );
 }

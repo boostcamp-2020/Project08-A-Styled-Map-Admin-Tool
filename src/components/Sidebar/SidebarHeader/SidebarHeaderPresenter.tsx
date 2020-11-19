@@ -37,10 +37,16 @@ const DropdownBtn = styled(MoreVertIcon)`
   cursor: pointer;
 `;
 
-function SidebarHeaderPresenter(): React.ReactElement {
+interface SidebarHeaderPresenterProps {
+  isAdvanced: boolean;
+}
+
+function SidebarHeaderPresenter({
+  isAdvanced,
+}: SidebarHeaderPresenterProps): React.ReactElement {
   return (
     <HeaderWrapper>
-      <HeaderTitle>스타일 맵 만들기</HeaderTitle>
+      <HeaderTitle>{isAdvanced ? '고급설정' : '스타일 맵 만들기'}</HeaderTitle>
       <Btns>
         <UndoBtn />
         <DropdownBtn />
