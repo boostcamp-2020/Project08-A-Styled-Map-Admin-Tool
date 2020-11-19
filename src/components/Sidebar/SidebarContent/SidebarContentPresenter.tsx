@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import SidebarContentThemeContainer from './SidebarContentTheme/SidebarContentThemeContainer';
+import SidebarContentThemeContainer from './SidebarContentThemeContainer';
 
 const ContentWrapper = styled.main`
   width: 80%;
