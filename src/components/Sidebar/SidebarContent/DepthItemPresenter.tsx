@@ -20,6 +20,10 @@ const Range = styled.input`
   height: 3px;
   background-color: #d3d3d3;
   outline: none;
+  cursor: pointer;
+  &::-webkit-slider-thumb {
+    background-color: black;
+  }
 `;
 
 interface ItemPresenterProps {

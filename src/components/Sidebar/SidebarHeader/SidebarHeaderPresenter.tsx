@@ -29,10 +29,12 @@ const Btns = styled.div`
 const UndoBtn = styled(UndoIcon)`
   margin: 0 0 0 auto;
   fill: white;
+  cursor: pointer;
 `;
 
 const DropdownBtn = styled(MoreVertIcon)`
   fill: white;
+  cursor: pointer;
 `;
 
 function SidebarHeaderPresenter(): React.ReactElement {
