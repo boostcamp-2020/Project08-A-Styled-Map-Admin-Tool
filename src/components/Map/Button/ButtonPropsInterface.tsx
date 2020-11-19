@@ -1,5 +1,10 @@
+import { MouseEvent } from 'react';
+
 export default interface ButtonProps {
-  width: number;
-  height: number;
-  textContent: string;
+  width?: string;
+  height?: string;
+  textContent?: string;
+  // FIXME
+  // onClick?: MouseEvent<HTMLElement>;
+  onClick?: any;
 }

@@ -1,10 +1,22 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, MouseEvent } from 'react';
 import Button from './ButtonPresenter';
 
 import ButtonPropsInterface from './ButtonPropsInterface';
 
-function ButtonContainer(props: ButtonPropsInterface): ReactElement {
-  return <Button {...props} />;
+function ButtonContainer({
+  width,
+  height,
+  textContent,
+  onClick,
+}: ButtonPropsInterface): ReactElement {
+  return (
+    <Button
+      width={width}
+      height={height}
+      textContent={textContent}
+      onClick={(e: MouseEvent<HTMLElement>) => onClick(e)}
+    />
+  );
 }
 
 export default ButtonContainer;

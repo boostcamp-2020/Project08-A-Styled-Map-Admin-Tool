@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import dotenv from 'dotenv';
 import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 import MapPresenter from './MapPresenter';
 
@@ -20,6 +21,16 @@ function MapContainer(): React.ReactElement {
       center: [lng, lat],
       zoom,
     });
+
+    map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      }),
+      'bottom-right'
+    );
 
     map.on('move', () => {
       setLng(map.getCenter().lng);
