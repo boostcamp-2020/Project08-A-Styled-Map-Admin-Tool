@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, MouseEvent } from 'react';
 import styled from '@emotion/styled';
 
 interface ButtonPropsInterface {
   width?: string;
   height?: string;
   textContent?: string;
-  onClick?: (e: React.MouseEvent<HTMLElement, globalThis.MouseEvent>) => void;
+  onClick?: (e: MouseEvent<HTMLElement, globalThis.MouseEvent>) => void;
 }
 
 const ButtonWrapper = styled.p`

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import styled from '@emotion/styled';
 
 import SearchInput from '../../SearchInput/SearchInputContainer';
-import Button from '../../Button/ButtonContainer';
+import Button from '../../Button/ButtonPresenter';
 
 interface UpperButtonsPropsInterface {
   compareButtonClickHandler?: (
