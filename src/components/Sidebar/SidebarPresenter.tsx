@@ -10,7 +10,7 @@ const SidebarWrapper = styled.div`
 `;
 
 interface SidebarPresenterProps {
-  children: any; // 여기 타입이 뭐가 되야 할까요..?
+  children: React.ReactNode;
 }
 
 function SidebarPresenter({
