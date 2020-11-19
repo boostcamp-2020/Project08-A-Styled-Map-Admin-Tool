@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from '../../../../utils/styles/styled';
+import styled from '../../../utils/styles/styled';
 
 interface ImageProp {
   src: string;
@@ -9,9 +9,13 @@ interface CheckedProp {
   checked: boolean;
 }
 
+const ThemeWrapper = styled.div`
+  padding: 50px 16px;
+`;
+
 const Title = styled.h2`
-  font-size: 2.5rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 600;
 `;
 
 const List = styled.ul`
@@ -98,7 +102,7 @@ function SidebarContentThemePresenter(): React.ReactElement {
   };
 
   return (
-    <>
+    <ThemeWrapper>
       <Title>지도 테마 선택</Title>
       <List>
         {data.map((d, i) => (
@@ -111,7 +115,7 @@ function SidebarContentThemePresenter(): React.ReactElement {
           </Item>
         ))}
       </List>
-    </>
+    </ThemeWrapper>
   );
 }
 

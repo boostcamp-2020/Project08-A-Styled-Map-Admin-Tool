@@ -5,7 +5,9 @@ import SidebarContentThemeContainer from './SidebarContentThemeContainer';
 
 const ContentWrapper = styled.div`
   width: 100%;
+  height: 100%;
   padding: 20px;
+  overflow-y: scroll;
 `;
 
 const DepthController = styled.div`
@@ -15,7 +17,7 @@ const DepthController = styled.div`
 `;
 
 const DepthControllerTitle = styled.p`
-  padding: 0 16px 24px 16px;
+  padding: 20px 16px 24px 16px;
   font-size: 2rem;
   font-weight: 600;
 `;
