@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import emotionReset from 'emotion-reset';
 import { Global, css } from '@emotion/core';
 
-function GlobalStyle(): ReactElement {
+function GlobalStyle(): React.ReactElement {
   return (
     <Global
       styles={css`
