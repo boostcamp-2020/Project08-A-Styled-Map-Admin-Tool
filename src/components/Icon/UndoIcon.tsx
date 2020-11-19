@@ -19,8 +19,4 @@ function UndoIcon({ className }: UndoIconProps): React.ReactElement {
   );
 }
 
-UndoIcon.defaultProps = {
-  className: 'name',
-};
-
 export default UndoIcon;
