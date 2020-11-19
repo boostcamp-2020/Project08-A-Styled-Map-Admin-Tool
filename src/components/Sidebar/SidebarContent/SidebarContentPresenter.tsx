@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import DepthItem from './DepthItemPresenter';
+import SidebarContentThemeContainer from './SidebarContentThemeContainer';
 
 const ContentWrapper = styled.div`
   width: 100%;
@@ -28,6 +29,7 @@ function SidebarContentPresenter(): React.ReactElement {
         <DepthItem name="랜드마크" />
         <DepthItem name="라벨" />
       </DepthController>
+      <SidebarContentThemeContainer />
     </ContentWrapper>
   );
 }
