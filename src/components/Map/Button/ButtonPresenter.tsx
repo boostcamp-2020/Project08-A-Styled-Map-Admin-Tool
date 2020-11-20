@@ -1,16 +1,41 @@
-import React, { ReactElement } from 'react';
-import styled from '@emotion/styled';
+import React, { ReactElement, MouseEvent } from 'react';
+import styled from '../../../utils/styles/styled';
 
-import ButtonPropsInterface from './ButtonPropsInterface';
+interface ButtonPropsInterface {
+  width?: string;
+  height?: string;
+  textContent?: string;
+  onClick?: (e: MouseEvent<HTMLElement, globalThis.MouseEvent>) => void;
+}
 
-const Button = styled.button<ButtonPropsInterface>`
-  display: flex;
-  width: ${(props) => props.width};
+const ButtonWrapper = styled.p`
+  text-align: center;
 `;
 
-function ButtonPresenter(props: ButtonPropsInterface): ReactElement {
-  const { textContent } = props;
-  return <Button {...props}>{textContent}</Button>;
+const Button = styled.button<ButtonPropsInterface>`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  margin: 5px 0;
+
+  border: 0;
+  padding: auto;
+  background-color: white;
+  box-shadow: 0 0 10px grey;
+`;
+
+function ButtonPresenter({
+  width = '100px',
+  height = '50px',
+  textContent,
+  onClick,
+}: ButtonPropsInterface): ReactElement {
+  return (
+    <ButtonWrapper>
+      <Button width={width} height={height} onClick={onClick}>
+        {textContent}
+      </Button>
+    </ButtonWrapper>
+  );
 }
 
 export default ButtonPresenter;
