@@ -13,7 +13,7 @@ const Label = styled.label`
   font-weight: 600;
 `;
 
-const Range = styled.input`
+export const Range = styled.input`
   -webkit-appearance: none;
   opacity: 0.7;
   width: 70%;
