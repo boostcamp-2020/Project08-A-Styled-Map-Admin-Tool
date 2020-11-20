@@ -1,7 +1,7 @@
 import React, { RefObject } from 'react';
 import styled from '../../utils/styles/styled';
 
-import UpperButtonsPresenter from './ButtonGroup/UpperButtons/UpperButtonsContainer';
+import UpperButtonsContainer from './ButtonGroup/UpperButtons/UpperButtonsContainer';
 
 const MapWrapper = styled.div`
   height: 100vh;
@@ -23,7 +23,7 @@ interface MapPresenterProps {
 function MapPresenter({ mapRef }: MapPresenterProps): React.ReactElement {
   return (
     <MapWrapper ref={mapRef}>
-      <UpperButtonsPresenter />
+      <UpperButtonsContainer />
     </MapWrapper>
   );
 }

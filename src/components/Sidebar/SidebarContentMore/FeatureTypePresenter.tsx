@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import DetailTypeContainer from './DetailTypeContainer';
 
 interface WrapperProps {
   isFeatureName: string;
@@ -62,21 +63,24 @@ function FeatureTypePresenter({
   featureClickHandler,
 }: FeatureTypePresenterProps): React.ReactElement {
   return (
-    <FeatureTypeWrapper isFeatureName={featureName}>
-      <FeatureTypeTitle>기능 유형</FeatureTypeTitle>
-      {data.map(({ key, name }) => (
-        <FeatureList
-          key={key}
-          onClick={() => {
-            featureClickHandler(key);
-          }}
-        >
-          <Marker>{styledFeatureList.includes(key) ? '✓' : ' '}</Marker>
-          {name}
-          <Pointer>{'>'}</Pointer>
-        </FeatureList>
-      ))}
-    </FeatureTypeWrapper>
+    <>
+      <FeatureTypeWrapper isFeatureName={featureName}>
+        <FeatureTypeTitle>기능 유형</FeatureTypeTitle>
+        {data.map(({ key, name }) => (
+          <FeatureList
+            key={key}
+            onClick={() => {
+              featureClickHandler(key);
+            }}
+          >
+            <Marker>{styledFeatureList.includes(key) ? '✓' : ' '}</Marker>
+            {name}
+            <Pointer>{'>'}</Pointer>
+          </FeatureList>
+        ))}
+      </FeatureTypeWrapper>
+      <DetailTypeContainer featureName={featureName} />
+    </>
   );
 }
 

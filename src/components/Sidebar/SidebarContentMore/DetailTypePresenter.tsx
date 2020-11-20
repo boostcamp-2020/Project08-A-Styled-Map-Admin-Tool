@@ -70,6 +70,7 @@ interface DetailTypePresenterProps {
   featureName: string;
   detailName: string;
   detailClickHandler: (name: string) => void;
+  children: React.ReactNode;
 }
 
 interface ListItemProps {
@@ -107,58 +108,62 @@ function DetailTypePresenter({
   featureName,
   detailClickHandler,
   detailName,
+  children,
 }: DetailTypePresenterProps): React.ReactElement {
   if (!featureName) {
     return <></>;
   }
 
   return (
-    <DetailWrapper>
-      <Title>세부 유형</Title>
-      <List>
-        <Text padding="first">구역</Text>
-        <ListItem
-          detailName={detailName}
-          padding="second"
-          clickHandler={detailClickHandler}
-          name="채우기"
-          parent="구역"
-        />
-        <ListItem
-          detailName={detailName}
-          padding="second"
-          clickHandler={detailClickHandler}
-          name="윤곽선"
-          parent="구역"
-        />
-      </List>
-      <List>
-        <Text padding="first">라벨</Text>
+    <>
+      <DetailWrapper>
+        <Title>세부 유형</Title>
         <List>
-          <Text padding="second">텍스트</Text>
+          <Text padding="first">구역</Text>
           <ListItem
             detailName={detailName}
-            padding="third"
+            padding="second"
             clickHandler={detailClickHandler}
             name="채우기"
-            parent="텍스트"
+            parent="구역"
           />
           <ListItem
             detailName={detailName}
-            padding="third"
+            padding="second"
             clickHandler={detailClickHandler}
             name="윤곽선"
-            parent="텍스트"
+            parent="구역"
           />
         </List>
-        <ListItem
-          detailName={detailName}
-          padding="second"
-          clickHandler={detailClickHandler}
-          name="아이콘"
-        />
-      </List>
-    </DetailWrapper>
+        <List>
+          <Text padding="first">라벨</Text>
+          <List>
+            <Text padding="second">텍스트</Text>
+            <ListItem
+              detailName={detailName}
+              padding="third"
+              clickHandler={detailClickHandler}
+              name="채우기"
+              parent="텍스트"
+            />
+            <ListItem
+              detailName={detailName}
+              padding="third"
+              clickHandler={detailClickHandler}
+              name="윤곽선"
+              parent="텍스트"
+            />
+          </List>
+          <ListItem
+            detailName={detailName}
+            padding="second"
+            clickHandler={detailClickHandler}
+            name="아이콘"
+          />
+        </List>
+      </DetailWrapper>
+      {children}
+    </>
   );
 }
 
