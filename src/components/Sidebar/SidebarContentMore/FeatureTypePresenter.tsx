@@ -1,5 +1,7 @@
 import React from 'react';
+import DetailTypeContainer from './DetailTypeContainer';
 import styled from '../../../utils/styles/styled';
+import data from '../../../utils/redering-data/featureTypeData';
 
 interface WrapperProps {
   isFeatureName: string;
@@ -45,38 +47,30 @@ interface FeatureTypePresenterProps {
   featureClickHandler: (key: string) => void;
 }
 
-const data = [
-  { key: 'poi', name: 'POI' },
-  { key: 'road', name: '도로' },
-  { key: 'building', name: '건물' },
-  { key: 'terrain', name: '지형' },
-  { key: 'housing', name: '단지' },
-  { key: 'contour', name: '등고' },
-  { key: 'transit', name: '교통' },
-  { key: 'water', name: '수계' },
-];
-
 function FeatureTypePresenter({
   featureName,
   styledFeatureList,
   featureClickHandler,
 }: FeatureTypePresenterProps): React.ReactElement {
   return (
-    <FeatureTypeWrapper isFeatureName={featureName}>
-      <FeatureTypeTitle>기능 유형</FeatureTypeTitle>
-      {data.map(({ key, name }) => (
-        <FeatureList
-          key={key}
-          onClick={() => {
-            featureClickHandler(key);
-          }}
-        >
-          <Marker>{styledFeatureList.includes(key) ? '✓' : ' '}</Marker>
-          {name}
-          <Pointer>{'>'}</Pointer>
-        </FeatureList>
-      ))}
-    </FeatureTypeWrapper>
+    <>
+      <FeatureTypeWrapper isFeatureName={featureName}>
+        <FeatureTypeTitle>기능 유형</FeatureTypeTitle>
+        {data.map(({ key, name }) => (
+          <FeatureList
+            key={key}
+            onClick={() => {
+              featureClickHandler(key);
+            }}
+          >
+            <Marker>{styledFeatureList.includes(key) ? '✓' : ' '}</Marker>
+            {name}
+            <Pointer>{'>'}</Pointer>
+          </FeatureList>
+        ))}
+      </FeatureTypeWrapper>
+      <DetailTypeContainer featureName={featureName} />
+    </>
   );
 }
 
