@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from '../../../utils/styles/styled';
 import DetailTypeContainer from './DetailTypeContainer';
+import styled from '../../../utils/styles/styled';
+import data from '../../../utils/redering-data/featureTypeData';
 
 interface WrapperProps {
   isFeatureName: string;
@@ -45,17 +46,6 @@ interface FeatureTypePresenterProps {
   styledFeatureList: string[];
   featureClickHandler: (key: string) => void;
 }
-
-const data = [
-  { key: 'poi', name: 'POI' },
-  { key: 'road', name: '도로' },
-  { key: 'building', name: '건물' },
-  { key: 'terrain', name: '지형' },
-  { key: 'housing', name: '단지' },
-  { key: 'contour', name: '등고' },
-  { key: 'transit', name: '교통' },
-  { key: 'water', name: '수계' },
-];
 
 function FeatureTypePresenter({
   featureName,

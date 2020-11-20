@@ -12,10 +12,10 @@ const Button = styled.button`
   position: relative;
   z-index: 10;
   width: 48%;
-  background-color: #f6f8fa;
+  background-color: ${(props) => props.theme.LIGHTGREY};
   border: none;
   border-radius: 5px;
-  box-shadow: -10px 16px 40px -23px #000000;
+  box-shadow: -10px 16px 40px -23px ${(props) => props.theme.BLACK};
   padding: 12px 0;
 `;
 
