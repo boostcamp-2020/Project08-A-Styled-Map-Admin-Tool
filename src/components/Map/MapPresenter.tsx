@@ -1,7 +1,7 @@
 import React, { RefObject } from 'react';
 import styled from '../../utils/styles/styled';
 
-import UpperButtonsContainer from './ButtonGroup/UpperButtons/UpperButtonsContainer';
+import UpperButtonsContainer from './ButtonGroup/UpperButtonsContainer';
 
 const MapWrapper = styled.div`
   height: 100vh;

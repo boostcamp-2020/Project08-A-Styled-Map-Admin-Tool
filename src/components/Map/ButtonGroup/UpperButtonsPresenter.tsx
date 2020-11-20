@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-import styled from '@emotion/styled';
+import styled from '../../../utils/styles/styled';
 
-import SearchInput from '../../SearchInput/SearchInputContainer';
-import Button from '../../Button/ButtonPresenter';
+import SearchInput from '../SearchInput/SearchInputContainer';
+import Button from '../Button/ButtonPresenter';
 
 interface UpperButtonsPropsInterface {
   compareButtonClickHandler?: (

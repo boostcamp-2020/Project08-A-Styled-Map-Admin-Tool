@@ -1,5 +1,5 @@
 import React, { ReactElement, ChangeEvent } from 'react';
-import styled from '@emotion/styled';
+import styled from '../../../utils/styles/styled';
 
 interface SearchInputPropsInterface {
   inputText: string;
