@@ -9,7 +9,7 @@ const HeaderWrapper = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 12px;
+  padding: 0 15px 0 25px;
   background-color: ${(props) => props.theme.GREEN};
 `;
 
@@ -33,6 +33,7 @@ const UndoBtn = styled(UndoIcon)`
 `;
 
 const DropdownBtn = styled(MoreVertIcon)`
+  margin-left: 10px;
   fill: white;
   cursor: pointer;
 `;
@@ -46,7 +47,7 @@ function SidebarHeaderPresenter({
 }: SidebarHeaderPresenterProps): React.ReactElement {
   return (
     <HeaderWrapper>
-      <HeaderTitle>{isAdvanced ? '고급설정' : '스타일 맵 만들기'}</HeaderTitle>
+      <HeaderTitle>{isAdvanced ? '고급 설정' : '스타일 맵 만들기'}</HeaderTitle>
       <Btns>
         <UndoBtn />
         <DropdownBtn />
