@@ -10,12 +10,13 @@ const VisibilityTitle = styled.h2`
   font-size: 1.7rem;
   font-weight: 600;
   color: gray;
-  margin-bottom: 10px;
+  margin: 10px 0;
 `;
 
 const VisilityItem = styled.div`
   font-size: 1.6rem;
-  margin-bottom: 5px;
+  margin: 5px 10px;
+  cursor: pointer;
 `;
 
 function VisibilityStylePresenter(): React.ReactElement {

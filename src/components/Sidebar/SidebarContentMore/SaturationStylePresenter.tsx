@@ -17,6 +17,7 @@ const SaturationTitle = styled.label`
 
 const SaturationControlBar = styled(Range)`
   width: 100%;
+  height: 2px;
 `;
 
 function SaturationStylePresenter(): React.ReactElement {
