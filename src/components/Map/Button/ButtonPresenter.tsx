@@ -8,19 +8,20 @@ interface ButtonPropsInterface {
   onClick?: (e: MouseEvent<HTMLElement, globalThis.MouseEvent>) => void;
 }
 
-const ButtonWrapper = styled.p`
-  text-align: center;
-`;
-
 const Button = styled.button<ButtonPropsInterface>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   margin: 5px 0;
-
   border: 0;
-  padding: auto;
   background-color: white;
+  border-radius: 5px;
   box-shadow: 0 0 10px grey;
+  font-weight: 600;
+  color: ${(props) => props.theme.DARKGREY};
+
+  &:hover {
+    color: ${(props) => props.theme.GREEN};
+  }
 `;
 
 function ButtonPresenter({
@@ -30,11 +31,9 @@ function ButtonPresenter({
   onClick,
 }: ButtonPropsInterface): ReactElement {
   return (
-    <ButtonWrapper>
-      <Button width={width} height={height} onClick={onClick}>
-        {textContent}
-      </Button>
-    </ButtonWrapper>
+    <Button width={width} height={height} onClick={onClick}>
+      {textContent}
+    </Button>
   );
 }
 
