@@ -19,18 +19,17 @@ const UpperButtonsWrapper = styled.div`
   justify-content: space-around;
 
   position: fixed;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   z-index: 3;
 
-  width: 250px;
-  height: 120px;
+  width: 300px;
 `;
 
 const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 function UpperButtonsPresenter({
