@@ -3,20 +3,27 @@ import styled from '../../../utils/styles/styled';
 
 const FooterWrapper = styled.footer`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 15px 10px;
+  padding: 10px;
+  box-shadow: -15px 5px 40px -25px ${(props) => props.theme.BLACK};
 `;
 
 const Button = styled.button`
   position: relative;
   z-index: 10;
-  width: 48%;
-  background-color: ${(props) => props.theme.LIGHTGREY};
+  width: 100px;
+  background-color: white;
   border: none;
   border-radius: 5px;
-  box-shadow: -10px 16px 40px -23px ${(props) => props.theme.BLACK};
   padding: 12px 0;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: ${(props) => props.theme.GREEN};
+
+  &:hover {
+    color: ${(props) => props.theme.BLACK};
+  }
 `;
 
 interface SidebarFooterPresenterProps {
