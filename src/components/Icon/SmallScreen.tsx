@@ -7,6 +7,8 @@ export default (): React.ReactElement => {
       x="0px"
       y="0px"
       viewBox="0 0 469.333 469.333"
+      width="23px"
+      height="23px"
     >
       <g>
         <path
