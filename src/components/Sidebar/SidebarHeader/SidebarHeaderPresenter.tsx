@@ -4,7 +4,7 @@ import UndoIcon from '../../Icon/UndoIcon';
 import MoreVertIcon from '../../Icon/MoreVertIcon';
 
 const HeaderWrapper = styled.header`
-  height: 5rem;
+  height: 5.5rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -30,12 +30,20 @@ const UndoBtn = styled(UndoIcon)`
   margin: 0 0 0 auto;
   fill: white;
   cursor: pointer;
+
+  &:hover {
+    fill: ${(props) => props.theme.DARKGREY};
+  }
 `;
 
 const DropdownBtn = styled(MoreVertIcon)`
   margin-left: 10px;
   fill: white;
   cursor: pointer;
+
+  &:hover {
+    fill: ${(props) => props.theme.DARKGREY};
+  }
 `;
 
 interface SidebarHeaderPresenterProps {
