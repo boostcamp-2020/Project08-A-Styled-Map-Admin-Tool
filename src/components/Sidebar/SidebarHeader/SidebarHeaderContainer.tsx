@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SidebarHeaderPresenter from './SidebarHeaderPresenter';
 
 interface SidebarHeaderContainerProps {
@@ -8,7 +8,18 @@ interface SidebarHeaderContainerProps {
 function SidebarHeaderContainer({
   isAdvanced,
 }: SidebarHeaderContainerProps): React.ReactElement {
-  return <SidebarHeaderPresenter isAdvanced={isAdvanced} />;
+  const [isOpened, setIsOpened] = useState(false);
+  const dropdownToggleHandler = () => {
+    setIsOpened(!isOpened);
+  };
+
+  return (
+    <SidebarHeaderPresenter
+      isAdvanced={isAdvanced}
+      onClickDropdown={dropdownToggleHandler}
+    >
+    </SidebarHeaderPresenter>
+  );
 }
 
 export default SidebarHeaderContainer;
