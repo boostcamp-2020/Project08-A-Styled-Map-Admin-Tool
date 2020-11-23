@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import SidebarContentThemeContainer from './SidebarContentThemeContainer';
 import SidebarContentDepthPresenter from './SidebarContentDepthPresenter';
+
+interface SidebarContentProps {
+  children: React.ReactNode;
+}
 
 const ContentWrapper = styled.div`
   width: 100%;
@@ -10,11 +13,13 @@ const ContentWrapper = styled.div`
   overflow-y: scroll;
 `;
 
-function SidebarContentPresenter(): React.ReactElement {
+function SidebarContentPresenter({
+  children,
+}: SidebarContentProps): React.ReactElement {
   return (
     <ContentWrapper>
       <SidebarContentDepthPresenter />
-      <SidebarContentThemeContainer />
+      {children}
     </ContentWrapper>
   );
 }

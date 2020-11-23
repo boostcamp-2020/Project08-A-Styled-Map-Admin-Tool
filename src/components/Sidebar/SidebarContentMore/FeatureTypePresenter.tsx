@@ -1,5 +1,4 @@
 import React from 'react';
-import DetailTypeContainer from './DetailTypeContainer';
 import styled from '../../../utils/styles/styled';
 import data from '../../../utils/redering-data/featureTypeData';
 
@@ -48,12 +47,14 @@ interface FeatureTypePresenterProps {
   featureName: string;
   styledFeatureList: string[];
   featureClickHandler: (key: string) => void;
+  children: React.ReactNode;
 }
 
 function FeatureTypePresenter({
   featureName,
   styledFeatureList,
   featureClickHandler,
+  children,
 }: FeatureTypePresenterProps): React.ReactElement {
   return (
     <>
@@ -73,7 +74,7 @@ function FeatureTypePresenter({
           </FeatureList>
         ))}
       </FeatureTypeWrapper>
-      <DetailTypeContainer featureName={featureName} />
+      {children}
     </>
   );
 }

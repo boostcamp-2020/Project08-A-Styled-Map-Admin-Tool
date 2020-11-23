@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from '../../../utils/styles/styled';
 
-import SearchInput from '../SearchInput/SearchInputContainer';
 import Button from '../Button/ButtonPresenter';
 import FullScreenIcon from '../../Icon/FullScreen';
 import SmallScreenIcon from '../../Icon/SmallScreen';
@@ -13,6 +12,7 @@ interface UpperButtonsPropsInterface {
   fullScreenButtonClickHandler?: () => void;
   smallScreenButtonClickHandler?: () => void;
   isFullscreen: boolean;
+  children: React.ReactNode;
 }
 
 const UpperButtonsWrapper = styled.div`
@@ -39,10 +39,11 @@ function UpperButtonsPresenter({
   fullScreenButtonClickHandler,
   smallScreenButtonClickHandler,
   isFullscreen,
+  children,
 }: UpperButtonsPropsInterface): ReactElement {
   return (
     <UpperButtonsWrapper>
-      <SearchInput />
+      {children}
       <ButtonsWrapper>
         <Button width="40px" height="40px" onClick={compareButtonClickHandler}>
           비교하기

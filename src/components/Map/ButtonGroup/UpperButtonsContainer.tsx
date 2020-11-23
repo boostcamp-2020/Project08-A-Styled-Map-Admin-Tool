@@ -1,5 +1,6 @@
 import React, { ReactElement, MouseEvent, useState, useEffect } from 'react';
 import UpperButtonsPresenter from './UpperButtonsPresenter';
+import SearchInputContainer from '../SearchInput/SearchInputContainer';
 
 const compareButtonClickHandler = (e: MouseEvent<HTMLElement>) => {
   alert('비교 버튼 클릭!');
@@ -44,7 +45,9 @@ function UpperButtonsContainer({
       fullScreenButtonClickHandler={fullScreenButtonClickHandler}
       smallScreenButtonClickHandler={smallScreenButtonClickHandler}
       isFullscreen={isFullscreen}
-    />
+    >
+      <SearchInputContainer />
+    </UpperButtonsPresenter>
   );
 }
 
