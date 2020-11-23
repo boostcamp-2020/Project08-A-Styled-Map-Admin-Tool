@@ -1,4 +1,4 @@
-import React, { ReactElement, MouseEvent, useState } from 'react';
+import React, { ReactElement, MouseEvent, useState, useEffect } from 'react';
 import UpperButtonsPresenter from './UpperButtonsPresenter';
 
 const compareButtonClickHandler = (e: MouseEvent<HTMLElement>) => {
@@ -15,6 +15,18 @@ function UpperButtonsContainer({
   smallscreenHandler,
 }: UpperButtonsContainerProps): ReactElement {
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    window.document.onfullscreenchange = () => {
+      if (!window.document.fullscreenElement) {
+        setIsFullscreen(false);
+      }
+    };
+
+    return () => {
+      window.document.onfullscreenchange = null;
+    };
+  }, []);
 
   const fullScreenButtonClickHandler = () => {
     fullscreenHandler();
