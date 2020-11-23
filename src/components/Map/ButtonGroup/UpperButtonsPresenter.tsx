@@ -3,14 +3,16 @@ import styled from '../../../utils/styles/styled';
 
 import SearchInput from '../SearchInput/SearchInputContainer';
 import Button from '../Button/ButtonPresenter';
+import FullScreenIcon from '../../Icon/FullScreen';
+import SmallScreenIcon from '../../Icon/SmallScreen';
 
 interface UpperButtonsPropsInterface {
   compareButtonClickHandler?: (
     e: React.MouseEvent<HTMLElement, globalThis.MouseEvent>
   ) => void;
-  fullScreenButtonClickHandler?: (
-    e: React.MouseEvent<HTMLElement, globalThis.MouseEvent>
-  ) => void;
+  fullScreenButtonClickHandler?: () => void;
+  smallScreenButtonClickHandler?: () => void;
+  isFullscreen: boolean;
 }
 
 const UpperButtonsWrapper = styled.div`
@@ -21,7 +23,7 @@ const UpperButtonsWrapper = styled.div`
   position: fixed;
   top: 15px;
   right: 15px;
-  z-index: 3;
+  z-index: 10;
 
   width: 300px;
 `;
@@ -35,13 +37,27 @@ const ButtonsWrapper = styled.div`
 function UpperButtonsPresenter({
   compareButtonClickHandler,
   fullScreenButtonClickHandler,
+  smallScreenButtonClickHandler,
+  isFullscreen,
 }: UpperButtonsPropsInterface): ReactElement {
   return (
     <UpperButtonsWrapper>
       <SearchInput />
       <ButtonsWrapper>
-        <Button textContent="비교하기" onClick={compareButtonClickHandler} />
-        <Button textContent="전체화면" onClick={fullScreenButtonClickHandler} />
+        <Button width="40px" height="40px" onClick={compareButtonClickHandler}>
+          비교하기
+        </Button>
+        <Button
+          width="40px"
+          height="40px"
+          onClick={
+            isFullscreen
+              ? smallScreenButtonClickHandler
+              : fullScreenButtonClickHandler
+          }
+        >
+          {isFullscreen ? <SmallScreenIcon /> : <FullScreenIcon />}
+        </Button>
       </ButtonsWrapper>
     </UpperButtonsWrapper>
   );
