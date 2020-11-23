@@ -2,9 +2,13 @@ import React from 'react';
 
 interface MoreVertIconProps {
   className?: string;
+  onClick?: () => void;
 }
 
-export default ({ className }: MoreVertIconProps): React.ReactElement => {
+export default ({
+  className,
+  onClick,
+}: MoreVertIconProps): React.ReactElement => {
   return (
     <svg
       className={className}
@@ -12,6 +16,7 @@ export default ({ className }: MoreVertIconProps): React.ReactElement => {
       height="24"
       viewBox="0 0 24 24"
       width="24"
+      onClick={onClick}
     >
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
