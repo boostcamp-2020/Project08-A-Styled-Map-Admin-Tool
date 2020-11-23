@@ -4,17 +4,20 @@ import styled from '../../../utils/styles/styled';
 interface ButtonPropsInterface {
   width?: string;
   height?: string;
-  textContent?: string;
+  children?: React.ReactNode;
   onClick?: (e: MouseEvent<HTMLElement, globalThis.MouseEvent>) => void;
 }
 
 const Button = styled.button<ButtonPropsInterface>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   margin: 7px 0 0 7px;
 
   border: 0;
-  padding: auto;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 10px grey;
@@ -29,12 +32,12 @@ const Button = styled.button<ButtonPropsInterface>`
 function ButtonPresenter({
   width = '50px',
   height = '50px',
-  textContent,
+  children,
   onClick,
 }: ButtonPropsInterface): ReactElement {
   return (
     <Button width={width} height={height} onClick={onClick}>
-      {textContent}
+      {children}
     </Button>
   );
 }
