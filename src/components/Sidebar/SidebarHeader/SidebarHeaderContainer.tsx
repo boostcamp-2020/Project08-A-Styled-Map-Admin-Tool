@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SidebarHeaderPresenter from './SidebarHeaderPresenter';
+import SidebarDropdownContainer from './SidebarDropdownContainer';
 
 interface SidebarHeaderContainerProps {
   isAdvanced: boolean;
@@ -18,6 +19,10 @@ function SidebarHeaderContainer({
       isAdvanced={isAdvanced}
       onClickDropdown={dropdownToggleHandler}
     >
+      <SidebarDropdownContainer
+        isOpened={isOpened}
+        dropdownToggleHandler={dropdownToggleHandler}
+      />
     </SidebarHeaderPresenter>
   );
 }
