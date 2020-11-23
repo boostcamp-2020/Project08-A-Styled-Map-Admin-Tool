@@ -19,7 +19,7 @@ const FeatureTypeTitle = styled.h2`
   text-align: center;
   font-size: 2rem;
   font-weight: 600;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 `;
 
 const FeatureList = styled.li<ListProps>`

@@ -11,8 +11,10 @@ interface ButtonPropsInterface {
 const Button = styled.button<ButtonPropsInterface>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  margin: 5px 0;
+  margin: 7px 0 0 7px;
+
   border: 0;
+  padding: auto;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 10px grey;
@@ -25,7 +27,7 @@ const Button = styled.button<ButtonPropsInterface>`
 `;
 
 function ButtonPresenter({
-  width = '100px',
+  width = '50px',
   height = '50px',
   textContent,
   onClick,
