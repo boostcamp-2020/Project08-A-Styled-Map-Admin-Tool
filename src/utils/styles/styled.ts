@@ -10,6 +10,8 @@ export const theme: ThemeType = {
   LIGHTGREY: '#E0E0E0',
   GREY: '#9E9E9E',
   DARKGREY: '#616161',
+  WHITE: '#FFFFFF',
+  GOOGLE_GREY: '#f5f5f5',
 };
 
 export default styled as CreateStyled<ThemeType>;
