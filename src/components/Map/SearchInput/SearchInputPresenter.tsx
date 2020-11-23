@@ -8,12 +8,14 @@ interface SearchInputPropsInterface {
 
 const SearchInput = styled.input`
   width: 100%;
-  height: 50px;
+  height: 40px;
   margin: 0;
+  padding-left: 15px;
 
-  text-align: center;
+  text-align: left;
 
   border: 0;
+  border-radius: 5px;
 
   background-color: white;
   box-shadow: 0 0 10px grey;

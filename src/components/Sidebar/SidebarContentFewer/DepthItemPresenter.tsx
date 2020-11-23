@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 
-const ItemWrapper = styled.div`
+const ItemWrapper = styled.li`
   display: flex;
   padding: 0 16px 24px 16px;
   justify-content: space-between;

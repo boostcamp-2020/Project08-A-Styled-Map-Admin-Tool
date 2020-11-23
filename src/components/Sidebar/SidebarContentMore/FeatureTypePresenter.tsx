@@ -6,6 +6,9 @@ import data from '../../../utils/redering-data/featureTypeData';
 interface WrapperProps {
   isFeatureName: string;
 }
+interface ListProps {
+  isChecked: boolean;
+}
 
 const FeatureTypeWrapper = styled.ul<WrapperProps>`
   width: ${(props) => (props.isFeatureName ? '250px' : '370px')};
@@ -16,16 +19,16 @@ const FeatureTypeTitle = styled.h2`
   text-align: center;
   font-size: 2rem;
   font-weight: 600;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 `;
 
-const FeatureList = styled.li`
+const FeatureList = styled.li<ListProps>`
   width: 100%;
   display: flex;
   font-size: 1.8rem;
   font-weight: 600;
   padding: 10px 0;
-  color: ${(props) => props.theme.GREY};
+  color: ${(props) => (props.isChecked ? props.theme.GREEN : props.theme.GREY)};
   cursor: pointer;
 
   &:hover {
@@ -59,6 +62,7 @@ function FeatureTypePresenter({
         {data.map(({ key, name }) => (
           <FeatureList
             key={key}
+            isChecked={featureName === key}
             onClick={() => {
               featureClickHandler(key);
             }}

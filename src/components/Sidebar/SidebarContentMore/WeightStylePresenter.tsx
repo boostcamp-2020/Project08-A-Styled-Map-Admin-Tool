@@ -17,6 +17,7 @@ const WeightTitle = styled.label`
 
 const WeightControlBar = styled(Range)`
   width: 100%;
+  height: 2px;
 `;
 
 function WeightStylePresenter(): React.ReactElement {

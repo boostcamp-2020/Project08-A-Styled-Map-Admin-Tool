@@ -17,6 +17,7 @@ const LightnessTitle = styled.label`
 
 const LightnessControlBar = styled(Range)`
   width: 100%;
+  height: 2px;
 `;
 
 function LightnessStyleWrapper(): React.ReactElement {

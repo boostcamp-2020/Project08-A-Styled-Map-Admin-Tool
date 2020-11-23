@@ -16,10 +16,9 @@ const StylerWrapper = styled.div`
 `;
 
 const StylerTitle = styled.h2`
-  width: 100%;
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 45px;
+  padding-bottom: 40px;
   text-align: center;
 `;
 
