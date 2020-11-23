@@ -12,6 +12,8 @@ function MapContainer(): React.ReactElement {
   const [lng, setLng] = useState<number>(128);
   const [lat, setLat] = useState<number>(36.5);
   const [zoom, setZoom] = useState<number>(7);
+  /** 나중에 상태관리로 빠져야 함 */
+  const [mapState, setMapState] = useState<any>(null);
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,9 +39,39 @@ function MapContainer(): React.ReactElement {
       setLat(map.getCenter().lat);
       setZoom(map.getZoom());
     });
+
+    setMapState(map);
   }, []);
 
-  return <MapPresenter mapRef={mapRef} />;
+  const plusZoom = () => {
+    mapState.flyTo({ zoom: zoom + 1 });
+    setZoom(zoom + 1);
+  };
+
+  const minusZoom = () => {
+    mapState.flyTo({ zoom: zoom - 1 });
+    setZoom(zoom - 1);
+  };
+
+  const fullscreenHandler = () => {
+    if (mapRef.current) {
+      mapRef.current.requestFullscreen();
+    }
+  };
+
+  const smallscreenHandler = () => {
+    window.document.exitFullscreen();
+  };
+
+  return (
+    <MapPresenter
+      fullscreenHandler={fullscreenHandler}
+      smallscreenHandler={smallscreenHandler}
+      mapRef={mapRef}
+      plusZoom={plusZoom}
+      minusZoom={minusZoom}
+    />
+  );
 }
 
 export default MapContainer;

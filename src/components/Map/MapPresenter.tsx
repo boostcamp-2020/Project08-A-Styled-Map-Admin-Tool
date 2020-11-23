@@ -2,6 +2,7 @@ import React, { RefObject } from 'react';
 import styled from '../../utils/styles/styled';
 
 import UpperButtonsContainer from './ButtonGroup/UpperButtonsContainer';
+import LowerButtonsContainer from './ButtonGroup/LowerButtonsContainer';
 
 const MapWrapper = styled.div`
   height: 100vh;
@@ -18,12 +19,26 @@ const MapWrapper = styled.div`
 
 interface MapPresenterProps {
   mapRef: RefObject<HTMLDivElement>;
+  plusZoom: () => void;
+  minusZoom: () => void;
+  fullscreenHandler: () => void;
+  smallscreenHandler: () => void;
 }
 
-function MapPresenter({ mapRef }: MapPresenterProps): React.ReactElement {
+function MapPresenter({
+  mapRef,
+  plusZoom,
+  minusZoom,
+  fullscreenHandler,
+  smallscreenHandler,
+}: MapPresenterProps): React.ReactElement {
   return (
     <MapWrapper ref={mapRef}>
-      <UpperButtonsContainer />
+      <UpperButtonsContainer
+        fullscreenHandler={fullscreenHandler}
+        smallscreenHandler={smallscreenHandler}
+      />
+      <LowerButtonsContainer plusZoom={plusZoom} minusZoom={minusZoom} />
     </MapWrapper>
   );
 }
