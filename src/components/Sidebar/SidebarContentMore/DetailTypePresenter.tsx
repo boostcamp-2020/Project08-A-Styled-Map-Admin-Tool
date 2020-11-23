@@ -19,12 +19,10 @@ const DetailWrapper = styled.div`
   width: 230px;
   height: 100%;
   padding: 20px;
-  /* position: absolute;
-  left: 5000px; */
 
   overflow-y: scroll;
-  background-color: white;
-  border-left: 1px solid lightgray;
+  background-color: ${(props) => props.theme.WHITE};
+  border-left: 1px solid ${(props) => props.theme.LIGHTGREY};
 `;
 
 const Title = styled.h2`

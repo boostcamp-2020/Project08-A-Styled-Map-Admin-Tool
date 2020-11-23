@@ -27,7 +27,7 @@ const Image = styled.div<ImageProp>`
 const Name = styled.span<CheckedProp>`
   width: 55%;
   font-size: 1.5rem;
-  color: ${(props) => (props.checked ? props.theme.GREEN : 'gray')};
+  color: ${(props) => (props.checked ? props.theme.GREEN : props.theme.GREY)};
 `;
 
 const Checkbox = styled.div<CheckedProp>`

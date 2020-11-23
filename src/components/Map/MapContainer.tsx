@@ -60,7 +60,9 @@ function MapContainer(): React.ReactElement {
   };
 
   const smallscreenHandler = () => {
-    window.document.exitFullscreen();
+    if (window.document.fullscreenElement) {
+      window.document.exitFullscreen();
+    }
   };
 
   return (

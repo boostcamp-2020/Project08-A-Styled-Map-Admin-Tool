@@ -9,7 +9,7 @@ const VisibilityWrapper = styled.div`
 const VisibilityTitle = styled.h2`
   font-size: 1.7rem;
   font-weight: 600;
-  color: gray;
+  color: ${(props) => props.theme.GREY};
   margin: 10px 0;
 `;
 

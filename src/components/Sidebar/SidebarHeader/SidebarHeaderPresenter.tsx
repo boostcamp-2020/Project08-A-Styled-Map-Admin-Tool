@@ -15,7 +15,7 @@ const HeaderWrapper = styled.header`
 
 const HeaderTitle = styled.h1`
   font-size: 2.5rem;
-  color: white;
+  color: ${(props) => props.theme.WHITE};
   width: 60%;
 `;
 
@@ -30,7 +30,7 @@ const Btns = styled.div`
 
 const UndoBtn = styled(UndoIcon)`
   margin: 0 0 0 auto;
-  fill: white;
+  fill: ${(props) => props.theme.WHITE};
   cursor: pointer;
 
   &:hover {
@@ -40,7 +40,7 @@ const UndoBtn = styled(UndoIcon)`
 
 const DropdownBtn = styled(MoreVertIcon)`
   margin-left: 10px;
-  fill: white;
+  fill: ${(props) => props.theme.WHITE};
   cursor: pointer;
 
   &:hover {

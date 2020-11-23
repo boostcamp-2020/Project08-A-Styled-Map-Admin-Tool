@@ -13,7 +13,7 @@ const Button = styled.button`
   position: relative;
   z-index: 10;
   width: 100px;
-  background-color: white;
+  background-color: ${(props) => props.theme.WHITE};
   border: none;
   border-radius: 5px;
   padding: 12px 0;
