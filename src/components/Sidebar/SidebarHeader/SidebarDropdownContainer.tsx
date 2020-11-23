@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SidebarDropdown from './SidebarDropdownPresenter';
+import ImportModalContainer from '../SidebarModal/ImportModalContainer';
 
 interface SidebarDropdownContainerProps {
   isOpened: boolean;
@@ -27,6 +28,13 @@ function SidebarDropdownContainer({
         <SidebarDropdown
           importModalToggleHandler={importModalToggleHandler}
           resetClickHandler={resetClickHandler}
+        />
+      ) : (
+        <></>
+      )}
+      {isModalOpened ? (
+        <ImportModalContainer
+          importModalToggleHandler={importModalToggleHandler}
         />
       ) : (
         <></>
