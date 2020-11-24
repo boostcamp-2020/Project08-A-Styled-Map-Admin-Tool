@@ -1,7 +1,7 @@
 import { RefObject, useRef, useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { initMap } from '../store/map/action';
+import { initMap } from '../../store/map/action';
 
 export interface MapHookType {
   mapRef: RefObject<HTMLDivElement>;

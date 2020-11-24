@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
-import useSidebar, { ToggleStatusHook } from '../../hooks/useToggleStatus';
+import useSidebar, {
+  ToggleStatusHook,
+} from '../../hooks/sidebar/useToggleStatus';
 
 import SidebarHeader from './SidebarHeader/SidebarHeader';
 import SidebarContentFewer from './SidebarContentFewer/SidebarContent';

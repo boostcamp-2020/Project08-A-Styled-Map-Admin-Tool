@@ -2,7 +2,7 @@ import React, { ReactElement, RefObject } from 'react';
 import styled from '../../../utils/styles/styled';
 import useUpperButtons, {
   useUpperButtonsType,
-} from '../../../hooks/useUpperButtons';
+} from '../../../hooks/map/useUpperButtons';
 
 import Button from '../Button/Button';
 import FullScreenIcon from '../../Icon/FullScreen';

@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 
-import Button from '../Button/Button';
+import Button from './Button';
 import PlusIcon from '../../Icon/AddIcon';
 import MinusIcon from '../../Icon/RemoveIcon';
 import useLowerButtons, {
   LowerButtonsHookType,
-} from '../../../hooks/useLowerButtons';
+} from '../../../hooks/map/useLowerButtons';
 
 const LowerButtonsWrapper = styled.div`
   display: flex;
