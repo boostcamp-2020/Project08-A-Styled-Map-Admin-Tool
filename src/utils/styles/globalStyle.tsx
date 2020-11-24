@@ -2,7 +2,7 @@ import React from 'react';
 import emotionReset from 'emotion-reset';
 import { Global, css } from '@emotion/core';
 
-function GlobalStyle() {
+function GlobalStyle(): React.ReactElement {
   return (
     <Global
       styles={css`
