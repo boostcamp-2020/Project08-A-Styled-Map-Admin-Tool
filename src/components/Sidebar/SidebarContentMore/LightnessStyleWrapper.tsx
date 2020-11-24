@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import { Range } from '../SidebarContentFewer/DepthItemPresenter';
+import { Range } from '../SidebarContentFewer/DepthItem';
 
 const LightnessWrapper = styled.div`
   display: flex;
