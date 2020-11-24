@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '../utils/styles/styled';
-import Sidebar from '../components/Sidebar/SidebarContainer';
-import Map from '../components/Map/MapContainer';
+import Sidebar from '../components/Sidebar/Sidebar';
+import Map from '../components/Map/Map';
 
-const Container = styled.div`
+const MainWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -14,10 +14,10 @@ const Container = styled.div`
 
 function Main(): React.ReactElement {
   return (
-    <Container>
+    <MainWrapper>
       <Sidebar />
       <Map />
-    </Container>
+    </MainWrapper>
   );
 }
 
