@@ -3,7 +3,7 @@ import styled from '../../../utils/styles/styled';
 import useSidebarImportModal, {
   useModalStatusProps,
   useModalStatusType,
-} from '../../../hooks/sidebar/useModalStatus';
+} from '../../../hooks/common/useModalStatus';
 import useInputText, {
   InputTextHookType,
 } from '../../../hooks/common/useInputText';

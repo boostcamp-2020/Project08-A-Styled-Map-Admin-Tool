@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
 import styled from '../../../utils/styles/styled';
-import useInputText, { InputTextHookType } from '../../../hooks/useInputText';
+import useInputText, {
+  InputTextHookType,
+} from '../../../hooks/common/useInputText';
 
 const SearchInput = styled.input`
   width: 100%;

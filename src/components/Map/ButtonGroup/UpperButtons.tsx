@@ -4,7 +4,7 @@ import useUpperButtons, {
   useUpperButtonsType,
 } from '../../../hooks/map/useUpperButtons';
 
-import Button from '../Button/Button';
+import Button from './Button';
 import FullScreenIcon from '../../Icon/FullScreen';
 import SmallScreenIcon from '../../Icon/SmallScreen';
 import SearchInput from '../SearchInput/SearchInput';

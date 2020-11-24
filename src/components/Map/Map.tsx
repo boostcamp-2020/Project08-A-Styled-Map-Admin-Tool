@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
-import useMap, { MapHookType } from '../../hooks/useMap';
+import useMap, { MapHookType } from '../../hooks/map/useMap';
 
 import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';

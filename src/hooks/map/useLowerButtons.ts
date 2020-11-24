@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState } from '../../store';
 
 export interface LowerButtonsHookType {
   plusZoom: () => void;
