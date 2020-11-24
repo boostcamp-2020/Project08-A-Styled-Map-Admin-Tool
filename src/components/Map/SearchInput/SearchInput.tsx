@@ -7,7 +7,6 @@ const SearchInput = styled.input`
   height: 40px;
   margin: 0;
   padding-left: 15px;
-
   text-align: left;
 
   border: 0;

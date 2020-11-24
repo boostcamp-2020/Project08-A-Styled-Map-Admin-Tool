@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import useSidebarImportModal, {
-  ImportModalHookProps,
-  SidebarImportModalHookType,
-} from '../../../hooks/useSidebarImportModal';
-
+  useModalStatusProps,
+  useModalStatusType,
+} from '../../../hooks/useModalStatus';
+import useInputText, { InputTextHookType } from '../../../hooks/useInputText';
 import CloseIcon from '../../Icon/CloseIcon';
 
 const Overlay = styled.div`
@@ -107,15 +107,13 @@ const ModalOKButton = styled.button`
 
 function ImportModal({
   importModalToggleHandler,
-}: ImportModalHookProps): React.ReactElement {
-  const {
-    text,
-    onClickClose,
-    changeText,
-    onClickOK,
-  }: SidebarImportModalHookType = useSidebarImportModal({
-    importModalToggleHandler,
-  });
+}: useModalStatusProps): React.ReactElement {
+  const { onClickClose, onClickOK }: useModalStatusType = useSidebarImportModal(
+    {
+      importModalToggleHandler,
+    }
+  );
+  const { inputText, onInputChange }: InputTextHookType = useInputText();
 
   return (
     <>
@@ -129,8 +127,8 @@ function ImportModal({
         </ModalHeader>
         <ModalInput
           placeholder="JSON을 입력하세요"
-          value={text}
-          onChange={changeText}
+          value={inputText}
+          onChange={onInputChange}
         />
         <ModalOKButton onClick={onClickOK}>지도 가져오기</ModalOKButton>
       </ModalWrapper>

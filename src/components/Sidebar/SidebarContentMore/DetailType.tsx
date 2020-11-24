@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import SidebarTypeHook, {
-  SidebarHookType,
-} from '../../../hooks/useSidebarType';
+import useSidebarType, { SidebarHookType } from '../../../hooks/useSidebarType';
 import ListItem, { paddingStepType, paddingStep } from './DetailTypeItem';
 import Styler from './Styler';
 
@@ -47,7 +45,7 @@ function DetailType({ featureName }: DetailTypeProps): React.ReactElement {
   const {
     sidebarTypeName,
     sidebarTypeClickHandler,
-  }: SidebarHookType = SidebarTypeHook();
+  }: SidebarHookType = useSidebarType();
 
   if (!featureName) {
     return <></>;
