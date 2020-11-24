@@ -11,7 +11,7 @@ const StylerWrapper = styled.div`
   width: 230px;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid lightgray;
+  border-left: 1px solid ${(props) => props.theme.LIGHTGREY};
   padding: 20px 30px;
 `;
 
@@ -26,6 +26,7 @@ const Hr = styled.hr`
   width: 80%;
   margin-top: 25px;
   margin-bottom: 25px;
+  color: ${(props) => props.theme.GREY};
 `;
 
 interface StylerPresenterProps {

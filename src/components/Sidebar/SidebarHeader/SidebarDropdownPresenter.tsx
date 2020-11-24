@@ -8,7 +8,7 @@ const DropdownWrapper = styled.div`
   width: 150px;
   padding: 5px 10px;
   background-color: ${(props) => props.theme.WHITE};
-  box-shadow: 0 0 10px grey;
+  box-shadow: 0 0 10px ${(props) => props.theme.GREY};
   border-radius: 7px;
   z-index: 10;
 `;

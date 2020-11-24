@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import dotenv from 'dotenv';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import UpperButtonsContainer from './ButtonGroup/UpperButtonsContainer';
 
 import MapPresenter from './MapPresenter';
 
@@ -60,17 +61,18 @@ function MapContainer(): React.ReactElement {
   };
 
   const smallscreenHandler = () => {
-    window.document.exitFullscreen();
+    if (window.document.fullscreenElement) {
+      window.document.exitFullscreen();
+    }
   };
 
   return (
-    <MapPresenter
-      fullscreenHandler={fullscreenHandler}
-      smallscreenHandler={smallscreenHandler}
-      mapRef={mapRef}
-      plusZoom={plusZoom}
-      minusZoom={minusZoom}
-    />
+    <MapPresenter mapRef={mapRef} plusZoom={plusZoom} minusZoom={minusZoom}>
+      <UpperButtonsContainer
+        fullscreenHandler={fullscreenHandler}
+        smallscreenHandler={smallscreenHandler}
+      />
+    </MapPresenter>
   );
 }
 

@@ -8,7 +8,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: ${(props) => props.theme.BLACK};
   opacity: 0.5;
   z-index: 20;
 `;
@@ -28,8 +28,8 @@ const ModalWrapper = styled.div`
   transform: translate(-50%, -50%);
   border: 0;
   border-radius: 8px;
-  background-color: white;
-  box-shadow: 0 0 10px grey;
+  background-color: ${(props) => props.theme.WHITE};
+  box-shadow: 0 0 10px ${(props) => props.theme.GREY};
   z-index: 30;
   overflow: hidden;
 `;

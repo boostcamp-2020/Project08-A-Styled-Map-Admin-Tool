@@ -18,9 +18,9 @@ const Button = styled.button<ButtonPropsInterface>`
   margin: 7px 0 0 7px;
 
   border: 0;
-  background-color: white;
+  background-color: ${(props) => props.theme.WHITE};
   border-radius: 5px;
-  box-shadow: 0 0 10px grey;
+  box-shadow: 0 0 10px ${(props) => props.theme.GREY};
   font-weight: 600;
   color: ${(props) => props.theme.DARKGREY};
 

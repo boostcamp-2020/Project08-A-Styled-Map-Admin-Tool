@@ -7,7 +7,7 @@ const ColorTitle = styled.label`
   margin-bottom: 10px;
   font-size: 1.7rem;
   font-weight: 600;
-  color: gray;
+  color: ${(props) => props.theme.GREY};
 `;
 
 const ColorCode = styled.div``;
