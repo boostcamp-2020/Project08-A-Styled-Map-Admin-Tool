@@ -6,7 +6,11 @@ import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
 
 const MapWrapper = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
   height: 100vh;
+  width: calc(100% - 370px);
   display: flex;
   flex: 1 1 auto;
   flex-direction: row;

@@ -13,6 +13,8 @@ const SidebarWrapper = styled.div`
   justify-content: space-between;
   flex: 0 0 370px;
   height: 100vh;
+  z-index: 10;
+  background-color: white;
 `;
 
 function SidebarPresenter(): React.ReactElement {
