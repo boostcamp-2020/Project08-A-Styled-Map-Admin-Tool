@@ -20,6 +20,8 @@ const HeaderTitle = styled.h1`
 `;
 
 const Btns = styled.div`
+  position: relative;
+  flex: 0 0 content;
   display: flex;
   align-items: center;
   width: 40%;
@@ -48,17 +50,22 @@ const DropdownBtn = styled(MoreVertIcon)`
 
 interface SidebarHeaderPresenterProps {
   isAdvanced: boolean;
+  onClickDropdown: () => void;
+  children: React.ReactNode;
 }
 
 function SidebarHeaderPresenter({
   isAdvanced,
+  onClickDropdown,
+  children,
 }: SidebarHeaderPresenterProps): React.ReactElement {
   return (
     <HeaderWrapper>
       <HeaderTitle>{isAdvanced ? '고급 설정' : '스타일 맵 만들기'}</HeaderTitle>
       <Btns>
         <UndoBtn />
-        <DropdownBtn />
+        <DropdownBtn onClick={onClickDropdown} />
+        {children}
       </Btns>
     </HeaderWrapper>
   );
