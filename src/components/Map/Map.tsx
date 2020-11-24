@@ -23,21 +23,12 @@ const MapWrapper = styled.div`
 `;
 
 function Map(): React.ReactElement {
-  const {
-    mapRef,
-    fullscreenHandler,
-    smallscreenHandler,
-    plusZoom,
-    minusZoom,
-  }: MapHookType = useMap();
+  const { mapRef }: MapHookType = useMap();
 
   return (
     <MapWrapper ref={mapRef}>
-      <UpperButtons
-        fullscreenHandler={fullscreenHandler}
-        smallscreenHandler={smallscreenHandler}
-      />
-      <LowerButtons plusZoom={plusZoom} minusZoom={minusZoom} />
+      <UpperButtons mapRef={mapRef} />
+      <LowerButtons />
     </MapWrapper>
   );
 }

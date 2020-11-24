@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, RefObject } from 'react';
 import styled from '../../../utils/styles/styled';
 import useUpperButtons, {
   useUpperButtonsType,
@@ -10,8 +10,7 @@ import SmallScreenIcon from '../../Icon/SmallScreen';
 import SearchInput from '../SearchInput/SearchInput';
 
 interface UpperButtonsProps {
-  fullscreenHandler: () => void;
-  smallscreenHandler: () => void;
+  mapRef: RefObject<HTMLDivElement>;
 }
 
 const UpperButtonsWrapper = styled.div`
@@ -33,19 +32,13 @@ const ButtonsWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-function UpperButtonsPresenter({
-  fullscreenHandler,
-  smallscreenHandler,
-}: UpperButtonsProps): ReactElement {
+function UpperButtons({ mapRef }: UpperButtonsProps): ReactElement {
   const {
     isFullscreen,
     compareButtonClickHandler,
     fullScreenButtonClickHandler,
     smallScreenButtonClickHandler,
-  }: useUpperButtonsType = useUpperButtons({
-    fullscreenHandler,
-    smallscreenHandler,
-  });
+  }: useUpperButtonsType = useUpperButtons({ mapRef });
 
   return (
     <UpperButtonsWrapper>
@@ -70,4 +63,4 @@ function UpperButtonsPresenter({
   );
 }
 
-export default UpperButtonsPresenter;
+export default UpperButtons;
