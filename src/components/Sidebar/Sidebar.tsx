@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
-import useSidebar, { useSidebarType } from '../../hooks/useSidebar';
+import useSidebar, { ToggleStatusHook } from '../../hooks/useToggleStatus';
 
 import SidebarHeader from './SidebarHeader/SidebarHeader';
 import SidebarContentFewer from './SidebarContentFewer/SidebarContent';
@@ -18,13 +18,13 @@ const SidebarWrapper = styled.div`
 `;
 
 function SidebarPresenter(): React.ReactElement {
-  const { isAdvanced, setIsAdvanced }: useSidebarType = useSidebar();
+  const { isActive, setIsActive }: ToggleStatusHook = useSidebar();
 
   return (
     <SidebarWrapper>
-      <SidebarHeader isAdvanced={isAdvanced} />
-      {isAdvanced ? <SidebarContentMore /> : <SidebarContentFewer />}
-      <SidebarFooter isAdvanced={isAdvanced} setIsAdvanced={setIsAdvanced} />
+      <SidebarHeader isAdvanced={isActive} />
+      {isActive ? <SidebarContentMore /> : <SidebarContentFewer />}
+      <SidebarFooter isAdvanced={isActive} setIsAdvanced={setIsActive} />
     </SidebarWrapper>
   );
 }
