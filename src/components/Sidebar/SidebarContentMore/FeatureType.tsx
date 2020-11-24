@@ -3,9 +3,7 @@ import styled from '../../../utils/styles/styled';
 import data from '../../../utils/redering-data/featureTypeData';
 
 import DetailType from './DetailType';
-import SidebarTypeHook, {
-  SidebarHookType,
-} from '../../../hooks/useSidebarType';
+import useSidebarType, { SidebarHookType } from '../../../hooks/useSidebarType';
 
 interface WrapperProps {
   isFeatureName: string;
@@ -48,7 +46,7 @@ function FeatureType(): React.ReactElement {
   const {
     sidebarTypeClickHandler,
     sidebarTypeName,
-  }: SidebarHookType = SidebarTypeHook();
+  }: SidebarHookType = useSidebarType();
 
   return (
     <>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
-import MapHook, { MapHookType } from '../../hooks/useMap';
+import useMap, { MapHookType } from '../../hooks/useMap';
 
 import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
@@ -29,7 +29,7 @@ function Map(): React.ReactElement {
     smallscreenHandler,
     plusZoom,
     minusZoom,
-  }: MapHookType = MapHook();
+  }: MapHookType = useMap();
 
   return (
     <MapWrapper ref={mapRef}>
