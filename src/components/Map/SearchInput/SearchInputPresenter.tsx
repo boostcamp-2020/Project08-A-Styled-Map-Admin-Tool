@@ -17,8 +17,8 @@ const SearchInput = styled.input`
   border: 0;
   border-radius: 5px;
 
-  background-color: white;
-  box-shadow: 0 0 10px grey;
+  background-color: ${(props) => props.theme.WHITE};
+  box-shadow: 0 0 10px ${(props) => props.theme.GREY};
 `;
 
 function SearchInputPresenter({

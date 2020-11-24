@@ -18,7 +18,7 @@ export const Range = styled.input`
   opacity: 0.7;
   width: 70%;
   height: 3px;
-  background-color: gray;
+  background-color: ${(props) => props.theme.GREY};
   outline: none;
   border: none;
   &::-webkit-slider-thumb {
