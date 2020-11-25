@@ -9,6 +9,7 @@ import MoreVertIcon from '../../Icon/MoreVertIcon';
 import SidebarDropdown from './SidebarDropdown';
 
 const HeaderWrapper = styled.header`
+  flex: 0 0 auto;
   height: 5.5rem;
   width: 100%;
   display: flex;
