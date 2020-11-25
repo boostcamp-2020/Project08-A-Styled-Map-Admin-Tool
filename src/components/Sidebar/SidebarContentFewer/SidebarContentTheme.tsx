@@ -1,5 +1,5 @@
 import React from 'react';
-import useMapTheme, { MapThemeHookType } from '../../../hooks/useMapTheme';
+import useMapTheme, { MapThemeHookType } from '../../../hooks/map/useMapTheme';
 import ThemeItem from './ThemeItem';
 import styled from '../../../utils/styles/styled';
 import data from '../../../utils/redering-data/sidebarThemeData';

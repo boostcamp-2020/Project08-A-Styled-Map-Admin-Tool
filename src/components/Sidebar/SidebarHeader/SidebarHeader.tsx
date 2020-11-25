@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '../../../utils/styles/styled';
 import useSidebarHeader, {
   useSidebarHeaderType,
-} from '../../../hooks/useSidebarHeader';
+} from '../../../hooks/sidebar/useSidebarHeader';
 
 import UndoIcon from '../../Icon/UndoIcon';
 import MoreVertIcon from '../../Icon/MoreVertIcon';

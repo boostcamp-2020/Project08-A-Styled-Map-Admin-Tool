@@ -3,8 +3,10 @@ import styled from '../../../utils/styles/styled';
 import useSidebarImportModal, {
   useModalStatusProps,
   useModalStatusType,
-} from '../../../hooks/useModalStatus';
-import useInputText, { InputTextHookType } from '../../../hooks/useInputText';
+} from '../../../hooks/common/useModalStatus';
+import useInputText, {
+  InputTextHookType,
+} from '../../../hooks/common/useInputText';
 import CloseIcon from '../../Icon/CloseIcon';
 
 const Overlay = styled.div`

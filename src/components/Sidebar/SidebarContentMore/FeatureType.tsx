@@ -3,7 +3,9 @@ import styled from '../../../utils/styles/styled';
 import data from '../../../utils/redering-data/featureTypeData';
 
 import DetailType from './DetailType';
-import useSidebarType, { SidebarHookType } from '../../../hooks/useSidebarType';
+import useSidebarType, {
+  SidebarHookType,
+} from '../../../hooks/sidebar/useSidebarType';
 
 interface WrapperProps {
   isFeatureName: string;

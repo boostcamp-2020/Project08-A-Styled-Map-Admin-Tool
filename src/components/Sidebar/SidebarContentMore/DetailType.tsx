@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import useSidebarType, { SidebarHookType } from '../../../hooks/useSidebarType';
+import useSidebarType, {
+  SidebarHookType,
+} from '../../../hooks/sidebar/useSidebarType';
 import ListItem, { paddingStepType, paddingStep } from './DetailTypeItem';
 import Styler from './Styler';
 
