@@ -1,6 +1,9 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { FeatureNameType } from '../../utils/rendering-data/featureTypeData';
+import {
+  FeatureNameType,
+  FeatureNameOneType,
+} from '../../utils/rendering-data/featureTypeData';
 import { CommonType, LabelType } from '../../store/common/commonProperties';
 
 interface DetailType {
@@ -17,17 +20,23 @@ interface UseDetailTypeType {
   detail: DetailType;
 }
 
+const dummyDetail = {
+  section: null,
+  label: null,
+};
+
 function useDetailType({
   featureName,
   subFeatureName,
 }: UseDetailTypeProps): UseDetailTypeType {
   const detail = useSelector<RootState>((state) => {
     if (!featureName) {
-      return {
-        section: null,
-        label: null,
-      };
+      return dummyDetail;
     }
+    if (featureName === 'water' || featureName === 'marker') {
+      return state[featureName as FeatureNameOneType];
+    }
+
     return state[featureName as FeatureNameType][subFeatureName];
   }) as DetailType;
 

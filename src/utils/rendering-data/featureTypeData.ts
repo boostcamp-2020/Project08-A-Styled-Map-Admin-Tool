@@ -1,3 +1,4 @@
+export type FeatureNameOneType = 'water' | 'marker';
 export type FeatureNameType = 'poi' | 'administrative' | 'landscape' | 'road';
 
 export interface FeaturesType {
@@ -5,7 +6,7 @@ export interface FeaturesType {
   name: string;
 }
 export interface DataType {
-  typeKey: FeatureNameType;
+  typeKey: FeatureNameType | FeatureNameOneType;
   typeName: string;
   features: FeaturesType[];
 }
@@ -68,8 +69,8 @@ const data: DataType[] = [
   //     { key: 'subway', name: '지하철' },
   //   ],
   // },
-  // { typeKey: 'water', typeName: '물', features: [] },
-  // { typeKey: 'mark', typeName: '마크', features: [] },
+  { typeKey: 'water', typeName: '물', features: [] },
+  { typeKey: 'marker', typeName: '마크', features: [] },
 ];
 
 export default data;
