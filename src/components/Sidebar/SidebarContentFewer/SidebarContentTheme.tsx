@@ -1,8 +1,8 @@
 import React from 'react';
-import useMapTheme, { MapThemeHookType } from '../../../hooks/useMapTheme';
+import useMapTheme, { MapThemeHookType } from '../../../hooks/map/useMapTheme';
 import ThemeItem from './ThemeItem';
 import styled from '../../../utils/styles/styled';
-import data from '../../../utils/redering-data/sidebarThemeData';
+import data from '../../../utils/rendering-data/sidebarThemeData';
 
 const ThemeWrapper = styled.div`
   padding: 50px 8px;

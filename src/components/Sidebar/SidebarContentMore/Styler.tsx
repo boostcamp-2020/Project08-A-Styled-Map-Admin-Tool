@@ -13,6 +13,7 @@ const StylerWrapper = styled.div`
   flex-direction: column;
   border-left: 1px solid ${(props) => props.theme.LIGHTGREY};
   padding: 20px 30px;
+  overflow-y: scroll;
 `;
 
 const StylerTitle = styled.h2`

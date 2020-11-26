@@ -1,20 +1,21 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import data from '../../../utils/redering-data/featureTypeData';
+import data from '../../../utils/rendering-data/featureTypeData';
 
 import DetailType from './DetailType';
-import useSidebarType, { SidebarHookType } from '../../../hooks/useSidebarType';
+import useSidebarType, {
+  SidebarHookType,
+} from '../../../hooks/sidebar/useSidebarType';
+import FeatureTypeItem from './FeatureTypeItem';
 
 interface WrapperProps {
   isFeatureName: string;
-}
-interface ListProps {
-  isChecked: boolean;
 }
 
 const FeatureTypeWrapper = styled.ul<WrapperProps>`
   width: ${(props) => (props.isFeatureName ? '250px' : '370px')};
   padding: 20px;
+  overflow-y: scroll;
 `;
 
 const FeatureTypeTitle = styled.h2`
@@ -24,48 +25,34 @@ const FeatureTypeTitle = styled.h2`
   padding-bottom: 40px;
 `;
 
-const FeatureList = styled.li<ListProps>`
-  width: 100%;
-  display: flex;
-  font-size: 1.8rem;
-  font-weight: 600;
-  padding: 10px 0;
-  color: ${(props) => (props.isChecked ? props.theme.GREEN : props.theme.GREY)};
-  cursor: pointer;
-
-  &:hover {
-    color: ${(props) => props.theme.BLACK};
-  }
-`;
-
-const Pointer = styled.span`
-  margin: 0 0 0 auto;
-`;
-
 function FeatureType(): React.ReactElement {
   const {
     sidebarTypeClickHandler,
+    sidebarSubTypeClickHandler,
     sidebarTypeName,
+    sidebarSubTypeName,
   }: SidebarHookType = useSidebarType();
 
   return (
     <>
       <FeatureTypeWrapper isFeatureName={sidebarTypeName}>
         <FeatureTypeTitle>기능 유형</FeatureTypeTitle>
-        {data.map(({ key, name }) => (
-          <FeatureList
-            key={key}
-            isChecked={sidebarTypeName === key}
-            onClick={() => {
-              sidebarTypeClickHandler(key);
-            }}
-          >
-            {name}
-            <Pointer>{'>'}</Pointer>
-          </FeatureList>
+        {data.map(({ typeKey, typeName, features }) => (
+          <FeatureTypeItem
+            key={typeKey}
+            typeKey={typeKey}
+            typeName={typeName}
+            features={features}
+            sidebarSubTypeName={sidebarSubTypeName}
+            sidebarTypeClickHandler={sidebarTypeClickHandler}
+            sidebarSubTypeClickHandler={sidebarSubTypeClickHandler}
+          />
         ))}
       </FeatureTypeWrapper>
-      <DetailType featureName={sidebarTypeName} />
+      <DetailType
+        featureName={sidebarTypeName}
+        subFeatureName={sidebarSubTypeName}
+      />
     </>
   );
 }
