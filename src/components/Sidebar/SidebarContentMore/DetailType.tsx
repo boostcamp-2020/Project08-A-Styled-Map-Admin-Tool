@@ -4,7 +4,9 @@ import useSidebarType, {
   SidebarHookType,
 } from '../../../hooks/sidebar/useSidebarType';
 import ListItem, { paddingStepType, paddingStep } from './DetailTypeItem';
+import useDetailType from '../../../hooks/sidebar/useDetailType';
 import Styler from './Styler';
+import { FeatureNameType } from '../../../utils/rendering-data/featureTypeData';
 
 interface PaddingProp {
   padding: paddingStepType;
@@ -28,6 +30,7 @@ const Title = styled.h2`
 `;
 
 const List = styled.ul`
+  position: relative;
   margin-bottom: 30px;
 `;
 
@@ -39,15 +42,38 @@ const Text = styled.h3<PaddingProp>`
   color: ${(props) => props.theme.GREY};
 `;
 
+const Check = styled.div`
+  position: absolute;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: ${(props) => props.theme.GREEN};
+`;
+
+const CheckRight = styled.div`
+  position: absolute;
+  left: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: ${(props) => props.theme.GREEN};
+`;
+
 interface DetailTypeProps {
   featureName: string;
+  subFeatureName: string;
 }
 
-function DetailType({ featureName }: DetailTypeProps): React.ReactElement {
+function DetailType({
+  featureName,
+  subFeatureName,
+}: DetailTypeProps): React.ReactElement {
   const {
     sidebarTypeName,
     sidebarTypeClickHandler,
   }: SidebarHookType = useSidebarType();
+
+  const {
+    detail: { section, label },
+  } = useDetailType({ featureName, subFeatureName });
 
   if (!featureName) {
     return <></>;
@@ -59,17 +85,23 @@ function DetailType({ featureName }: DetailTypeProps): React.ReactElement {
         <Title>세부 유형</Title>
         <List>
           <Text padding="first">구역</Text>
+          {section?.fill.isChanged ? <Check>✓</Check> : <></>}
           <ListItem
             detailName={sidebarTypeName}
             padding="second"
-            clickHandler={sidebarTypeClickHandler}
+            clickHandler={(name) => {
+              return sidebarTypeClickHandler(name as FeatureNameType);
+            }}
             name="채우기"
             parent="구역"
           />
+          {section?.stroke.isChanged ? <Check>✓</Check> : <></>}
           <ListItem
             detailName={sidebarTypeName}
             padding="second"
-            clickHandler={sidebarTypeClickHandler}
+            clickHandler={(name) => {
+              sidebarTypeClickHandler(name as FeatureNameType);
+            }}
             name="윤곽선"
             parent="구역"
           />
@@ -78,25 +110,34 @@ function DetailType({ featureName }: DetailTypeProps): React.ReactElement {
           <Text padding="first">라벨</Text>
           <List>
             <Text padding="second">텍스트</Text>
+            {label?.text.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
             <ListItem
               detailName={sidebarTypeName}
               padding="third"
-              clickHandler={sidebarTypeClickHandler}
+              clickHandler={(name) => {
+                sidebarTypeClickHandler(name as FeatureNameType);
+              }}
               name="채우기"
               parent="텍스트"
             />
+            {label?.text.stroke.isChanged ? <CheckRight>✓</CheckRight> : <></>}
             <ListItem
               detailName={sidebarTypeName}
               padding="third"
-              clickHandler={sidebarTypeClickHandler}
+              clickHandler={(name) => {
+                sidebarTypeClickHandler(name as FeatureNameType);
+              }}
               name="윤곽선"
               parent="텍스트"
             />
           </List>
+          {label?.icon.isChanged ? <Check>✓</Check> : <></>}
           <ListItem
             detailName={sidebarTypeName}
             padding="second"
-            clickHandler={sidebarTypeClickHandler}
+            clickHandler={(name) => {
+              sidebarTypeClickHandler(name as FeatureNameType);
+            }}
             name="아이콘"
           />
         </List>
