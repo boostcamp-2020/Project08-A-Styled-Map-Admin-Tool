@@ -3,6 +3,7 @@ import styled from '../../../utils/styles/styled';
 import {
   FeaturesType,
   FeatureNameType,
+  FeatureNameOneType,
 } from '../../../utils/rendering-data/featureTypeData';
 import useFeatureTypeItemHook from '../../../hooks/sidebar/useFeatureTypeItem';
 
@@ -60,7 +61,7 @@ const Pointer = styled.span`
 `;
 
 interface FeatureTypeItemProps {
-  typeKey: FeatureNameType;
+  typeKey: FeatureNameType | FeatureNameOneType;
   typeName: string;
   features: FeaturesType[];
   sidebarSubTypeName: string;
