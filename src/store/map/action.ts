@@ -13,5 +13,3 @@ export const initMap = (mapRef: RefObject<HTMLDivElement>): InitActionType => ({
   type: INIT_MAP,
   payload: { mapRef },
 });
-
-// export type MapActionType = ReturnType<typeof initMap>;
