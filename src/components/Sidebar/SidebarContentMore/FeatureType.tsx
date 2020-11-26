@@ -17,6 +17,7 @@ interface ListProps {
 const FeatureTypeWrapper = styled.ul<WrapperProps>`
   width: ${(props) => (props.isFeatureName ? '250px' : '370px')};
   padding: 20px;
+  overflow-y: scroll;
 `;
 
 const FeatureTypeTitle = styled.h2`
@@ -32,11 +33,28 @@ const FeatureList = styled.li<ListProps>`
   font-size: 1.8rem;
   font-weight: 600;
   padding: 10px 0;
+  color: ${(props) =>
+    props.isChecked ? props.theme.GREEN : props.theme.DARKGREY};
+  cursor: pointer;
+
+  &:hover {
+    color: ${(props) =>
+      props.isChecked ? props.theme.GREEN : props.theme.BLACK};
+  }
+`;
+
+const SectionList = styled.div<ListProps>`
+  width: 100%;
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 10px 0 10px 10px;
   color: ${(props) => (props.isChecked ? props.theme.GREEN : props.theme.GREY)};
   cursor: pointer;
 
   &:hover {
-    color: ${(props) => props.theme.BLACK};
+    color: ${(props) =>
+      props.isChecked ? props.theme.GREEN : props.theme.BLACK};
   }
 `;
 
@@ -54,17 +72,30 @@ function FeatureType(): React.ReactElement {
     <>
       <FeatureTypeWrapper isFeatureName={sidebarTypeName}>
         <FeatureTypeTitle>기능 유형</FeatureTypeTitle>
-        {data.map(({ key, name }) => (
-          <FeatureList
-            key={key}
-            isChecked={sidebarTypeName === key}
-            onClick={() => {
-              sidebarTypeClickHandler(key);
-            }}
-          >
-            {name}
-            <Pointer>{'>'}</Pointer>
-          </FeatureList>
+        {data.map(({ typeKey, typeName, section }) => (
+          <div key={typeKey}>
+            <FeatureList
+              isChecked={sidebarTypeName === typeKey}
+              onClick={() => {
+                sidebarTypeClickHandler(typeKey);
+              }}
+            >
+              {typeName}
+              <Pointer>{'>'}</Pointer>
+            </FeatureList>
+            {section?.map(({ key, name }) => (
+              <SectionList
+                key={key}
+                isChecked={sidebarTypeName === key}
+                onClick={() => {
+                  sidebarTypeClickHandler(key);
+                }}
+              >
+                {name}
+                <Pointer>{'>'}</Pointer>
+              </SectionList>
+            ))}
+          </div>
         ))}
       </FeatureTypeWrapper>
       <DetailType featureName={sidebarTypeName} />
