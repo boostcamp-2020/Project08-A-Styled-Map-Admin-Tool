@@ -64,6 +64,7 @@ interface FeatureTypeItemProps {
   typeKey: FeatureNameType | FeatureNameOneType;
   typeName: string;
   features: FeaturesType[];
+  sidebarTypeName: string;
   sidebarSubTypeName: string;
   sidebarTypeClickHandler: (name: string) => void;
   sidebarSubTypeClickHandler: (name: string) => void;
@@ -73,6 +74,7 @@ function FeatureTypeItem({
   typeKey,
   typeName,
   features,
+  sidebarTypeName,
   sidebarSubTypeName,
   sidebarTypeClickHandler,
   sidebarSubTypeClickHandler,
@@ -82,7 +84,7 @@ function FeatureTypeItem({
   return (
     <>
       <FeatureList
-        isChecked={sidebarSubTypeName === 'all'}
+        isChecked={sidebarTypeName === typeKey && sidebarSubTypeName === 'all'}
         onClick={() => {
           sidebarTypeClickHandler(typeKey);
           sidebarSubTypeClickHandler('all');
