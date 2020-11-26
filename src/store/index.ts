@@ -3,8 +3,12 @@ import map from './map/reducer';
 import poi from './style/poiReducer';
 import water from './style/waterReducer';
 import marker from './style/markerReducer';
+import road from './style/roadReducer';
+import landscape from './style/landscapeReducer';
+import administrative from './style/administrativeReducer';
 
-const rootReducer = combineReducers({ map, poi, water, marker });
+const rootReducer = combineReducers({ map, poi, landscape, administrative, road, water, marker });
+
 const store = createStore(rootReducer);
 
 export type RootState = ReturnType<typeof rootReducer>;
