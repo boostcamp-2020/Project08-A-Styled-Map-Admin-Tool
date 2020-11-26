@@ -1,4 +1,4 @@
-export type FeatureNameType = 'poi' | 'road';
+export type FeatureNameType = 'poi' | 'administrative' | 'landscape' | 'road';
 
 export interface FeaturesType {
   key: string;
@@ -37,27 +37,27 @@ const data: DataType[] = [
       { key: 'bicycle-road', name: '자전거도로' },
     ],
   },
-  // {
-  //   typeKey: 'landscape',
-  //   typeName: '경관',
-  //   features: [
-  //     { key: 'human-made', name: '인공물' },
-  //     { key: 'building', name: '건물' },
-  //     { key: 'natural', name: '자연물' },
-  //     { key: 'landcover', name: '평지' },
-  //     { key: 'mountain', name: '산지' },
-  //   ],
-  // },
-  // {
-  //   typeKey: 'administrative',
-  //   typeName: '행정구역',
-  //   features: [
-  //     { key: 'countryLabel', name: '국가' },
-  //     { key: 'stateLabel', name: '도/주' },
-  //     { key: 'localityLabel', name: '시' },
-  //     { key: 'neighborLabel', name: '그외' },
-  //   ],
-  // },
+  {
+    typeKey: 'administrative',
+    typeName: '행정구역',
+    features: [
+      { key: 'countryLabel', name: '국가' },
+      { key: 'stateLabel', name: '도/주' },
+      { key: 'localityLabel', name: '시' },
+      { key: 'neighborLabel', name: '그외' },
+    ],
+  },
+  {
+    typeKey: 'landscape',
+    typeName: '경관',
+    features: [
+      { key: 'human-made', name: '인공물' },
+      { key: 'building', name: '건물' },
+      { key: 'natural', name: '자연물' },
+      { key: 'landcover', name: '평지' },
+      { key: 'mountain', name: '산지' },
+    ],
+  },
   // {
   //   typeKey: 'transit',
   //   typeName: '교통',
