@@ -2,13 +2,14 @@ import React from 'react';
 import styled from '../../../utils/styles/styled';
 import useSidebarHeader, {
   useSidebarHeaderType,
-} from '../../../hooks/useSidebarHeader';
+} from '../../../hooks/sidebar/useSidebarHeader';
 
 import UndoIcon from '../../Icon/UndoIcon';
 import MoreVertIcon from '../../Icon/MoreVertIcon';
 import SidebarDropdown from './SidebarDropdown';
 
 const HeaderWrapper = styled.header`
+  flex: 0 0 auto;
   height: 5.5rem;
   width: 100%;
   display: flex;

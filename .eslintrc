@@ -16,6 +16,8 @@
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react-hooks/exhaustive-deps": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "import/order": "off",
+    "import/prefer-default-export": "off"
   }
 }

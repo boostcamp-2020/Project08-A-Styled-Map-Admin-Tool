@@ -3,7 +3,7 @@ import styled from '../../../utils/styles/styled';
 import ImportModal from '../SidebarModal/ImportModal';
 import useSidebarDropdown, {
   useSidebarDropdownType,
-} from '../../../hooks/useSidebarDropdown';
+} from '../../../hooks/sidebar/useSidebarDropdown';
 
 const DropdownWrapper = styled.div`
   position: absolute;
