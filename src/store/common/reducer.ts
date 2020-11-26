@@ -29,6 +29,8 @@ export default function getReducer(IDX: number): ReducerType {
     return acc;
   }, {});
 
+  const featureTypes = renderingData[IDX].features.map((v) => v.key);
+
   return function reducer(
     state: FeatureState = initialState,
     action: ActionType
@@ -38,6 +40,8 @@ export default function getReducer(IDX: number): ReducerType {
         return initialState;
       case SET_SECTION: {
         const { feature, element, style } = action.payload;
+        if (!featureTypes.includes(feature)) return state;
+
         const newState = JSON.parse(JSON.stringify(state));
         newState[feature].section[element as string] = style;
 
@@ -45,6 +49,8 @@ export default function getReducer(IDX: number): ReducerType {
       }
       case SET_LABEL_TEXT: {
         const { feature, element, style } = action.payload;
+        if (!featureTypes.includes(feature)) return state;
+
         const newState = JSON.parse(JSON.stringify(state));
         newState[feature].label.text[element as string] = style;
 
@@ -52,6 +58,8 @@ export default function getReducer(IDX: number): ReducerType {
       }
       case SET_LABEL_ICON: {
         const { feature, style } = action.payload;
+        if (!featureTypes.includes(feature)) return state;
+
         const newState = JSON.parse(JSON.stringify(state));
         newState[feature].icon = style;
 

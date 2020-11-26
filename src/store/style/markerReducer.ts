@@ -33,21 +33,27 @@ export default function markerReducer(
     case INIT:
       return initialState;
     case SET_SECTION: {
-      const { element, style } = action.payload;
+      const { feature, element, style } = action.payload;
+      if (feature !== 'marker') return state;
+
       const newState = JSON.parse(JSON.stringify(state));
       newState.section[element as string] = style;
 
       return newState;
     }
     case SET_LABEL_TEXT: {
-      const { element, style } = action.payload;
+      const { feature, element, style } = action.payload;
+      if (feature !== 'marker') return state;
+
       const newState = JSON.parse(JSON.stringify(state));
       newState.label.text[element as string] = style;
 
       return newState;
     }
     case SET_LABEL_ICON: {
-      const { style } = action.payload;
+      const { feature, style } = action.payload;
+      if (feature !== 'marker') return state;
+
       const newState = JSON.parse(JSON.stringify(state));
       newState.icon = style;
 
