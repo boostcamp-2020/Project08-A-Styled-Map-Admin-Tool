@@ -4,7 +4,7 @@ import {
   FeatureNameType,
   FeatureNameOneType,
 } from '../../utils/rendering-data/featureTypeData';
-import { CommonType, LabelType } from '../../store/common/commonProperties';
+import { CommonType, LabelType } from '../../store/common/properties';
 
 interface DetailType {
   section: CommonType;

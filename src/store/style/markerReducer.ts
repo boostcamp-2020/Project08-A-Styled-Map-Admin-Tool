@@ -3,7 +3,7 @@ import {
   getSection,
   LabelType,
   CommonType,
-} from '../common/commonProperties';
+} from '../common/properties';
 
 import {
   INIT,

@@ -1,4 +1,4 @@
-import { StyleType } from './commonProperties';
+import { StyleType } from './properties';
 
 export const INIT = 'INIT' as const;
 export const SET_SECTION = 'SET_SECTION' as const;

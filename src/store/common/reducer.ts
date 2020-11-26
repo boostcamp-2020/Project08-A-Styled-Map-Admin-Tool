@@ -1,7 +1,7 @@
 import renderingData from '../../utils/rendering-data/featureTypeData';
 
 import { FeatureState } from './type';
-import { getLabel, getSection } from './commonProperties';
+import { getLabel, getSection } from './properties';
 import {
   INIT,
   SET_SECTION,

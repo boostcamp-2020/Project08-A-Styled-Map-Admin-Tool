@@ -1,4 +1,4 @@
-import { LabelType, CommonType } from './commonProperties';
+import { LabelType, CommonType } from './properties';
 
 export interface FeatureState {
   [name: string]: {
