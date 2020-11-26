@@ -1,4 +1,4 @@
-export type FeatureNameType = 'poi';
+export type FeatureNameType = 'poi' | 'administrative';
 
 export interface FeaturesType {
   key: string;
@@ -48,16 +48,16 @@ const data: DataType[] = [
   //     { key: 'mountain', name: '산지' },
   //   ],
   // },
-  // {
-  //   typeKey: 'administrative',
-  //   typeName: '행정구역',
-  //   features: [
-  //     { key: 'countryLabel', name: '국가' },
-  //     { key: 'stateLabel', name: '도/주' },
-  //     { key: 'localityLabel', name: '시' },
-  //     { key: 'neighborLabel', name: '그외' },
-  //   ],
-  // },
+  {
+    typeKey: 'administrative',
+    typeName: '행정구역',
+    features: [
+      { key: 'countryLabel', name: '국가' },
+      { key: 'stateLabel', name: '도/주' },
+      { key: 'localityLabel', name: '시' },
+      { key: 'neighborLabel', name: '그외' },
+    ],
+  },
   // {
   //   typeKey: 'transit',
   //   typeName: '교통',
