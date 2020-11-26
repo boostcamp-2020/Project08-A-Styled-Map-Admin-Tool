@@ -18,7 +18,7 @@ export interface LabelType {
 }
 
 const style: StyleType = {
-  isChanged: true,
+  isChanged: false,
   visibility: 'inherit',
   color: '#000000',
   weight: 50,

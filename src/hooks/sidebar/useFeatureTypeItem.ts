@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { PoiType } from '../../store/style/poiReducer';
-import { RoadType } from '../../store/style/roadReducer';
-import { LandscapeType } from '../../store/style/landscapeReducer';
+import { FeatureState } from '../../store/common/type';
+
 import {
   FeatureNameType,
   FeatureNameOneType,
@@ -10,7 +9,7 @@ import {
 
 interface useFeatureTypeItemType {
   // 나중에 | 연산으로 다양한 타입으로 수정 필요
-  featureList: PoiType | RoadType | LandscapeType;
+  featureList: FeatureState;
 }
 
 export interface useFeatureTypeItemProps {
@@ -22,7 +21,7 @@ function useFeatureTypeItem({
 }: useFeatureTypeItemProps): useFeatureTypeItemType {
   const featureList = useSelector<RootState>(
     (state) => state[featureName]
-  ) as PoiType; // 나중에 다양한 타입으로 수정 필요
+  ) as FeatureState; // 나중에 다양한 타입으로 수정 필요
 
   return {
     featureList,

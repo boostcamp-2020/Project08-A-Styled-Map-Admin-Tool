@@ -1,5 +1,10 @@
 export type FeatureNameOneType = 'water' | 'marker';
-export type FeatureNameType = 'poi' | 'administrative' | 'landscape' | 'road';
+export type FeatureNameType =
+  | 'poi'
+  | 'administrative'
+  | 'landscape'
+  | 'road'
+  | 'transit';
 
 export interface FeaturesType {
   key: string;
@@ -59,16 +64,16 @@ const data: DataType[] = [
       { key: 'mountain', name: '산지' },
     ],
   },
-  // {
-  //   typeKey: 'transit',
-  //   typeName: '교통',
-  //   features: [
-  //     { key: 'airport', name: '공항' },
-  //     { key: 'bus', name: '버스' },
-  //     { key: 'rail', name: '철도' },
-  //     { key: 'subway', name: '지하철' },
-  //   ],
-  // },
+  {
+    typeKey: 'transit',
+    typeName: '교통',
+    features: [
+      { key: 'airport', name: '공항' },
+      { key: 'bus', name: '버스' },
+      { key: 'rail', name: '철도' },
+      { key: 'subway', name: '지하철' },
+    ],
+  },
   { typeKey: 'water', typeName: '물', features: [] },
   { typeKey: 'marker', typeName: '마크', features: [] },
 ];

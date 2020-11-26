@@ -43,6 +43,7 @@ function FeatureType(): React.ReactElement {
             typeKey={typeKey}
             typeName={typeName}
             features={features}
+            sidebarTypeName={sidebarTypeName}
             sidebarSubTypeName={sidebarSubTypeName}
             sidebarTypeClickHandler={sidebarTypeClickHandler}
             sidebarSubTypeClickHandler={sidebarSubTypeClickHandler}
