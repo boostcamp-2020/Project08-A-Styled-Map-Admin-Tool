@@ -1,7 +1,11 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { FeatureState } from '../../store/common/type';
-import { FeatureNameType } from '../../utils/rendering-data/featureTypeData';
+
+import {
+  FeatureNameType,
+  FeatureNameOneType,
+} from '../../utils/rendering-data/featureTypeData';
 
 interface useFeatureTypeItemType {
   // 나중에 | 연산으로 다양한 타입으로 수정 필요
@@ -9,7 +13,7 @@ interface useFeatureTypeItemType {
 }
 
 export interface useFeatureTypeItemProps {
-  featureName: FeatureNameType;
+  featureName: FeatureNameType | FeatureNameOneType;
 }
 
 function useFeatureTypeItem({
