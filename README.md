@@ -6,6 +6,18 @@
     <img src="https://github.com/qkrdmstlr3/svg-icon-animation/blob/master/map-icon/map-icon.svg" height="300" />
 </p>
 
+
+### 폴더 구조
+
+```
++-- src
+    +-- components
+    +-- hooks
+    +-- pages
+    +-- stores
+    +-- utils
+```
+=======
 ![react](https://img.shields.io/badge/react-17.0.1-9cf?logo=react)
 ![typescript](https://img.shields.io/badge/typescript-4.0.5-blue?logo=typescript)
 ![mapbox](https://img.shields.io/badge/mapbox-1.12.0-darkblue?logo=mapbox)

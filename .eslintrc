@@ -9,11 +9,15 @@
   "plugins": ["prettier", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "rules": {
-    "prettier/prettier": ["error"],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/no-unresolved": "off",
     "import/extensions": "off",
     "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error"]
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "react-hooks/exhaustive-deps": "off",
+    "react/require-default-props": "off",
+    "import/order": "off",
+    "import/prefer-default-export": "off"
   }
 }
