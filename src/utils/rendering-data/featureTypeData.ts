@@ -1,4 +1,4 @@
-export type FeatureNameType = 'poi';
+export type FeatureNameType = 'poi' | 'road';
 
 export interface FeaturesType {
   key: string;
@@ -26,17 +26,17 @@ const data: DataType[] = [
       { key: 'etc', name: '기타시설' },
     ],
   },
-  // {
-  //   typeKey: 'road',
-  //   typeName: '도로',
-  //   features: [
-  //     { key: 'highway', name: '고속도로' },
-  //     { key: 'arterial', name: '주요도로' },
-  //     { key: 'local', name: '일반도로' },
-  //     { key: 'sidewalk', name: '인도' },
-  //     { key: 'bicycle-road', name: '자전거도로' },
-  //   ],
-  // },
+  {
+    typeKey: 'road',
+    typeName: '도로',
+    features: [
+      { key: 'highway', name: '고속도로' },
+      { key: 'arterial', name: '주요도로' },
+      { key: 'local', name: '일반도로' },
+      { key: 'sidewalk', name: '인도' },
+      { key: 'bicycle-road', name: '자전거도로' },
+    ],
+  },
   // {
   //   typeKey: 'landscape',
   //   typeName: '경관',
