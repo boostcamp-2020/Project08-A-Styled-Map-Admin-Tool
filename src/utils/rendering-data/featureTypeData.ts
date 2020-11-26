@@ -1,4 +1,4 @@
-export type FeatureNameType = 'poi';
+export type FeatureNameType = 'poi' | 'transit';
 
 export interface FeaturesType {
   key: string;
@@ -58,16 +58,16 @@ const data: DataType[] = [
   //     { key: 'neighborLabel', name: '그외' },
   //   ],
   // },
-  // {
-  //   typeKey: 'transit',
-  //   typeName: '교통',
-  //   features: [
-  //     { key: 'airport', name: '공항' },
-  //     { key: 'bus', name: '버스' },
-  //     { key: 'rail', name: '철도' },
-  //     { key: 'subway', name: '지하철' },
-  //   ],
-  // },
+  {
+    typeKey: 'transit',
+    typeName: '교통',
+    features: [
+      { key: 'airport', name: '공항' },
+      { key: 'bus', name: '버스' },
+      { key: 'rail', name: '철도' },
+      { key: 'subway', name: '지하철' },
+    ],
+  },
   // { typeKey: 'water', typeName: '물', features: [] },
   // { typeKey: 'mark', typeName: '마크', features: [] },
 ];
