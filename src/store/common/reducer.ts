@@ -1,14 +1,8 @@
 import renderingData from '../../utils/rendering-data/featureTypeData';
 
 import { FeatureState } from './type';
-import { getLabel, getSection } from './properties';
-import {
-  INIT,
-  SET_SECTION,
-  SET_LABEL_TEXT,
-  SET_LABEL_ICON,
-  ActionType,
-} from './action';
+import { getDefaultFeature } from './properties';
+import { INIT, SET, ActionType } from './action';
 
 interface ReducerType {
   (state: FeatureState, action: ActionType): FeatureState;
@@ -21,11 +15,7 @@ export default function getReducer(IDX: number): ReducerType {
   ];
 
   const initialState = subFeatures.reduce((acc: FeatureState, cur: string) => {
-    acc[cur] = {
-      isChanged: false,
-      section: getSection(),
-      label: getLabel(),
-    };
+    acc[cur] = getDefaultFeature();
     return acc;
   }, {});
 
@@ -38,31 +28,18 @@ export default function getReducer(IDX: number): ReducerType {
     switch (action.type) {
       case INIT:
         return initialState;
-      case SET_SECTION: {
-        const { feature, element, style } = action.payload;
+      case SET: {
+        const { feature, element, subElement, style } = action.payload;
         if (!featureTypes.includes(feature)) return state;
 
         const newState = JSON.parse(JSON.stringify(state));
-        newState[feature].section[element as string] = style;
 
-        return newState;
-      }
-      case SET_LABEL_TEXT: {
-        const { feature, element, style } = action.payload;
-        if (!featureTypes.includes(feature)) return state;
+        if (element === 'labelIcon') {
+          newState[feature][element] = style;
+          return newState;
+        }
 
-        const newState = JSON.parse(JSON.stringify(state));
-        newState[feature].label.text[element as string] = style;
-
-        return newState;
-      }
-      case SET_LABEL_ICON: {
-        const { feature, style } = action.payload;
-        if (!featureTypes.includes(feature)) return state;
-
-        const newState = JSON.parse(JSON.stringify(state));
-        newState[feature].icon = style;
-
+        newState[feature][element][subElement as string] = style;
         return newState;
       }
       default:
