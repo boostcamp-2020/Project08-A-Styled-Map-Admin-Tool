@@ -4,10 +4,14 @@ import useSidebarType, {
   SidebarHookType,
 } from '../../../hooks/sidebar/useSidebarType';
 import ListItem, { paddingStepType, paddingStep } from './DetailTypeItem';
-import useDetailType from '../../../hooks/sidebar/useDetailType';
+import useDetailType, {
+  UseDetailHookType,
+} from '../../../hooks/sidebar/useDetailType';
 import Styler from './Styler';
 import {
   FeatureNameType,
+  ElementNameType,
+  SubElementNameType,
 } from '../../../store/common/type';
 
 interface PaddingProp {
@@ -70,12 +74,35 @@ function DetailType({
 }: DetailTypeProps): React.ReactElement {
   const {
     sidebarTypeName,
+    sidebarSubTypeName,
     sidebarTypeClickHandler,
+    sidebarSubTypeClickHandler,
   }: SidebarHookType = useSidebarType();
 
   const {
-    detail: { section, label },
-  } = useDetailType({ featureName, subFeatureName });
+    detail: { section, labelText, labelIcon },
+  }: UseDetailHookType = useDetailType({
+    featureName,
+    subFeatureName,
+  });
+
+  const styleClickHandler = (
+    elementName: ElementNameType,
+    subElementName?: SubElementNameType
+  ) => {
+    sidebarTypeClickHandler(elementName);
+    if (subElementName) sidebarSubTypeClickHandler(subElementName);
+  };
+
+  const getIsSelected = (
+    elementName: ElementNameType,
+    subElementName?: SubElementNameType
+  ) => {
+    if (!subElementName) return sidebarTypeName === elementName;
+    return (
+      sidebarTypeName === elementName && sidebarSubTypeName === subElementName
+    );
+  };
 
   if (!featureName) {
     return <></>;
@@ -89,57 +116,45 @@ function DetailType({
           <Text padding="first">구역</Text>
           {section?.fill.isChanged ? <Check>✓</Check> : <></>}
           <ListItem
-            detailName={sidebarTypeName}
+            isSelected={getIsSelected('section', 'fill')}
             padding="second"
-            clickHandler={(name) => {
-              return sidebarTypeClickHandler(name as FeatureNameType);
-            }}
+            clickHandler={() => styleClickHandler('section', 'fill')}
             name="채우기"
-            parent="구역"
           />
           {section?.stroke.isChanged ? <Check>✓</Check> : <></>}
           <ListItem
-            detailName={sidebarTypeName}
+            isSelected={
+              sidebarTypeName === 'section' && sidebarSubTypeName === 'stroke'
+            }
             padding="second"
-            clickHandler={(name) => {
-              sidebarTypeClickHandler(name as FeatureNameType);
-            }}
+            clickHandler={() => styleClickHandler('section', 'stroke')}
             name="윤곽선"
-            parent="구역"
           />
         </List>
         <List>
           <Text padding="first">라벨</Text>
           <List>
             <Text padding="second">텍스트</Text>
-            {label?.text.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
+            {labelText.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
             <ListItem
-              detailName={sidebarTypeName}
+              isSelected={getIsSelected('labelText', 'fill')}
               padding="third"
-              clickHandler={(name) => {
-                sidebarTypeClickHandler(name as FeatureNameType);
-              }}
+              clickHandler={() => styleClickHandler('labelText', 'fill')}
               name="채우기"
-              parent="텍스트"
             />
-            {label?.text.stroke.isChanged ? <CheckRight>✓</CheckRight> : <></>}
+            {labelText.stroke.isChanged ? <CheckRight>✓</CheckRight> : <></>}
             <ListItem
-              detailName={sidebarTypeName}
+              isSelected={getIsSelected('labelText', 'stroke')}
               padding="third"
-              clickHandler={(name) => {
-                sidebarTypeClickHandler(name as FeatureNameType);
-              }}
+              clickHandler={() => styleClickHandler('labelText', 'stroke')}
               name="윤곽선"
-              parent="텍스트"
             />
           </List>
-          {label?.icon.isChanged ? <Check>✓</Check> : <></>}
+          {labelIcon.isChanged ? <Check>✓</Check> : <></>}
           <ListItem
-            detailName={sidebarTypeName}
+            isSelected={getIsSelected('labelIcon')}
             padding="second"
-            clickHandler={(name) => {
-              sidebarTypeClickHandler(name as FeatureNameType);
-            }}
+            clickHandler={() => styleClickHandler('labelIcon')}
             name="아이콘"
           />
         </List>
