@@ -1,17 +1,11 @@
-export type FeatureNameOneType = 'water' | 'marker';
-export type FeatureNameType =
-  | 'poi'
-  | 'administrative'
-  | 'landscape'
-  | 'road'
-  | 'transit';
+import { FeatureNameType } from '../../store/common/type';
 
 export interface FeaturesType {
   key: string;
   name: string;
 }
 export interface DataType {
-  typeKey: FeatureNameType | FeatureNameOneType;
+  typeKey: FeatureNameType;
   typeName: string;
   features: FeaturesType[];
 }

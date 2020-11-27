@@ -6,6 +6,8 @@ import DetailType from './DetailType';
 import useSidebarType, {
   SidebarHookType,
 } from '../../../hooks/sidebar/useSidebarType';
+import { FeatureNameType } from '../../../store/common/type';
+
 import FeatureTypeItem from './FeatureTypeItem';
 
 interface WrapperProps {
@@ -51,7 +53,7 @@ function FeatureType(): React.ReactElement {
         ))}
       </FeatureTypeWrapper>
       <DetailType
-        featureName={sidebarTypeName}
+        featureName={sidebarTypeName as FeatureNameType}
         subFeatureName={sidebarSubTypeName}
       />
     </>

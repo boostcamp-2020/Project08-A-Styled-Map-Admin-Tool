@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import {
-  FeaturesType,
-  FeatureNameType,
-  FeatureNameOneType,
-} from '../../../utils/rendering-data/featureTypeData';
+import { FeaturesType } from '../../../utils/rendering-data/featureTypeData';
+import { FeatureNameType } from '../../../store/common/type';
 import useFeatureTypeItemHook from '../../../hooks/sidebar/useFeatureTypeItem';
 
 interface ListProps {
@@ -61,7 +58,7 @@ const Pointer = styled.span`
 `;
 
 interface FeatureTypeItemProps {
-  typeKey: FeatureNameType | FeatureNameOneType;
+  typeKey: FeatureNameType;
   typeName: string;
   features: FeaturesType[];
   sidebarTypeName: string;

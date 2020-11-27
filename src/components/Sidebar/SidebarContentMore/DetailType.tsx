@@ -6,7 +6,9 @@ import useSidebarType, {
 import ListItem, { paddingStepType, paddingStep } from './DetailTypeItem';
 import useDetailType from '../../../hooks/sidebar/useDetailType';
 import Styler from './Styler';
-import { FeatureNameType } from '../../../utils/rendering-data/featureTypeData';
+import {
+  FeatureNameType,
+} from '../../../store/common/type';
 
 interface PaddingProp {
   padding: paddingStepType;
@@ -58,7 +60,7 @@ const CheckRight = styled.div`
 `;
 
 interface DetailTypeProps {
-  featureName: string;
+  featureName: FeatureNameType;
   subFeatureName: string;
 }
 
