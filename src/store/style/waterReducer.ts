@@ -1,62 +1,28 @@
-import {
-  getLabel,
-  getSection,
-  LabelType,
-  CommonType,
-} from '../common/properties';
+import { getDefaultFeature } from '../common/properties';
+import { FeatureType } from '../common/type';
+import { INIT, SET, ActionType } from '../common/action';
 
-import {
-  INIT,
-  SET_SECTION,
-  SET_LABEL_TEXT,
-  SET_LABEL_ICON,
-  ActionType,
-} from '../common/action';
-
-export interface WaterType {
-  isChanged: boolean;
-  section: CommonType;
-  label: LabelType;
-}
-
-const initialState = {
-  isChanged: false,
-  section: getSection(),
-  label: getLabel(),
-};
+const initialState = getDefaultFeature();
 
 export default function waterReducer(
-  state: WaterType = initialState,
+  state: FeatureType = initialState,
   action: ActionType
-): WaterType {
+): FeatureType {
   switch (action.type) {
     case INIT:
       return initialState;
-    case SET_SECTION: {
-      const { feature, element, style } = action.payload;
+    case SET: {
+      const { feature, element, subElement, style } = action.payload;
       if (feature !== 'water') return state;
 
       const newState = JSON.parse(JSON.stringify(state));
-      newState.section[element as string] = style;
 
-      return newState;
-    }
-    case SET_LABEL_TEXT: {
-      const { feature, element, style } = action.payload;
-      if (feature !== 'water') return state;
+      if (element === 'labelIcon') {
+        newState[element] = style;
+        return newState;
+      }
 
-      const newState = JSON.parse(JSON.stringify(state));
-      newState.label.text[element as string] = style;
-
-      return newState;
-    }
-    case SET_LABEL_ICON: {
-      const { feature, style } = action.payload;
-      if (feature !== 'water') return state;
-
-      const newState = JSON.parse(JSON.stringify(state));
-      newState.icon = style;
-
+      newState[element][subElement as string] = style;
       return newState;
     }
     default:
