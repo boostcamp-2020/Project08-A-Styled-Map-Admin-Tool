@@ -1,5 +1,14 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import {
+  FeatureNameType,
+  ElementNameType,
+  SubElementNameType,
+} from '../../../store/common/type';
+import useStyleType, {
+  UseStyleHookType,
+} from '../../../hooks/sidebar/useStyleType';
+
 import ColorStyle from './ColorStyle';
 import WeightStyle from './WeightStyle';
 import SaturationStyle from './SaturationStyle';
@@ -31,10 +40,25 @@ const Hr = styled.hr`
 `;
 
 interface StylerProps {
-  detailName: string;
+  featureName: FeatureNameType;
+  subFeatureName: string;
+  detailName: ElementNameType;
+  subDetailName?: SubElementNameType;
 }
 
-function Styler({ detailName }: StylerProps): React.ReactElement {
+function Styler({
+  featureName,
+  subFeatureName,
+  detailName,
+  subDetailName,
+}: StylerProps): React.ReactElement {
+  const { style }: UseStyleHookType = useStyleType({
+    featureName,
+    subFeatureName,
+    detailName,
+    subDetailName,
+  });
+
   if (!detailName) {
     return <></>;
   }

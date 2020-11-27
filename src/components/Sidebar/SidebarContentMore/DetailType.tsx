@@ -159,7 +159,12 @@ function DetailType({
           />
         </List>
       </DetailWrapper>
-      <Styler detailName={sidebarTypeName} />
+      <Styler
+        featureName={featureName}
+        subFeatureName={subFeatureName}
+        detailName={sidebarTypeName as ElementNameType}
+        subDetailName={sidebarSubTypeName as SubElementNameType}
+      />
     </>
   );
 }
