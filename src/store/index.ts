@@ -1,4 +1,5 @@
 import { combineReducers, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import map from './map/reducer';
 import poi from './style/poiReducer';
 import transit from './style/transitReducer';
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   water,
   marker,
 });
-const store = createStore(rootReducer);
+
+const store = createStore(rootReducer, composeWithDevTools());
 
 export type RootState = ReturnType<typeof rootReducer>;
 
