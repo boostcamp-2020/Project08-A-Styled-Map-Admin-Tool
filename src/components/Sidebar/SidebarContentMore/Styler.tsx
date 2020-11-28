@@ -12,7 +12,7 @@ import useStyleType, {
 import ColorStyle from './ColorStyle';
 import WeightStyle from './WeightStyle';
 import SaturationStyle from './SaturationStyle';
-import LightnessStyleWrapper from './LightnessStyleWrapper';
+import LightnessStyle from './LightnessStyle';
 import VisibilityStyle from './VisibilityStyle';
 
 const StylerWrapper = styled.div`
@@ -52,7 +52,10 @@ function Styler({
   detailName,
   subDetailName,
 }: StylerProps): React.ReactElement {
-  const { style }: UseStyleHookType = useStyleType({
+  const {
+    styleElement: { visibility, color, weight, saturation, lightness },
+    onStyleChange,
+  }: UseStyleHookType = useStyleType({
     featureName,
     subFeatureName,
     detailName,
@@ -66,13 +69,13 @@ function Styler({
   return (
     <StylerWrapper>
       <StylerTitle>스타일</StylerTitle>
-      <VisibilityStyle />
+      <VisibilityStyle visibility={visibility} onStyleChange={onStyleChange} />
       <Hr />
-      <ColorStyle />
+      <ColorStyle color={color} onStyleChange={onStyleChange} />
       <Hr />
-      <WeightStyle />
-      <SaturationStyle />
-      <LightnessStyleWrapper />
+      <WeightStyle weight={weight} onStyleChange={onStyleChange} />
+      <SaturationStyle saturation={saturation} onStyleChange={onStyleChange} />
+      <LightnessStyle lightness={lightness} onStyleChange={onStyleChange} />
     </StylerWrapper>
   );
 }

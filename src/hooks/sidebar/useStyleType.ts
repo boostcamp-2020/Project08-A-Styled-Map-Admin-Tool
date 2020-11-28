@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useCallback } from 'react';
 import { RootState } from '../../store';
 import { featureNameTypeCheck } from '../../utils/typeCheck';
 import {
@@ -7,6 +8,7 @@ import {
   ElementNameType,
   SubElementNameType,
 } from '../../store/common/type';
+import { setStyle } from '../../store/common/action';
 import { style as dummyStyle } from '../../store/common/properties';
 
 interface UseStyleTypeProps {
@@ -17,7 +19,8 @@ interface UseStyleTypeProps {
 }
 
 export interface UseStyleHookType {
-  style: StyleType;
+  styleElement: StyleType;
+  onStyleChange: (key: string, value: string | number) => void;
 }
 
 function useStyleType({
@@ -26,7 +29,9 @@ function useStyleType({
   detailName,
   subDetailName,
 }: UseStyleTypeProps): UseStyleHookType {
-  const style = useSelector<RootState>((state) => {
+  const dispatch = useDispatch();
+
+  const styleElement = useSelector<RootState>((state) => {
     if (!detailName) {
       return dummyStyle;
     }
@@ -41,8 +46,27 @@ function useStyleType({
     return feature[detailName][subDetailName as SubElementNameType];
   }) as StyleType;
 
+  const onStyleChange = useCallback(
+    (key: string, value: string | number) => {
+      dispatch(
+        setStyle({
+          feature: featureName,
+          subFeature: subFeatureName,
+          element: detailName,
+          subElement: subDetailName,
+          style: {
+            ...styleElement,
+            [key]: value,
+          },
+        })
+      );
+    },
+    [featureName, subFeatureName, detailName, subDetailName, styleElement]
+  );
+
   return {
-    style,
+    styleElement,
+    onStyleChange,
   };
 }
 
