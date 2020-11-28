@@ -3,21 +3,17 @@ import { RootState } from '../../store';
 import {
   FeatureNameType,
   FeatureNameOneType,
-} from '../../utils/rendering-data/featureTypeData';
-import { CommonType, LabelType } from '../../store/common/properties';
-
-interface DetailType {
-  section: CommonType;
-  label: LabelType;
-}
+  FeatureNameMultiType,
+  FeatureType,
+} from '../../store/common/type';
 
 interface UseDetailTypeProps {
-  featureName: string;
+  featureName: FeatureNameType;
   subFeatureName: string;
 }
 
-interface UseDetailTypeType {
-  detail: DetailType;
+export interface UseDetailHookType {
+  detail: FeatureType;
 }
 
 const dummyDetail = {
@@ -28,7 +24,7 @@ const dummyDetail = {
 function useDetailType({
   featureName,
   subFeatureName,
-}: UseDetailTypeProps): UseDetailTypeType {
+}: UseDetailTypeProps): UseDetailHookType {
   const detail = useSelector<RootState>((state) => {
     if (!featureName) {
       return dummyDetail;
@@ -37,8 +33,8 @@ function useDetailType({
       return state[featureName as FeatureNameOneType];
     }
 
-    return state[featureName as FeatureNameType][subFeatureName];
-  }) as DetailType;
+    return state[featureName as FeatureNameMultiType][subFeatureName];
+  }) as FeatureType;
 
   return {
     detail,

@@ -1,23 +1,6 @@
-export interface StyleType {
-  isChanged: boolean;
-  visibility: string;
-  color: string;
-  weight: number;
-  saturation: number;
-  lightness: number;
-}
+import { StyleType, ElementType, FeatureType } from './type';
 
-export interface CommonType {
-  fill: StyleType;
-  stroke: StyleType;
-}
-
-export interface LabelType {
-  text: CommonType;
-  icon: StyleType;
-}
-
-const style: StyleType = {
+export const style: StyleType = {
   isChanged: false,
   visibility: 'inherit',
   color: '#000000',
@@ -26,27 +9,22 @@ const style: StyleType = {
   lightness: 0,
 };
 
-const getStyle = (): StyleType => {
+const getDefaultStyle = (): StyleType => {
   return JSON.parse(JSON.stringify(style));
 };
 
-const label = {
-  text: {
-    fill: getStyle(),
-    stroke: getStyle(),
-  },
-  icon: getStyle(),
+const getDefaultElement = (): ElementType => {
+  return {
+    fill: getDefaultStyle(),
+    stroke: getDefaultStyle(),
+  };
 };
 
-const section = {
-  fill: getStyle(),
-  stroke: getStyle(),
-};
-
-export const getLabel = (): LabelType => {
-  return JSON.parse(JSON.stringify(label));
-};
-
-export const getSection = (): CommonType => {
-  return JSON.parse(JSON.stringify(section));
+export const getDefaultFeature = (): FeatureType => {
+  return {
+    isChanged: false,
+    section: getDefaultElement(),
+    labelText: getDefaultElement(),
+    labelIcon: getDefaultStyle(),
+  };
 };

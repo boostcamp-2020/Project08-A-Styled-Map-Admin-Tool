@@ -4,11 +4,10 @@ import styled from '../../../utils/styles/styled';
 export type paddingStepType = 'first' | 'second' | 'third';
 
 interface ListItemProps {
+  isSelected: boolean;
   padding: paddingStepType;
-  clickHandler: (name: string) => void;
+  clickHandler: () => void;
   name: string;
-  parent?: string;
-  detailName: string;
 }
 
 interface PaddingProp {
@@ -46,20 +45,13 @@ const Item = styled.li<ItemProps>`
 const Pointer = styled.span``;
 
 function DetailTypeItem({
+  isSelected,
   padding,
   clickHandler,
   name,
-  parent,
-  detailName,
 }: ListItemProps): React.ReactElement {
   return (
-    <Item
-      isSelected={detailName === `${parent} ${name}`}
-      padding={padding}
-      onClick={() => {
-        clickHandler(`${parent} ${name}`);
-      }}
-    >
+    <Item isSelected={isSelected} padding={padding} onClick={clickHandler}>
       <span>{name}</span>
       <Pointer>{'>'}</Pointer>
     </Item>
