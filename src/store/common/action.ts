@@ -2,9 +2,6 @@ import { ActionPayload } from './type';
 
 export const INIT = 'INIT' as const;
 export const SET = 'SET' as const;
-export const SET_SECTION = 'SET_SECTION' as const;
-export const SET_LABEL_TEXT = 'SET_LABEL_TEXT' as const;
-export const SET_LABEL_ICON = 'SET_LABEL_ICON' as const;
 
 export interface SetType {
   type: typeof SET;
@@ -17,12 +14,11 @@ export const init = (): { type: typeof INIT } => ({
 
 export const setStyle = ({
   feature,
+  subFeature,
   element,
   subElement,
   style,
 }: ActionPayload): SetType => ({
   type: SET,
-  payload: { feature, element, subElement, style },
+  payload: { feature, subFeature, element, subElement, style },
 });
-
-export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;

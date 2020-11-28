@@ -1,6 +1,6 @@
 import { getDefaultFeature } from '../common/properties';
-import { FeatureType } from '../common/type';
-import { INIT, SET, ActionType } from '../common/action';
+import { FeatureType, ActionType, SubElementNameType } from '../common/type';
+import { INIT, SET } from '../common/action';
 
 const initialState = getDefaultFeature();
 
@@ -22,7 +22,7 @@ export default function waterReducer(
         return newState;
       }
 
-      newState[element][subElement as string] = style;
+      newState[element][subElement as SubElementNameType] = style;
       return newState;
     }
     default:

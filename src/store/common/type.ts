@@ -1,14 +1,17 @@
+import { init, setStyle } from './action';
+
+export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
 export type ElementNameType = 'section' | 'labelText' | 'labelIcon';
 export type SubElementNameType = 'fill' | 'stroke';
 
-export type FeatureNameOneType = 'water' | 'marker';
+export type FeatureNameSingleType = 'water' | 'marker';
 export type FeatureNameMultiType =
   | 'poi'
   | 'administrative'
   | 'landscape'
   | 'road'
   | 'transit';
-export type FeatureNameType = FeatureNameMultiType | FeatureNameOneType;
+export type FeatureNameType = FeatureNameMultiType | FeatureNameSingleType;
 
 export interface StyleType {
   isChanged: boolean;
@@ -33,7 +36,8 @@ export interface FeatureState {
 }
 
 export type ActionPayload = {
-  feature: string;
+  feature: FeatureNameType;
+  subFeature?: string;
   element: ElementNameType;
   subElement?: SubElementNameType;
   style: StyleType;

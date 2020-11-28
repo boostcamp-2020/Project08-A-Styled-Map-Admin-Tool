@@ -1,8 +1,8 @@
 import renderingData from '../../utils/rendering-data/featureTypeData';
 
-import { FeatureState } from './type';
+import { FeatureState, ActionType, SubElementNameType } from './type';
 import { getDefaultFeature } from './properties';
-import { INIT, SET, ActionType } from './action';
+import { INIT, SET } from './action';
 
 interface ReducerType {
   (state: FeatureState, action: ActionType): FeatureState;
@@ -19,8 +19,6 @@ export default function getReducer(IDX: number): ReducerType {
     return acc;
   }, {});
 
-  const featureTypes = renderingData[IDX].features.map((v) => v.key);
-
   return function reducer(
     state: FeatureState = initialState,
     action: ActionType
@@ -29,17 +27,25 @@ export default function getReducer(IDX: number): ReducerType {
       case INIT:
         return initialState;
       case SET: {
-        const { feature, element, subElement, style } = action.payload;
-        if (!featureTypes.includes(feature)) return state;
+        const {
+          feature,
+          subFeature,
+          element,
+          subElement,
+          style,
+        } = action.payload;
+        if (feature === renderingData[IDX].typeKey) return state;
 
-        const newState = JSON.parse(JSON.stringify(state));
+        const newState: FeatureState = JSON.parse(JSON.stringify(state));
 
         if (element === 'labelIcon') {
-          newState[feature][element] = style;
+          newState[subFeature as string][element] = style;
           return newState;
         }
 
-        newState[feature][element][subElement as string] = style;
+        newState[subFeature as string][element][
+          subElement as SubElementNameType
+        ] = style;
         return newState;
       }
       default:
