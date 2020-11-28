@@ -4,7 +4,7 @@ export const style: StyleType = {
   isChanged: false,
   visibility: 'inherit',
   color: '#000000',
-  weight: 50,
+  weight: 4,
   saturation: 0,
   lightness: 0,
 };

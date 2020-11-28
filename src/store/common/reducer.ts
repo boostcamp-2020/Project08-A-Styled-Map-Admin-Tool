@@ -34,7 +34,8 @@ export default function getReducer(IDX: number): ReducerType {
           subElement,
           style,
         } = action.payload;
-        if (feature === renderingData[IDX].typeKey) return state;
+
+        if (feature !== renderingData[IDX].typeKey) return state;
 
         const newState: FeatureState = JSON.parse(JSON.stringify(state));
 
@@ -46,6 +47,7 @@ export default function getReducer(IDX: number): ReducerType {
         newState[subFeature as string][element][
           subElement as SubElementNameType
         ] = style;
+
         return newState;
       }
       default:
