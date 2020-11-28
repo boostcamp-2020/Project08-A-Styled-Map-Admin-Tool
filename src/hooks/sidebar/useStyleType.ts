@@ -1,9 +1,8 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { featureNameTypeCheck } from '../../utils/typeCheck';
 import {
   FeatureNameType,
-  FeatureNameOneType,
-  FeatureNameMultiType,
   StyleType,
   ElementNameType,
   SubElementNameType,
@@ -32,10 +31,10 @@ function useStyleType({
       return dummyStyle;
     }
     let feature;
-    if (featureName === 'water' || featureName === 'marker') {
-      feature = state[featureName as FeatureNameOneType];
+    if (featureNameTypeCheck(featureName)) {
+      feature = state[featureName];
     } else {
-      feature = state[featureName as FeatureNameMultiType][subFeatureName];
+      feature = state[featureName][subFeatureName];
     }
 
     if (detailName === 'labelIcon') return feature.labelIcon;

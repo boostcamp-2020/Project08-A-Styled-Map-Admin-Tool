@@ -1,11 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import {
-  FeatureNameType,
-  FeatureNameOneType,
-  FeatureNameMultiType,
-  FeatureType,
-} from '../../store/common/type';
+import { featureNameTypeCheck } from '../../utils/typeCheck';
+import { FeatureNameType, FeatureType } from '../../store/common/type';
 
 interface UseDetailTypeProps {
   featureName: FeatureNameType;
@@ -29,11 +25,11 @@ function useDetailType({
     if (!featureName) {
       return dummyDetail;
     }
-    if (featureName === 'water' || featureName === 'marker') {
-      return state[featureName as FeatureNameOneType];
+    if (featureNameTypeCheck(featureName)) {
+      return state[featureName];
     }
 
-    return state[featureName as FeatureNameMultiType][subFeatureName];
+    return state[featureName][subFeatureName];
   }) as FeatureType;
 
   return {
