@@ -24,7 +24,6 @@ const DetailWrapper = styled.div`
   padding: 20px;
 
   overflow-y: scroll;
-  background-color: ${(props) => props.theme.WHITE};
   border-left: 1px solid ${(props) => props.theme.LIGHTGREY};
 `;
 
@@ -81,28 +80,16 @@ function DetailType({
 
   const {
     detail: { section, labelText, labelIcon },
+    styleClickHandler,
+    checkIsSelected,
   }: UseDetailHookType = useDetailType({
+    sidebarTypeClickHandler,
+    sidebarSubTypeClickHandler,
+    sidebarTypeName,
+    sidebarSubTypeName,
     featureName,
     subFeatureName,
   });
-
-  const styleClickHandler = (
-    elementName: ElementNameType,
-    subElementName?: SubElementNameType
-  ) => {
-    sidebarTypeClickHandler(elementName);
-    if (subElementName) sidebarSubTypeClickHandler(subElementName);
-  };
-
-  const getIsSelected = (
-    elementName: ElementNameType,
-    subElementName?: SubElementNameType
-  ) => {
-    if (!subElementName) return sidebarTypeName === elementName;
-    return (
-      sidebarTypeName === elementName && sidebarSubTypeName === subElementName
-    );
-  };
 
   if (!featureName) {
     return <></>;
@@ -116,7 +103,7 @@ function DetailType({
           <Text padding="first">구역</Text>
           {section?.fill.isChanged ? <Check>✓</Check> : <></>}
           <ListItem
-            isSelected={getIsSelected('section', 'fill')}
+            isSelected={checkIsSelected('section', 'fill')}
             padding="second"
             clickHandler={() => styleClickHandler('section', 'fill')}
             name="채우기"
@@ -137,14 +124,14 @@ function DetailType({
             <Text padding="second">텍스트</Text>
             {labelText.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
             <ListItem
-              isSelected={getIsSelected('labelText', 'fill')}
+              isSelected={checkIsSelected('labelText', 'fill')}
               padding="third"
               clickHandler={() => styleClickHandler('labelText', 'fill')}
               name="채우기"
             />
             {labelText.stroke.isChanged ? <CheckRight>✓</CheckRight> : <></>}
             <ListItem
-              isSelected={getIsSelected('labelText', 'stroke')}
+              isSelected={checkIsSelected('labelText', 'stroke')}
               padding="third"
               clickHandler={() => styleClickHandler('labelText', 'stroke')}
               name="윤곽선"
@@ -152,7 +139,7 @@ function DetailType({
           </List>
           {labelIcon.isChanged ? <Check>✓</Check> : <></>}
           <ListItem
-            isSelected={getIsSelected('labelIcon')}
+            isSelected={checkIsSelected('labelIcon')}
             padding="second"
             clickHandler={() => styleClickHandler('labelIcon')}
             name="아이콘"
