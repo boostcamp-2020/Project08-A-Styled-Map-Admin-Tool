@@ -55,8 +55,8 @@ function VisibilityStyle({
 }: VisibilityStyleProps): React.ReactElement {
   const list = [
     { title: '상위요소 상속', value: 'inherit' },
-    { title: '보임', value: 'visibility' },
-    { title: '숨김', value: 'invisibility' },
+    { title: '보임', value: 'visible' },
+    { title: '숨김', value: 'none' },
   ];
 
   return (
