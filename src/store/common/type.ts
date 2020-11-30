@@ -13,6 +13,18 @@ export type FeatureNameMultiType =
   | 'transit';
 export type FeatureNameType = FeatureNameMultiType | FeatureNameSingleType;
 
+export type StyleKeyType =
+  | 'visibility'
+  | 'color'
+  | 'weight'
+  | 'saturation'
+  | 'lightness'
+  | 'isChanged';
+
+export interface objType {
+  [name: string]: any;
+}
+
 export interface StyleType {
   isChanged: boolean;
   visibility: string;
