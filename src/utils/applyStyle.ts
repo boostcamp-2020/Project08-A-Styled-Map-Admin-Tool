@@ -19,7 +19,7 @@ export function applyColor(
   layerName: string
 ): void {
   const { h, s, l } = hexToHSL(color);
-  map.setPaintProperty(layerName, type, `hsl(${h}, ${s}, ${l})`);
+  map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${l}%)`);
 }
 
 export function applyWeight(
@@ -42,7 +42,7 @@ export function applySaturation(
   map.setPaintProperty(
     layerName,
     type,
-    `hsl(${h}, ${50 + saturation / 2}, ${l})`
+    `hsl(${h}, ${50 + saturation / 2}%, ${l}%)`
   );
 }
 
@@ -57,6 +57,6 @@ export function applyLightness(
   map.setPaintProperty(
     layerName,
     type,
-    `hsl(${h}, ${s}, ${50 + lightness / 2})`
+    `hsl(${h}, ${s}%, ${50 + lightness / 2}%)`
   );
 }

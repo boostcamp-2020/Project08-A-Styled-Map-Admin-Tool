@@ -6,9 +6,9 @@ interface HexToHSLType {
 }
 
 export function hexToHSL(color: string): HexToHSLType {
-  let r = parseInt(color.slice(1, 3), 10);
-  let g = parseInt(color.slice(3, 5), 10);
-  let b = parseInt(color.slice(5), 10);
+  let r = parseInt(color.slice(1, 3), 16);
+  let g = parseInt(color.slice(3, 5), 16);
+  let b = parseInt(color.slice(5), 16);
 
   r /= 255;
   g /= 255;
