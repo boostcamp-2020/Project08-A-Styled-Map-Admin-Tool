@@ -1,11 +1,16 @@
 import mapboxgl from 'mapbox-gl';
-import { ElementNameType, SubElementNameType } from '../../store/common/type';
+import {
+  ElementNameType,
+  SubElementNameType,
+  StyleType,
+} from '../../store/common/type';
 
 export interface stylingProps {
   map: mapboxgl.Map;
   subFeatureName: string;
   detailName: ElementNameType;
   subDetailName: SubElementNameType;
+  style: StyleType;
 }
 
 export { default as poi } from './poi';

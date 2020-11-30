@@ -49,6 +49,10 @@ function useStyleType({
         subFeatureName,
         detailName,
         subDetailName: subDetailName as SubElementNameType,
+        style: {
+          ...styleElement,
+          [key]: value,
+        },
       });
 
       dispatch(

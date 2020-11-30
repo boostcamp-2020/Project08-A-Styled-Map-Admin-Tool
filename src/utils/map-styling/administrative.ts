@@ -5,6 +5,7 @@ function administrativeStyling({
   subFeatureName,
   detailName,
   subDetailName,
+  style,
 }: stylingProps): void {
   console.log(1);
 }
