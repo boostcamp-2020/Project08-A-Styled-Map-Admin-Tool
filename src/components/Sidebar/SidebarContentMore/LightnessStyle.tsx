@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import { Range } from '../SidebarContentFewer/DepthItem';
+import useInputRange from '../../../hooks/common/useInputRange';
 
 const LightnessWrapper = styled.div`
   display: flex;
@@ -20,7 +21,20 @@ const LightnessControlBar = styled(Range)`
   height: 2px;
 `;
 
-function LightnessStyleWrapper(): React.ReactElement {
+interface LightnessPropsInterface {
+  lightness: number;
+  onStyleChange: (key: string, value: string | number) => void;
+}
+
+function LightnessStyle({
+  lightness,
+  onStyleChange,
+}: LightnessPropsInterface): React.ReactElement {
+  const { curRange, rangeChangeHandler, rangeMouseUpHandler } = useInputRange({
+    range: lightness,
+    onStyleChange,
+  });
+
   return (
     <div>
       <LightnessWrapper>
@@ -31,10 +45,13 @@ function LightnessStyleWrapper(): React.ReactElement {
           max="100"
           step="5"
           id="styler__lightness"
+          value={curRange}
+          onChange={(e) => rangeChangeHandler(e)}
+          onMouseUp={() => rangeMouseUpHandler('lightness')}
         />
       </LightnessWrapper>
     </div>
   );
 }
 
-export default LightnessStyleWrapper;
+export default LightnessStyle;
