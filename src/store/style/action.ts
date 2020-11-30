@@ -1,4 +1,4 @@
-import { ActionPayload } from './type';
+import { ActionPayload } from '../common/type';
 
 export const INIT = 'INIT' as const;
 export const SET = 'SET' as const;

@@ -1,13 +1,15 @@
 import { combineReducers, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+
 import map from './map/reducer';
-import poi from './style/poiReducer';
-import transit from './style/transitReducer';
-import water from './style/waterReducer';
-import marker from './style/markerReducer';
-import road from './style/roadReducer';
-import landscape from './style/landscapeReducer';
-import administrative from './style/administrativeReducer';
+import {
+  poiReducer as poi,
+  transitReducer as transit,
+  landscapeReducer as landscape,
+  administrativeReducer as administrative,
+  roadReducer as road,
+  waterReducer as water,
+  markerReducer as marker,
+} from './style/reducer';
 
 const rootReducer = combineReducers({
   map,
@@ -20,7 +22,7 @@ const rootReducer = combineReducers({
   marker,
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer);
 
 export type RootState = ReturnType<typeof rootReducer>;
 

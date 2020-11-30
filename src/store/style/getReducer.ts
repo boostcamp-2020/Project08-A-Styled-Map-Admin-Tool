@@ -1,8 +1,15 @@
 import renderingData from '../../utils/rendering-data/featureTypeData';
 
-import { FeatureState, ActionType, SubElementNameType } from './type';
+import {
+  FeatureState,
+  FeatureType,
+  ActionType,
+  SubElementNameType,
+  objType,
+} from '../common/type';
 import { getDefaultFeature } from './properties';
 import { INIT, SET } from './action';
+import { checkStyleIsChanged, checkFeatureIsChanged } from './compareStyle';
 
 interface ReducerType {
   (state: FeatureState, action: ActionType): FeatureState;
@@ -37,16 +44,25 @@ export default function getReducer(IDX: number): ReducerType {
 
         if (feature !== renderingData[IDX].typeKey) return state;
 
+        style.isChanged = checkStyleIsChanged(style);
         const newState: FeatureState = JSON.parse(JSON.stringify(state));
+        const newFeature: FeatureType = newState[subFeature as string];
 
+        let prevIsChanged;
         if (element === 'labelIcon') {
-          newState[subFeature as string][element] = style;
-          return newState;
+          prevIsChanged = newFeature[element].isChanged;
+          newFeature[element] = style;
+        } else {
+          prevIsChanged =
+            newFeature[element][subElement as SubElementNameType].isChanged;
+          newFeature[element][subElement as SubElementNameType] = style;
         }
 
-        newState[subFeature as string][element][
-          subElement as SubElementNameType
-        ] = style;
+        if (prevIsChanged !== style.isChanged) {
+          delete (newFeature as objType).isChanged;
+          const featureIsChanged = checkFeatureIsChanged(newFeature);
+          newFeature.isChanged = featureIsChanged;
+        }
 
         return newState;
       }
