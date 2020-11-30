@@ -2,10 +2,11 @@ import { RefObject } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import dotenv from 'dotenv';
+import mapboxPOI from './layers/mapbox-poi';
 
-const LNG = 128;
-const LAT = 36.5;
-const ZOOM = 7;
+const LNG = 126.978;
+const LAT = 37.5656;
+const ZOOM = 15.5;
 const LABELS = [
   'country-label',
   'settlement-label',
@@ -54,6 +55,9 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
 
   map.on('load', () => {
     translate(map);
+    map.removeLayer('poi-label');
+
+    (mapboxPOI as mapboxgl.Layer[]).forEach((layer) => map.addLayer(layer));
   });
 
   return map;
