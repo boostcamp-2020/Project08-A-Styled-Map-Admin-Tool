@@ -14,9 +14,9 @@ export function applyVisibility(
 
 export function applyColor(
   map: mapboxgl.Map,
-  color: string,
+  layerName: string,
   type: colorType,
-  layerName: string
+  color: string
 ): void {
   const { h, s, l } = hexToHSL(color);
   map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${l}%)`);
@@ -24,19 +24,19 @@ export function applyColor(
 
 export function applyWeight(
   map: mapboxgl.Map,
-  weight: number,
   layerName: string,
-  type: weightType
+  type: weightType,
+  weight: number
 ): void {
   map.setPaintProperty(layerName, type, weight * 2 + 1);
 }
 
 export function applySaturation(
   map: mapboxgl.Map,
-  color: string,
-  saturation: number,
+  layerName: string,
   type: colorType,
-  layerName: string
+  color: string,
+  saturation: number
 ): void {
   const { h, l } = hexToHSL(color);
   map.setPaintProperty(
@@ -48,9 +48,9 @@ export function applySaturation(
 
 export function applyLightness(
   map: mapboxgl.Map,
-  color: string,
   layerName: string,
   type: colorType,
+  color: string,
   lightness: number
 ): void {
   const { h, s } = hexToHSL(color);
