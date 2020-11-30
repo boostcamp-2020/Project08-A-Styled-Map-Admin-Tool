@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { featureNameTypeCheck } from '../../utils/typeCheck';
 import {
   FeatureNameType,
   ElementNameType,
@@ -45,9 +44,6 @@ function useDetailType({
   const detail = useSelector<RootState>((state) => {
     if (!featureName) {
       return dummyDetail;
-    }
-    if (featureNameTypeCheck(featureName)) {
-      return state[featureName];
     }
 
     return state[featureName][subFeatureName];

@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useCallback } from 'react';
 import { RootState } from '../../store';
-import { featureNameTypeCheck } from '../../utils/typeCheck';
 import {
   FeatureNameType,
   StyleType,
@@ -35,14 +34,9 @@ function useStyleType({
     if (!detailName) {
       return getDefaultStyle();
     }
-    let feature;
-    if (featureNameTypeCheck(featureName)) {
-      feature = state[featureName];
-    } else {
-      feature = state[featureName][subFeatureName];
-    }
+    const feature = state[featureName][subFeatureName];
 
-    if (detailName === 'labelIcon') return feature.labelIcon;
+    if (detailName === 'labelIcon') return feature[detailName];
     return feature[detailName][subDetailName as SubElementNameType];
   }) as StyleType;
 

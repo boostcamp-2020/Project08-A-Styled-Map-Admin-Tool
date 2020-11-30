@@ -122,14 +122,14 @@ function DetailType({
           <Text padding="first">라벨</Text>
           <List>
             <Text padding="second">텍스트</Text>
-            {labelText.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
+            {labelText?.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
             <ListItem
               isSelected={checkIsSelected('labelText', 'fill')}
               padding="third"
               clickHandler={() => styleClickHandler('labelText', 'fill')}
               name="채우기"
             />
-            {labelText.stroke.isChanged ? <CheckRight>✓</CheckRight> : <></>}
+            {labelText?.stroke.isChanged ? <CheckRight>✓</CheckRight> : <></>}
             <ListItem
               isSelected={checkIsSelected('labelText', 'stroke')}
               padding="third"
@@ -137,7 +137,7 @@ function DetailType({
               name="윤곽선"
             />
           </List>
-          {labelIcon.isChanged ? <Check>✓</Check> : <></>}
+          {labelIcon?.isChanged ? <Check>✓</Check> : <></>}
           <ListItem
             isSelected={checkIsSelected('labelIcon')}
             padding="second"

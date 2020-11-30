@@ -4,14 +4,14 @@ export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
 export type ElementNameType = 'section' | 'labelText' | 'labelIcon';
 export type SubElementNameType = 'fill' | 'stroke';
 
-export type FeatureNameSingleType = 'water' | 'marker';
-export type FeatureNameMultiType =
+export type FeatureNameType =
   | 'poi'
   | 'administrative'
   | 'landscape'
   | 'road'
-  | 'transit';
-export type FeatureNameType = FeatureNameMultiType | FeatureNameSingleType;
+  | 'transit'
+  | 'water'
+  | 'marker';
 
 export type StyleKeyType =
   | 'visibility'
