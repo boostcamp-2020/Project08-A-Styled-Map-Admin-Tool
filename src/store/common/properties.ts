@@ -1,6 +1,6 @@
 import { StyleType, ElementType, FeatureType } from './type';
 
-export const style: StyleType = {
+const style: StyleType = {
   isChanged: false,
   visibility: 'inherit',
   color: '#000000',
@@ -9,7 +9,7 @@ export const style: StyleType = {
   lightness: 0,
 };
 
-const getDefaultStyle = (): StyleType => {
+export const getDefaultStyle = (): StyleType => {
   return JSON.parse(JSON.stringify(style));
 };
 

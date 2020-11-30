@@ -9,7 +9,7 @@ import {
   SubElementNameType,
 } from '../../store/common/type';
 import { setStyle } from '../../store/common/action';
-import { style as dummyStyle } from '../../store/common/properties';
+import { getDefaultStyle } from '../../store/common/properties';
 
 interface UseStyleTypeProps {
   featureName: FeatureNameType;
@@ -33,7 +33,7 @@ function useStyleType({
 
   const styleElement = useSelector<RootState>((state) => {
     if (!detailName) {
-      return dummyStyle;
+      return getDefaultStyle();
     }
     let feature;
     if (featureNameTypeCheck(featureName)) {
