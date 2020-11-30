@@ -1,4 +1,4 @@
-import { init, setStyle } from './action';
+import { init, setStyle } from '../style/action';
 
 export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
 export type ElementNameType = 'section' | 'labelText' | 'labelIcon';

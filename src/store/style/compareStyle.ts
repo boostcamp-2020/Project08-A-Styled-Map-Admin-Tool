@@ -1,5 +1,5 @@
 import { getDefaultStyle } from './properties';
-import { StyleType, StyleKeyType, objType } from './type';
+import { StyleType, StyleKeyType, objType } from '../common/type';
 
 export function checkStyleIsChanged(targetStyle: StyleType): boolean {
   const defaultStyle: StyleType = getDefaultStyle();

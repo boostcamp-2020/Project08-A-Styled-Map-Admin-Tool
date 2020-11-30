@@ -1,4 +1,4 @@
-import { StyleType, ElementType, FeatureType } from './type';
+import { StyleType, ElementType, FeatureType } from '../common/type';
 
 const style: StyleType = {
   isChanged: false,

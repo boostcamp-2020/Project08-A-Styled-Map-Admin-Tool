@@ -7,8 +7,8 @@ import {
   ElementNameType,
   SubElementNameType,
 } from '../../store/common/type';
-import { setStyle } from '../../store/common/action';
-import { getDefaultStyle } from '../../store/common/properties';
+import { setStyle } from '../../store/style/action';
+import { getDefaultStyle } from '../../store/style/properties';
 
 interface UseStyleTypeProps {
   featureName: FeatureNameType;
