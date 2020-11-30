@@ -1,31 +1,6 @@
-import { getDefaultFeature } from '../common/properties';
-import { FeatureType, ActionType, SubElementNameType } from '../common/type';
-import { INIT, SET } from '../common/action';
+import getReducer from '../common/reducer';
 
-const initialState = getDefaultFeature();
+const MARKER_IDX = 6;
+const markerReducer = getReducer(MARKER_IDX);
 
-export default function markerReducer(
-  state: FeatureType = initialState,
-  action: ActionType
-): FeatureType {
-  switch (action.type) {
-    case INIT:
-      return initialState;
-    case SET: {
-      const { feature, element, subElement, style } = action.payload;
-      if (feature !== 'marker') return state;
-
-      const newState = JSON.parse(JSON.stringify(state));
-
-      if (element === 'labelIcon') {
-        newState[element] = style;
-        return newState;
-      }
-
-      newState[element][subElement as SubElementNameType] = style;
-      return newState;
-    }
-    default:
-      return state;
-  }
-}
+export default markerReducer;
