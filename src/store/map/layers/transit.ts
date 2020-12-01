@@ -1,5 +1,18 @@
 export default [
   {
+    type: 'fill',
+    source: 'composite',
+    'source-layer': 'landuse',
+    layout: {
+      visibility: 'visible',
+    },
+    paint: {
+      'fill-color': 'hsl(230, 100%, 44%)',
+    },
+    filter: ['in', 'class', 'airport'],
+    id: 'transit-airport',
+  },
+  {
     type: 'line',
     source: 'line_source',
     'source-layer': 'line',
@@ -9,7 +22,7 @@ export default [
     paint: {
       'line-color': 'yellow',
     },
-    filter: ['==', ['get', 'type'], 'subway'],
+    filter: ['in', 'type', 'subway'],
     id: 'transit-subway',
   },
   {
@@ -22,7 +35,7 @@ export default [
     paint: {
       'line-color': 'black',
     },
-    filter: ['==', ['get', 'type'], 'rail'],
+    filter: ['in', 'type', 'rail'],
     id: 'transit-rail',
   },
   {
@@ -31,12 +44,15 @@ export default [
     'source-layer': 'poi',
     layout: {
       'text-field': ['get', 'name'],
+      'text-size': 12,
       visibility: 'visible',
     },
     paint: {
-      'text-color': 'green',
+      'text-halo-color': 'green',
+      'text-halo-width': 0.5,
+      'text-color': 'red',
     },
-    filter: ['==', ['get', 'type'], 'taxi'],
-    id: 'transit-bus',
+    filter: ['in', 'type', 'bus_stop'],
+    id: 'transit-bus-label',
   },
 ];
