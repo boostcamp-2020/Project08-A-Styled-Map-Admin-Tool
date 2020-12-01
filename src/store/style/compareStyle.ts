@@ -1,5 +1,5 @@
 import { getDefaultStyle } from './properties';
-import { StyleType, StyleKeyType, objType } from '../common/type';
+import { StyleType, StyleKeyType, objType, StyleKeyName } from '../common/type';
 
 export function checkStyleIsChanged(targetStyle: StyleType): boolean {
   const defaultStyle: StyleType = getDefaultStyle();
@@ -7,8 +7,7 @@ export function checkStyleIsChanged(targetStyle: StyleType): boolean {
 
   const filteredKeys = keys.filter(
     (key) =>
-      key === 'isChanged' ||
-      String(defaultStyle[key]) === String(targetStyle[key])
+      key === StyleKeyName.isChanged || defaultStyle[key] === targetStyle[key]
   );
   return keys.length !== filteredKeys.length;
 }

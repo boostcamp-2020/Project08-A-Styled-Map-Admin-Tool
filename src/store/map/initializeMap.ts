@@ -13,7 +13,7 @@ import mapboxPOI from './layers/mapbox-poi';
 const LNG = 126.978;
 const LAT = 37.5656;
 const ZOOM = 15.5;
-const LABELS = [
+const LABEL_LAYERS: string[] = [
   'country-label',
   'settlement-label',
   'road-label',
@@ -28,6 +28,12 @@ const LABELS = [
   'natural-line-label',
 ];
 
+enum Sources {
+  polygon = 'polygon_source',
+  line = 'line_source',
+  poi = 'poi_source',
+}
+
 dotenv.config();
 mapboxgl.accessToken = process.env.REACT_APP_ACCESS_TOKEN as string;
 
@@ -36,7 +42,7 @@ interface InitializeMapProps {
 }
 
 function translate(map: mapboxgl.Map) {
-  LABELS.forEach((label) => {
+  LABEL_LAYERS.forEach((label) => {
     map.setLayoutProperty(label, 'text-field', ['get', 'name_ko']);
   });
 }
@@ -63,26 +69,26 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
     translate(map);
     map.removeLayer('poi-label');
 
-    map.addSource('polygon_source', {
+    map.addSource(Sources.polygon, {
       type: 'vector',
       tiles: ['http://110.93.147.18:8080/boostcamp/polygon/{x}/{y}/{z}'],
     });
-    map.addSource('line_source', {
+    map.addSource(Sources.line, {
       type: 'vector',
       tiles: ['http://110.93.147.18:8080/boostcamp/line/{x}/{y}/{z}'],
     });
-    map.addSource('poi_source', {
+    map.addSource(Sources.poi, {
       type: 'vector',
       tiles: ['http:/110.93.147.18:8080/boostcamp/poi/{x}/{y}/{z}'],
     });
 
     const layers = [
-      ...mapboxPOI,
       ...road,
       ...transit,
-      ...poi,
       ...water,
       ...landscape,
+      ...mapboxPOI,
+      ...poi,
     ] as mapboxgl.Layer[];
     layers.forEach((layer: mapboxgl.Layer) => map.addLayer(layer));
   });
