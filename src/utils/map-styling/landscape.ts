@@ -1,4 +1,10 @@
 import { stylingProps } from './index';
+import {
+  applyColor,
+  applyLightness,
+  applyVisibility,
+  applySaturation,
+} from '../applyStyle';
 
 function landscapeStyling({
   map,
@@ -7,7 +13,26 @@ function landscapeStyling({
   subDetailName,
   style,
 }: stylingProps): void {
-  console.log(1);
+  const layerName = `landscape-${subFeatureName}`;
+
+  if (detailName === 'section' && subDetailName === 'fill') {
+    applyColor(map, layerName, 'fill-color', style.color);
+    applyVisibility(map, layerName, style.visibility);
+    applyLightness(
+      map,
+      layerName,
+      'fill-color',
+      style.color,
+      Number(style.lightness)
+    );
+    applySaturation(
+      map,
+      layerName,
+      'fill-color',
+      style.color,
+      Number(style.saturation)
+    );
+  }
 }
 
 export default landscapeStyling;
