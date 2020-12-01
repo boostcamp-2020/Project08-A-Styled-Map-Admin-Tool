@@ -102,11 +102,7 @@ function administrativeStyling({
   }
 
   // section - fill
-  if (
-    subFeatureName === 'locality' ||
-    subFeatureName === 'neighborhood' ||
-    subDetailName === SubElementName.fill
-  )
+  if (subFeatureName === 'locality' || subDetailName === SubElementName.fill)
     return;
 
   // section - stroke
