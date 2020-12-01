@@ -8,6 +8,7 @@ import {
 export interface stylingProps {
   map: mapboxgl.Map;
   subFeatureName: string;
+  key: string;
   detailName: ElementNameType;
   subDetailName: SubElementNameType;
   style: StyleType;
