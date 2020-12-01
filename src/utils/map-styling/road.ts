@@ -35,9 +35,10 @@ function roadStyling({
    */
 
   /**
+   * 20.12.01.
    * highway : 분류 보류
    * aterial: line이라 채우기 윤곽선은 한번에 처리, 채우기 윤곽선 확인완료, 아이콘 없음
-   * local
+   * local: 지금 있는 것들은 section fill밖에 의미없음
    * sidewalk
    */
 
@@ -79,6 +80,28 @@ function roadStyling({
       }
       if (detailName === 'labelText' && subDetailName === 'stroke')
         applyWeight(map, ['road-label'], 'text-halo-width', weight);
+    }
+  } else if (subFeatureName === 'local') {
+    if (key === 'visibility') applyVisibility(map, localLayerNames, visibility);
+    else if (key === ('color' || 'saturation' || 'lightness')) {
+      if (detailName === 'section' && subDetailName === 'fill') {
+        applyColor({
+          map,
+          layerNames: ['ferry', 'ferry-auto', 'road-local'],
+          color,
+          type: 'line-color',
+          saturation,
+          lightness,
+        });
+      }
+    } else if (key === 'weight') {
+      if (detailName === 'section' && subDetailName === 'fill')
+        applyWeight(
+          map,
+          ['ferry', 'ferry-auto', 'road-local'],
+          'line-width',
+          weight
+        );
     }
   }
 }
