@@ -4,9 +4,9 @@ const style: StyleType = {
   isChanged: false,
   visibility: 'inherit',
   color: '#55bf40',
-  weight: 0,
-  saturation: 0,
-  lightness: 0,
+  weight: '0',
+  saturation: '0',
+  lightness: '0',
 };
 
 export const getDefaultStyle = (): StyleType => {
