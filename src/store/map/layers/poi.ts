@@ -4,11 +4,15 @@ export default [
     source: 'poi_source',
     'source-layer': 'poi',
     layout: {
+      'text-size': 12,
       'text-field': ['get', 'name'],
       visibility: 'visible',
     },
     paint: {
-      'text-color': 'brown',
+      'text-halo-color': 'hsl(0, 0%, 100%)',
+      'text-halo-width': 0.5,
+      'text-halo-blur': 0.5,
+      'text-color': 'hsl(26, 25%, 32%)',
     },
     filter: [
       'match',
@@ -24,11 +28,15 @@ export default [
     source: 'poi_source',
     'source-layer': 'poi',
     layout: {
+      'text-size': 12,
       'text-field': ['get', 'name'],
       visibility: 'visible',
     },
     paint: {
-      'text-color': 'blue',
+      'text-halo-color': 'hsl(0, 0%, 100%)',
+      'text-halo-width': 0.5,
+      'text-halo-blur': 0.5,
+      'text-color': 'hsl(22, 55%, 55%)',
     },
     filter: [
       'match',
@@ -65,11 +73,15 @@ export default [
     source: 'poi_source',
     'source-layer': 'poi',
     layout: {
+      'text-size': 12,
       'text-field': ['get', 'name'],
       visibility: 'visible',
     },
     paint: {
-      'text-color': 'green',
+      'text-halo-color': 'hsl(0, 0%, 100%)',
+      'text-halo-width': 0.5,
+      'text-halo-blur': 0.5,
+      'text-color': 'hsl(26, 25%, 32%)',
     },
     filter: [
       'match',
@@ -92,11 +104,15 @@ export default [
     source: 'poi_source',
     'source-layer': 'poi',
     layout: {
+      'text-size': 12,
       'text-field': ['get', 'name'],
       visibility: 'visible',
     },
     paint: {
-      'text-color': 'green',
+      'text-halo-color': 'hsl(0, 0%, 100%)',
+      'text-halo-width': 0.5,
+      'text-halo-blur': 0.5,
+      'text-color': 'hsl(340, 39%, 42%)',
     },
     filter: [
       'match',
@@ -112,11 +128,15 @@ export default [
     source: 'poi_source',
     'source-layer': 'poi',
     layout: {
+      'text-size': 12,
       'text-field': ['get', 'name'],
       visibility: 'visible',
     },
     paint: {
-      'text-color': 'green',
+      'text-halo-color': 'hsl(0, 0%, 100%)',
+      'text-halo-width': 0.5,
+      'text-halo-blur': 0.5,
+      'text-color': 'hsl(100, 45%, 37%)',
     },
     filter: [
       'match',
@@ -132,11 +152,15 @@ export default [
     source: 'poi_source',
     'source-layer': 'poi',
     layout: {
+      'text-size': 12,
       'text-field': ['get', 'name'],
       visibility: 'visible',
     },
     paint: {
-      'text-color': 'green',
+      'text-halo-color': 'hsl(0, 0%, 100%)',
+      'text-halo-width': 0.5,
+      'text-halo-blur': 0.5,
+      'text-color': 'hsl(26, 25%, 32%)',
     },
     filter: ['match', ['get', 'type'], ['place_of_worship'], true, false],
     id: 'poi-worship',
@@ -146,11 +170,15 @@ export default [
     source: 'poi_source',
     'source-layer': 'poi',
     layout: {
+      'text-size': 12,
       'text-field': ['get', 'name'],
       visibility: 'visible',
     },
     paint: {
-      'text-color': 'green',
+      'text-halo-color': 'hsl(0, 0%, 100%)',
+      'text-halo-width': 0.5,
+      'text-halo-blur': 0.5,
+      'text-color': 'hsl(51, 40%, 40%)',
     },
     filter: [
       'match',
@@ -166,10 +194,14 @@ export default [
     source: 'poi_source',
     'source-layer': 'poi',
     layout: {
+      'text-size': 12,
       'text-field': ['get', 'name'],
       visibility: 'visible',
     },
     paint: {
+      'text-halo-color': 'hsl(26, 25%, 32%)',
+      'text-halo-width': 0.5,
+      'text-halo-blur': 0.5,
       'text-color': 'green',
     },
     filter: [
