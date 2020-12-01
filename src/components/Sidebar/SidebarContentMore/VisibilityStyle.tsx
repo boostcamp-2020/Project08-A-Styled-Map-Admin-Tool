@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import { StyleKeyName } from '../../../store/common/type';
 
 interface CheckedProp {
   checked: boolean;
@@ -65,7 +66,7 @@ function VisibilityStyle({
       {list.map((item) => (
         <VisibilityItem
           key={item.value}
-          onClick={() => onStyleChange('visibility', item.value)}
+          onClick={() => onStyleChange(StyleKeyName.visibility, item.value)}
         >
           <Checkbox checked={visibility === item.value}>
             <Circle checked={visibility === item.value} />

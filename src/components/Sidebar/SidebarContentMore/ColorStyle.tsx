@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import useInputRange from '../../../hooks/common/useInputRange';
+import { StyleKeyName } from '../../../store/common/type';
 
 const ColorWrapper = styled.div`
   display: flex;
@@ -49,7 +50,7 @@ function ColorStyle({
         type="color"
         id="styler__color"
         onChange={rangeChangeHandler}
-        onBlur={() => rangeMouseUpHandler('color')}
+        onBlur={() => rangeMouseUpHandler(StyleKeyName.color)}
         value={curRange}
       />
     </ColorWrapper>
