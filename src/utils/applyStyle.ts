@@ -1,8 +1,22 @@
 import mapboxgl from 'mapbox-gl';
 import { hexToHSL } from './colorFormat';
 
-type colorType = 'fill-color' | 'line-color' | 'text-color' | 'text-halo-color';
-type weightType = 'line-width' | 'text-halo-width' | 'text-size';
+export enum ColorTypeName {
+  'fill-color' = 'fill-color',
+  'line-color' = 'line-color',
+  'text-color' = 'text-color',
+  'text-halo-color' = 'text-halo-color',
+}
+
+export enum WeightTypeName {
+  'line-width' = 'line-width',
+  'text-size' = 'text-size',
+  'text-halo-width' = 'text-halo-width',
+}
+
+type colorType = keyof typeof ColorTypeName;
+
+type weightType = keyof typeof WeightTypeName;
 
 export function applyVisibility(
   map: mapboxgl.Map,
