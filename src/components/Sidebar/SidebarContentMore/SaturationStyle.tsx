@@ -24,7 +24,7 @@ const SaturationControlBar = styled(Range)`
 
 interface SaturationStyleProps {
   saturation: string;
-  onStyleChange: (key: string, value: string | number) => void;
+  onStyleChange: (key: StyleKeyName, value: string | number) => void;
 }
 
 function SaturationStyle({
