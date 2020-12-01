@@ -309,7 +309,7 @@ export default [
     paint: {
       'text-color': 'green',
     },
-    filter: ['match', ['get', 'type'], 'place_of_worship'],
+    filter: ['match', ['get', 'type'], ['place_of_worship'], true, false],
     id: 'poi-worship',
   },
   {

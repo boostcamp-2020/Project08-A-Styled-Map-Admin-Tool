@@ -13,20 +13,6 @@ export default [
     id: 'transit-subway',
   },
   {
-    type: 'symbol',
-    source: 'poi_source',
-    'source-layer': 'poi',
-    layout: {
-      'text-field': ['get', 'name'],
-      visibility: 'visible',
-    },
-    paint: {
-      'text-color': 'green',
-    },
-    filter: ['==', ['get', 'type'], 'taxi'],
-    id: 'transit-bus',
-  },
-  {
     type: 'line',
     source: 'line_source',
     'source-layer': 'line',
@@ -48,9 +34,9 @@ export default [
       visibility: 'visible',
     },
     paint: {
-      'text-color': 'pink',
+      'text-color': 'green',
     },
-    filter: ['match', ['get', 'type'], ['taxi'], true, false],
+    filter: ['==', ['get', 'type'], 'taxi'],
     id: 'transit-bus',
   },
 ];

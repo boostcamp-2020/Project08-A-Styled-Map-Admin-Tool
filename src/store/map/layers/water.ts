@@ -1,18 +1,5 @@
 export default [
   {
-    type: 'line',
-    source: 'line_source',
-    'source-layer': 'line',
-    layout: {
-      visibility: 'visible',
-    },
-    paint: {
-      'line-color': 'blue',
-    },
-    filter: ['match', ['get', 'type'], ['river', 'stream'], true, false],
-    id: 'water-section',
-  },
-  {
     type: 'fill',
     source: 'polygon_source',
     'source-layer': 'polygon',
@@ -24,6 +11,19 @@ export default [
       'fill-opacity': 0.5,
     },
     filter: ['==', ['get', 'type'], 'water'],
+    id: 'water-polygon',
+  },
+  {
+    type: 'line',
+    source: 'line_source',
+    'source-layer': 'line',
+    layout: {
+      visibility: 'visible',
+    },
+    paint: {
+      'line-color': 'blue',
+    },
+    filter: ['match', ['get', 'type'], ['river', 'stream'], true, false],
     id: 'water-line',
   },
 ];
