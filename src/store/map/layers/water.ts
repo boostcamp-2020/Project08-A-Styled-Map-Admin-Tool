@@ -7,7 +7,7 @@ export default [
       visibility: 'visible',
     },
     paint: {
-      'fill-color': '#000000',
+      'fill-color': 'hsl(243, 57%, 50%)',
       'fill-opacity': 0.5,
     },
     filter: ['==', ['get', 'type'], 'water'],
