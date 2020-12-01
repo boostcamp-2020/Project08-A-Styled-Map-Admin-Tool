@@ -2,11 +2,13 @@ import { RefObject } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import dotenv from 'dotenv';
+
 import road from './layers/road';
 import transit from './layers/transit';
 import poi from './layers/poi';
 import landscape from './layers/landscape';
 import water from './layers/water';
+import mapboxPOI from './layers/mapbox-poi';
 
 const LNG = 126.978;
 const LAT = 37.5656;
@@ -59,6 +61,8 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
 
   map.on('load', () => {
     translate(map);
+    map.removeLayer('poi-label');
+
     map.addSource('polygon_source', {
       type: 'vector',
       tiles: ['http://110.93.147.18:8080/boostcamp/polygon/{x}/{y}/{z}'],
@@ -73,6 +77,7 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
     });
 
     const layers = [
+      ...mapboxPOI,
       ...road,
       ...transit,
       ...poi,
