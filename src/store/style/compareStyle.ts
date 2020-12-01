@@ -6,7 +6,9 @@ export function checkStyleIsChanged(targetStyle: StyleType): boolean {
   const keys = Object.keys(defaultStyle) as StyleKeyType[];
 
   const filteredKeys = keys.filter(
-    (key) => key === 'isChanged' || defaultStyle[key] === targetStyle[key]
+    (key) =>
+      key === 'isChanged' ||
+      String(defaultStyle[key]) === String(targetStyle[key])
   );
   return keys.length !== filteredKeys.length;
 }

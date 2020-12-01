@@ -3,8 +3,8 @@ import { StyleType, ElementType, FeatureType } from '../common/type';
 const style: StyleType = {
   isChanged: false,
   visibility: 'inherit',
-  color: '#000000',
-  weight: 4,
+  color: '#55bf40',
+  weight: 0,
   saturation: 0,
   lightness: 0,
 };

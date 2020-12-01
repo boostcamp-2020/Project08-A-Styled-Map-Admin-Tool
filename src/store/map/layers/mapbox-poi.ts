@@ -1,0 +1,70 @@
+const mapboxPoiNameAndColor = [
+  { name: 'food_and_drink', color: 'hsl(22, 55%, 55%)', layerName: 'food' },
+  { name: 'park_like', color: 'hsl(100, 45%, 37%)', layerName: 'park' },
+  { name: 'education', color: 'hsl(51, 40%, 40%)', layerName: 'education' },
+  { name: 'medical', color: 'hsl(340, 39%, 42%)', layerName: 'medical' },
+  {
+    name: 'arts_and_entertainment',
+    color: 'hsl(26, 25%, 32%)',
+    layerName: 'arts',
+  },
+  { name: 'building', color: 'hsl(26, 25%, 32%)', layerName: 'building' },
+  { name: 'general', color: 'hsl(26, 25%, 32%)', layerName: 'general' },
+  { name: 'historic', color: 'hsl(26, 25%, 32%)', layerName: 'historic' },
+  { name: 'industrial', color: 'hsl(26, 25%, 32%)', layerName: 'industrial' },
+  {
+    name: 'public_facilities',
+    color: 'hsl(26, 25%, 32%)',
+    layerName: 'public_facilities',
+  },
+  { name: 'religion', color: 'hsl(26, 25%, 32%)', layerName: 'religion' },
+  { name: 'store_like', color: 'hsl(26, 25%, 32%)', layerName: 'store_like' },
+];
+
+export default mapboxPoiNameAndColor.map((poi) => ({
+  id: `poi-${poi.name}-label`,
+  type: 'symbol',
+  source: 'composite',
+  'source-layer': 'poi_label',
+  metadata: {},
+  minzoom: 6,
+  filter: ['==', ['get', 'class'], poi.name],
+  layout: {
+    'text-size': 12,
+    'icon-image': [
+      'step',
+      ['zoom'],
+      ['concat', ['get', 'maki'], '-11'],
+      15,
+      ['concat', ['get', 'maki'], '-15'],
+    ],
+    'text-offset': [
+      'step',
+      ['zoom'],
+      [
+        'step',
+        ['get', 'sizerank'],
+        ['literal', [0, 0]],
+        5,
+        ['literal', [0, 0.75]],
+      ],
+      17,
+      [
+        'step',
+        ['get', 'sizerank'],
+        ['literal', [0, 0]],
+        13,
+        ['literal', [0, 0.75]],
+      ],
+    ],
+    'text-anchor': 'top',
+    'text-field': ['coalesce', ['get', 'name_ko'], ['get', 'name']],
+  },
+  paint: {
+    'icon-opacity': 1,
+    'text-halo-color': 'hsl(0, 0%, 100%)',
+    'text-halo-width': 0.5,
+    'text-halo-blur': 0.5,
+    'text-color': poi.color,
+  },
+}));
