@@ -76,7 +76,8 @@ export function applyWeight(
   type: weightType,
   weight: number
 ): void {
+  const weightValue = weight === 0 ? 0 : weight * 2 + 1;
   layerNames.forEach((layerName) => {
-    map.setPaintProperty(layerName, type, weight * 2 + 1);
+    map.setPaintProperty(layerName, type, weightValue);
   });
 }
