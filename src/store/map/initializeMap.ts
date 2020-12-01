@@ -2,6 +2,12 @@ import { RefObject } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import dotenv from 'dotenv';
+
+import road from './layers/road';
+import transit from './layers/transit';
+import poi from './layers/poi';
+import landscape from './layers/landscape';
+import water from './layers/water';
 import mapboxPOI from './layers/mapbox-poi';
 
 const LNG = 126.978;
@@ -57,7 +63,28 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
     translate(map);
     map.removeLayer('poi-label');
 
-    (mapboxPOI as mapboxgl.Layer[]).forEach((layer) => map.addLayer(layer));
+    map.addSource('polygon_source', {
+      type: 'vector',
+      tiles: ['http://110.93.147.18:8080/boostcamp/polygon/{x}/{y}/{z}'],
+    });
+    map.addSource('line_source', {
+      type: 'vector',
+      tiles: ['http://110.93.147.18:8080/boostcamp/line/{x}/{y}/{z}'],
+    });
+    map.addSource('poi_source', {
+      type: 'vector',
+      tiles: ['http:/110.93.147.18:8080/boostcamp/poi/{x}/{y}/{z}'],
+    });
+
+    const layers = [
+      ...mapboxPOI,
+      ...road,
+      ...transit,
+      ...poi,
+      ...water,
+      ...landscape,
+    ] as mapboxgl.Layer[];
+    layers.forEach((layer: mapboxgl.Layer) => map.addLayer(layer));
   });
 
   return map;
