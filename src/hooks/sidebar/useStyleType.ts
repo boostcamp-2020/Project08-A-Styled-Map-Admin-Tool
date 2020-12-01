@@ -49,6 +49,7 @@ function useStyleType({
         map,
         subFeatureName,
         detailName,
+        key,
         subDetailName: subDetailName as SubElementNameType,
         style: {
           ...styleElement,
