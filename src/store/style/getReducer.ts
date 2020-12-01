@@ -6,6 +6,7 @@ import {
   ActionType,
   SubElementNameType,
   objType,
+  ElementName,
 } from '../common/type';
 import { getDefaultFeature } from './properties';
 import { INIT, SET } from './action';
@@ -49,7 +50,7 @@ export default function getReducer(IDX: number): ReducerType {
         const newFeature: FeatureType = newState[subFeature as string];
 
         let prevIsChanged;
-        if (element === 'labelIcon') {
+        if (element === ElementName.labelIcon) {
           prevIsChanged = newFeature[element].isChanged;
           newFeature[element] = style;
         } else {

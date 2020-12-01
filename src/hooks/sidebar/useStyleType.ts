@@ -7,6 +7,7 @@ import {
   StyleType,
   ElementNameType,
   SubElementNameType,
+  ElementName,
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import { getDefaultStyle } from '../../store/style/properties';
@@ -38,7 +39,7 @@ function useStyleType({
       return getDefaultStyle();
     }
     const feature = state[featureName][subFeatureName];
-    if (detailName === 'labelIcon') return feature[detailName];
+    if (detailName === ElementName.labelIcon) return feature[detailName];
     return feature[detailName][subDetailName as SubElementNameType];
   }) as StyleType;
 
