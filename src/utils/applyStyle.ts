@@ -52,7 +52,7 @@ export function applyColor({
       map.setPaintProperty(
         layerName,
         type,
-        `hsl(${h}, ${50 + parseInt(saturation, 10) / 2}%, ${l}%)`
+        `hsl(${h}, ${50 + Number(saturation) / 2}%, ${l}%)`
       );
     });
   }
@@ -61,7 +61,7 @@ export function applyColor({
       map.setPaintProperty(
         layerName,
         type,
-        `hsl(${h}, ${s}%, ${50 + parseInt(lightness, 10) / 2}%)`
+        `hsl(${h}, ${s}%, ${50 + Number(lightness) / 2}%)`
       );
     });
   }
@@ -77,6 +77,6 @@ export function applyWeight(
   weight: string
 ): void {
   layerNames.forEach((layerName) => {
-    map.setPaintProperty(layerName, type, parseInt(weight, 10) * 2 + 1);
+    map.setPaintProperty(layerName, type, Number(weight) * 2 + 1);
   });
 }
