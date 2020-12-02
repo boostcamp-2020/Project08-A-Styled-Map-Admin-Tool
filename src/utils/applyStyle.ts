@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-debugger */
 /* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
@@ -14,47 +15,38 @@ export enum ColorTypeName {
 export enum WeightTypeName {
   'line-width' = 'line-width',
   'text-halo-width' = 'text-halo-width',
+  'icon-opacity' = 'icon-opacity',
 }
-
-type ColorType = keyof typeof ColorTypeName;
-type WeightType = keyof typeof WeightTypeName;
-
-export enum VisibilityType {
-  visibility = 'visibility',
-}
-
-export type styleTypes = VisibilityType | ColorType | WeightType;
+export type colorType = keyof typeof ColorTypeName;
+export type weightType = keyof typeof WeightTypeName;
 
 interface ApplyColorProps {
   map: mapboxgl.Map;
   layerNames: string[];
-  color: string;
-  type: ColorType;
-  saturation?: string;
-  lightness?: string;
+  color?: string;
+  type?: colorType | weightType;
+  saturation?: number;
+  lightness?: number;
+  weight?: string;
+  visibility?: string;
+
+export enum visibilityType {
+  visibility = 'visibility',
 }
 
-export function applyVisibility(
-  map: mapboxgl.Map,
-  layerNames: string[],
-  visibility: string
-): void {
-  layerNames.forEach((layerName) => {
-    if (visibility === 'inherit') {
-      map.setLayoutProperty(layerName, 'visibility', 'visible');
-    } else map.setLayoutProperty(layerName, 'visibility', visibility);
-  });
-}
+export type styleTypes = visibilityType | colorType | weightType;
 
 export function applyColor({
   map,
   layerNames,
-  color,
+  color = '#000',
   type,
   saturation,
   lightness,
 }: ApplyColorProps): void {
+  if (!type) return;
   const { h, s, l } = hexToHSL(color);
+
   if (saturation) {
     return layerNames.forEach((layerName) => {
       map.setPaintProperty(
@@ -64,6 +56,7 @@ export function applyColor({
       );
     });
   }
+
   if (lightness) {
     return layerNames.forEach((layerName) => {
       map.setPaintProperty(
@@ -79,12 +72,26 @@ export function applyColor({
   });
 }
 
-export function applyWeight(
-  map: mapboxgl.Map,
-  layerNames: string[],
-  type: weightType,
-  weight: number
-): void {
+export function applyVisibility({
+  map,
+  layerNames,
+  visibility,
+}: ApplyColorProps): void {
+   layerNames.forEach((layerName) => {
+    if (visibility === 'inherit') {
+      map.setLayoutProperty(layerName, 'visibility', 'visible');
+    } else map.setLayoutProperty(layerName, 'visibility', visibility);
+  });
+}
+
+export function applyWeight({
+  map,
+  layerNames,
+  type,
+  weight,
+}: ApplyColorProps): void {
+  if (!type) return;
+
   const weightValue = weight === 0 ? 0 : weight * 2 + 1;
   layerNames.forEach((layerName) => {
     map.setPaintProperty(layerName, type, weightValue);

@@ -8,6 +8,7 @@ const mapboxPoiNameAndColor = [
     color: 'hsl(26, 25%, 32%)',
     layerName: 'arts',
   },
+  { name: 'landmark', color: 'hsl(26, 25%, 32%)', layerName: 'landmark' },
   { name: 'building', color: 'hsl(26, 25%, 32%)', layerName: 'building' },
   { name: 'general', color: 'hsl(26, 25%, 32%)', layerName: 'general' },
   { name: 'historic', color: 'hsl(26, 25%, 32%)', layerName: 'historic' },
@@ -15,14 +16,15 @@ const mapboxPoiNameAndColor = [
   {
     name: 'public_facilities',
     color: 'hsl(26, 25%, 32%)',
-    layerName: 'public_facilities',
+    layerName: 'public',
   },
   { name: 'religion', color: 'hsl(26, 25%, 32%)', layerName: 'religion' },
-  { name: 'store_like', color: 'hsl(26, 25%, 32%)', layerName: 'store_like' },
+  { name: 'store_like', color: 'hsl(22, 55%, 55%)', layerName: 'store' },
+  { name: 'sport_and_leisure', color: 'hsl(26, 25%, 32%)', layerName: 'sport' },
 ];
 
 export default mapboxPoiNameAndColor.map((poi) => ({
-  id: `poi-${poi.name}-label`,
+  id: `poi-${poi.layerName}-label`,
   type: 'symbol',
   source: 'composite',
   'source-layer': 'poi_label',
