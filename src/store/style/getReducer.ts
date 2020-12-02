@@ -25,8 +25,8 @@ export default function getReducer(IDX: number): ReducerType {
 
   const initialState = subFeatures.reduce((acc: FeatureState, cur: string) => {
     acc[cur] = getDefaultFeature({
-      featureType: renderingData[IDX].typeKey,
-      subFeatureType: cur,
+      featureName: renderingData[IDX].typeKey,
+      subFeatureName: cur,
     });
     return acc;
   }, {});
@@ -49,7 +49,13 @@ export default function getReducer(IDX: number): ReducerType {
 
         if (feature !== renderingData[IDX].typeKey) return state;
 
-        style.isChanged = checkStyleIsChanged(style);
+        style.isChanged = checkStyleIsChanged({
+          targetStyle: style,
+          featureName: feature,
+          subFeatureName: subFeature,
+          elementName: element,
+          subElementName: subElement,
+        });
         const newState: FeatureState = JSON.parse(JSON.stringify(state));
         const newFeature: FeatureType = newState[subFeature as string];
 
