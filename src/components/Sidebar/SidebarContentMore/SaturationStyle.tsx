@@ -3,6 +3,7 @@ import styled from '../../../utils/styles/styled';
 import { Range } from '../SidebarContentFewer/DepthItem';
 import useInputRange from '../../../hooks/common/useInputRange';
 import { StyleKeyType } from '../../../store/common/type';
+import AAA from './AAA';
 
 const SaturationWrapper = styled.div`
   display: flex;
@@ -49,6 +50,7 @@ function SaturationStyle({
         onChange={(e) => rangeChangeHandler(e)}
         onMouseUp={() => rangeMouseUpHandler(StyleKeyType.saturation)}
       />
+      {/* <AAA value="50" onStyleChange={onStyleChange} /> */}
     </SaturationWrapper>
   );
 }
