@@ -74,10 +74,22 @@ export default {
     mountain: {},
   },
   transit: {
-    airport: {},
-    bus: {},
-    rail: {},
-    subway: {},
+    airport: {
+      'mapbox-airport-aeroway-polygon': 'hsl(40, 97%, 64%)',
+      'mapbox-airport-polygon': 'hsl(234, 20%, 30%)',
+      'mapbox-airport-aeroway-line': 'hsl(230, 23%, 82%)',
+      'mapbox-airport-label': 'hsl(0, 69%, 50%)',
+    },
+    bus: {
+      'transit-bus-label': 'hsl(13, 68%, 63%)',
+    },
+    rail: {
+      'mapbox-rail-road-line': 'hsl(234, 20%, 30%)',
+      'transit-rail-line': 'hsl(234, 20%, 30%)',
+    },
+    subway: {
+      'transit-subway-line': 'hsl(192, 70%, 43%)',
+    },
   },
   water: {
     water: 'hsl(205, 87%, 76%)',

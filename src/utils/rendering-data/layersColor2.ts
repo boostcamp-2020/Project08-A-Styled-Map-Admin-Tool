@@ -2,12 +2,17 @@ import {
   SubElementNameType,
   ElementNameType,
   FeatureNameType,
-  PropertyType,
 } from '../../store/common/type';
 
 export default {
   [FeatureNameType.poi]: {
-    all: {},
+    all: {
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+      [ElementNameType.labelIcon]: 'transparent',
+    },
     landmark: {
       [ElementNameType.labelText]: {
         [SubElementNameType.fill]: 'hsl(26, 25%, 32%)',
@@ -81,7 +86,16 @@ export default {
     },
   },
   [FeatureNameType.administrative]: {
-    all: {},
+    all: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
     country: {
       [ElementNameType.section]: {
         [SubElementNameType.fill]: 'transparent',
@@ -120,6 +134,50 @@ export default {
   [FeatureNameType.transit]: {
     all: {
       [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+    airport: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(40, 97%, 64%)',
+        [SubElementNameType.stroke]: 'hsl(230, 23%, 82%)',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(0, 69%, 50%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
+    },
+    bus: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(13, 68%, 63%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
+    },
+    rail: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(234, 20%, 30%)',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+    subway: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(192, 70%, 43%)',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+      [ElementNameType.labelText]: {
         [SubElementNameType.fill]: 'transparent',
         [SubElementNameType.stroke]: 'transparent',
       },

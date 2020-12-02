@@ -35,4 +35,15 @@ export default {
   'water-line-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
   'water-point-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
   'waterway-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
+  'mapbox-airport-aeroway-polygon': {
+    color: 'hsl(40, 97%, 64%)',
+    type: 'fill',
+  },
+  'mapbox-airport-polygon': { color: 'hsl(234, 20%, 30%)', type: 'fill' },
+  'mapbox-airport-aeroway-line': { color: 'hsl(230, 23%, 82%)', type: 'line' },
+  'mapbox-airport-label': { color: 'hsl(0, 69%, 50%)', type: 'text' },
+  'transit-bus-label': { color: 'hsl(13, 68%, 63%)', type: 'text' },
+  'mapbox-rail-road-line': { color: 'hsl(234, 20%, 30%)', type: 'line' },
+  'transit-rail-line': { color: 'hsl(234, 20%, 30%)', type: 'line' },
+  'transit-subway-line': { color: 'hsl(192, 70%, 43%)', type: 'line' },
 };
