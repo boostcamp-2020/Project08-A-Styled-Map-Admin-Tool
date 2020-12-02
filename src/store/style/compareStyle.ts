@@ -39,6 +39,9 @@ export function checkStyleIsChanged({
 }
 
 export function checkFeatureIsChanged(targetFeature: objType): boolean {
+  if (!targetFeature) {
+    return false;
+  }
   const keys = Object.keys(targetFeature);
   for (let i = 0; i < keys.length; i += 1) {
     if (
