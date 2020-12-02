@@ -84,9 +84,9 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
 
     const layers = [
       ...road,
+      ...landscape,
       ...transit,
       ...water,
-      ...landscape,
       ...mapboxPOI,
       ...poi,
     ] as mapboxgl.Layer[];
