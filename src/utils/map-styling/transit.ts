@@ -36,6 +36,9 @@ function transitStyling({
   subDetailName,
   style,
 }: stylingProps): void {
+  // TODO: labelIcon 관련 구현
+  if (detailName === ElementNameType.labelIcon) return;
+
   let layerNames: string[] =
     subDetailName === SubElementNameType.fill
       ? key === StyleKeyType.weight
