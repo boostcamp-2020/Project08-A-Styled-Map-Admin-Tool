@@ -34,17 +34,15 @@ const data: DataType[] = [
       { key: 'arterial', name: '주요도로' },
       { key: 'local', name: '일반도로' },
       { key: 'sidewalk', name: '인도' },
-      { key: 'bicycle-road', name: '자전거도로' },
     ],
   },
   {
     typeKey: 'administrative',
     typeName: '행정구역',
     features: [
-      { key: 'countryLabel', name: '국가' },
-      { key: 'stateLabel', name: '도/주' },
-      { key: 'localityLabel', name: '시' },
-      { key: 'neighborLabel', name: '그외' },
+      { key: 'country', name: '국가' },
+      { key: 'state', name: '도/주' },
+      { key: 'locality', name: '그외' },
     ],
   },
   {

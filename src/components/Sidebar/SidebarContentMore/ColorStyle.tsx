@@ -30,7 +30,7 @@ const ColorPalette = styled.input`
 
 interface ColorStyleProps {
   color: string;
-  onStyleChange: (key: string, value: string | number) => void;
+  onStyleChange: (key: StyleKeyName, value: string | number) => void;
 }
 
 function ColorStyle({

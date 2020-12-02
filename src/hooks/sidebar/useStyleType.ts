@@ -8,6 +8,7 @@ import {
   ElementNameType,
   SubElementNameType,
   ElementName,
+  StyleKeyName,
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import { getDefaultStyle } from '../../store/style/properties';
@@ -22,7 +23,7 @@ interface UseStyleTypeProps {
 
 export interface UseStyleHookType {
   styleElement: StyleType;
-  onStyleChange: (key: string, value: string | number) => void;
+  onStyleChange: (key: StyleKeyName, value: string | number) => void;
 }
 
 function useStyleType({
@@ -44,13 +45,15 @@ function useStyleType({
   }) as StyleType;
 
   const onStyleChange = useCallback(
-    (key: string, value: string | number) => {
+    (key: StyleKeyName, value: string | number) => {
       mapStyling[featureName]({
         map,
         subFeatureName,
+        key,
         detailName,
         key,
         subDetailName: subDetailName as SubElementNameType,
+        key,
         style: {
           ...styleElement,
           [key]: value,

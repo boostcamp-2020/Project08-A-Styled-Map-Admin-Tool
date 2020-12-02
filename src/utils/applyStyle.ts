@@ -1,5 +1,8 @@
 /* eslint-disable consistent-return */
+/* eslint-disable no-debugger */
+/* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
+import { StyleKeyName } from '../store/common/type';
 import { hexToHSL } from './colorFormat';
 
 export enum ColorTypeName {
@@ -8,6 +11,7 @@ export enum ColorTypeName {
   'text-color' = 'text-color',
   'text-halo-color' = 'text-halo-color',
 }
+
 export enum WeightTypeName {
   'line-width' = 'line-width',
   'text-halo-width' = 'text-halo-width',
@@ -25,7 +29,12 @@ interface ApplyColorProps {
   lightness?: number;
   weight?: string;
   visibility?: string;
+
+export enum visibilityType {
+  visibility = 'visibility',
 }
+
+export type styleTypes = visibilityType | colorType | weightType;
 
 export function applyColor({
   map,
@@ -68,8 +77,10 @@ export function applyVisibility({
   layerNames,
   visibility,
 }: ApplyColorProps): void {
-  layerNames.forEach((layerName) => {
-    map.setLayoutProperty(layerName, 'visibility', visibility);
+   layerNames.forEach((layerName) => {
+    if (visibility === 'inherit') {
+      map.setLayoutProperty(layerName, 'visibility', 'visible');
+    } else map.setLayoutProperty(layerName, 'visibility', visibility);
   });
 }
 
@@ -81,7 +92,8 @@ export function applyWeight({
 }: ApplyColorProps): void {
   if (!type) return;
 
+  const weightValue = weight === 0 ? 0 : weight * 2 + 1;
   layerNames.forEach((layerName) => {
-    map.setPaintProperty(layerName, type, Number(weight));
+    map.setPaintProperty(layerName, type, weightValue);
   });
 }
