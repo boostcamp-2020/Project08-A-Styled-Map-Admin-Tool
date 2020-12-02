@@ -1,7 +1,8 @@
 import { stylingProps } from '.';
-import arterialStyling from './road-categories/arterial';
-import localStyling from './road-categories/local';
-import sidewalkStyling from './road-categories/sidewalk';
+import { arterialLayerNames } from './road-categories/arterial';
+import { localLayerNames } from './road-categories/local';
+import { sidewalkLayerNames } from './road-categories/sidewalk';
+import stylingCategory from './road-categories/stylingCategory';
 
 function roadStyling({
   map,
@@ -11,34 +12,24 @@ function roadStyling({
   key,
   style,
 }: stylingProps): void {
-  if (subFeatureName === 'arterial') {
-    arterialStyling({
-      map,
-      subFeatureName,
-      detailName,
-      subDetailName,
-      key,
-      style,
-    });
-  } else if (subFeatureName === 'local') {
-    localStyling({
-      map,
-      subFeatureName,
-      detailName,
-      subDetailName,
-      key,
-      style,
-    });
-  } else if (subFeatureName === 'sidewalk') {
-    sidewalkStyling({
-      map,
-      subFeatureName,
-      detailName,
-      subDetailName,
-      key,
-      style,
-    });
-  }
+  type RoadSubFeatureType = 'arterial' | 'local' | 'sidewalk';
+
+  const mappingSubFeatureLayerNames = {
+    arterial: arterialLayerNames,
+    local: localLayerNames,
+    sidewalk: sidewalkLayerNames,
+  };
+
+  stylingCategory({
+    layerNames:
+      mappingSubFeatureLayerNames[subFeatureName as RoadSubFeatureType],
+    map,
+    subFeatureName,
+    detailName,
+    subDetailName,
+    key,
+    style,
+  });
 }
 
 export default roadStyling;
