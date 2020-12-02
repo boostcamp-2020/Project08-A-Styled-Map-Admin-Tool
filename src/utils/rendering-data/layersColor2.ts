@@ -65,8 +65,44 @@ export default {
     },
   },
   road: {},
-  administrative: {},
+  administrative: {
+    country: {
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 8%, 51%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    state: {
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 14%, 77%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    locality: {
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+  },
   landscape: {},
   transit: {},
-  water: {},
+  water: {
+    section: {
+      fill: 'hsl(205, 87%, 76%)',
+      stroke: 'transparent',
+    },
+    labelText: {
+      fill: 'hsl(230, 48%, 44%)',
+      stroke: 'transparent',
+    },
+  },
 };
