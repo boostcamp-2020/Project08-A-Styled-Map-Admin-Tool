@@ -65,8 +65,6 @@ export interface FeaturePropsType {
 }
 
 export interface ElementPropsType extends FeaturePropsType {
-  feature: FeatureNameType;
-  subFeature: string;
   element: ElementNameType;
   subElement?: SubElementNameType;
 }
