@@ -1,5 +1,27 @@
 import { init, setStyle } from '../style/action';
 
+export interface nice {
+  poi:
+    | 'all'
+    | 'landmark'
+    | 'business'
+    | 'government'
+    | 'medical'
+    | 'park'
+    | 'worship'
+    | 'school'
+    | 'sports'
+    | 'etc';
+  road: 'all';
+  administrative: 'all' | 'country' | 'state' | 'locality';
+  landscape: 'all';
+  transit: 'all';
+  water: 'all';
+  marker: 'all';
+}
+
+export type hello = 'landmark';
+
 export enum ElementNameType {
   section = 'section',
   labelText = 'labelText',
@@ -43,15 +65,15 @@ export interface StyleType {
   saturation: number;
   lightness: number;
 }
-export interface ElementType {
+export interface SubElementType {
   fill: StyleType;
   stroke: StyleType;
 }
 export interface FeatureType {
   isChanged: boolean;
-  section: ElementType;
-  labelText: ElementType;
-  labelIcon: StyleType;
+  section: SubElementType | null;
+  labelText: SubElementType | null;
+  labelIcon: StyleType | null;
 }
 export interface FeatureState {
   [name: string]: FeatureType;
@@ -61,8 +83,27 @@ export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
 
 export type ActionPayload = {
   feature: FeatureNameType;
-  subFeature?: string;
+  subFeature: string;
   element: ElementNameType;
   subElement?: SubElementNameType;
   style: StyleType;
 };
+
+export interface HasPropertiesType {
+  featureType: FeatureNameType;
+  subFeatureType: string;
+}
+
+export interface PropertyType {
+  [subFeatureType: string]: {
+    [ElementNameType.section]?: {
+      fill: string;
+      stroke: string;
+    } | null;
+    [ElementNameType.labelText]?: {
+      fill: string;
+      stroke: string;
+    } | null;
+    [ElementNameType.labelIcon]?: string | null;
+  };
+}
