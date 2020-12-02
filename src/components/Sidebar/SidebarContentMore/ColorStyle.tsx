@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import useInputRange from '../../../hooks/common/useInputRange';
-import { StyleKeyName } from '../../../store/common/type';
+import { StyleKeyType } from '../../../store/common/type';
 
 const ColorWrapper = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const ColorPalette = styled.input`
 
 interface ColorStyleProps {
   color: string;
-  onStyleChange: (key: StyleKeyName, value: string | number) => void;
+  onStyleChange: (key: StyleKeyType, value: string | number) => void;
 }
 
 function ColorStyle({
@@ -50,7 +50,7 @@ function ColorStyle({
         type="color"
         id="styler__color"
         onChange={rangeChangeHandler}
-        onBlur={() => rangeMouseUpHandler(StyleKeyName.color)}
+        onBlur={() => rangeMouseUpHandler(StyleKeyType.color)}
         value={curRange}
       />
     </ColorWrapper>

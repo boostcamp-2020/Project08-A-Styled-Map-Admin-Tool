@@ -1,17 +1,17 @@
 import { init, setStyle } from '../style/action';
 
-export enum ElementName {
+export enum ElementNameType {
   section = 'section',
   labelText = 'labelText',
   labelIcon = 'labelIcon',
 }
 
-export enum SubElementName {
+export enum SubElementNameType {
   fill = 'fill',
   stroke = 'stroke',
 }
 
-export enum StyleKeyName {
+export enum StyleKeyType {
   visibility = 'visibility',
   color = 'color',
   weight = 'weight',
@@ -20,7 +20,7 @@ export enum StyleKeyName {
   isChanged = 'isChanged',
 }
 
-export enum FeatureName {
+export enum FeatureNameType {
   poi = 'poi',
   administrative = 'administrative',
   landscape = 'landscape',
@@ -29,11 +29,6 @@ export enum FeatureName {
   water = 'water',
   marker = 'marker',
 }
-
-export type ElementNameType = keyof typeof ElementName;
-export type SubElementNameType = keyof typeof SubElementName;
-export type FeatureNameType = keyof typeof FeatureName;
-export type StyleKeyType = keyof typeof StyleKeyName;
 
 export interface objType {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,9 +39,9 @@ export interface StyleType {
   isChanged: boolean;
   visibility: string;
   color: string;
-  weight: string;
-  saturation: string;
-  lightness: string;
+  weight: number;
+  saturation: number;
+  lightness: number;
 }
 export interface ElementType {
   fill: StyleType;

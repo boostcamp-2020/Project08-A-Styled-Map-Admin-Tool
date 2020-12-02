@@ -1,12 +1,12 @@
 import { stylingProps } from '.';
 import {
-  ElementName,
-  SubElementName,
-  StyleKeyName,
+  ElementNameType,
+  SubElementNameType,
+  StyleKeyType,
 } from '../../store/common/type';
 import {
-  ColorTypeName,
-  WeightTypeName,
+  ColorType,
+  WeightType,
   applyVisibility,
   applyColor,
   applyWeight,
@@ -58,21 +58,25 @@ function administrativeStyling({
 }: stylingProps): void {
   const mappingLayers = layers[subFeatureName as subFeatureNameType];
 
-  if (detailName === ElementName.labelIcon) return;
-  if (detailName === ElementName.labelText) {
+  if (detailName === ElementNameType.labelIcon) return;
+  if (detailName === ElementNameType.labelText) {
     // labelText - fill
-    if (subDetailName === SubElementName.fill) {
-      if (key === StyleKeyName.weight) return;
-      if (key === StyleKeyName.visibility) {
+    if (subDetailName === SubElementNameType.fill) {
+      if (key === StyleKeyType.weight) return;
+      if (key === StyleKeyType.visibility) {
         const styleValue = style[key] === 'none' ? 'none' : 'visible';
-        applyVisibility(map, mappingLayers.symbol, styleValue);
+        applyVisibility({
+          map,
+          layerNames: mappingLayers.symbol,
+          visibility: styleValue,
+        });
         return;
       }
 
       applyColor({
         map,
         layerNames: mappingLayers.symbol,
-        type: ColorTypeName['text-color'],
+        type: ColorType.text,
         color: style.color,
         [key]: style[key],
       });
@@ -80,21 +84,21 @@ function administrativeStyling({
     }
 
     // labelText - stroke
-    if (key === StyleKeyName.weight || key === StyleKeyName.visibility) {
+    if (key === StyleKeyType.weight || key === StyleKeyType.visibility) {
       const styleValue = style.visibility === 'none' ? 0 : Number(style.weight);
-      applyWeight(
+      applyWeight({
         map,
-        mappingLayers.symbol,
-        WeightTypeName['text-halo-width'],
-        styleValue
-      );
+        layerNames: mappingLayers.symbol,
+        type: WeightType.textHalo,
+        weight: styleValue,
+      });
       return;
     }
 
     applyColor({
       map,
       layerNames: mappingLayers.symbol,
-      type: ColorTypeName['text-halo-color'],
+      type: ColorType.textHalo,
       color: style.color,
       [key]: style[key],
     });
@@ -105,26 +109,26 @@ function administrativeStyling({
   if (
     subFeatureName === 'locality' ||
     subFeatureName === 'neighborhood' ||
-    subDetailName === SubElementName.fill
+    subDetailName === SubElementNameType.fill
   )
     return;
 
   // section - stroke
-  if (key === StyleKeyName.weight || key === StyleKeyName.visibility) {
+  if (key === StyleKeyType.weight || key === StyleKeyType.visibility) {
     const styleValue = style.visibility === 'none' ? 0 : Number(style.weight);
-    applyWeight(
+    applyWeight({
       map,
-      mappingLayers.line,
-      WeightTypeName['line-width'],
-      styleValue
-    );
+      layerNames: mappingLayers.line,
+      type: WeightType.line,
+      weight: styleValue,
+    });
     return;
   }
 
   applyColor({
     map,
     layerNames: mappingLayers.line,
-    type: ColorTypeName['line-color'],
+    type: ColorType.line,
     color: style.color,
     [key]: style[key],
   });

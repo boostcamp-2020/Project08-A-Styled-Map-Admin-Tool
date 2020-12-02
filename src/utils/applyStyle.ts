@@ -2,49 +2,47 @@
 /* eslint-disable no-debugger */
 /* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
-import { StyleKeyName } from '../store/common/type';
 import { hexToHSL } from './colorFormat';
 
-export enum ColorTypeName {
-  'fill-color' = 'fill-color',
-  'line-color' = 'line-color',
-  'text-color' = 'text-color',
-  'text-halo-color' = 'text-halo-color',
+export enum ColorType {
+  fill = 'fill-color',
+  line = 'line-color',
+  text = 'text-color',
+  textHalo = 'text-halo-color',
+  icon = 'icon-opacity',
 }
 
-export enum WeightTypeName {
-  'line-width' = 'line-width',
-  'text-halo-width' = 'text-halo-width',
-  'icon-opacity' = 'icon-opacity',
+export enum WeightType {
+  line = 'line-width',
+  textHalo = 'text-halo-width',
 }
-export type colorType = keyof typeof ColorTypeName;
-export type weightType = keyof typeof WeightTypeName;
 
-interface ApplyColorProps {
+interface ApplyProps {
   map: mapboxgl.Map;
   layerNames: string[];
   color?: string;
-  type?: colorType | weightType;
+  type?: StyleTypes;
   saturation?: number;
   lightness?: number;
-  weight?: string;
+  weight?: number;
   visibility?: string;
+}
 
-export enum visibilityType {
+export enum VisibilityType {
   visibility = 'visibility',
 }
 
-export type styleTypes = visibilityType | colorType | weightType;
+export type StyleTypes = VisibilityType | ColorType | WeightType;
 
 export function applyColor({
   map,
   layerNames,
-  color = '#000',
+  color,
   type,
   saturation,
   lightness,
-}: ApplyColorProps): void {
-  if (!type) return;
+}: ApplyProps): void {
+  if (!type || !color) return;
   const { h, s, l } = hexToHSL(color);
 
   if (saturation) {
@@ -76,8 +74,8 @@ export function applyVisibility({
   map,
   layerNames,
   visibility,
-}: ApplyColorProps): void {
-   layerNames.forEach((layerName) => {
+}: ApplyProps): void {
+  layerNames.forEach((layerName) => {
     if (visibility === 'inherit') {
       map.setLayoutProperty(layerName, 'visibility', 'visible');
     } else map.setLayoutProperty(layerName, 'visibility', visibility);
@@ -89,8 +87,8 @@ export function applyWeight({
   layerNames,
   type,
   weight,
-}: ApplyColorProps): void {
-  if (!type) return;
+}: ApplyProps): void {
+  if (!type || !weight) return;
 
   const weightValue = weight === 0 ? 0 : weight * 2 + 1;
   layerNames.forEach((layerName) => {
