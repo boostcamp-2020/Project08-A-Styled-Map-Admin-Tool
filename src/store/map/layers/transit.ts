@@ -7,7 +7,7 @@ export default [
       visibility: 'visible',
     },
     paint: {
-      'fill-color': 'hsl(230, 100%, 44%)',
+      'fill-color': 'hsl(234, 20%, 30%)',
     },
     filter: ['in', 'class', 'airport'],
     id: 'transit-airport',
@@ -26,16 +26,7 @@ export default [
     ],
     layout: {},
     paint: {
-      'fill-color': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        15,
-        'hsl(230, 23%, 82%)',
-        16,
-        'hsl(230, 37%, 84%)',
-      ],
-      'fill-opacity': ['interpolate', ['linear'], ['zoom'], 11, 0, 11.5, 1],
+      'fill-color': 'hsl(40, 97%, 64%)',
     },
   },
   {
@@ -48,15 +39,7 @@ export default [
     filter: ['==', ['geometry-type'], 'LineString'],
     layout: {},
     paint: {
-      'line-color': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        15,
-        'hsl(230, 23%, 82%)',
-        16,
-        'hsl(230, 37%, 84%)',
-      ],
+      'line-color': 'hsl(230, 23%, 82%)',
       'line-width': [
         'interpolate',
         ['exponential', 1.5],
@@ -80,7 +63,7 @@ export default [
         'step',
         ['get', 'sizerank'],
         ['concat', ['get', 'maki'], '-15'],
-        9,
+        12,
         ['concat', ['get', 'maki'], '-11'],
       ],
       'text-offset': [0, 0.75],
@@ -110,7 +93,8 @@ export default [
       visibility: 'visible',
     },
     paint: {
-      'line-color': 'yellow',
+      'line-color': 'hsl(192, 70%, 43%)',
+      'line-width': 2,
     },
     filter: ['in', 'type', 'subway'],
     id: 'transit-subway',
@@ -123,7 +107,8 @@ export default [
       visibility: 'visible',
     },
     paint: {
-      'line-color': 'black',
+      'line-color': 'hsl(201, 100%, 14%)',
+      'line-width': 2,
     },
     filter: ['in', 'type', 'rail'],
     id: 'transit-rail',
@@ -159,9 +144,9 @@ export default [
       visibility: 'visible',
     },
     paint: {
-      'text-halo-color': 'green',
-      'text-halo-width': 0.5,
-      'text-color': 'red',
+      'text-halo-color': 'hsl(151, 24%, 60%)',
+      'text-halo-width': 1,
+      'text-color': 'hsl(13, 68%, 63%)',
     },
     filter: ['in', 'type', 'bus_stop'],
     id: 'transit-bus-label',
