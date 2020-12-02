@@ -5,10 +5,9 @@ import { RootState } from '../../store';
 import {
   FeatureNameType,
   StyleType,
+  StyleKeyType,
   ElementNameType,
   SubElementNameType,
-  ElementName,
-  StyleKeyName,
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import { getDefaultStyle } from '../../store/style/properties';
@@ -23,7 +22,7 @@ interface UseStyleTypeProps {
 
 export interface UseStyleHookType {
   styleElement: StyleType;
-  onStyleChange: (key: StyleKeyName, value: string | number) => void;
+  onStyleChange: (key: StyleKeyType, value: string | number) => void;
 }
 
 function useStyleType({
@@ -40,18 +39,18 @@ function useStyleType({
       return getDefaultStyle();
     }
     const feature = state[featureName][subFeatureName];
-    if (detailName === ElementName.labelIcon) return feature[detailName];
+    if (detailName === ElementNameType.labelIcon) return feature[detailName];
     return feature[detailName][subDetailName as SubElementNameType];
   }) as StyleType;
 
   const onStyleChange = useCallback(
-    (key: StyleKeyName, value: string | number) => {
+    (key: StyleKeyType, value: string | number) => {
       mapStyling[featureName]({
         map,
         subFeatureName,
+        key,
         detailName,
         subDetailName: subDetailName as SubElementNameType,
-        key,
         style: {
           ...styleElement,
           [key]: value,

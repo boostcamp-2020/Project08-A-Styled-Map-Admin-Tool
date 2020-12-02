@@ -2,7 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import {
   ElementNameType,
   SubElementNameType,
-  StyleKeyName,
+  StyleKeyType,
   StyleType,
 } from '../../store/common/type';
 
@@ -11,7 +11,7 @@ export interface stylingProps {
   subFeatureName: string;
   detailName: ElementNameType;
   subDetailName: SubElementNameType;
-  key: StyleKeyName;
+  key: StyleKeyType;
   style: StyleType;
 }
 

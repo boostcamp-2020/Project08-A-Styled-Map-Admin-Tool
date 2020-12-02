@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '../../../utils/styles/styled';
 import { Range } from '../SidebarContentFewer/DepthItem';
 import useInputRange from '../../../hooks/common/useInputRange';
-import { StyleKeyName } from '../../../store/common/type';
+import { StyleKeyType } from '../../../store/common/type';
 
 const WeightWrapper = styled.div`
   display: flex;
@@ -23,8 +23,8 @@ const WeightControlBar = styled(Range)`
 `;
 
 interface WeightStyleProps {
-  weight: string;
-  onStyleChange: (key: StyleKeyName, value: string | number) => void;
+  weight: number;
+  onStyleChange: (key: StyleKeyType, value: string | number) => void;
 }
 
 function WeightStyle({
@@ -47,7 +47,7 @@ function WeightStyle({
         id="styler__weight"
         value={curRange}
         onChange={rangeChangeHandler}
-        onMouseUp={() => rangeMouseUpHandler(StyleKeyName.weight)}
+        onMouseUp={() => rangeMouseUpHandler(StyleKeyType.weight)}
       />
     </WeightWrapper>
   );
