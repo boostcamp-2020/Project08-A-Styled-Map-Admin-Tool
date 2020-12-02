@@ -10,6 +10,8 @@ import landscape from './layers/landscape';
 import water from './layers/water';
 import mapboxPOI from './layers/mapbox-poi';
 
+import initColor from '../../utils/rendering-data/layerColor3';
+
 const LNG = 126.978;
 const LAT = 37.5656;
 const ZOOM = 15.5;
@@ -91,6 +93,10 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
       ...poi,
     ] as mapboxgl.Layer[];
     layers.forEach((layer: mapboxgl.Layer) => map.addLayer(layer));
+
+    Object.entries(initColor).forEach(([key, value]) => {
+      map.setPaintProperty(key, `${value.type}-color`, value.color);
+    });
   });
 
   return map;
