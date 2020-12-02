@@ -1,89 +1,305 @@
-// 어차피 레이어 하나 바꾸면 다 바뀔 건데 체크박스로 해둘 필요가 있을까??
-export default {
+import { PropertyType } from '../../store/common/type';
+
+const data: PropertyType = {
   poi: {
+    all: {
+      // 임시
+      labelText: {
+        fill: 'hsl(26, 25%, 32%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
+    },
     landmark: {
-      'poi-attraction': 'hsl(26, 25%, 32%)',
-      'poi-arts-label': 'hsl(26, 25%, 32%)',
-      'poi-landmark-label': 'hsl(26, 25%, 32%)',
+      labelText: {
+        fill: 'hsl(26, 25%, 32%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
     },
     business: {
-      'poi-business': 'hsl(22, 55%, 55%)',
-      'poi-food-label': 'hsl(22, 55%, 55%)',
-      'poi-store-label': 'hsl(22, 55%, 55%)',
+      labelText: {
+        fill: 'hsl(22, 55%, 55%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
     },
     government: {
-      'poi-government': 'hsl(26, 25%, 32%)',
-      'poi-public-label': 'hsl(26, 25%, 32%)',
-      'poi-general-label': 'hsl(26, 25%, 32%)',
+      labelText: {
+        fill: 'hsl(26, 25%, 32%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
     },
     medical: {
-      'poi-medical': 'hsl(340, 39%, 42%)',
-      'poi-medical-label': 'hsl(340, 39%, 42%)',
+      labelText: {
+        fill: 'hsl(340, 39%, 42%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
     },
     park: {
-      'poi-park': 'hsl(100, 45%, 37%)',
-      'poi-park-label': 'hsl(100, 45%, 37%)',
+      labelText: {
+        fill: 'hsl(100, 45%, 37%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
     },
     worship: {
-      'poi-worship': 'hsl(26, 25%, 32%)',
-      'poi-religion-label': 'hsl(26, 25%, 32%)',
+      labelText: {
+        fill: 'hsl(26, 25%, 32%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
     },
     school: {
-      'poi-school': 'hsl(51, 40%, 40%)',
-      'poi-education-label': 'hsl(51, 40%, 40%)',
+      labelText: {
+        fill: 'hsl(51, 40%, 40%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
     },
     sports: {
-      'poi-sport-label': 'hsl(26, 25%, 32%)',
+      labelText: {
+        fill: 'hsl(26, 25%, 32%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
     },
     etc: {
-      'poi-etc': 'hsl(26, 25%, 32%)',
-      'poi-industrial-label': 'hsl(26, 25%, 32%)',
-      'poi-historic-label': 'hsl(26, 25%, 32%)',
-      'poi-building-label': 'hsl(26, 25%, 32%)',
+      labelText: {
+        fill: 'hsl(26, 25%, 32%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+      labelIcon: 'transparent',
     },
   },
+  // 임시
   road: {
-    highway: {},
-    arterial: {},
-    local: {},
-    sidewalk: {},
-    'bicycle-road': {},
+    all: {
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 8%, 51%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    highway: {
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 8%, 51%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    arterial: {
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 8%, 51%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    local: {
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 8%, 51%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    sidewalk: {
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 8%, 51%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
   },
   administrative: {
+    all: {
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 8%, 51%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
     country: {
-      'admin-0-boundary': 'hsl(230, 8%, 51%)',
-      'admin-0-boundary-bg': 'hsl(35, 12%, 89%)',
-      'admin-0-boundary-disputed': 'hsl(230, 8%, 51%)',
-      'country-label': 'hsl(0, 0%, 0%)',
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 8%, 51%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
     },
     state: {
-      'admin-1-boundary-bg': 'hsl(35, 12%, 89%)',
-      'admin-1-boundary': 'hsl(230, 14%, 77%)',
-      'state-label': 'hsl(0, 0%, 0%)',
+      section: {
+        fill: 'transparent',
+        stroke: 'hsl(230, 14%, 77%)',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
     },
     locality: {
-      'settlement-label': 'hsl(0, 0%, 0%)',
-      'settlement-subdivision-label': 'hsl(230, 29%, 35%)',
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
     },
   },
+  // 임시
   landscape: {
-    'human-made': {},
-    building: {},
-    natural: {},
-    landcover: {},
-    mountain: {},
+    all: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    'human-made': {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    building: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    natural: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    landcover: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    mountain: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
   },
   transit: {
-    airport: {},
-    bus: {},
-    rail: {},
-    subway: {},
+    all: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    airport: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    bus: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    rail: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
+    subway: {
+      section: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(0, 0%, 0%)',
+        stroke: 'hsl(0, 0%, 100%)',
+      },
+    },
   },
   water: {
-    water: 'hsl(205, 87%, 76%)',
-    'water-polygon': 'hsl(205, 87%, 76%)',
-    'water-line-label': 'hsl(230, 48%, 44%)',
-    'water-point-label': 'hsl(230, 48%, 44%)',
-    'waterway-label': 'hsl(230, 48%, 44%)',
+    all: {
+      section: {
+        fill: 'hsl(205, 87%, 76%)',
+        stroke: 'transparent',
+      },
+      labelText: {
+        fill: 'hsl(230, 48%, 44%)',
+        stroke: 'transparent',
+      },
+    },
+  },
+  marker: {
+    all: {
+      labelText: {
+        fill: 'transparent',
+        stroke: 'transparent',
+      },
+    },
   },
 };
+
+export default data;
