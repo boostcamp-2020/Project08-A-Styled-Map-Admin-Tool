@@ -1,10 +1,5 @@
 import { stylingProps } from './index';
-import {
-  applyColor,
-  applyLightness,
-  applyVisibility,
-  applySaturation,
-} from '../applyStyle';
+import { applyColor, applyVisibility, ColorType } from '../applyStyle';
 import { StyleType } from '../../store/common/type';
 
 const SECTION = 'section';
@@ -20,24 +15,24 @@ interface applyStyleProps {
 }
 
 function applyLandscapeStyle({ map, subFeatureName, style }: applyStyleProps) {
-  const layerName = `landscape-${subFeatureName}`;
+  const layerNames = [`landscape-${subFeatureName}`];
 
-  applyColor(map, layerName, 'fill-color', style.color);
-  applyVisibility(map, layerName, style.visibility);
-  applyLightness(
+  applyColor({ map, layerNames, type: ColorType.fill, color: style.color });
+  applyVisibility({ map, layerNames, visibility: style.visibility });
+  applyColor({
     map,
-    layerName,
-    'fill-color',
-    style.color,
-    Number(style.lightness)
-  );
-  applySaturation(
+    layerNames,
+    type: ColorType.fill,
+    color: style.color,
+    lightness: Number(style.lightness),
+  });
+  applyColor({
     map,
-    layerName,
-    'fill-color',
-    style.color,
-    Number(style.saturation)
-  );
+    layerNames,
+    type: ColorType.fill,
+    color: style.color,
+    saturation: Number(style.saturation),
+  });
 }
 
 function landscapeStyling({

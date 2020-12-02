@@ -1,12 +1,12 @@
 import { stylingProps } from '.';
 import {
-  ElementName,
-  SubElementName,
-  StyleKeyName,
+  ElementNameType,
+  SubElementNameType,
+  StyleKeyType,
 } from '../../store/common/type';
 import {
-  ColorTypeName,
-  WeightTypeName,
+  ColorType,
+  WeightType,
   applyVisibility,
   applyColor,
   applyWeight,
@@ -24,22 +24,26 @@ function waterStyling({
   key,
   style,
 }: stylingProps): void {
-  if (detailName === ElementName.labelIcon) return;
+  if (detailName === ElementNameType.labelIcon) return;
 
-  if (detailName === ElementName.labelText) {
+  if (detailName === ElementNameType.labelText) {
     // labelText - fill
-    if (subDetailName === SubElementName.fill) {
-      if (key === StyleKeyName.weight) return;
-      if (key === StyleKeyName.visibility) {
+    if (subDetailName === SubElementNameType.fill) {
+      if (key === StyleKeyType.weight) return;
+      if (key === StyleKeyType.visibility) {
         const styleValue = style[key] === 'none' ? 'none' : 'visible';
-        applyVisibility(map, layers.symbol, styleValue);
+        applyVisibility({
+          map,
+          layerNames: layers.symbol,
+          visibility: styleValue,
+        });
         return;
       }
 
       applyColor({
         map,
         layerNames: layers.symbol,
-        type: ColorTypeName['text-color'],
+        type: ColorType.text,
         color: style.color,
         [key]: style[key],
       });
@@ -47,21 +51,21 @@ function waterStyling({
     }
 
     // labelText - stroke
-    if (key === StyleKeyName.weight || key === StyleKeyName.visibility) {
+    if (key === StyleKeyType.weight || key === StyleKeyType.visibility) {
       const styleValue = style.visibility === 'none' ? 0 : Number(style.weight);
-      applyWeight(
+      applyWeight({
         map,
-        layers.symbol,
-        WeightTypeName['text-halo-width'],
-        styleValue
-      );
+        layerNames: layers.symbol,
+        type: WeightType.textHalo,
+        weight: styleValue,
+      });
       return;
     }
 
     applyColor({
       map,
       layerNames: layers.symbol,
-      type: ColorTypeName['text-halo-color'],
+      type: ColorType.textHalo,
       color: style.color,
       [key]: style[key],
     });
@@ -69,20 +73,27 @@ function waterStyling({
   }
 
   // section - stroke
-  if (subDetailName === SubElementName.stroke || key === StyleKeyName.weight)
+  if (
+    subDetailName === SubElementNameType.stroke ||
+    key === StyleKeyType.weight
+  )
     return;
 
   // section - fill
-  if (key === StyleKeyName.visibility) {
+  if (key === StyleKeyType.visibility) {
     const styleValue = style[key] === 'none' ? 'none' : 'visible';
-    applyVisibility(map, layers.polygon, styleValue);
+    applyVisibility({
+      map,
+      layerNames: layers.polygon,
+      visibility: styleValue,
+    });
     return;
   }
 
   applyColor({
     map,
     layerNames: layers.polygon,
-    type: ColorTypeName['fill-color'],
+    type: ColorType.fill,
     color: style.color,
     [key]: style[key],
   });

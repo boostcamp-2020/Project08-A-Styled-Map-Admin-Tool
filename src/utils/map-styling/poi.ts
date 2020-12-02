@@ -4,12 +4,11 @@ import {
   applyColor,
   applyWeight,
   applyVisibility,
-  colorType,
-  weightType,
-  WeightTypeName,
-  ColorTypeName,
+  WeightType,
+  ColorType,
+  StyleTypes,
 } from '../applyStyle';
-import { StyleKeyType, ElementName } from '../../store/common/type';
+import { StyleKeyType, ElementNameType } from '../../store/common/type';
 
 type PoiSubFeature =
   | 'all'
@@ -27,8 +26,8 @@ type POI_LAYERS_TYPE = {
   [name in PoiSubFeature]: string[];
 };
 
-const VISIBLE = '1';
-const INVISIBLE = '0';
+const VISIBLE = 1;
+const INVISIBLE = 0;
 const POI_LAYERS: POI_LAYERS_TYPE = {
   all: [
     'poi-attraction',
@@ -74,15 +73,15 @@ const mappingDetailToFunc = {
   labelText: {
     fill: {
       color: {
-        typeName: ColorTypeName['text-color'],
+        typeName: ColorType.text,
         funcName: applyColor,
       },
       saturation: {
-        typeName: ColorTypeName['text-color'],
+        typeName: ColorType.text,
         funcName: applyColor,
       },
       lightness: {
-        typeName: ColorTypeName['text-color'],
+        typeName: ColorType.text,
         funcName: applyColor,
       },
       weight: {
@@ -100,23 +99,23 @@ const mappingDetailToFunc = {
     },
     stroke: {
       color: {
-        typeName: ColorTypeName['text-halo-color'],
+        typeName: ColorType.textHalo,
         funcName: applyColor,
       },
       saturation: {
-        typeName: ColorTypeName['text-halo-color'],
+        typeName: ColorType.textHalo,
         funcName: applyColor,
       },
       lightness: {
-        typeName: ColorTypeName['text-halo-color'],
+        typeName: ColorType.textHalo,
         funcName: applyColor,
       },
       weight: {
-        typeName: WeightTypeName['text-halo-width'],
+        typeName: WeightType.textHalo,
         funcName: applyWeight,
       },
       visibility: {
-        typeName: WeightTypeName['text-halo-width'],
+        typeName: WeightType.textHalo,
         funcName: applyWeight,
       },
       isChanged: {
@@ -143,7 +142,7 @@ const mappingDetailToFunc = {
       funcName: () => null,
     },
     visibility: {
-      typeName: WeightTypeName['icon-opacity'],
+      typeName: ColorType.icon,
       funcName: applyWeight,
     },
     isChanged: {
@@ -164,8 +163,8 @@ function poiStyling({
   let type = null;
   let func = null;
 
-  if (detailName === ElementName.section) return;
-  if (detailName === ElementName.labelText) {
+  if (detailName === ElementNameType.section) return;
+  if (detailName === ElementNameType.labelText) {
     const { typeName, funcName } = mappingDetailToFunc[detailName][
       subDetailName
     ][key as StyleKeyType];
@@ -182,8 +181,7 @@ function poiStyling({
   if (!type) return;
   if (
     key === 'visibility' &&
-    (type === WeightTypeName['icon-opacity'] ||
-      type === WeightTypeName['text-halo-width'])
+    (type === ColorType.icon || type === WeightType.textHalo)
   ) {
     func({
       map,
@@ -197,7 +195,7 @@ function poiStyling({
   func({
     map,
     layerNames: POI_LAYERS[subFeatureName as PoiSubFeature],
-    type: type as weightType | colorType,
+    type: type as StyleTypes,
     color: style.color,
     [key]: style[key as StyleKeyType],
   });

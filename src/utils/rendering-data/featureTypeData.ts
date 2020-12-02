@@ -12,7 +12,7 @@ export interface DataType {
 
 const data: DataType[] = [
   {
-    typeKey: 'poi',
+    typeKey: FeatureNameType.poi,
     typeName: 'POI',
     features: [
       { key: 'landmark', name: '랜드마크' },
@@ -27,7 +27,7 @@ const data: DataType[] = [
     ],
   },
   {
-    typeKey: 'road',
+    typeKey: FeatureNameType.road,
     typeName: '도로',
     features: [
       { key: 'highway', name: '고속도로' },
@@ -37,7 +37,7 @@ const data: DataType[] = [
     ],
   },
   {
-    typeKey: 'administrative',
+    typeKey: FeatureNameType.administrative,
     typeName: '행정구역',
     features: [
       { key: 'country', name: '국가' },
@@ -46,7 +46,7 @@ const data: DataType[] = [
     ],
   },
   {
-    typeKey: 'landscape',
+    typeKey: FeatureNameType.landscape,
     typeName: '경관',
     features: [
       { key: 'human-made', name: '인공물' },
@@ -57,7 +57,7 @@ const data: DataType[] = [
     ],
   },
   {
-    typeKey: 'transit',
+    typeKey: FeatureNameType.transit,
     typeName: '교통',
     features: [
       { key: 'airport', name: '공항' },
@@ -66,8 +66,8 @@ const data: DataType[] = [
       { key: 'subway', name: '지하철' },
     ],
   },
-  { typeKey: 'water', typeName: '물', features: [] },
-  { typeKey: 'marker', typeName: '마크', features: [] },
+  { typeKey: FeatureNameType.water, typeName: '물', features: [] },
+  { typeKey: FeatureNameType.marker, typeName: '마크', features: [] },
 ];
 
 export default data;
