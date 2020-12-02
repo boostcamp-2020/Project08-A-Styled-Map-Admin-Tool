@@ -47,7 +47,7 @@ const Circle = styled.div<CheckedProp>`
 
 interface VisibilityStyleProps {
   visibility: string;
-  onStyleChange: (key: string, value: string | number) => void;
+  onStyleChange: (key: StyleKeyName, value: string | number) => void;
 }
 
 function VisibilityStyle({

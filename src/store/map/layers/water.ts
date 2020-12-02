@@ -13,17 +13,4 @@ export default [
     filter: ['==', ['get', 'type'], 'water'],
     id: 'water-polygon',
   },
-  {
-    type: 'line',
-    source: 'line_source',
-    'source-layer': 'line',
-    layout: {
-      visibility: 'visible',
-    },
-    paint: {
-      'line-color': 'blue',
-    },
-    filter: ['match', ['get', 'type'], ['river', 'stream'], true, false],
-    id: 'water-line',
-  },
 ];

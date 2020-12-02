@@ -2,6 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import {
   ElementNameType,
   SubElementNameType,
+  StyleKeyName,
   StyleType,
 } from '../../store/common/type';
 
@@ -12,6 +13,7 @@ export interface stylingProps {
   detailName: ElementNameType;
   key: string;
   subDetailName: SubElementNameType;
+  key: StyleKeyName;
   style: StyleType;
 }
 

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { StyleKeyName } from '../../store/common/type';
 
 interface UseInputRangeProps {
   range: string | number;
-  onStyleChange: (key: string, value: string | number) => void;
+  onStyleChange: (key: StyleKeyName, value: string | number) => void;
 }
 
 interface InputRangeHookType {
   curRange: string | number;
   rangeChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  rangeMouseUpHandler: (key: string) => void;
+  rangeMouseUpHandler: (key: StyleKeyName) => void;
 }
 
 function useInputRange({
@@ -25,7 +26,7 @@ function useInputRange({
     setCurRange(e.target.value);
   };
 
-  const rangeMouseUpHandler = (key: string) => {
+  const rangeMouseUpHandler = (key: StyleKeyName) => {
     onStyleChange(key, curRange);
   };
 

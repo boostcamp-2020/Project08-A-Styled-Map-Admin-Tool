@@ -24,7 +24,7 @@ const LightnessControlBar = styled(Range)`
 
 interface LightnessPropsInterface {
   lightness: string;
-  onStyleChange: (key: string, value: string | number) => void;
+  onStyleChange: (key: StyleKeyName, value: string | number) => void;
 }
 
 function LightnessStyle({

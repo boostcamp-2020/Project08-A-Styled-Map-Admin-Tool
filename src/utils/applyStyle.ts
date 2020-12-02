@@ -4,10 +4,6 @@ import mapboxgl from 'mapbox-gl';
 import { StyleKeyName } from '../store/common/type';
 import { hexToHSL } from './colorFormat';
 
-export enum VisibilityType {
-  visibility = 'visibility',
-}
-
 export enum ColorTypeName {
   'fill-color' = 'fill-color',
   'line-color' = 'line-color',
@@ -17,12 +13,16 @@ export enum ColorTypeName {
 
 export enum WeightTypeName {
   'line-width' = 'line-width',
-  'text-size' = 'text-size',
   'text-halo-width' = 'text-halo-width',
 }
 
 type ColorType = keyof typeof ColorTypeName;
 type WeightType = keyof typeof WeightTypeName;
+
+export enum VisibilityType {
+  visibility = 'visibility',
+}
+
 export type styleTypes = VisibilityType | ColorType | WeightType;
 
 interface ApplyColorProps {
@@ -82,10 +82,11 @@ export function applyColor({
 export function applyWeight(
   map: mapboxgl.Map,
   layerNames: string[],
-  type: WeightType,
-  weight: string
+  type: weightType,
+  weight: number
 ): void {
-  return layerNames.forEach((layerName) => {
-    map.setPaintProperty(layerName, type, +weight * 3 + 1);
+  const weightValue = weight === 0 ? 0 : weight * 2 + 1;
+  layerNames.forEach((layerName) => {
+    map.setPaintProperty(layerName, type, weightValue);
   });
 }
