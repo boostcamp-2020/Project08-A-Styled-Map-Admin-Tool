@@ -17,26 +17,13 @@ const SECTION = 'section';
 const LABELTEXT = 'labelText';
 const LABELICON = 'labelIcon';
 
-const ALL = 'all';
-
 type LandscapeSubFeature =
   | 'all'
   | 'human-made'
   | 'building'
   | 'natural'
-  | 'landcover';
-
-const humanMadeLayers: string[] = ['landscape-human-made'];
-
-const buildingLayers: string[] = [
-  'landscape-building',
-  'building-outline',
-  'building',
-];
-
-const naturalLayers: string[] = ['landscape-natural'];
-
-const landcoverLayers: string[] = ['landscape-landcover'];
+  | 'landcover'
+  | 'mountain';
 
 interface SubDetailType {
   fill: string[];
@@ -56,31 +43,69 @@ function makeSubDetail(
   return { fill: fillLayers, stroke: strokeLayers };
 }
 
+const humanMadeSectionFill = ['landscape-human-made'];
+const humanMadeSectionStroke = ['pitch-outline'];
+
+const buildingSectionFill = ['landscape-building', 'building'];
+const buildingSectionStroke = ['building-outline'];
+const buildingLabel = ['building-number-label'];
+
+const naturalSectionFill = ['landscape-natural'];
+const naturalLabel = ['natural-point-label'];
+
+const landCoverSectionFill = [
+  'landscape-landcover',
+  'landcover',
+  'landuse',
+  'lang-structure-polygon',
+];
+const landCoverSectionStroke = ['lang-structure-line'];
+
+const mountainCoverSectionFill = ['hillshade'];
+
 const layersByType: { [key in LandscapeSubFeature]: DetailType } = {
   'human-made': {
-    [SECTION]: makeSubDetail([], []),
+    [SECTION]: makeSubDetail(humanMadeSectionFill, humanMadeSectionStroke),
     [LABELTEXT]: makeSubDetail([], []),
     [LABELICON]: makeSubDetail([], []),
   },
   building: {
-    [SECTION]: makeSubDetail([], []),
+    [SECTION]: makeSubDetail(buildingSectionFill, buildingSectionStroke),
     [LABELTEXT]: makeSubDetail([], []),
-    [LABELICON]: makeSubDetail([], []),
+    [LABELICON]: makeSubDetail(buildingLabel, buildingLabel),
   },
   natural: {
-    [SECTION]: makeSubDetail([], []),
+    [SECTION]: makeSubDetail(naturalSectionFill, []),
+    [LABELTEXT]: makeSubDetail([], []),
+    [LABELICON]: makeSubDetail(naturalLabel, naturalLabel),
+  },
+  landcover: {
+    [SECTION]: makeSubDetail(landCoverSectionFill, landCoverSectionStroke),
     [LABELTEXT]: makeSubDetail([], []),
     [LABELICON]: makeSubDetail([], []),
   },
-  landcover: {
-    [SECTION]: makeSubDetail([], []),
+  mountain: {
+    [SECTION]: makeSubDetail(mountainCoverSectionFill, []),
     [LABELTEXT]: makeSubDetail([], []),
     [LABELICON]: makeSubDetail([], []),
   },
   all: {
-    [SECTION]: makeSubDetail([], []),
+    [SECTION]: makeSubDetail(
+      [
+        ...humanMadeSectionFill,
+        ...buildingSectionFill,
+        ...naturalSectionFill,
+        ...landCoverSectionFill,
+        ...mountainCoverSectionFill,
+      ],
+      [
+        ...humanMadeSectionStroke,
+        ...buildingSectionStroke,
+        ...landCoverSectionStroke,
+      ]
+    ),
     [LABELTEXT]: makeSubDetail([], []),
-    [LABELICON]: makeSubDetail([], []),
+    [LABELICON]: makeSubDetail([], [...buildingLabel, ...naturalLabel]),
   },
 };
 
@@ -235,8 +260,6 @@ function landscapeStyling({
   let type = null;
   let func = null;
 
-  console.log(subFeatureName, detailName, subDetailName, key);
-
   if (
     detailName === ElementNameType.section ||
     detailName === ElementNameType.labelText
@@ -273,7 +296,6 @@ function landscapeStyling({
     return;
   }
   if (key === 'visibility') {
-    console.log(func);
     func({
       map,
       layerNames:
