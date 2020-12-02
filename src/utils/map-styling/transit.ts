@@ -1,6 +1,8 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-case-declarations */
 import { stylingProps } from '.';
+
 import {
   StyleKeyType,
   ElementNameType,
@@ -15,23 +17,17 @@ import {
   StyleTypes,
 } from '../../utils/applyStyle';
 
-const AirportLayerNames = [
-  'airport-label',
-  'aeroway-polygon',
-  'transit-airport',
-  'aeroway-line',
+const PolygonLayers = [
+  'mapbox-airport-aeroway-polygon',
+  'mapbox-airport-polygon',
 ];
-const BusLayerNames = ['transit-bus-label'];
-const RailLayerNames = ['transit-rail'];
-const SubwayLayerNames = ['transit-subway', 'transit-subway-label'];
-
-const AllLayerTypeKeys = [
-  ...AirportLayerNames,
-  ...BusLayerNames,
-  ...RailLayerNames,
-  ...SubwayLayerNames,
-  'transit-label',
+const LineLayers = [
+  'mapbox-airport-aeroway-line',
+  'transit-subway-line',
+  'transit-rail-line',
+  'mapbox-rail-road-line',
 ];
+const LabelLayers = ['mapbox-airport-label', 'transit-bus-label'];
 
 function transitStyling({
   map,
@@ -41,71 +37,34 @@ function transitStyling({
   subDetailName,
   style,
 }: stylingProps): void {
-  let layers: string[];
-  switch (subFeatureName) {
-    case 'all':
-      layers = [...AllLayerTypeKeys];
-      break;
-    case 'subway':
-      layers = [...SubwayLayerNames];
-      break;
-    case 'bus':
-      layers = [...BusLayerNames];
-      break;
-    case 'airport':
-      layers = [...AirportLayerNames];
-      break;
-    case 'rail':
-      layers = [...RailLayerNames];
-      break;
-    default:
-      return;
-  }
+  let layerNames: string[] =
+    subDetailName === SubElementNameType.fill
+      ? key === StyleKeyType.weight
+        ? []
+        : detailName === ElementNameType.labelText
+        ? [...LabelLayers]
+        : [...PolygonLayers]
+      : detailName === ElementNameType.labelText
+      ? [...LabelLayers]
+      : [...LineLayers];
 
-  let layersByDetailName: string[];
+  layerNames =
+    subFeatureName === 'all'
+      ? layerNames
+      : layerNames.filter((layer) => layer.includes(subFeatureName));
+
+  if (layerNames.length === 0) return;
+
+  const styleKey = key as StyleKeyType;
+  const { [styleKey]: styleValue } = style;
   let styleType: StyleTypes;
-
-  switch (detailName) {
-    case ElementNameType.section:
-      layersByDetailName = layers.filter((layer) => !layer.includes('label'));
-      styleType =
-        subDetailName === SubElementNameType.stroke
-          ? key === StyleKeyType.weight
-            ? WeightType.line
-            : ColorType.line
-          : ColorType.fill;
-
-      break;
-    case ElementNameType.labelText:
-      layersByDetailName = layers.filter((layer) => layer.includes('label'));
-      styleType =
-        subDetailName === SubElementNameType.stroke
-          ? key === StyleKeyType.weight
-            ? WeightType.textHalo
-            : ColorType.textHalo
-          : ColorType.text;
-      break;
-    case ElementNameType.labelIcon:
-      layersByDetailName = layers.filter((layer) => !layer.includes('label'));
-      styleType =
-        subDetailName === SubElementNameType.stroke
-          ? ColorType.line
-          : ColorType.fill;
-      break;
-
-    default:
-      return;
-  }
-
-  const styleKey: StyleKeyType = key as StyleKeyType;
-  const { [styleKey]: value } = style;
 
   switch (styleKey) {
     case StyleKeyType.visibility:
       applyVisibility({
         map,
-        layerNames: layersByDetailName,
-        visibility: value as string,
+        layerNames,
+        visibility: styleValue as string,
       });
       break;
 
@@ -116,6 +75,15 @@ function transitStyling({
       const satKey = StyleKeyType.saturation;
       const ligKey = StyleKeyType.lightness;
 
+      styleType =
+        detailName === ElementNameType.labelText
+          ? subDetailName === SubElementNameType.fill
+            ? ColorType.text
+            : ColorType.textHalo
+          : subDetailName === SubElementNameType.fill
+          ? ColorType.fill
+          : ColorType.line;
+
       const satureOrLight =
         key === 'saturation'
           ? { saturation: +style[satKey] }
@@ -124,7 +92,7 @@ function transitStyling({
           : {};
       applyColor({
         map,
-        layerNames: layersByDetailName,
+        layerNames,
         type: styleType,
         color: style[colorKey],
         ...satureOrLight,
@@ -132,20 +100,23 @@ function transitStyling({
       break;
 
     case StyleKeyType.weight:
-      if (subDetailName !== 'fill') {
-        applyWeight({
-          map,
-          layerNames: layersByDetailName,
-          type: styleType as WeightType,
-          weight: value as number,
-        });
-      }
+      styleType =
+        detailName === ElementNameType.labelText
+          ? WeightType.textHalo
+          : WeightType.line;
+      applyWeight({
+        map,
+        layerNames,
+        type: styleType,
+        weight: styleValue as number,
+      });
 
       break;
 
     default:
       break;
   }
+  debugger;
 }
 
 export default transitStyling;

@@ -1,5 +1,6 @@
 export default [
   {
+    id: 'mapbox-airport-polygon',
     type: 'fill',
     source: 'composite',
     'source-layer': 'landuse',
@@ -10,10 +11,9 @@ export default [
       'fill-color': 'hsl(234, 20%, 30%)',
     },
     filter: ['in', 'class', 'airport'],
-    id: 'transit-airport',
   },
   {
-    id: 'mapbox-aeroway-polygon',
+    id: 'mapbox-airport-aeroway-polygon',
     type: 'fill',
     metadata: {},
     source: 'composite',
@@ -30,7 +30,7 @@ export default [
     },
   },
   {
-    id: 'mapbox-aeroway-line',
+    id: 'mapbox-airport-aeroway-line',
     type: 'line',
     metadata: {},
     source: 'composite',
@@ -84,8 +84,8 @@ export default [
       'text-halo-width': 1,
     },
   },
-
   {
+    id: 'transit-subway-line',
     type: 'line',
     source: 'line_source',
     'source-layer': 'line',
@@ -97,9 +97,9 @@ export default [
       'line-width': 2,
     },
     filter: ['in', 'type', 'subway'],
-    id: 'transit-subway',
   },
   {
+    id: 'transit-rail-line',
     type: 'line',
     source: 'line_source',
     'source-layer': 'line',
@@ -111,9 +111,9 @@ export default [
       'line-width': 2,
     },
     filter: ['in', 'type', 'rail'],
-    id: 'transit-rail',
   },
   {
+    id: 'mapbox-rail-road-line',
     type: 'line',
     source: 'composite',
     'source-layer': 'road',
@@ -132,9 +132,9 @@ export default [
       ['match', ['get', 'class'], ['major_rail', 'minor_rail'], true, false],
       ['match', ['get', 'structure'], ['none', 'ford'], true, false],
     ],
-    id: 'mapbox-rail-road',
   },
   {
+    id: 'transit-bus-label',
     type: 'symbol',
     source: 'poi_source',
     'source-layer': 'poi',
@@ -149,6 +149,5 @@ export default [
       'text-color': 'hsl(13, 68%, 63%)',
     },
     filter: ['in', 'type', 'bus_stop'],
-    id: 'transit-bus-label',
   },
 ];
