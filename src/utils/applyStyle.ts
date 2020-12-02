@@ -1,62 +1,99 @@
+/* eslint-disable no-debugger */
+/* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
+import { StyleKeyName } from '../store/common/type';
 import { hexToHSL } from './colorFormat';
 
-type colorType = 'fill-color' | 'line-color' | 'text-color' | 'text-halo-color';
-type weightType = 'line-width' | 'text-halo-width' | 'text-size';
+export enum VisibilityType {
+  visibility = 'visibility',
+}
+
+export enum ColorTypeName {
+  'fill-color' = 'fill-color',
+  'line-color' = 'line-color',
+  'text-color' = 'text-color',
+  'text-halo-color' = 'text-halo-color',
+}
+export enum WeightTypeName {
+  'line-width' = 'line-width',
+  'text-size' = 'text-size',
+  'text-halo-width' = 'text-halo-width',
+}
+type ColorType = keyof typeof ColorTypeName;
+type WeightType = keyof typeof WeightTypeName;
+export type styleTypes = VisibilityType | ColorType | WeightType;
+
+interface ApplyColorProps {
+  map: mapboxgl.Map;
+  layerNames: string[];
+  color: string;
+  type: styleTypes;
+  saturation?: number;
+  lightness?: number;
+}
 
 export function applyVisibility(
   map: mapboxgl.Map,
-  layerName: string,
+  layerNames: string[],
   visibility: string
 ): void {
-  map.setLayoutProperty(layerName, 'visibility', visibility);
+  return layerNames.forEach((layerName) => {
+    map.setLayoutProperty(layerName, VisibilityType.visibility, visibility);
+  });
 }
 
-export function applyColor(
-  map: mapboxgl.Map,
-  layerName: string,
-  type: colorType,
-  color: string
-): void {
+export function applyColor({
+  map,
+  layerNames,
+  type,
+  color,
+  saturation,
+  lightness,
+}: ApplyColorProps): void {
   const { h, s, l } = hexToHSL(color);
-  map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${l}%)`);
+
+  if (saturation) {
+    return layerNames.forEach((layerName) => {
+      map.setPaintProperty(
+        layerName,
+        type,
+        `hsl(${h}, ${50 + saturation / 2}%, ${l}%)`
+      );
+    });
+  }
+  if (lightness) {
+    return layerNames.forEach((layerName) => {
+      map.setPaintProperty(
+        layerName,
+        type,
+        `hsl(${h}, ${s}%, ${50 + lightness / 2}%)`
+      );
+    });
+  }
+
+  return layerNames.forEach((layerName) => {
+    map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${l}%)`);
+  });
 }
 
 export function applyWeight(
   map: mapboxgl.Map,
-  layerName: string,
-  type: weightType,
-  weight: number
+  layerNames: string[],
+  type: WeightType,
+  weight: string
 ): void {
-  map.setPaintProperty(layerName, type, weight * 2 + 1);
+  return layerNames.forEach((layerName) => {
+    map.setPaintProperty(layerName, type, +weight * 3 + 1);
+  });
 }
 
-export function applySaturation(
+export function applyTextSize(
   map: mapboxgl.Map,
-  layerName: string,
-  type: colorType,
-  color: string,
-  saturation: number
+  layerNames: string[],
+  type: WeightType,
+  size: string
 ): void {
-  const { h, l } = hexToHSL(color);
-  map.setPaintProperty(
-    layerName,
-    type,
-    `hsl(${h}, ${50 + saturation / 2}%, ${l}%)`
-  );
-}
-
-export function applyLightness(
-  map: mapboxgl.Map,
-  layerName: string,
-  type: colorType,
-  color: string,
-  lightness: number
-): void {
-  const { h, s } = hexToHSL(color);
-  map.setPaintProperty(
-    layerName,
-    type,
-    `hsl(${h}, ${s}%, ${50 + lightness / 2}%)`
-  );
+  return layerNames.forEach((layerName) => {
+    map.setLayoutProperty(layerName, type, +size * 3);
+  });
 }
