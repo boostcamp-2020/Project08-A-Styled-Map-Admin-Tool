@@ -68,6 +68,7 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
     translate(map);
     map.removeLayer('poi-label');
     map.removeLayer('road-label');
+    map.removeLayer('road-polygon');
 
     map.addSource(Sources.polygon, {
       type: 'vector',
