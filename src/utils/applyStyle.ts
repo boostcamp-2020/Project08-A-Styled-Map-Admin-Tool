@@ -1,4 +1,7 @@
+/* eslint-disable no-debugger */
+/* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
+import { StyleKeyName } from '../store/common/type';
 import { hexToHSL } from './colorFormat';
 
 export enum ColorTypeName {
@@ -13,17 +16,22 @@ export enum WeightTypeName {
   'text-halo-width' = 'text-halo-width',
 }
 
-type colorType = keyof typeof ColorTypeName;
+type ColorType = keyof typeof ColorTypeName;
+type WeightType = keyof typeof WeightTypeName;
 
-type weightType = keyof typeof WeightTypeName;
+export enum VisibilityType {
+  visibility = 'visibility',
+}
+
+export type styleTypes = VisibilityType | ColorType | WeightType;
 
 interface ApplyColorProps {
   map: mapboxgl.Map;
   layerNames: string[];
   color: string;
-  type: colorType;
-  saturation?: number;
-  lightness?: number;
+  type: ColorType;
+  saturation?: string;
+  lightness?: string;
 }
 
 export function applyVisibility(
@@ -32,7 +40,9 @@ export function applyVisibility(
   visibility: string
 ): void {
   layerNames.forEach((layerName) => {
-    map.setLayoutProperty(layerName, 'visibility', visibility);
+    if (visibility === 'inherit') {
+      map.setLayoutProperty(layerName, 'visibility', 'visible');
+    } else map.setLayoutProperty(layerName, 'visibility', visibility);
   });
 }
 
@@ -46,26 +56,25 @@ export function applyColor({
 }: ApplyColorProps): void {
   const { h, s, l } = hexToHSL(color);
   if (saturation) {
-    layerNames.forEach((layerName) => {
+    return layerNames.forEach((layerName) => {
       map.setPaintProperty(
         layerName,
         type,
         `hsl(${h}, ${50 + saturation / 2}%, ${l}%)`
       );
     });
-    return;
   }
   if (lightness) {
-    layerNames.forEach((layerName) => {
+    return layerNames.forEach((layerName) => {
       map.setPaintProperty(
         layerName,
         type,
         `hsl(${h}, ${s}%, ${50 + lightness / 2}%)`
       );
     });
-    return;
   }
-  layerNames.forEach((layerName) => {
+
+  return layerNames.forEach((layerName) => {
     map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${l}%)`);
   });
 }

@@ -22,6 +22,7 @@ export default [
     },
     paint: {
       'line-color': '#ff00ff',
+      'line-width': 1,
     },
     filter: [
       'match',
@@ -60,6 +61,7 @@ export default [
     },
     paint: {
       'line-color': 'red',
+      'line-width': 1,
     },
     filter: ['match', ['get', 'type'], ['pedestrian', 'footway'], true, false],
     id: 'road-footway',
