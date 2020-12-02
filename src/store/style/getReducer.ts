@@ -7,6 +7,7 @@ import {
   SubElementNameType,
   objType,
   ElementNameType,
+  SubElementType,
 } from '../common/type';
 import { getDefaultFeature } from './properties';
 import { INIT, SET } from './action';
@@ -23,7 +24,10 @@ export default function getReducer(IDX: number): ReducerType {
   ];
 
   const initialState = subFeatures.reduce((acc: FeatureState, cur: string) => {
-    acc[cur] = getDefaultFeature();
+    acc[cur] = getDefaultFeature({
+      featureType: renderingData[IDX].typeKey,
+      subFeatureType: cur,
+    });
     return acc;
   }, {});
 
@@ -51,12 +55,15 @@ export default function getReducer(IDX: number): ReducerType {
 
         let prevIsChanged;
         if (element === ElementNameType.labelIcon) {
-          prevIsChanged = newFeature[element].isChanged;
+          prevIsChanged = newFeature[element]?.isChanged;
           newFeature[element] = style;
         } else {
-          prevIsChanged =
-            newFeature[element][subElement as SubElementNameType].isChanged;
-          newFeature[element][subElement as SubElementNameType] = style;
+          prevIsChanged = (newFeature[element] as SubElementType)[
+            subElement as SubElementNameType
+          ].isChanged;
+          (newFeature[element] as SubElementType)[
+            subElement as SubElementNameType
+          ] = style;
         }
 
         if (prevIsChanged !== style.isChanged) {
