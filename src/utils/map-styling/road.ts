@@ -6,7 +6,11 @@ import {
   ColorType,
   WeightType,
 } from '../applyStyle';
-import { StyleKeyType } from '../../store/common/type';
+import {
+  StyleKeyType,
+  ElementNameType,
+  SubElementNameType,
+} from '../../store/common/type';
 
 function roadStyling({
   map,
@@ -20,19 +24,28 @@ function roadStyling({
   const arterialLayerNames = [
     'road-number-shield',
     'road-exit-shield',
-    'road-label',
     'road-arterial',
+    'road-arterial-label',
   ];
-  const localLayerNames = ['ferry', 'ferry-auto', 'road-local'];
-  const sidewalkLayerNames = ['road-footway'];
+  const localLayerNames = [
+    'ferry',
+    'ferry-auto',
+    'road-local',
+    'road-local-label',
+  ];
+  const sidewalkLayerNames = ['road-footway', 'road-sidewalk-label'];
 
   if (subFeatureName === 'arterial') {
-    if (
-      detailName === 'section' &&
-      subDetailName === 'fill' &&
-      key === 'visibility'
-    ) {
-      applyVisibility({ map, layerNames: arterialLayerNames, visibility });
+    if (key === 'visibility') {
+      if (
+        detailName === ElementNameType.section &&
+        subDetailName === SubElementNameType.fill
+      )
+        applyVisibility({
+          map,
+          layerNames: localLayerNames,
+          visibility,
+        });
     } else if (key === 'color' || key === 'saturation' || key === 'lightness') {
       if (detailName === 'section' && subDetailName === 'fill') {
         applyColor({
@@ -45,15 +58,22 @@ function roadStyling({
       } else if (detailName === 'labelText' && subDetailName === 'fill') {
         applyColor({
           map,
-          layerNames: ['road-number-shield', 'road-exit-shield', 'road-label'],
+          layerNames: [
+            'road-number-shield',
+            'road-exit-shield',
+            'road-arterial-label',
+          ],
           color,
           type: ColorType.text,
           [key]: style[key as StyleKeyType],
         });
-      } else if (detailName === 'labelText' && subDetailName === 'stroke') {
+      } else if (
+        detailName === 'labelText' &&
+        subDetailName === SubElementNameType.stroke
+      ) {
         applyColor({
           map,
-          layerNames: ['road-label'],
+          layerNames: ['road-arterial-label'],
           color,
           type: ColorType.textHalo,
           [key]: style[key as StyleKeyType],
@@ -71,8 +91,8 @@ function roadStyling({
       if (detailName === 'labelText' && subDetailName === 'stroke')
         applyWeight({
           map,
-          layerNames: ['road-label'],
-          type: ColorType.textHalo,
+          layerNames: ['road-arterial-label'],
+          type: WeightType.textHalo,
           weight,
         });
     }
@@ -80,7 +100,7 @@ function roadStyling({
     if (key === 'visibility')
       applyVisibility({ map, layerNames: localLayerNames, visibility });
     else if (key === 'color' || key === 'saturation' || key === 'lightness') {
-      if (detailName === 'section' && subDetailName === 'fill') {
+      if (detailName === 'section' && subDetailName === 'fill')
         applyColor({
           map,
           layerNames: ['ferry', 'ferry-auto', 'road-local'],
@@ -88,6 +108,23 @@ function roadStyling({
           type: ColorType.line,
           [key]: style[key as StyleKeyType],
         });
+      else if (detailName === ElementNameType.labelText) {
+        if (subDetailName === SubElementNameType.fill)
+          applyColor({
+            map,
+            layerNames: ['road-local-label'],
+            color,
+            type: ColorType.text,
+            [key]: style[key as StyleKeyType],
+          });
+        else if (subDetailName === SubElementNameType.stroke)
+          applyColor({
+            map,
+            layerNames: ['road-local-label'],
+            color,
+            type: ColorType.textHalo,
+            [key]: style[key as StyleKeyType],
+          });
       }
     } else if (key === 'weight') {
       if (detailName === 'section' && subDetailName === 'fill')
@@ -97,18 +134,20 @@ function roadStyling({
           type: WeightType.line,
           weight,
         });
+      else if (detailName === ElementNameType.labelText) {
+        if (subDetailName === SubElementNameType.stroke)
+          applyWeight({
+            map,
+            layerNames: ['road-local-label'],
+            type: WeightType.textHalo,
+            weight,
+          });
+      }
     }
   } else if (subFeatureName === 'sidewalk') {
-    if (key === 'visibility')
-      applyVisibility({ map, layerNames: sidewalkLayerNames, visibility });
-    else if (key === 'weight') {
-      if (detailName === 'section' && subDetailName === 'fill')
-        applyWeight({
-          map,
-          layerNames: sidewalkLayerNames,
-          type: WeightType.line,
-          weight,
-        });
+    if (key === 'visibility') {
+      if (detailName === ElementNameType.labelText)
+        applyVisibility({ map, layerNames: sidewalkLayerNames, visibility });
     } else if (key === 'color' || key === 'saturation' || key === 'lightness') {
       if (detailName === 'section' && subDetailName === 'fill')
         applyColor({
@@ -118,6 +157,44 @@ function roadStyling({
           type: ColorType.line,
           [key]: style[key as StyleKeyType],
         });
+      else if (detailName === ElementNameType.labelText) {
+        if (subDetailName === SubElementNameType.fill)
+          applyColor({
+            map,
+            layerNames: ['road-sidewalk-label'],
+            color,
+            type: ColorType.text,
+            [key]: style[key as StyleKeyType],
+          });
+        else if (subDetailName === SubElementNameType.stroke)
+          applyColor({
+            map,
+            layerNames: ['road-sidewalk-label'],
+            color,
+            type: ColorType.textHalo,
+            [key]: style[key as StyleKeyType],
+          });
+      }
+    } else if (key === 'weight') {
+      if (
+        detailName === ElementNameType.section &&
+        subDetailName === SubElementNameType.fill
+      )
+        applyWeight({
+          map,
+          layerNames: sidewalkLayerNames,
+          type: WeightType.line,
+          weight,
+        });
+      else if (detailName === ElementNameType.labelText) {
+        if (subDetailName === SubElementNameType.stroke)
+          applyWeight({
+            map,
+            layerNames: ['road-sidewalk-label'],
+            type: WeightType.textHalo,
+            weight,
+          });
+      }
     }
   }
 }
