@@ -16,7 +16,6 @@ const ZOOM = 15.5;
 const LABEL_LAYERS: string[] = [
   'country-label',
   'settlement-label',
-  'road-label',
   'state-label',
   'settlement-subdivision-label',
   'airport-label',
@@ -68,6 +67,7 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
   map.on('load', () => {
     translate(map);
     map.removeLayer('poi-label');
+    map.removeLayer('road-label');
 
     map.addSource(Sources.polygon, {
       type: 'vector',
