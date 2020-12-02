@@ -1,6 +1,6 @@
 import { stylingProps } from './index';
 import { applyColor, applyVisibility, ColorType } from '../applyStyle';
-import { StyleType } from '../../store/common/type';
+import { StyleKeyType, StyleType } from '../../store/common/type';
 
 const SECTION = 'section';
 const FILL = 'fill';
@@ -11,28 +11,51 @@ const layers = ['human-made', 'building', 'natural', 'landcover'];
 interface applyStyleProps {
   map: mapboxgl.Map;
   subFeatureName: string;
+  key: StyleKeyType;
   style: StyleType;
 }
 
-function applyLandscapeStyle({ map, subFeatureName, style }: applyStyleProps) {
+function applyLandscapeStyle({
+  map,
+  subFeatureName,
+  key,
+  style,
+}: applyStyleProps): void {
   const layerNames = [`landscape-${subFeatureName}`];
 
-  applyColor({ map, layerNames, type: ColorType.fill, color: style.color });
-  applyVisibility({ map, layerNames, visibility: style.visibility });
-  applyColor({
-    map,
-    layerNames,
-    type: ColorType.fill,
-    color: style.color,
-    lightness: Number(style.lightness),
-  });
-  applyColor({
-    map,
-    layerNames,
-    type: ColorType.fill,
-    color: style.color,
-    saturation: Number(style.saturation),
-  });
+  switch (key) {
+    case 'color':
+      applyColor({
+        map,
+        layerNames,
+        type: ColorType.fill,
+        color: style.color,
+      });
+      break;
+    case 'visibility':
+      applyVisibility({ map, layerNames, visibility: style.visibility });
+      break;
+    case 'lightness':
+      applyColor({
+        map,
+        layerNames,
+        type: ColorType.fill,
+        color: style.color,
+        lightness: Number(style.lightness),
+      });
+      break;
+    case 'saturation':
+      applyColor({
+        map,
+        layerNames,
+        type: ColorType.fill,
+        color: style.color,
+        saturation: Number(style.saturation),
+      });
+      break;
+    default:
+      break;
+  }
 }
 
 function landscapeStyling({
@@ -40,6 +63,7 @@ function landscapeStyling({
   subFeatureName,
   detailName,
   subDetailName,
+  key,
   style,
 }: stylingProps): void {
   if (detailName !== SECTION || subDetailName !== FILL) {
@@ -48,10 +72,10 @@ function landscapeStyling({
 
   if (subFeatureName === ALL) {
     layers.forEach((item) =>
-      applyLandscapeStyle({ map, subFeatureName: item, style })
+      applyLandscapeStyle({ map, subFeatureName: item, key, style })
     );
   } else {
-    applyLandscapeStyle({ map, subFeatureName, style });
+    applyLandscapeStyle({ map, subFeatureName, key, style });
   }
 }
 
