@@ -1,5 +1,12 @@
+/* eslint-disable no-debugger */
+/* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
+import { StyleKeyName } from '../store/common/type';
 import { hexToHSL } from './colorFormat';
+
+export enum VisibilityType {
+  visibility = 'visibility',
+}
 
 export enum ColorTypeName {
   'fill-color' = 'fill-color',
@@ -14,14 +21,15 @@ export enum WeightTypeName {
   'text-halo-width' = 'text-halo-width',
 }
 
-type colorType = keyof typeof ColorTypeName;
-type weightType = keyof typeof WeightTypeName;
+type ColorType = keyof typeof ColorTypeName;
+type WeightType = keyof typeof WeightTypeName;
+export type styleTypes = VisibilityType | ColorType | WeightType;
 
 interface ApplyColorProps {
   map: mapboxgl.Map;
   layerNames: string[];
   color: string;
-  type: colorType;
+  type: ColorType;
   saturation?: string;
   lightness?: string;
 }
@@ -52,7 +60,7 @@ export function applyColor({
       map.setPaintProperty(
         layerName,
         type,
-        `hsl(${h}, ${50 + Number(saturation) / 2}%, ${l}%)`
+        `hsl(${h}, ${50 + saturation / 2}%, ${l}%)`
       );
     });
   }
@@ -61,10 +69,11 @@ export function applyColor({
       map.setPaintProperty(
         layerName,
         type,
-        `hsl(${h}, ${s}%, ${50 + Number(lightness) / 2}%)`
+        `hsl(${h}, ${s}%, ${50 + lightness / 2}%)`
       );
     });
   }
+
   return layerNames.forEach((layerName) => {
     map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${l}%)`);
   });
@@ -73,10 +82,10 @@ export function applyColor({
 export function applyWeight(
   map: mapboxgl.Map,
   layerNames: string[],
-  type: weightType,
+  type: WeightType,
   weight: string
 ): void {
-  layerNames.forEach((layerName) => {
-    map.setPaintProperty(layerName, type, Number(weight) * 2 + 1);
+  return layerNames.forEach((layerName) => {
+    map.setPaintProperty(layerName, type, +weight * 3 + 1);
   });
 }
