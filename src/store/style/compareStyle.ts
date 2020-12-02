@@ -1,13 +1,28 @@
 import { getDefaultStyle } from './properties';
-import { StyleType, StyleKeyType, objType } from '../common/type';
+import {
+  StyleType,
+  StyleKeyType,
+  objType,
+  ActionPayload,
+} from '../common/type';
 
-export function checkStyleIsChanged(targetStyle: StyleType): boolean {
-  const defaultStyle: StyleType = getDefaultStyle();
+export function checkStyleIsChanged({
+  feature,
+  subFeature,
+  element,
+  subElement,
+  style,
+}: ActionPayload): boolean {
+  const defaultStyle: StyleType = getDefaultStyle({
+    feature,
+    subFeature,
+    element,
+    subElement,
+  });
   const keys = Object.keys(defaultStyle) as StyleKeyType[];
 
   const filteredKeys = keys.filter(
-    (key) =>
-      key === StyleKeyType.isChanged || defaultStyle[key] === targetStyle[key]
+    (key) => key === StyleKeyType.isChanged || defaultStyle[key] === style[key]
   );
   return keys.length !== filteredKeys.length;
 }

@@ -36,7 +36,12 @@ function useStyleType({
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
   const styleElement = useSelector<RootState>((state) => {
     if (!detailName) {
-      return getDefaultStyle();
+      return getDefaultStyle({
+        feature: featureName,
+        subFeature: subFeatureName,
+        element: detailName,
+        subElement: subDetailName,
+      });
     }
     const feature = state[featureName][subFeatureName];
     if (detailName === ElementNameType.labelIcon) return feature[detailName];
