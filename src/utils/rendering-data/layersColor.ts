@@ -1,3 +1,4 @@
+// 어차피 레이어 하나 바꾸면 다 바뀔 건데 체크박스로 해둘 필요가 있을까??
 export default {
   poi: {
     landmark: {
@@ -36,14 +37,53 @@ export default {
     },
     etc: {
       'poi-etc': 'hsl(26, 25%, 32%)',
-      'poi-industrial': 'hsl(26, 25%, 32%)',
+      'poi-industrial-label': 'hsl(26, 25%, 32%)',
       'poi-historic-label': 'hsl(26, 25%, 32%)',
       'poi-building-label': 'hsl(26, 25%, 32%)',
     },
   },
-  road: {},
-  administrative: {},
-  landscape: {},
-  transit: {},
-  water: {},
+  road: {
+    highway: {},
+    arterial: {},
+    local: {},
+    sidewalk: {},
+    'bicycle-road': {},
+  },
+  administrative: {
+    country: {
+      'admin-0-boundary': 'hsl(230, 8%, 51%)',
+      'admin-0-boundary-bg': 'hsl(35, 12%, 89%)',
+      'admin-0-boundary-disputed': 'hsl(230, 8%, 51%)',
+      'country-label': 'hsl(0, 0%, 0%)',
+    },
+    state: {
+      'admin-1-boundary-bg': 'hsl(35, 12%, 89%)',
+      'admin-1-boundary': 'hsl(230, 14%, 77%)',
+      'state-label': 'hsl(0, 0%, 0%)',
+    },
+    locality: {
+      'settlement-label': 'hsl(0, 0%, 0%)',
+      'settlement-subdivision-label': 'hsl(230, 29%, 35%)',
+    },
+  },
+  landscape: {
+    'human-made': {},
+    building: {},
+    natural: {},
+    landcover: {},
+    mountain: {},
+  },
+  transit: {
+    airport: {},
+    bus: {},
+    rail: {},
+    subway: {},
+  },
+  water: {
+    water: 'hsl(205, 87%, 76%)',
+    'water-polygon': 'hsl(205, 87%, 76%)',
+    'water-line-label': 'hsl(230, 48%, 44%)',
+    'water-point-label': 'hsl(230, 48%, 44%)',
+    'waterway-label': 'hsl(230, 48%, 44%)',
+  },
 };

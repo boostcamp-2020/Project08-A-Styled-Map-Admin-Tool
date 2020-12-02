@@ -1,72 +1,148 @@
+import {
+  SubElementNameType,
+  ElementNameType,
+  FeatureNameType,
+  PropertyType,
+} from '../../store/common/type';
+
 export default {
-  poi: {
+  [FeatureNameType.poi]: {
+    all: {},
     landmark: {
-      labelText: {
-        fill: 'hsl(26, 25%, 32%)',
-        stroke: 'hsl(0, 0%, 100%)',
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(26, 25%, 32%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
       },
-      labelIcon: 'transparent',
+      [ElementNameType.labelIcon]: 'transparent',
     },
     business: {
-      labelText: {
-        fill: 'hsl(22, 55%, 55%)',
-        stroke: 'hsl(0, 0%, 100%)',
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(22, 55%, 55%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
       },
-      labelIcon: 'transparent',
+      [ElementNameType.labelIcon]: 'transparent',
     },
     government: {
-      labelText: {
-        fill: 'hsl(26, 25%, 32%)',
-        stroke: 'hsl(0, 0%, 100%)',
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(26, 25%, 32%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
       },
-      labelIcon: 'transparent',
+      [ElementNameType.labelIcon]: 'transparent',
     },
     medical: {
-      labelText: {
-        fill: 'hsl(340, 39%, 42%)',
-        stroke: 'hsl(0, 0%, 100%)',
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(340, 39%, 42%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
       },
-      labelIcon: 'transparent',
+      [ElementNameType.labelIcon]: 'transparent',
     },
     park: {
-      labelText: {
-        fill: 'hsl(100, 45%, 37%)',
-        stroke: 'hsl(0, 0%, 100%)',
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(100, 45%, 37%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
       },
-      labelIcon: 'transparent',
+      [ElementNameType.labelIcon]: 'transparent',
     },
     worship: {
-      labelText: {
-        fill: 'hsl(26, 25%, 32%)',
-        stroke: 'hsl(0, 0%, 100%)',
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(26, 25%, 32%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
       },
-      labelIcon: 'transparent',
+      [ElementNameType.labelIcon]: 'transparent',
     },
     school: {
-      labelText: {
-        fill: 'hsl(51, 40%, 40%)',
-        stroke: 'hsl(0, 0%, 100%)',
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(51, 40%, 40%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
       },
-      labelIcon: 'transparent',
+      [ElementNameType.labelIcon]: 'transparent',
     },
     sports: {
-      labelText: {
-        fill: 'hsl(26, 25%, 32%)',
-        stroke: 'hsl(0, 0%, 100%)',
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(26, 25%, 32%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
       },
-      labelIcon: 'transparent',
+      [ElementNameType.labelIcon]: 'transparent',
     },
     etc: {
-      labelText: {
-        fill: 'hsl(26, 25%, 32%)',
-        stroke: 'hsl(0, 0%, 100%)',
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(26, 25%, 32%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
       },
-      labelIcon: 'transparent',
+      [ElementNameType.labelIcon]: 'transparent',
     },
   },
-  road: {},
-  administrative: {},
-  landscape: {},
-  transit: {},
-  water: {},
+  [FeatureNameType.road]: {
+    all: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+  },
+  [FeatureNameType.administrative]: {
+    all: {},
+    country: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'hsl(230, 8%, 51%)',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(0, 0%, 0%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
+    },
+    state: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'hsl(230, 14%, 77%)',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(0, 0%, 0%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
+    },
+    locality: {
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(0, 0%, 0%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
+    },
+  },
+  [FeatureNameType.landscape]: {
+    all: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+  },
+  [FeatureNameType.transit]: {
+    all: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+  },
+  [FeatureNameType.water]: {
+    all: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(205, 87%, 76%)',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(230, 48%, 44%)',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+  },
+  [FeatureNameType.marker]: {
+    all: {
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+  },
 };
