@@ -83,6 +83,40 @@ export default {
         [SubElementNameType.fill]: 'transparent',
         [SubElementNameType.stroke]: 'transparent',
       },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+    arterial: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(0, 0%, 100%)',
+        [SubElementNameType.stroke]: 'hsl(230, 24%, 87%)',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(230, 48%, 44%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
+    },
+    local: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(35, 14%, 93%)',
+        [SubElementNameType.stroke]: 'hsl(230, 24%, 87%)',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(230, 48%, 44%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
+    },
+    sidewalk: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(0, 0%, 100%)',
+        [SubElementNameType.stroke]: 'hsl(230, 24%, 87%)',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(230, 48%, 44%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
     },
   },
   [FeatureNameType.administrative]: {
@@ -144,7 +178,7 @@ export default {
     },
     airport: {
       [ElementNameType.section]: {
-        [SubElementNameType.fill]: 'hsl(40, 97%, 64%)',
+        [SubElementNameType.fill]: 'hsl(234, 20%, 30%)',
         [SubElementNameType.stroke]: 'hsl(230, 23%, 82%)',
       },
       [ElementNameType.labelText]: {
