@@ -1,25 +1,5 @@
 import { init, setStyle } from '../style/action';
 
-export interface nice {
-  poi:
-    | 'all'
-    | 'landmark'
-    | 'business'
-    | 'government'
-    | 'medical'
-    | 'park'
-    | 'worship'
-    | 'school'
-    | 'sports'
-    | 'etc';
-  road: 'all';
-  administrative: 'all' | 'country' | 'state' | 'locality';
-  landscape: 'all';
-  transit: 'all';
-  water: 'all';
-  marker: 'all';
-}
-
 export type hello = 'landmark';
 
 export enum ElementNameType {
@@ -79,31 +59,35 @@ export interface FeatureState {
   [name: string]: FeatureType;
 }
 
-export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
+export interface FeaturePropsType {
+  feature: FeatureNameType;
+  subFeature: string;
+}
 
-export type ActionPayload = {
+export interface ElementPropsType extends FeaturePropsType {
   feature: FeatureNameType;
   subFeature: string;
   element: ElementNameType;
   subElement?: SubElementNameType;
+}
+
+export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
+
+export interface ActionPayload extends ElementPropsType {
   style: StyleType;
-};
-
-export interface HasPropertiesType {
-  featureType: FeatureNameType;
-  subFeatureType: string;
 }
 
-export interface PropertyType {
-  [subFeatureType: string]: {
-    [ElementNameType.section]?: {
-      fill: string;
-      stroke: string;
-    } | null;
-    [ElementNameType.labelText]?: {
-      fill: string;
-      stroke: string;
-    } | null;
-    [ElementNameType.labelIcon]?: string | null;
+export interface StylePropsType {
+  [SubElementNameType.fill]: string;
+  [SubElementNameType.stroke]: string;
+}
+
+export type PropertyType = {
+  [featureName in FeatureNameType]: {
+    [subFeatureName: string]: {
+      [ElementNameType.section]?: StylePropsType | null;
+      [ElementNameType.labelText]?: StylePropsType | null;
+      [ElementNameType.labelIcon]?: string | null;
+    };
   };
-}
+};
