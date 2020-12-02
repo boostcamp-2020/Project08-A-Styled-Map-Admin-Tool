@@ -10,6 +10,7 @@ export interface stylingProps {
   subFeatureName: string;
   key: string;
   detailName: ElementNameType;
+  key: string;
   subDetailName: SubElementNameType;
   style: StyleType;
 }

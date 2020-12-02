@@ -50,6 +50,7 @@ function useStyleType({
         subFeatureName,
         key,
         detailName,
+        key,
         subDetailName: subDetailName as SubElementNameType,
         style: {
           ...styleElement,

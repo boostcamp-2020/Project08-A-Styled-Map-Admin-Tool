@@ -34,7 +34,6 @@ const data: DataType[] = [
       { key: 'arterial', name: '주요도로' },
       { key: 'local', name: '일반도로' },
       { key: 'sidewalk', name: '인도' },
-      { key: 'bicycle-road', name: '자전거도로' },
     ],
   },
   {

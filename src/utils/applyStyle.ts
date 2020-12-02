@@ -14,11 +14,13 @@ export enum ColorTypeName {
   'text-color' = 'text-color',
   'text-halo-color' = 'text-halo-color',
 }
+
 export enum WeightTypeName {
   'line-width' = 'line-width',
   'text-size' = 'text-size',
   'text-halo-width' = 'text-halo-width',
 }
+
 type ColorType = keyof typeof ColorTypeName;
 type WeightType = keyof typeof WeightTypeName;
 export type styleTypes = VisibilityType | ColorType | WeightType;
@@ -27,9 +29,9 @@ interface ApplyColorProps {
   map: mapboxgl.Map;
   layerNames: string[];
   color: string;
-  type: styleTypes;
-  saturation?: number;
-  lightness?: number;
+  type: ColorType;
+  saturation?: string;
+  lightness?: string;
 }
 
 export function applyVisibility(
@@ -37,21 +39,22 @@ export function applyVisibility(
   layerNames: string[],
   visibility: string
 ): void {
-  return layerNames.forEach((layerName) => {
-    map.setLayoutProperty(layerName, VisibilityType.visibility, visibility);
+  layerNames.forEach((layerName) => {
+    if (visibility === 'inherit') {
+      map.setLayoutProperty(layerName, 'visibility', 'visible');
+    } else map.setLayoutProperty(layerName, 'visibility', visibility);
   });
 }
 
 export function applyColor({
   map,
   layerNames,
-  type,
   color,
+  type,
   saturation,
   lightness,
 }: ApplyColorProps): void {
   const { h, s, l } = hexToHSL(color);
-
   if (saturation) {
     return layerNames.forEach((layerName) => {
       map.setPaintProperty(
@@ -84,16 +87,5 @@ export function applyWeight(
 ): void {
   return layerNames.forEach((layerName) => {
     map.setPaintProperty(layerName, type, +weight * 3 + 1);
-  });
-}
-
-export function applyTextSize(
-  map: mapboxgl.Map,
-  layerNames: string[],
-  type: WeightType,
-  size: string
-): void {
-  return layerNames.forEach((layerName) => {
-    map.setLayoutProperty(layerName, type, +size * 3);
   });
 }
