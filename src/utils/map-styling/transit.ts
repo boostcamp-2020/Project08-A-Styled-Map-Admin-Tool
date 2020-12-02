@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-case-declarations */
 import { stylingProps } from '.';
@@ -116,7 +115,6 @@ function transitStyling({
     default:
       break;
   }
-  debugger;
 }
 
 export default transitStyling;

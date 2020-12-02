@@ -10,7 +10,7 @@ export default [
     paint: {
       'fill-color': 'hsl(234, 20%, 30%)',
     },
-    filter: ['in', 'class', 'airport'],
+    filter: ['==', ['get', 'class'], 'airport'],
   },
   {
     id: 'mapbox-airport-aeroway-polygon',
@@ -96,7 +96,7 @@ export default [
       'line-color': 'hsl(192, 70%, 43%)',
       'line-width': 2,
     },
-    filter: ['in', 'type', 'subway'],
+    filter: ['==', ['get', 'type'], 'subway'],
   },
   {
     id: 'transit-rail-line',
@@ -110,7 +110,7 @@ export default [
       'line-color': 'hsl(201, 100%, 14%)',
       'line-width': 2,
     },
-    filter: ['in', 'type', 'rail'],
+    filter: ['match', ['get', 'type'], 'rail'],
   },
   {
     id: 'mapbox-rail-road-line',
@@ -148,6 +148,6 @@ export default [
       'text-halo-width': 1,
       'text-color': 'hsl(13, 68%, 63%)',
     },
-    filter: ['in', 'type', 'bus_stop'],
+    filter: ['==', ['get', 'type'], 'bus_stop'],
   },
 ];
