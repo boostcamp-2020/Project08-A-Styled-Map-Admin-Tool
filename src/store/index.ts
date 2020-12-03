@@ -10,6 +10,7 @@ import {
   waterReducer as water,
   markerReducer as marker,
 } from './style/reducer';
+import sidebar from './sidebar/reducer';
 
 const rootReducer = combineReducers({
   map,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   transit,
   water,
   marker,
+  sidebar,
 });
 
 const store = createStore(rootReducer);
