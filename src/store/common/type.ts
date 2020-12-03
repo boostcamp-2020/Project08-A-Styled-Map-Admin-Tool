@@ -1,4 +1,10 @@
 import { init, setStyle } from '../style/action';
+import {
+  setFeature,
+  setSubFeature,
+  setElement,
+  setSubElement,
+} from '../sidebar/action';
 
 export type hello = 'landmark';
 
@@ -70,6 +76,11 @@ export interface ElementPropsType extends FeaturePropsType {
 }
 
 export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
+export type SidebarActionType =
+  | ReturnType<typeof setFeature>
+  | ReturnType<typeof setSubFeature>
+  | ReturnType<typeof setElement>
+  | ReturnType<typeof setSubElement>;
 
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
