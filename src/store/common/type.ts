@@ -1,4 +1,4 @@
-import { init, setStyle } from '../style/action';
+import { init, setStyle, setWholeStyle } from '../style/action';
 
 export type hello = 'landmark';
 
@@ -69,11 +69,39 @@ export interface ElementPropsType extends FeaturePropsType {
   subElement?: SubElementNameType;
 }
 
-export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
+export type ActionType =
+  | ReturnType<typeof init>
+  | ReturnType<typeof setStyle>
+  | ReturnType<typeof setWholeStyle>;
 
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
 }
+
+export interface StyleActionPayload {
+  isChanged?: boolean;
+  visibility?: string;
+  color?: string;
+  weight?: number;
+  saturation?: number;
+  lightness?: number;
+}
+export interface SubElementActionPayload {
+  [SubElementNameType.fill]?: StyleActionPayload;
+  [SubElementNameType.stroke]?: StyleActionPayload;
+}
+
+export interface ElemetnActionPayload {
+  [ElementNameType.section]?: SubElementActionPayload;
+  [ElementNameType.labelText]?: SubElementActionPayload;
+  [ElementNameType.labelIcon]?: StyleActionPayload;
+}
+
+export type WholeStyleActionPayload = {
+  [featureName in FeatureNameType]?: {
+    [subFeatureName: string]: ElemetnActionPayload;
+  };
+};
 
 export interface StylePropsType {
   [SubElementNameType.fill]: string;

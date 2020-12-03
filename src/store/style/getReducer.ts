@@ -10,7 +10,7 @@ import {
   SubElementType,
 } from '../common/type';
 import { getDefaultFeature } from './properties';
-import { INIT, SET } from './action';
+import { INIT, SET, SET_WHOLE } from './action';
 import { checkStyleIsChanged, checkFeatureIsChanged } from './compareStyle';
 
 interface ReducerType {
