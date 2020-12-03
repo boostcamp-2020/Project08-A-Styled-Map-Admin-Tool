@@ -21,21 +21,21 @@ type LandscapeSubFeature =
   | 'landcover'
   | 'mountain';
 
-interface SubDetailType {
+interface SubElementsType {
   fill: string[];
   stroke: string[];
 }
 
-interface DetailType {
-  section: SubDetailType;
-  labelText: SubDetailType;
-  labelIcon: SubDetailType;
+interface ElementsType {
+  section: SubElementsType;
+  labelText: SubElementsType;
+  labelIcon: SubElementsType;
 }
 
 function makeSubElement(
   fillLayers: string[],
   strokeLayers: string[]
-): SubDetailType {
+): SubElementsType {
   return { fill: fillLayers, stroke: strokeLayers };
 }
 
@@ -46,10 +46,11 @@ const buildingSectionFill = ['landscape-building', 'building'];
 const buildingSectionStroke = ['building-outline'];
 const buildingLabel = ['building-number-label', 'poi-building-label'];
 
-const naturalSectionFill = ['landscape-natural'];
+const naturalSectionFill = ['landscape-natural', 'national-park'];
 const naturalLabel = ['natural-point-label'];
 
 const landCoverSectionFill = [
+  'land',
   'landscape-landcover',
   'landcover',
   'landuse',
@@ -59,7 +60,7 @@ const landCoverSectionStroke = ['land-structure-line'];
 
 const mountainCoverSectionFill = ['hillshade'];
 
-const layersByType: { [key in LandscapeSubFeature]: DetailType } = {
+const layersByType: { [key in LandscapeSubFeature]: ElementsType } = {
   'human-made': {
     [SECTION]: makeSubElement(humanMadeSectionFill, humanMadeSectionStroke),
     [LABELTEXT]: makeSubElement([], []),
@@ -276,14 +277,16 @@ function landscapeStyling({
   if (!type) {
     return;
   }
+
+  let layerNames =
+    layersByType[subFeature as LandscapeSubFeature][element][subElement];
   if (
     key === 'visibility' &&
     (type === ColorType.icon || type === WeightType.textHalo)
   ) {
     func({
       map,
-      layerNames:
-        layersByType[subFeature as LandscapeSubFeature][element][subElement],
+      layerNames,
       type,
       weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
     });
@@ -292,16 +295,24 @@ function landscapeStyling({
   if (key === 'visibility') {
     func({
       map,
-      layerNames:
-        layersByType[subFeature as LandscapeSubFeature][element][subElement],
+      layerNames,
       visibility: style.visibility,
     });
   }
 
+  if (layerNames.includes('land')) {
+    func({
+      map,
+      layerNames: ['land'],
+      type: ColorType.background,
+      color: style.color,
+    });
+    layerNames = layerNames.filter((item) => item !== 'land');
+  }
+
   func({
     map,
-    layerNames:
-      layersByType[subFeature as LandscapeSubFeature][element][subElement],
+    layerNames,
     type: type as StyleTypes,
     color: style.color,
     [key]: style[key as StyleKeyType],

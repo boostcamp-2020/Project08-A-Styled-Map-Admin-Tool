@@ -8,6 +8,7 @@ export enum ColorType {
   fill = 'fill-color',
   line = 'line-color',
   text = 'text-color',
+  background = 'background-color',
   textHalo = 'text-halo-color',
   icon = 'icon-opacity',
 }
