@@ -46,7 +46,6 @@ function stylingCategory({
   style,
 }: catergoryStylingProps): void {
   const { visibility, color, weight } = style;
-  console.log(map);
   if (key === 'visibility') {
     if (element === ElementNameType.section) {
       if (subElement === SubElementNameType.fill) {

@@ -26,7 +26,7 @@ type POI_LAYERS_TYPE = {
   [name in PoiSubFeature]: string[];
 };
 
-const VISIBLE = -0.001;
+const VISIBLE = 1;
 const INVISIBLE = 0;
 const POI_LAYERS: POI_LAYERS_TYPE = {
   all: [
