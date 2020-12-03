@@ -7,12 +7,9 @@ import {
   StyleKeyType,
   ElementNameType,
   SubElementNameType,
-  ElementPropsType,
   PayloadPropsType,
-  FeatureNameType,
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
-import { getDefaultStyle } from '../../store/style/properties';
 import * as mapStyling from '../../utils/map-styling';
 
 export interface UseStyleHookType {
@@ -22,12 +19,6 @@ export interface UseStyleHookType {
 }
 
 function useStyleType(): UseStyleHookType {
-  //   {
-  //   feature,
-  //   subFeature,
-  //   element,
-  //   subElement,
-  // }: ElementPropsType
   const dispatch = useDispatch();
 
   const { feature, subFeature, element, subElement } = useSelector<RootState>(
@@ -36,16 +27,9 @@ function useStyleType(): UseStyleHookType {
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
   const styleElement = useSelector<RootState>((state) => {
     if (!feature || !subFeature || !element) {
-      // ?!?
-      return getDefaultStyle({
-        feature,
-        subFeature,
-        element,
-        subElement,
-      } as ElementPropsType);
+      return null;
     }
-    // if (!feature || !subFeature || !element) return null;
-    console.log(state, feature, subFeature);
+
     const newFeature = state[feature][subFeature];
     if (element === ElementNameType.labelIcon) return newFeature[element];
     return newFeature[element][subElement as SubElementNameType];
