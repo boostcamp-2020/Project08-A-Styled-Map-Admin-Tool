@@ -12,7 +12,7 @@ import {
 import { getDefaultFeature } from './properties';
 import { INIT, SET, SET_WHOLE } from './action';
 import { checkStyleIsChanged, checkFeatureIsChanged } from './compareStyle';
-import { combineCategory } from './manageCategories';
+import { combineElement } from './manageCategories';
 
 interface ReducerType {
   (state: FeatureState, action: ActionType): FeatureState;
@@ -79,15 +79,13 @@ export default function getReducer(IDX: number): ReducerType {
 
         if (!inputStyle) return updateStyle;
 
-        const categories = Object.keys(updateStyle);
-        categories.forEach((category) => {
-          combineCategory({
-            element: category as ElementNameType,
-            elementStyle: inputStyle[category],
-            initialElementStyle: updateStyle[category],
+        const subFeatures = Object.keys(inputStyle);
+        subFeatures.forEach((subFeature) => {
+          updateStyle[subFeature] = combineElement({
+            elementStyle: inputStyle[subFeature],
+            initialElementStyle: updateStyle[subFeature],
           });
         });
-
         return updateStyle;
       }
 

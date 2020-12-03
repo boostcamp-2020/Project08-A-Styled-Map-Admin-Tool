@@ -1,41 +1,59 @@
 import {
-  ElementNameType,
   SubElementActionPayload,
-  StyleActionPayload,
   ElementActionPayload,
+  FeatureType,
+  SubElementType,
 } from '../common/type';
 
-interface combineCatecoryProps {
-  element: ElementNameType;
+interface combineElementProps {
   elementStyle: ElementActionPayload;
-  initialElementStyle: ElementActionPayload;
+  initialElementStyle: FeatureType;
 }
 
-export function combineCategory({
-  element,
+export const combineElement = ({
   elementStyle,
   initialElementStyle,
-}: combineCatecoryProps): ElementActionPayload {
+}: combineElementProps): FeatureType => {
   const update = initialElementStyle;
-  if (element === 'labelIcon' && elementStyle[element]) {
-    (update[element] as StyleActionPayload) = {
-      ...update[element],
-      ...elementStyle[element],
-    };
-    return update;
-  }
-
-  const verifiedCategory = elementStyle[element] as SubElementActionPayload;
-  const verifiedUpdate = update[element] as SubElementActionPayload;
-
-  if (verifiedCategory.fill) {
-    verifiedUpdate.fill = { ...verifiedUpdate.fill, ...verifiedCategory.fill };
-  }
-  if (verifiedCategory.stroke) {
-    verifiedUpdate.stroke = {
-      ...verifiedUpdate.stroke,
-      ...verifiedCategory.stroke,
+  if (elementStyle.labelIcon && update.labelIcon) {
+    update.labelIcon = {
+      ...update.labelIcon,
+      ...elementStyle.labelIcon,
     };
   }
+
+  if (elementStyle.labelText && update.labelText) {
+    update.labelText = combineSubElement({
+      subElementStyle: elementStyle.labelText,
+      initialSubElementStyle: update.labelText,
+    });
+  }
+
+  if (elementStyle.section && update.section) {
+    update.section = combineSubElement({
+      subElementStyle: elementStyle.section,
+      initialSubElementStyle: update.section,
+    });
+  }
+
   return update;
+};
+
+interface combineSubElementProps {
+  subElementStyle: SubElementActionPayload;
+  initialSubElementStyle: SubElementType;
 }
+
+const combineSubElement = ({
+  subElementStyle,
+  initialSubElementStyle,
+}: combineSubElementProps): SubElementType => {
+  const update = initialSubElementStyle;
+  if (subElementStyle.fill) {
+    update.fill = { ...update.fill, ...subElementStyle.fill };
+  }
+  if (subElementStyle.stroke) {
+    update.stroke = { ...update.stroke, ...subElementStyle.stroke };
+  }
+  return update as SubElementType;
+};
