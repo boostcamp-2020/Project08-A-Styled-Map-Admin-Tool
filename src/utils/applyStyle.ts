@@ -86,9 +86,9 @@ export function applyWeight({
   map,
   layerNames,
   type,
-  weight,
+  weight = 1,
 }: ApplyProps): void {
-  if (!type || !weight) return;
+  if (!type) return;
 
   const weightValue = weight === 0 ? 0 : weight * 2 + 1;
   layerNames.forEach((layerName) => {

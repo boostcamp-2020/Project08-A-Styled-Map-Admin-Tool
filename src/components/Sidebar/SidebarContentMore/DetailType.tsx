@@ -99,81 +99,103 @@ function DetailType({
     <>
       <DetailWrapper>
         <Title>세부 유형</Title>
-        <List>
-          <Text padding="first">구역</Text>
-          {section?.fill.isChanged ? <Check>✓</Check> : <></>}
-          <ListItem
-            isSelected={checkIsSelected(
-              ElementNameType.section,
-              SubElementNameType.fill
-            )}
-            padding="second"
-            clickHandler={() => {
-              styleClickHandler(
-                ElementNameType.section,
-                SubElementNameType.fill
-              );
-            }}
-            name="채우기"
-          />
-          {section?.stroke.isChanged ? <Check>✓</Check> : <></>}
-          <ListItem
-            isSelected={
-              sidebarTypeName === ElementNameType.section &&
-              sidebarSubTypeName === SubElementNameType.stroke
-            }
-            padding="second"
-            clickHandler={() => {
-              styleClickHandler(
-                ElementNameType.section,
-                SubElementNameType.stroke
-              );
-            }}
-            name="윤곽선"
-          />
-        </List>
-        <List>
-          <Text padding="first">라벨</Text>
+        {section ? (
           <List>
-            <Text padding="second">텍스트</Text>
-            {labelText?.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
+            <Text padding="first">구역</Text>
+            {section?.fill.isChanged ? <Check>✓</Check> : <></>}
             <ListItem
               isSelected={checkIsSelected(
-                ElementNameType.labelText,
+                ElementNameType.section,
                 SubElementNameType.fill
               )}
-              padding="third"
+              padding="second"
               clickHandler={() => {
                 styleClickHandler(
-                  ElementNameType.labelText,
+                  ElementNameType.section,
                   SubElementNameType.fill
                 );
               }}
               name="채우기"
             />
-            {labelText?.stroke.isChanged ? <CheckRight>✓</CheckRight> : <></>}
+            {section?.stroke.isChanged ? <Check>✓</Check> : <></>}
             <ListItem
-              isSelected={checkIsSelected(
-                ElementNameType.labelText,
-                SubElementNameType.stroke
-              )}
-              padding="third"
+              isSelected={
+                sidebarTypeName === ElementNameType.section &&
+                sidebarSubTypeName === SubElementNameType.stroke
+              }
+              padding="second"
               clickHandler={() => {
                 styleClickHandler(
-                  ElementNameType.labelText,
+                  ElementNameType.section,
                   SubElementNameType.stroke
                 );
               }}
               name="윤곽선"
             />
           </List>
-          {labelIcon?.isChanged ? <Check>✓</Check> : <></>}
-          <ListItem
-            isSelected={checkIsSelected(ElementNameType.labelIcon)}
-            padding="second"
-            clickHandler={() => styleClickHandler(ElementNameType.labelIcon)}
-            name="아이콘"
-          />
+        ) : (
+          <></>
+        )}
+        <List>
+          {labelText ? (
+            <>
+              <Text padding="first">라벨</Text>
+              <List>
+                <Text padding="second">텍스트</Text>
+                {labelText?.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
+                <ListItem
+                  isSelected={checkIsSelected(
+                    ElementNameType.labelText,
+                    SubElementNameType.fill
+                  )}
+                  padding="third"
+                  clickHandler={() => {
+                    styleClickHandler(
+                      ElementNameType.labelText,
+                      SubElementNameType.fill
+                    );
+                  }}
+                  name="채우기"
+                />
+                {labelText?.stroke.isChanged ? (
+                  <CheckRight>✓</CheckRight>
+                ) : (
+                  <></>
+                )}
+                <ListItem
+                  isSelected={checkIsSelected(
+                    ElementNameType.labelText,
+                    SubElementNameType.stroke
+                  )}
+                  padding="third"
+                  clickHandler={() => {
+                    styleClickHandler(
+                      ElementNameType.labelText,
+                      SubElementNameType.stroke
+                    );
+                  }}
+                  name="윤곽선"
+                />
+              </List>
+            </>
+          ) : (
+            <></>
+          )}
+          {labelIcon ? (
+            <>
+              {labelIcon.isChanged ? <Check>✓</Check> : <></>}
+              <ListItem
+                isSelected={checkIsSelected(ElementNameType.labelIcon)}
+                padding="second"
+                clickHandler={() => {
+                  styleClickHandler(ElementNameType.labelIcon);
+                }}
+                name="아이콘"
+              />
+            </>
+          ) : (
+            <></>
+          )}
         </List>
       </DetailWrapper>
       <Styler

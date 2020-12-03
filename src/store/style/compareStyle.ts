@@ -1,8 +1,34 @@
 import { getDefaultStyle } from './properties';
-import { StyleType, StyleKeyType, objType } from '../common/type';
+import {
+  StyleType,
+  StyleKeyType,
+  objType,
+  FeatureNameType,
+  ElementNameType,
+  SubElementNameType,
+} from '../common/type';
 
-export function checkStyleIsChanged(targetStyle: StyleType): boolean {
-  const defaultStyle: StyleType = getDefaultStyle();
+interface CheckStyleIsChangedProps {
+  targetStyle: StyleType;
+  featureName: FeatureNameType;
+  subFeatureName: string;
+  elementName: ElementNameType;
+  subElementName?: SubElementNameType;
+}
+
+export function checkStyleIsChanged({
+  targetStyle,
+  featureName,
+  subFeatureName,
+  elementName,
+  subElementName,
+}: CheckStyleIsChangedProps): boolean {
+  const defaultStyle: StyleType = getDefaultStyle({
+    featureName,
+    subFeatureName,
+    elementName,
+    subElementName,
+  });
   const keys = Object.keys(defaultStyle) as StyleKeyType[];
 
   const filteredKeys = keys.filter(
@@ -13,6 +39,9 @@ export function checkStyleIsChanged(targetStyle: StyleType): boolean {
 }
 
 export function checkFeatureIsChanged(targetFeature: objType): boolean {
+  if (!targetFeature) {
+    return false;
+  }
   const keys = Object.keys(targetFeature);
   for (let i = 0; i < keys.length; i += 1) {
     if (

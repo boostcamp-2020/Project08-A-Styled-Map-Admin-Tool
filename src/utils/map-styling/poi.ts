@@ -86,15 +86,11 @@ const mappingDetailToFunc = {
       },
       weight: {
         typeName: null,
-        funcName: () => null,
+        funcName: null,
       },
       visibility: {
         typeName: 'what is my name?',
         funcName: applyVisibility,
-      },
-      isChanged: {
-        typeName: null,
-        funcName: () => null,
       },
     },
     stroke: {
@@ -118,36 +114,12 @@ const mappingDetailToFunc = {
         typeName: WeightType.textHalo,
         funcName: applyWeight,
       },
-      isChanged: {
-        typeName: null,
-        funcName: () => null,
-      },
     },
   },
   labelIcon: {
-    color: {
-      typeName: null,
-      funcName: () => null,
-    },
-    saturation: {
-      typeName: null,
-      funcName: () => null,
-    },
-    lightness: {
-      typeName: null,
-      funcName: () => null,
-    },
-    weight: {
-      typeName: null,
-      funcName: () => null,
-    },
     visibility: {
       typeName: ColorType.icon,
       funcName: applyWeight,
-    },
-    isChanged: {
-      typeName: null,
-      funcName: () => null,
     },
   },
 };
@@ -164,21 +136,19 @@ function poiStyling({
   let func = null;
 
   if (detailName === ElementNameType.section) return;
-  if (detailName === ElementNameType.labelText) {
+  if (detailName === ElementNameType.labelText && key !== 'isChanged') {
     const { typeName, funcName } = mappingDetailToFunc[detailName][
       subDetailName
-    ][key as StyleKeyType];
+    ][key];
     type = typeName;
     func = funcName;
-  } else {
-    const { typeName, funcName } = mappingDetailToFunc[detailName][
-      key as StyleKeyType
-    ];
+  } else if (detailName === ElementNameType.labelIcon && key === 'visibility') {
+    const { typeName, funcName } = mappingDetailToFunc[detailName][key];
     type = typeName;
     func = funcName;
   }
 
-  if (!type) return;
+  if (!type || !func) return;
   if (
     key === 'visibility' &&
     (type === ColorType.icon || type === WeightType.textHalo)
