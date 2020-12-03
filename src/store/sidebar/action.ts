@@ -1,46 +1,31 @@
-import {
-  FeatureNameType,
-  ElementNameType,
-  SubElementNameType,
-} from '../common/type';
+import { PayloadPropsType } from '../common/type';
 
-export const SET_FEATURE = 'SET_FEATURE' as const;
-export const SET_SUBFEATURE = 'SET_SUBFEATURE' as const;
-export const SET_ELEMENT = 'SET_ELEMENT' as const;
-export const SET_SUBELEMENT = 'SET_SUBELEMENT' as const;
+export const SET_SIDEBAR_PROPERTIES = 'SET_SIDEBAR_PROPERTIES' as const;
+export const INIT_SIDEBAR_PROPERTIES = 'INIT_SIDEBAR_PROPERTIES' as const;
 
 export interface SidebarActionType {
-  type:
-    | typeof SET_FEATURE
-    | typeof SET_SUBFEATURE
-    | typeof SET_ELEMENT
-    | typeof SET_SUBELEMENT;
-  payload: {
-    feature?: FeatureNameType;
-    subFeature?: string;
-    element?: ElementNameType;
-    subElement?: SubElementNameType;
-  };
+  type: typeof SET_SIDEBAR_PROPERTIES | typeof INIT_SIDEBAR_PROPERTIES;
+  payload: PayloadPropsType;
 }
 
-export const setFeature = (feature: FeatureNameType): SidebarActionType => ({
-  type: SET_FEATURE,
-  payload: { feature },
+export const setSidebarProperties = ({
+  key,
+  feature,
+  subFeature,
+  element,
+  subElement,
+}: PayloadPropsType): SidebarActionType => ({
+  type: SET_SIDEBAR_PROPERTIES,
+  payload: { key, feature, subFeature, element, subElement },
 });
 
-export const setSubFeature = (subFeature: string): SidebarActionType => ({
-  type: SET_SUBFEATURE,
-  payload: { subFeature },
-});
-
-export const setElement = (element: ElementNameType): SidebarActionType => ({
-  type: SET_ELEMENT,
-  payload: { element },
-});
-
-export const setSubElement = (
-  subElement: SubElementNameType
-): SidebarActionType => ({
-  type: SET_SUBELEMENT,
-  payload: { subElement },
+export const initSidebarProperties = ({
+  key,
+  feature,
+  subFeature,
+  element,
+  subElement,
+}: PayloadPropsType): SidebarActionType => ({
+  type: INIT_SIDEBAR_PROPERTIES,
+  payload: { key, feature, subFeature, element, subElement },
 });

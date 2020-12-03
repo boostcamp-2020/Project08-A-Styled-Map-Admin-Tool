@@ -1,10 +1,5 @@
 import { init, setStyle } from '../style/action';
-import {
-  setFeature,
-  setSubFeature,
-  setElement,
-  setSubElement,
-} from '../sidebar/action';
+import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 
 export type hello = 'landmark';
 
@@ -77,13 +72,18 @@ export interface ElementPropsType extends FeaturePropsType {
 
 export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
 export type SidebarActionType =
-  | ReturnType<typeof setFeature>
-  | ReturnType<typeof setSubFeature>
-  | ReturnType<typeof setElement>
-  | ReturnType<typeof setSubElement>;
-
+  | ReturnType<typeof setSidebarProperties>
+  | ReturnType<typeof initSidebarProperties>;
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
+}
+
+export interface PayloadPropsType {
+  key: 'feature' | 'subFeature' | 'element' | 'subElement';
+  feature: FeatureNameType | null;
+  subFeature: string | null;
+  element: ElementNameType | null;
+  subElement: SubElementNameType | null;
 }
 
 export interface StylePropsType {
