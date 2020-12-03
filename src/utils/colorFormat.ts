@@ -40,3 +40,56 @@ export function hexToHSL(color: string): HexToHSLType {
     l,
   };
 }
+
+export function hslToHEX(color: string): string {
+  if (color === 'transparent') return '#000000';
+  const hsl = color.match(/\d+/g)?.map((c) => Number(c)) as number[];
+
+  const h: number = hsl[0];
+  const s: number = hsl[1] / 100;
+  const l: number = hsl[2] / 100;
+
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+
+  if (h >= 0 && h < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (h >= 60 && h < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (h >= 120 && h < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (h >= 180 && h < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (h >= 240 && h < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else if (h >= 300 && h < 360) {
+    r = c;
+    g = 0;
+    b = x;
+  }
+  // Having obtained RGB, convert channels to hex
+  let stringR: string = Math.round((r + m) * 255).toString(16);
+  let stringG: string = Math.round((g + m) * 255).toString(16);
+  let stringB: string = Math.round((b + m) * 255).toString(16);
+
+  // Prepend 0s, if necessary
+  if (stringR.length === 1) stringR = `0${stringR}`;
+  if (stringG.length === 1) stringG = `0${stringG}`;
+  if (stringB.length === 1) stringB = `0${stringB}`;
+
+  return `#${stringR}${stringG}${stringB}`;
+}

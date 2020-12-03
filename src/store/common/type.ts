@@ -90,8 +90,8 @@ export type ActionPayload = {
 };
 
 export interface HasPropertiesType {
-  featureType: FeatureNameType;
-  subFeatureType: string;
+  featureName: FeatureNameType;
+  subFeatureName: string;
 }
 
 export interface PropertyType {

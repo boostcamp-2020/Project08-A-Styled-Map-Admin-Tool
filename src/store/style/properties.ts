@@ -1,34 +1,3 @@
-// import { StyleType, ElementType, FeatureType } from '../common/type';
-
-// const style: StyleType = {
-//   isChanged: false,
-//   visibility: 'inherit',
-//   color: '#55bf40',
-//   weight: 0,
-//   saturation: 0,
-//   lightness: 0,
-// };
-
-// export const getDefaultStyle = (): StyleType => {
-//   return JSON.parse(JSON.stringify(style));
-// };
-
-// const getDefaultElement = (): ElementType => {
-//   return {
-//     fill: getDefaultStyle(),
-//     stroke: getDefaultStyle(),
-//   };
-// };
-
-// export const getDefaultFeature = (): FeatureType => {
-//   return {
-//     isChanged: false,
-//     section: getDefaultElement(),
-//     labelText: getDefaultElement(),
-//     labelIcon: getDefaultStyle(),
-//   };
-// };
-
 import {
   StyleType,
   ElementNameType,
@@ -36,11 +5,10 @@ import {
   FeatureNameType,
   HasPropertiesType,
   SubElementNameType,
-  PropertyType,
-  nice,
 } from '../common/type';
+import { hslToHEX } from '../../utils/colorFormat';
 
-import defaultStyle from '../../utils/rendering-data/layersColor2';
+import defaultStyle from '../../utils/rendering-data/layersColor4';
 
 const style: StyleType = {
   isChanged: false,
@@ -51,70 +19,111 @@ const style: StyleType = {
   lightness: 0,
 };
 
-interface getDefaultStyleProps<T> {
-  featureType: FeatureNameType;
-  subFeatureType: T;
-  elementType: ElementNameType;
-  subElementType: SubElementNameType;
+interface getDefaultStyleProps {
+  featureName: FeatureNameType;
+  subFeatureName: string;
+  elementName: ElementNameType;
+  subElementName?: SubElementNameType;
 }
 
+const featuresDetailOption = {
+  poi: {
+    hasSection: false,
+    hasLabelText: true,
+    hasLabelIcon: true,
+  },
+  road: {
+    hasSection: true,
+    hasLabelText: true,
+    hasLabelIcon: true,
+  },
+  administrative: {
+    hasSection: true,
+    hasLabelText: true,
+    hasLabelIcon: false,
+  },
+  landscape: {
+    hasSection: true,
+    hasLabelText: true,
+    hasLabelIcon: false,
+  },
+  transit: {
+    hasSection: true,
+    hasLabelText: true,
+    hasLabelIcon: false,
+  },
+  water: {
+    hasSection: true,
+    hasLabelText: true,
+    hasLabelIcon: false,
+  },
+  marker: {
+    hasSection: false,
+    hasLabelText: true,
+    hasLabelIcon: true,
+  },
+};
+
 export const getDefaultStyle = ({
-  featureType,
-  subFeatureType,
-  elementType,
-  subElementType,
+  featureName,
+  subFeatureName,
+  elementName,
+  subElementName,
 }: getDefaultStyleProps): StyleType => {
+  const color =
+    defaultStyle[
+      `${featureName}-${subFeatureName}-${elementName}-${subElementName || ''}`
+    ];
   return {
     ...JSON.parse(JSON.stringify(style)),
-    color: defaultStyle[featureType][subFeatureType],
-    // defaultStyle[featureType][subFeatureType][elementType][subElementType],
+    color: color ? hslToHEX(color) : '#000000',
   };
 };
 
 export const getDefaultFeature = ({
-  featureType,
-  subFeatureType,
+  featureName,
+  subFeatureName,
 }: HasPropertiesType): FeatureType => {
   return {
     isChanged: false,
-    section: defaultStyle[featureType][subFeatureType][ElementNameType.section]
+    section: featuresDetailOption[featureName].hasSection
       ? {
           [SubElementNameType.fill]: getDefaultStyle({
-            featureType,
-            subFeatureType,
-            elementType: ElementNameType.section,
-            subElementType: SubElementNameType.fill,
+            featureName,
+            subFeatureName,
+            elementName: ElementNameType.section,
+            subElementName: SubElementNameType.fill,
           }),
           [SubElementNameType.stroke]: getDefaultStyle({
-            featureType,
-            subFeatureType,
-            elementType: ElementNameType.section,
-            subElementType: SubElementNameType.stroke,
+            featureName,
+            subFeatureName,
+            elementName: ElementNameType.section,
+            subElementName: SubElementNameType.stroke,
           }),
         }
       : null,
-    labelText: defaultStyle[featureType][subFeatureType][
-      ElementNameType.labelText
-    ]
+    labelText: featuresDetailOption[featureName].hasLabelText
       ? {
           [SubElementNameType.fill]: getDefaultStyle({
-            featureType,
-            subFeatureType,
-            elementType: ElementNameType.labelText,
-            subElementType: SubElementNameType.fill,
+            featureName,
+            subFeatureName,
+            elementName: ElementNameType.labelText,
+            subElementName: SubElementNameType.fill,
           }),
           [SubElementNameType.stroke]: getDefaultStyle({
-            featureType,
-            subFeatureType,
-            elementType: ElementNameType.labelText,
-            subElementType: SubElementNameType.stroke,
+            featureName,
+            subFeatureName,
+            elementName: ElementNameType.labelText,
+            subElementName: SubElementNameType.stroke,
           }),
         }
       : null,
-    labelIcon: defaultStyle[featureType][subFeatureType][
-      ElementNameType.labelIcon
-    ]
-      ? getDefaultStyle()
+    labelIcon: featuresDetailOption[featureName].hasLabelIcon
+      ? getDefaultStyle({
+          featureName,
+          subFeatureName,
+          elementName: ElementNameType.labelIcon,
+        })
       : null,
   };
 };
