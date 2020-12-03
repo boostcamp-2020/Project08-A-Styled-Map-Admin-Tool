@@ -62,13 +62,12 @@ const CheckRight = styled.div`
   color: ${(props) => props.theme.GREEN};
 `;
 
-function DetailType({
-  feature,
-  subFeature,
-}: FeaturePropsType): React.ReactElement {
+function DetailType(): React.ReactElement {
   const {
-    sidebarTypeName,
-    sidebarSubTypeName,
+    feature,
+    subFeature,
+    element,
+    subElement,
     sidebarTypeClickHandler,
     sidebarSubTypeClickHandler,
   }: SidebarHookType = useSidebarType();
@@ -80,10 +79,6 @@ function DetailType({
   }: UseDetailHookType = useDetailType({
     sidebarTypeClickHandler,
     sidebarSubTypeClickHandler,
-    sidebarTypeName,
-    sidebarSubTypeName,
-    feature,
-    subFeature,
   });
 
   if (!feature) {
@@ -115,8 +110,8 @@ function DetailType({
             {section?.stroke.isChanged ? <Check>✓</Check> : <></>}
             <ListItem
               isSelected={
-                sidebarTypeName === ElementNameType.section &&
-                sidebarSubTypeName === SubElementNameType.stroke
+                element === ElementNameType.section &&
+                subElement === SubElementNameType.stroke
               }
               padding="second"
               clickHandler={() => {
@@ -193,12 +188,11 @@ function DetailType({
           )}
         </List>
       </DetailWrapper>
-      <Styler
-        feature={feature}
-        subFeature={subFeature}
-        element={sidebarTypeName as ElementNameType}
-        subElement={sidebarSubTypeName as SubElementNameType}
-      />
+      {element ? <Styler /> : <></>}
+      {/* // feature={feature}
+      // subFeature={subFeature}
+      // element={element as ElementNameType}
+      // subElement={subElement as SubElementNameType} */}
     </>
   );
 }
