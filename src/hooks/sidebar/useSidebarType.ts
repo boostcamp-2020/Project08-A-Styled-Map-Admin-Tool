@@ -9,6 +9,7 @@ import {
   ElementNameType,
   SubElementNameType,
   PayloadPropsType,
+  SidebarProperties,
 } from '../../store/common/type';
 
 export interface SidebarHookType {
@@ -34,7 +35,7 @@ function useSidebarType(): SidebarHookType {
         setSidebarProperties({
           ...sidebarStates,
           element: name as ElementNameType,
-          key: 'element',
+          key: SidebarProperties.element,
         })
       );
     } else {
@@ -42,20 +43,19 @@ function useSidebarType(): SidebarHookType {
         initSidebarProperties({
           ...sidebarStates,
           feature: name as FeatureNameType,
-          key: 'feature',
+          key: SidebarProperties.feature,
         })
       );
     }
   };
 
   const sidebarSubTypeClickHandler = (name: string) => {
-    if ([subFeature, subElement].includes(name)) return;
     if (Object.keys(SubElementNameType).includes(name)) {
       dispatch(
         setSidebarProperties({
           ...sidebarStates,
           subElement: name as SubElementNameType,
-          key: 'subElement',
+          key: SidebarProperties.subElement,
         })
       );
     } else {
@@ -63,7 +63,7 @@ function useSidebarType(): SidebarHookType {
         setSidebarProperties({
           ...sidebarStates,
           subFeature: name,
-          key: 'subFeature',
+          key: SidebarProperties.subFeature,
         })
       );
     }

@@ -33,6 +33,13 @@ export enum FeatureNameType {
   marker = 'marker',
 }
 
+export enum SidebarProperties {
+  feature = 'feature',
+  subFeature = 'subFeature',
+  element = 'element',
+  subElement = 'subElement',
+}
+
 export interface objType {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [name: string]: any;
