@@ -8,6 +8,8 @@ import useInputText, {
   InputTextHookType,
 } from '../../../hooks/common/useInputText';
 import CloseIcon from '../../Icon/CloseIcon';
+import useWholeStyle from '../../../hooks/common/useWholeStyle';
+import { WholeStyleActionPayload } from '../../../store/common/type';
 
 const Overlay = styled.div`
   position: fixed;
@@ -116,6 +118,7 @@ function ImportModal({
     }
   );
   const { inputText, onInputChange }: InputTextHookType = useInputText();
+  const { changeStyle } = useWholeStyle();
 
   return (
     <>
@@ -133,6 +136,14 @@ function ImportModal({
           onChange={onInputChange}
         />
         <ModalOKButton onClick={onClickOK}>지도 가져오기</ModalOKButton>
+        <button
+          type="button"
+          onClick={() => {
+            changeStyle(JSON.parse(inputText) as WholeStyleActionPayload);
+          }}
+        >
+          테스트
+        </button>
       </ModalWrapper>
     </>
   );
