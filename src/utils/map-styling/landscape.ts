@@ -7,11 +7,7 @@ import {
   ColorType,
   StyleTypes,
 } from '../applyStyle';
-import {
-  StyleKeyType,
-  ElementNameType,
-  StyleType,
-} from '../../store/common/type';
+import { StyleKeyType, ElementNameType } from '../../store/common/type';
 
 const SECTION = 'section';
 const LABELTEXT = 'labelText';
@@ -36,7 +32,7 @@ interface DetailType {
   labelIcon: SubDetailType;
 }
 
-function makeSubDetail(
+function makeSubElement(
   fillLayers: string[],
   strokeLayers: string[]
 ): SubDetailType {
@@ -65,32 +61,32 @@ const mountainCoverSectionFill = ['hillshade'];
 
 const layersByType: { [key in LandscapeSubFeature]: DetailType } = {
   'human-made': {
-    [SECTION]: makeSubDetail(humanMadeSectionFill, humanMadeSectionStroke),
-    [LABELTEXT]: makeSubDetail([], []),
-    [LABELICON]: makeSubDetail([], []),
+    [SECTION]: makeSubElement(humanMadeSectionFill, humanMadeSectionStroke),
+    [LABELTEXT]: makeSubElement([], []),
+    [LABELICON]: makeSubElement([], []),
   },
   building: {
-    [SECTION]: makeSubDetail(buildingSectionFill, buildingSectionStroke),
-    [LABELTEXT]: makeSubDetail(buildingLabel, buildingLabel),
-    [LABELICON]: makeSubDetail([], []),
+    [SECTION]: makeSubElement(buildingSectionFill, buildingSectionStroke),
+    [LABELTEXT]: makeSubElement(buildingLabel, buildingLabel),
+    [LABELICON]: makeSubElement([], []),
   },
   natural: {
-    [SECTION]: makeSubDetail(naturalSectionFill, []),
-    [LABELTEXT]: makeSubDetail(naturalLabel, naturalLabel),
-    [LABELICON]: makeSubDetail([], []),
+    [SECTION]: makeSubElement(naturalSectionFill, []),
+    [LABELTEXT]: makeSubElement(naturalLabel, naturalLabel),
+    [LABELICON]: makeSubElement([], []),
   },
   landcover: {
-    [SECTION]: makeSubDetail(landCoverSectionFill, landCoverSectionStroke),
-    [LABELTEXT]: makeSubDetail([], []),
-    [LABELICON]: makeSubDetail([], []),
+    [SECTION]: makeSubElement(landCoverSectionFill, landCoverSectionStroke),
+    [LABELTEXT]: makeSubElement([], []),
+    [LABELICON]: makeSubElement([], []),
   },
   mountain: {
-    [SECTION]: makeSubDetail(mountainCoverSectionFill, []),
-    [LABELTEXT]: makeSubDetail([], []),
-    [LABELICON]: makeSubDetail([], []),
+    [SECTION]: makeSubElement(mountainCoverSectionFill, []),
+    [LABELTEXT]: makeSubElement([], []),
+    [LABELICON]: makeSubElement([], []),
   },
   all: {
-    [SECTION]: makeSubDetail(
+    [SECTION]: makeSubElement(
       [
         ...humanMadeSectionFill,
         ...buildingSectionFill,
@@ -104,8 +100,8 @@ const layersByType: { [key in LandscapeSubFeature]: DetailType } = {
         ...landCoverSectionStroke,
       ]
     ),
-    [LABELTEXT]: makeSubDetail([], []),
-    [LABELICON]: makeSubDetail([], [...buildingLabel, ...naturalLabel]),
+    [LABELTEXT]: makeSubElement([], [...buildingLabel, ...naturalLabel]),
+    [LABELICON]: makeSubElement([], []),
   },
 };
 
@@ -251,9 +247,9 @@ const mappingDetailToFunc = {
 
 function landscapeStyling({
   map,
-  subFeatureName,
-  detailName,
-  subDetailName,
+  subFeature,
+  element,
+  subElement,
   key,
   style,
 }: stylingProps): void {
@@ -261,16 +257,16 @@ function landscapeStyling({
   let func = null;
 
   if (
-    detailName === ElementNameType.section ||
-    detailName === ElementNameType.labelText
+    element === ElementNameType.section ||
+    element === ElementNameType.labelText
   ) {
-    const { typeName, funcName } = mappingDetailToFunc[detailName][
-      subDetailName
-    ][key as StyleKeyType];
+    const { typeName, funcName } = mappingDetailToFunc[element][subElement][
+      key as StyleKeyType
+    ];
     type = typeName;
     func = funcName;
   } else {
-    const { typeName, funcName } = mappingDetailToFunc[detailName][
+    const { typeName, funcName } = mappingDetailToFunc[element][
       key as StyleKeyType
     ];
     type = typeName;
@@ -287,9 +283,7 @@ function landscapeStyling({
     func({
       map,
       layerNames:
-        layersByType[subFeatureName as LandscapeSubFeature][detailName][
-          subDetailName
-        ],
+        layersByType[subFeature as LandscapeSubFeature][element][subElement],
       type,
       weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
     });
@@ -299,9 +293,7 @@ function landscapeStyling({
     func({
       map,
       layerNames:
-        layersByType[subFeatureName as LandscapeSubFeature][detailName][
-          subDetailName
-        ],
+        layersByType[subFeature as LandscapeSubFeature][element][subElement],
       visibility: style.visibility,
     });
   }
@@ -309,9 +301,7 @@ function landscapeStyling({
   func({
     map,
     layerNames:
-      layersByType[subFeatureName as LandscapeSubFeature][detailName][
-        subDetailName
-      ],
+      layersByType[subFeature as LandscapeSubFeature][element][subElement],
     type: type as StyleTypes,
     color: style.color,
     [key]: style[key as StyleKeyType],

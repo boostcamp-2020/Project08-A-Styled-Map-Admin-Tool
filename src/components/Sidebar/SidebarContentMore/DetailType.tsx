@@ -9,9 +9,9 @@ import useDetailType, {
 } from '../../../hooks/sidebar/useDetailType';
 import Styler from './Styler';
 import {
-  FeatureNameType,
   ElementNameType,
   SubElementNameType,
+  FeaturePropsType,
 } from '../../../store/common/type';
 
 interface PaddingProp {
@@ -62,15 +62,10 @@ const CheckRight = styled.div`
   color: ${(props) => props.theme.GREEN};
 `;
 
-interface DetailTypeProps {
-  featureName: FeatureNameType;
-  subFeatureName: string;
-}
-
 function DetailType({
-  featureName,
-  subFeatureName,
-}: DetailTypeProps): React.ReactElement {
+  feature,
+  subFeature,
+}: FeaturePropsType): React.ReactElement {
   const {
     sidebarTypeName,
     sidebarSubTypeName,
@@ -87,11 +82,11 @@ function DetailType({
     sidebarSubTypeClickHandler,
     sidebarTypeName,
     sidebarSubTypeName,
-    featureName,
-    subFeatureName,
+    feature,
+    subFeature,
   });
 
-  if (!featureName) {
+  if (!feature) {
     return <></>;
   }
 
@@ -199,10 +194,10 @@ function DetailType({
         </List>
       </DetailWrapper>
       <Styler
-        featureName={featureName}
-        subFeatureName={subFeatureName}
-        detailName={sidebarTypeName as ElementNameType}
-        subDetailName={sidebarSubTypeName as SubElementNameType}
+        feature={feature}
+        subFeature={subFeature}
+        element={sidebarTypeName as ElementNameType}
+        subElement={sidebarSubTypeName as SubElementNameType}
       />
     </>
   );

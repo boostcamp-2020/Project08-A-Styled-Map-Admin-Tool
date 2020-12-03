@@ -7,9 +7,9 @@ import stylingCategory from './road-categories/stylingCategory';
 
 function roadStyling({
   map,
-  subFeatureName,
-  detailName,
-  subDetailName,
+  subFeature,
+  element,
+  subElement,
   key,
   style,
 }: stylingProps): void {
@@ -23,12 +23,11 @@ function roadStyling({
   };
 
   stylingCategory({
-    layerNames:
-      mappingSubFeatureLayerNames[subFeatureName as RoadSubFeatureType],
+    layerNames: mappingSubFeatureLayerNames[subFeature as RoadSubFeatureType],
     map,
-    subFeatureName,
-    detailName,
-    subDetailName,
+    subFeature,
+    element,
+    subElement,
     key,
     style,
   });

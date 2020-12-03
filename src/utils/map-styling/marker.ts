@@ -2,9 +2,9 @@ import { stylingProps } from './index';
 
 function markerStyling({
   map,
-  subFeatureName,
-  detailName,
-  subDetailName,
+  subFeature,
+  element,
+  subElement,
   style,
 }: stylingProps): void {
   console.log(1);

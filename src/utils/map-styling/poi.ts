@@ -120,24 +120,24 @@ const mappingDetailToFunc = {
 
 function poiStyling({
   map,
-  subFeatureName,
-  detailName,
-  subDetailName,
+  subFeature,
+  element,
+  subElement,
   style,
   key,
 }: stylingProps): void {
   let type = null;
   let func = null;
 
-  if (detailName === ElementNameType.section) return;
-  if (detailName === ElementNameType.labelText && key !== 'isChanged') {
-    const { typeName, funcName } = mappingDetailToFunc[detailName][
-      subDetailName
-    ][key];
+  if (element === ElementNameType.section) return;
+  if (element === ElementNameType.labelText && key !== 'isChanged') {
+    const { typeName, funcName } = mappingDetailToFunc[element][subElement][
+      key
+    ];
     type = typeName;
     func = funcName;
-  } else if (detailName === ElementNameType.labelIcon && key === 'visibility') {
-    const { typeName, funcName } = mappingDetailToFunc[detailName][key];
+  } else if (element === ElementNameType.labelIcon && key === 'visibility') {
+    const { typeName, funcName } = mappingDetailToFunc[element][key];
     type = typeName;
     func = funcName;
   }
@@ -149,7 +149,7 @@ function poiStyling({
   ) {
     func({
       map,
-      layerNames: POI_LAYERS[subFeatureName as PoiSubFeature],
+      layerNames: POI_LAYERS[subFeature as PoiSubFeature],
       type,
       weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
     });
@@ -158,7 +158,7 @@ function poiStyling({
 
   func({
     map,
-    layerNames: POI_LAYERS[subFeatureName as PoiSubFeature],
+    layerNames: POI_LAYERS[subFeature as PoiSubFeature],
     type: type as StyleTypes,
     color: style.color,
     [key]: style[key as StyleKeyType],

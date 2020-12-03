@@ -28,9 +28,9 @@ export interface layerProps {
 
 export interface catergoryStylingProps {
   map: mapboxgl.Map;
-  subFeatureName: string;
-  detailName: ElementNameType;
-  subDetailName: SubElementNameType;
+  subFeature: string;
+  element: ElementNameType;
+  subElement: SubElementNameType;
   key: StyleKeyType;
   style: StyleType;
   layerNames: layerProps;
@@ -39,17 +39,17 @@ export interface catergoryStylingProps {
 function stylingCategory({
   layerNames,
   map,
-  subFeatureName,
-  detailName,
-  subDetailName,
+  subFeature,
+  element,
+  subElement,
   key,
   style,
 }: catergoryStylingProps): void {
   const { visibility, color, weight } = style;
-
+  console.log(map);
   if (key === 'visibility') {
-    if (detailName === ElementNameType.section) {
-      if (subDetailName === SubElementNameType.fill) {
+    if (element === ElementNameType.section) {
+      if (subElement === SubElementNameType.fill) {
         applyVisibility({
           map,
           layerNames: layerNames.line,
@@ -60,20 +60,20 @@ function stylingCategory({
           layerNames: layerNames.polygon,
           visibility,
         });
-      } else if (subDetailName === SubElementNameType.stroke)
+      } else if (subElement === SubElementNameType.stroke)
         applyVisibility({
           map,
           layerNames: layerNames.stroke,
           visibility,
         });
-    } else if (detailName === ElementNameType.labelText) {
-      if (subDetailName === SubElementNameType.fill)
+    } else if (element === ElementNameType.labelText) {
+      if (subElement === SubElementNameType.fill)
         applyVisibility({
           map,
           layerNames: layerNames.text.noStroke,
           visibility,
         });
-      else if (subDetailName === SubElementNameType.stroke)
+      else if (subElement === SubElementNameType.stroke)
         applyVisibility({
           map,
           layerNames: layerNames.text.hasStroke,
@@ -81,8 +81,8 @@ function stylingCategory({
         });
     }
   } else if (key === 'color' || key === 'saturation' || key === 'lightness') {
-    if (detailName === ElementNameType.section) {
-      if (subDetailName === SubElementNameType.fill) {
+    if (element === ElementNameType.section) {
+      if (subElement === SubElementNameType.fill) {
         applyColor({
           map,
           layerNames: layerNames.line,
@@ -97,7 +97,7 @@ function stylingCategory({
           type: ColorType.fill,
           [key]: style[key as StyleKeyType],
         });
-      } else if (subDetailName === SubElementNameType.stroke) {
+      } else if (subElement === SubElementNameType.stroke) {
         applyColor({
           map,
           layerNames: layerNames.stroke,
@@ -106,8 +106,8 @@ function stylingCategory({
           [key]: style[key as StyleKeyType],
         });
       }
-    } else if (detailName === ElementNameType.labelText) {
-      if (subDetailName === SubElementNameType.fill) {
+    } else if (element === ElementNameType.labelText) {
+      if (subElement === SubElementNameType.fill) {
         applyColor({
           map,
           layerNames: layerNames.text.all,
@@ -115,7 +115,7 @@ function stylingCategory({
           type: ColorType.text,
           [key]: style[key as StyleKeyType],
         });
-      } else if (subDetailName === SubElementNameType.stroke) {
+      } else if (subElement === SubElementNameType.stroke) {
         applyColor({
           map,
           layerNames: layerNames.text.hasStroke,
@@ -126,15 +126,15 @@ function stylingCategory({
       }
     }
   } else if (key === 'weight') {
-    if (detailName === ElementNameType.section) {
-      if (subDetailName === SubElementNameType.fill) {
+    if (element === ElementNameType.section) {
+      if (subElement === SubElementNameType.fill) {
         applyWeight({
           map,
           layerNames: layerNames.line,
           type: WeightType.line,
           weight,
         });
-      } else if (subDetailName === SubElementNameType.stroke) {
+      } else if (subElement === SubElementNameType.stroke) {
         applyWeight({
           map,
           layerNames: layerNames.stroke,
@@ -143,8 +143,8 @@ function stylingCategory({
         });
       }
     }
-    if (detailName === ElementNameType.labelText) {
-      if (subDetailName === SubElementNameType.stroke)
+    if (element === ElementNameType.labelText) {
+      if (subElement === SubElementNameType.stroke)
         applyWeight({
           map,
           layerNames: layerNames.text.hasStroke,
