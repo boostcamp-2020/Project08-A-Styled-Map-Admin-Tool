@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useCallback } from 'react';
 import { RootState } from '../../store';
 import {
-  FeatureNameType,
   StyleType,
   StyleKeyType,
   ElementNameType,
