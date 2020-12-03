@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-// import { ElementPropsType } from '../../../store/common/type';
 import useStyleType, {
   UseStyleHookType,
 } from '../../../hooks/sidebar/useStyleType';

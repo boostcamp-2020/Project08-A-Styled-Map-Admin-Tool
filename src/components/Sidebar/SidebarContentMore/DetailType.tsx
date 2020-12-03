@@ -11,7 +11,6 @@ import Styler from './Styler';
 import {
   ElementNameType,
   SubElementNameType,
-  FeaturePropsType,
 } from '../../../store/common/type';
 
 interface PaddingProp {
@@ -65,7 +64,6 @@ const CheckRight = styled.div`
 function DetailType(): React.ReactElement {
   const {
     feature,
-    subFeature,
     element,
     subElement,
     sidebarTypeClickHandler,

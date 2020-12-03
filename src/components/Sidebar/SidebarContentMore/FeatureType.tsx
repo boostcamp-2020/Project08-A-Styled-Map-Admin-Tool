@@ -6,7 +6,6 @@ import DetailType from './DetailType';
 import useSidebarType, {
   SidebarHookType,
 } from '../../../hooks/sidebar/useSidebarType';
-// import { FeatureNameType } from '../../../store/common/type';
 
 import FeatureTypeItem from './FeatureTypeItem';
 
@@ -30,7 +29,6 @@ const FeatureTypeTitle = styled.h2`
 function FeatureType(): React.ReactElement {
   const {
     feature,
-    // subFeature,
     sidebarTypeClickHandler,
     sidebarSubTypeClickHandler,
   }: SidebarHookType = useSidebarType();
