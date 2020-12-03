@@ -98,11 +98,30 @@ export default {
     },
   },
   landscape: {
-    'human-made': {},
-    building: {},
-    natural: {},
-    landcover: {},
-    mountain: {},
+    'human-made': {
+      'landscape-human-made': 'hsl(35, 11%, 86%)',
+      'pitch-outline': 'hsl(75, 57%, 84%)',
+    },
+    building: {
+      'landscape-building': 'hsl(35, 11%, 86%)',
+      building: 'hsl(35, 11%, 86%)',
+      'building-outline': 'hsl(35, 6%, 79%)',
+      'building-number-label': 'hsl(35, 2%, 69%)',
+    },
+    natural: {
+      'landscape-natural': 'hsl(75, 62%, 81%)',
+      'natural-point-label': 'hsl(26, 25%, 32%)',
+    },
+    landcover: {
+      'landscape-landcover': 'hsl(75, 62%, 81%)',
+      landcover: 'hsl(75, 62%, 81%)',
+      landuse: 'hsl(100, 58%, 76%)',
+      'land-structure-polygon': 'hsl(35, 12%, 89%)',
+      'land-structure-line': 'hsl(35, 12%, 89%)',
+    },
+    mountain: {
+      hillshade: 'hsl(56, 59%, 22%)',
+    },
   },
   transit: {
     airport: {

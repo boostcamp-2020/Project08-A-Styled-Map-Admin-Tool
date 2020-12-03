@@ -163,6 +163,60 @@ export default {
         [SubElementNameType.fill]: 'transparent',
         [SubElementNameType.stroke]: 'transparent',
       },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+    'human-made': {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(35, 11%, 86%)',
+        [SubElementNameType.stroke]: 'hsl(75, 57%, 84%)',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+    building: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(35, 11%, 86%)',
+        [SubElementNameType.stroke]: 'hsl(35, 6%, 79%)',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(35, 2%, 69%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
+    },
+    natural: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(75, 62%, 81%)',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'hsl(26, 25%, 32%)',
+        [SubElementNameType.stroke]: 'hsl(0, 0%, 100%)',
+      },
+    },
+    landcover: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(75, 62%, 81%)',
+        [SubElementNameType.stroke]: 'hsl(35, 12%, 89%)',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+    },
+    mountain: {
+      [ElementNameType.section]: {
+        [SubElementNameType.fill]: 'hsl(56, 59%, 22%)',
+        [SubElementNameType.stroke]: 'transparent',
+      },
+      [ElementNameType.labelText]: {
+        [SubElementNameType.fill]: 'transparent',
+        [SubElementNameType.stroke]: 'transparent',
+      },
     },
   },
   [FeatureNameType.transit]: {
