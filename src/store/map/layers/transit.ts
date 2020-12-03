@@ -108,7 +108,7 @@ export default [
     },
     paint: {
       'line-color': 'hsl(201, 100%, 14%)',
-      'line-width': 2,
+      'line-width': 1,
     },
     filter: ['match', ['get', 'type'], 'rail', true, false],
   },
@@ -125,7 +125,7 @@ export default [
 
     paint: {
       'line-color': 'hsl(234, 20%, 30%)',
-      'line-width': 6,
+      'line-width': 1,
     },
     filter: [
       'all',
@@ -144,7 +144,7 @@ export default [
       visibility: 'visible',
     },
     paint: {
-      'text-halo-color': 'hsl(151, 24%, 60%)',
+      'text-halo-color': 'hsl(0, 0%, 100%)',
       'text-halo-width': 1,
       'text-color': 'hsl(13, 68%, 63%)',
     },

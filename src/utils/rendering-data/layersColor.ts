@@ -232,7 +232,7 @@ const layersColor: PropertyType = {
         stroke: 'hsl(230, 23%, 82%)',
       },
       labelText: {
-        fill: 'hsl(0, 69%, 50%)',
+        fill: 'hsl(230, 48%, 44%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
     },
@@ -242,7 +242,7 @@ const layersColor: PropertyType = {
         stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(13, 68%, 63%)',
+        fill: 'hsl(234, 20%, 30%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
     },
