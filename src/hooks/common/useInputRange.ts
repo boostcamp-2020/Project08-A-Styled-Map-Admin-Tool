@@ -23,7 +23,10 @@ function useInputRange({
   }, [range]);
 
   const rangeChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurRange(e.target.value);
+    const value = Number.isNaN(Number(e.target.value))
+      ? e.target.value
+      : Number(e.target.value);
+    setCurRange(value);
   };
 
   const rangeMouseUpHandler = (key: StyleKeyType) => {

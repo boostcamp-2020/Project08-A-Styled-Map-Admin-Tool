@@ -8,6 +8,7 @@ export enum ColorType {
   fill = 'fill-color',
   line = 'line-color',
   text = 'text-color',
+  background = 'background-color',
   textHalo = 'text-halo-color',
   icon = 'icon-opacity',
 }
@@ -90,7 +91,7 @@ export function applyWeight({
 }: ApplyProps): void {
   if (!type) return;
 
-  const weightValue = weight === 0 ? 0 : weight * 2 + 1;
+  const weightValue = weight === 0 ? 0 : weight;
   layerNames.forEach((layerName) => {
     map.setPaintProperty(layerName, type, weightValue);
   });

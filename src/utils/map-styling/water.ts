@@ -13,22 +13,22 @@ import {
 } from '../applyStyle';
 
 const layers = {
-  polygon: ['water-polygon', 'water'],
+  polygon: ['water-polygon', 'water', 'water-shadow'],
   symbol: ['water-line-label', 'water-point-label', 'waterway-label'],
 };
 
 function waterStyling({
   map,
-  detailName,
-  subDetailName,
+  element,
+  subElement,
   key,
   style,
 }: stylingProps): void {
-  if (detailName === ElementNameType.labelIcon) return;
+  if (element === ElementNameType.labelIcon) return;
 
-  if (detailName === ElementNameType.labelText) {
+  if (element === ElementNameType.labelText) {
     // labelText - fill
-    if (subDetailName === SubElementNameType.fill) {
+    if (subElement === SubElementNameType.fill) {
       if (key === StyleKeyType.weight) return;
       if (key === StyleKeyType.visibility) {
         const styleValue = style[key] === 'none' ? 'none' : 'visible';
@@ -73,10 +73,7 @@ function waterStyling({
   }
 
   // section - stroke
-  if (
-    subDetailName === SubElementNameType.stroke ||
-    key === StyleKeyType.weight
-  )
+  if (subElement === SubElementNameType.stroke || key === StyleKeyType.weight)
     return;
 
   // section - fill

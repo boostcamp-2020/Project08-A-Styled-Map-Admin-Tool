@@ -1,6 +1,17 @@
 export const arterialLayerNames = {
   all: [
+    'road-arterial-polygon',
     'road-arterial',
+    'road-primary',
+    'road-secondary-tertiary',
+    'road-motorway-trunk',
+    'road-minor',
+    'road-minor-low',
+    'road-primary-case',
+    'road-secondary-tertiary-case',
+    'road-motorway-trunk-case',
+    'road-minor-case',
+    'road-minor-low',
     'road-number-shield',
     'road-exit-shield',
     'road-arterial-label',
@@ -19,7 +30,6 @@ export const arterialLayerNames = {
     'road-secondary-tertiary-case',
     'road-motorway-trunk-case',
     'road-minor-case',
-    'road-minor-low',
   ],
   text: {
     all: ['road-number-shield', 'road-exit-shield', 'road-arterial-label'],

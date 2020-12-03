@@ -30,30 +30,30 @@ const LabelLayers = ['mapbox-airport-label', 'transit-bus-label'];
 
 function transitStyling({
   map,
-  subFeatureName,
+  subFeature,
   key,
-  detailName,
-  subDetailName,
+  element,
+  subElement,
   style,
 }: stylingProps): void {
   // TODO: labelIcon 관련 구현
-  if (detailName === ElementNameType.labelIcon) return;
+  if (element === ElementNameType.labelIcon) return;
 
   let layerNames: string[] =
-    subDetailName === SubElementNameType.fill
+    subElement === SubElementNameType.fill
       ? key === StyleKeyType.weight
         ? []
-        : detailName === ElementNameType.labelText
+        : element === ElementNameType.labelText
         ? [...LabelLayers]
         : [...PolygonLayers]
-      : detailName === ElementNameType.labelText
+      : element === ElementNameType.labelText
       ? [...LabelLayers]
       : [...LineLayers];
 
   layerNames =
-    subFeatureName === 'all'
+    subFeature === 'all'
       ? layerNames
-      : layerNames.filter((layer) => layer.includes(subFeatureName));
+      : layerNames.filter((layer) => layer.includes(subFeature));
 
   if (layerNames.length === 0) return;
 
@@ -78,11 +78,11 @@ function transitStyling({
       const ligKey = StyleKeyType.lightness;
 
       styleType =
-        detailName === ElementNameType.labelText
-          ? subDetailName === SubElementNameType.fill
+        element === ElementNameType.labelText
+          ? subElement === SubElementNameType.fill
             ? ColorType.text
             : ColorType.textHalo
-          : subDetailName === SubElementNameType.fill
+          : subElement === SubElementNameType.fill
           ? ColorType.fill
           : ColorType.line;
 
@@ -103,7 +103,7 @@ function transitStyling({
 
     case StyleKeyType.weight:
       styleType =
-        detailName === ElementNameType.labelText
+        element === ElementNameType.labelText
           ? WeightType.textHalo
           : WeightType.line;
       applyWeight({

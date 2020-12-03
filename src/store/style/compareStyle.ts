@@ -3,37 +3,26 @@ import {
   StyleType,
   StyleKeyType,
   objType,
-  FeatureNameType,
-  ElementNameType,
-  SubElementNameType,
+  ActionPayload,
 } from '../common/type';
 
-interface CheckStyleIsChangedProps {
-  targetStyle: StyleType;
-  featureName: FeatureNameType;
-  subFeatureName: string;
-  elementName: ElementNameType;
-  subElementName?: SubElementNameType;
-}
-
 export function checkStyleIsChanged({
-  targetStyle,
-  featureName,
-  subFeatureName,
-  elementName,
-  subElementName,
-}: CheckStyleIsChangedProps): boolean {
+  feature,
+  subFeature,
+  element,
+  subElement,
+  style,
+}: ActionPayload): boolean {
   const defaultStyle: StyleType = getDefaultStyle({
-    featureName,
-    subFeatureName,
-    elementName,
-    subElementName,
+    feature,
+    subFeature,
+    element,
+    subElement,
   });
   const keys = Object.keys(defaultStyle) as StyleKeyType[];
 
   const filteredKeys = keys.filter(
-    (key) =>
-      key === StyleKeyType.isChanged || defaultStyle[key] === targetStyle[key]
+    (key) => key === StyleKeyType.isChanged || defaultStyle[key] === style[key]
   );
   return keys.length !== filteredKeys.length;
 }

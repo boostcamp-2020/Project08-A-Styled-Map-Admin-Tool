@@ -10,7 +10,7 @@ import landscape from './layers/landscape';
 import water from './layers/water';
 import mapboxPOI from './layers/mapbox-poi';
 
-import initColor from '../../utils/rendering-data/layerColor3';
+import initLayersColor from '../../utils/rendering-data/initLayerColor';
 
 const LNG = 126.978;
 const LAT = 37.5656;
@@ -68,9 +68,10 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
 
   map.on('load', () => {
     translate(map);
-    map.removeLayer('poi-label');
-    map.removeLayer('road-label');
-    map.removeLayer('road-polygon');
+    const removalLayers: string[] = ['poi-label', 'road-label', 'road-polygon'];
+    removalLayers.forEach((element) => {
+      map.removeLayer(element);
+    });
 
     map.addSource(Sources.polygon, {
       type: 'vector',
@@ -95,7 +96,7 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
     ] as mapboxgl.Layer[];
     layers.forEach((layer: mapboxgl.Layer) => map.addLayer(layer));
 
-    Object.entries(initColor).forEach(([key, value]) => {
+    Object.entries(initLayersColor).forEach(([key, value]) => {
       map.setPaintProperty(key, `${value.type}-color`, value.color);
     });
   });
