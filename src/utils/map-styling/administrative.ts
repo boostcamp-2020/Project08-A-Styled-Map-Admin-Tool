@@ -29,7 +29,7 @@ const layers = {
   },
   locality: {
     line: [],
-    symbol: ['settlement-label', 'settlement_subdivision-label'],
+    symbol: ['settlement-label', 'settlement-subdivision-label'],
   },
   all: {
     line: [

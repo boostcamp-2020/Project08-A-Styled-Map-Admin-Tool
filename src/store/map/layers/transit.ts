@@ -110,7 +110,7 @@ export default [
       'line-color': 'hsl(201, 100%, 14%)',
       'line-width': 2,
     },
-    filter: ['match', ['get', 'type'], 'rail'],
+    filter: ['match', ['get', 'type'], 'rail', true, false],
   },
   {
     id: 'mapbox-rail-road-line',

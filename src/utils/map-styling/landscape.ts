@@ -57,9 +57,9 @@ const landCoverSectionFill = [
   'landscape-landcover',
   'landcover',
   'landuse',
-  'lang-structure-polygon',
+  'land-structure-polygon',
 ];
-const landCoverSectionStroke = ['lang-structure-line'];
+const landCoverSectionStroke = ['land-structure-line'];
 
 const mountainCoverSectionFill = ['hillshade'];
 
@@ -71,13 +71,13 @@ const layersByType: { [key in LandscapeSubFeature]: DetailType } = {
   },
   building: {
     [SECTION]: makeSubDetail(buildingSectionFill, buildingSectionStroke),
-    [LABELTEXT]: makeSubDetail([], []),
-    [LABELICON]: makeSubDetail(buildingLabel, buildingLabel),
+    [LABELTEXT]: makeSubDetail(buildingLabel, buildingLabel),
+    [LABELICON]: makeSubDetail([], []),
   },
   natural: {
     [SECTION]: makeSubDetail(naturalSectionFill, []),
-    [LABELTEXT]: makeSubDetail([], []),
-    [LABELICON]: makeSubDetail(naturalLabel, naturalLabel),
+    [LABELTEXT]: makeSubDetail(naturalLabel, naturalLabel),
+    [LABELICON]: makeSubDetail([], []),
   },
   landcover: {
     [SECTION]: makeSubDetail(landCoverSectionFill, landCoverSectionStroke),
