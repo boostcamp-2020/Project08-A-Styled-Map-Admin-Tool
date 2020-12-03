@@ -1,12 +1,11 @@
 import { PropertyType } from '../../store/common/type';
 
-const data: PropertyType = {
+const layersColor: PropertyType = {
   poi: {
     all: {
-      // 임시
       labelText: {
-        fill: 'hsl(26, 25%, 32%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        fill: 'transparent',
+        stroke: 'transparent',
       },
       labelIcon: 'transparent',
     },
@@ -74,55 +73,44 @@ const data: PropertyType = {
       labelIcon: 'transparent',
     },
   },
-  // 임시
   road: {
     all: {
       section: {
         fill: 'transparent',
-        stroke: 'hsl(230, 8%, 51%)',
+        stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
-      },
-    },
-    highway: {
-      section: {
         fill: 'transparent',
-        stroke: 'hsl(230, 8%, 51%)',
-      },
-      labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        stroke: 'transparent',
       },
     },
     arterial: {
       section: {
-        fill: 'transparent',
-        stroke: 'hsl(230, 8%, 51%)',
+        fill: 'hsl(0, 0%, 100%)',
+        stroke: 'hsl(230, 24%, 87%)',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
+        fill: 'hsl(230, 48%, 44%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
     },
     local: {
       section: {
-        fill: 'transparent',
-        stroke: 'hsl(230, 8%, 51%)',
+        fill: 'hsl(35, 14%, 93%)',
+        stroke: 'hsl(230, 24%, 87%)',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
+        fill: 'hsl(230, 48%, 44%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
     },
     sidewalk: {
       section: {
-        fill: 'transparent',
-        stroke: 'hsl(230, 8%, 51%)',
+        fill: 'hsl(0, 0%, 100%)',
+        stroke: 'hsl(230, 24%, 87%)',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
+        fill: 'hsl(230, 48%, 44%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
     },
@@ -131,11 +119,11 @@ const data: PropertyType = {
     all: {
       section: {
         fill: 'transparent',
-        stroke: 'hsl(230, 8%, 51%)',
+        stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        fill: 'transparent',
+        stroke: 'transparent',
       },
     },
     country: {
@@ -165,7 +153,6 @@ const data: PropertyType = {
       },
     },
   },
-  // 임시
   landscape: {
     all: {
       section: {
@@ -173,58 +160,58 @@ const data: PropertyType = {
         stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        fill: 'transparent',
+        stroke: 'transparent',
       },
     },
     'human-made': {
       section: {
-        fill: 'transparent',
-        stroke: 'transparent',
+        fill: 'hsl(35, 11%, 86%)',
+        stroke: 'hsl(75, 57%, 84%)',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        fill: 'transparent',
+        stroke: 'transparent',
       },
     },
     building: {
       section: {
-        fill: 'transparent',
-        stroke: 'transparent',
+        fill: 'hsl(35, 11%, 86%)',
+        stroke: 'hsl(35, 6%, 79%)',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
+        fill: 'hsl(35, 2%, 69%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
     },
     natural: {
       section: {
-        fill: 'transparent',
+        fill: 'hsl(75, 62%, 81%)',
         stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
+        fill: 'hsl(26, 25%, 32%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
     },
     landcover: {
       section: {
-        fill: 'transparent',
-        stroke: 'transparent',
+        fill: 'hsl(75, 62%, 81%)',
+        stroke: 'hsl(35, 12%, 89%)',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        fill: 'transparent',
+        stroke: 'transparent',
       },
     },
     mountain: {
       section: {
-        fill: 'transparent',
+        fill: 'hsl(56, 59%, 22%)',
         stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        fill: 'transparent',
+        stroke: 'transparent',
       },
     },
   },
@@ -235,17 +222,17 @@ const data: PropertyType = {
         stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        fill: 'transparent',
+        stroke: 'transparent',
       },
     },
     airport: {
       section: {
-        fill: 'transparent',
-        stroke: 'transparent',
+        fill: 'hsl(234, 20%, 30%)',
+        stroke: 'hsl(230, 23%, 82%)',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
+        fill: 'hsl(0, 69%, 50%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
     },
@@ -255,28 +242,28 @@ const data: PropertyType = {
         stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
+        fill: 'hsl(13, 68%, 63%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
     },
     rail: {
       section: {
-        fill: 'transparent',
+        fill: 'hsl(234, 20%, 30%)',
         stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        fill: 'transparent',
+        stroke: 'transparent',
       },
     },
     subway: {
       section: {
-        fill: 'transparent',
+        fill: 'hsl(192, 70%, 43%)',
         stroke: 'transparent',
       },
       labelText: {
-        fill: 'hsl(0, 0%, 0%)',
-        stroke: 'hsl(0, 0%, 100%)',
+        fill: 'transparent',
+        stroke: 'transparent',
       },
     },
   },
@@ -302,4 +289,4 @@ const data: PropertyType = {
   },
 };
 
-export default data;
+export default layersColor;

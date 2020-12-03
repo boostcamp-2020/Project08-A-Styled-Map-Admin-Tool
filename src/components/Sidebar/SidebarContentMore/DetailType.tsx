@@ -136,61 +136,67 @@ function DetailType({
         ) : (
           <></>
         )}
-        {labelText ? (
-          <List>
-            <Text padding="first">라벨</Text>
-            <List>
-              <Text padding="second">텍스트</Text>
-              {labelText?.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
-              <ListItem
-                isSelected={checkIsSelected(
-                  ElementNameType.labelText,
-                  SubElementNameType.fill
-                )}
-                padding="third"
-                clickHandler={() => {
-                  styleClickHandler(
+        <List>
+          {labelText ? (
+            <>
+              <Text padding="first">라벨</Text>
+              <List>
+                <Text padding="second">텍스트</Text>
+                {labelText?.fill.isChanged ? <CheckRight>✓</CheckRight> : <></>}
+                <ListItem
+                  isSelected={checkIsSelected(
                     ElementNameType.labelText,
                     SubElementNameType.fill
-                  );
-                }}
-                name="채우기"
-              />
-              {labelText?.stroke.isChanged ? <CheckRight>✓</CheckRight> : <></>}
-              <ListItem
-                isSelected={checkIsSelected(
-                  ElementNameType.labelText,
-                  SubElementNameType.stroke
+                  )}
+                  padding="third"
+                  clickHandler={() => {
+                    styleClickHandler(
+                      ElementNameType.labelText,
+                      SubElementNameType.fill
+                    );
+                  }}
+                  name="채우기"
+                />
+                {labelText?.stroke.isChanged ? (
+                  <CheckRight>✓</CheckRight>
+                ) : (
+                  <></>
                 )}
-                padding="third"
-                clickHandler={() => {
-                  styleClickHandler(
+                <ListItem
+                  isSelected={checkIsSelected(
                     ElementNameType.labelText,
                     SubElementNameType.stroke
-                  );
-                }}
-                name="윤곽선"
-              />
-            </List>
-            {labelIcon ? (
-              <>
-                {labelIcon?.isChanged ? <Check>✓</Check> : <></>}
-                <ListItem
-                  isSelected={checkIsSelected(ElementNameType.labelIcon)}
-                  padding="second"
+                  )}
+                  padding="third"
                   clickHandler={() => {
-                    styleClickHandler(ElementNameType.labelIcon);
+                    styleClickHandler(
+                      ElementNameType.labelText,
+                      SubElementNameType.stroke
+                    );
                   }}
-                  name="아이콘"
+                  name="윤곽선"
                 />
-              </>
-            ) : (
-              <></>
-            )}
-          </List>
-        ) : (
-          <></>
-        )}
+              </List>
+            </>
+          ) : (
+            <></>
+          )}
+          {labelIcon ? (
+            <>
+              {labelIcon.isChanged ? <Check>✓</Check> : <></>}
+              <ListItem
+                isSelected={checkIsSelected(ElementNameType.labelIcon)}
+                padding="second"
+                clickHandler={() => {
+                  styleClickHandler(ElementNameType.labelIcon);
+                }}
+                name="아이콘"
+              />
+            </>
+          ) : (
+            <></>
+          )}
+        </List>
       </DetailWrapper>
       <Styler
         featureName={featureName}

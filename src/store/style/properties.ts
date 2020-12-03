@@ -7,6 +7,7 @@ import {
   ElementPropsType,
   StylePropsType,
 } from '../common/type';
+import { hslToHEX } from '../../utils/colorFormat';
 
 import defaultStyle from '../../utils/rendering-data/layersColor';
 
@@ -30,7 +31,7 @@ export const getDefaultStyle = ({
     : defaultStyle[feature][subFeature][element];
   return {
     ...JSON.parse(JSON.stringify(style)),
-    color: defaultColor,
+    color: defaultColor ? hslToHEX(defaultColor as string) : '#000000',
   };
 };
 
