@@ -1,63 +1,81 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  setFeature,
-  setSubFeature,
-  setElement,
-  setSubElement,
+  setSidebarProperties,
+  initSidebarProperties,
 } from '../../store/sidebar/action';
+import { RootState } from '../../store/index';
 import {
   FeatureNameType,
   ElementNameType,
   SubElementNameType,
+  PayloadPropsType,
 } from '../../store/common/type';
 
 export interface SidebarHookType {
   sidebarTypeClickHandler: (name: string) => void;
   sidebarSubTypeClickHandler: (name: string) => void;
-  sidebarTypeName: string;
-  sidebarSubTypeName: string;
+  feature: FeatureNameType | null;
+  subFeature: string | null;
+  element: ElementNameType | null;
+  subElement: SubElementNameType | null;
 }
 
 function useSidebarType(): SidebarHookType {
-  const [sidebarTypeName, setSidebarTypeName] = useState<string>('');
-  const [sidebarSubTypeName, setSidebarSubTypeName] = useState<string>('');
   const dispatch = useDispatch();
+  const sidebarStates = useSelector<RootState>(
+    (state) => state.sidebar
+  ) as PayloadPropsType;
+  const { feature, subFeature, element, subElement } = sidebarStates;
 
   const sidebarTypeClickHandler = (name: string) => {
-    if (name !== sidebarTypeName) {
-      if (
-        name === ElementNameType.section ||
-        name === ElementNameType.labelText ||
-        name === ElementNameType.labelIcon
-      ) {
-        dispatch(setElement(name as ElementNameType));
-      } else {
-        dispatch(setFeature(name as FeatureNameType));
-      }
-      setSidebarTypeName(name);
+    if ([feature, element].includes(name as any)) return;
+    if (Object.keys(ElementNameType).includes(name)) {
+      dispatch(
+        setSidebarProperties({
+          ...sidebarStates,
+          element: name as ElementNameType,
+          key: 'element',
+        })
+      );
+    } else {
+      dispatch(
+        initSidebarProperties({
+          ...sidebarStates,
+          feature: name as FeatureNameType,
+          key: 'feature',
+        })
+      );
     }
   };
 
   const sidebarSubTypeClickHandler = (name: string) => {
-    if (name !== sidebarSubTypeName) {
-      if (
-        name === SubElementNameType.fill ||
-        name === SubElementNameType.stroke
-      ) {
-        dispatch(setSubElement(name));
-      } else {
-        dispatch(setSubFeature(name));
-      }
-      setSidebarSubTypeName(name);
+    if ([subFeature, subElement].includes(name)) return;
+    if (Object.keys(SubElementNameType).includes(name)) {
+      dispatch(
+        setSidebarProperties({
+          ...sidebarStates,
+          subElement: name as SubElementNameType,
+          key: 'subElement',
+        })
+      );
+    } else {
+      dispatch(
+        setSidebarProperties({
+          ...sidebarStates,
+          subFeature: name,
+          key: 'subFeature',
+        })
+      );
     }
   };
 
   return {
     sidebarTypeClickHandler,
     sidebarSubTypeClickHandler,
-    sidebarTypeName,
-    sidebarSubTypeName,
+    feature,
+    subFeature,
+    element,
+    subElement,
   };
 }
 

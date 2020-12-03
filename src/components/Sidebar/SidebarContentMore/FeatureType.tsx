@@ -6,12 +6,12 @@ import DetailType from './DetailType';
 import useSidebarType, {
   SidebarHookType,
 } from '../../../hooks/sidebar/useSidebarType';
-import { FeatureNameType } from '../../../store/common/type';
+// import { FeatureNameType } from '../../../store/common/type';
 
 import FeatureTypeItem from './FeatureTypeItem';
 
 interface WrapperProps {
-  isFeatureName: string;
+  isFeatureName: string | null;
 }
 
 const FeatureTypeWrapper = styled.ul<WrapperProps>`
@@ -29,33 +29,28 @@ const FeatureTypeTitle = styled.h2`
 
 function FeatureType(): React.ReactElement {
   const {
+    feature,
+    // subFeature,
     sidebarTypeClickHandler,
     sidebarSubTypeClickHandler,
-    sidebarTypeName,
-    sidebarSubTypeName,
   }: SidebarHookType = useSidebarType();
 
   return (
     <>
-      <FeatureTypeWrapper isFeatureName={sidebarTypeName}>
+      <FeatureTypeWrapper isFeatureName={feature}>
         <FeatureTypeTitle>기능 유형</FeatureTypeTitle>
-        {data.map(({ typeKey, typeName, features }) => (
+        {data.map(({ typeKey, typeName, subFeatures }) => (
           <FeatureTypeItem
             key={typeKey}
             typeKey={typeKey}
             typeName={typeName}
-            features={features}
-            sidebarTypeName={sidebarTypeName}
-            sidebarSubTypeName={sidebarSubTypeName}
+            subFeatures={subFeatures}
             sidebarTypeClickHandler={sidebarTypeClickHandler}
             sidebarSubTypeClickHandler={sidebarSubTypeClickHandler}
           />
         ))}
       </FeatureTypeWrapper>
-      <DetailType
-        feature={sidebarTypeName as FeatureNameType}
-        subFeature={sidebarSubTypeName}
-      />
+      <DetailType />
     </>
   );
 }

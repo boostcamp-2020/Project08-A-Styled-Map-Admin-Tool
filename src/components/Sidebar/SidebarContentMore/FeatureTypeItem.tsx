@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import { FeaturesType } from '../../../utils/rendering-data/featureTypeData';
-import { FeatureNameType } from '../../../store/common/type';
+import { FeatureNameType, FeatureState } from '../../../store/common/type';
 import useFeatureTypeItemHook from '../../../hooks/sidebar/useFeatureTypeItem';
 
 interface ListProps {
@@ -60,9 +60,9 @@ const Pointer = styled.span`
 interface FeatureTypeItemProps {
   typeKey: FeatureNameType;
   typeName: string;
-  features: FeaturesType[];
-  sidebarTypeName: string;
-  sidebarSubTypeName: string;
+  subFeatures: FeaturesType[];
+  // sidebarTypeName: string;
+  // sidebarSubTypeName: string;
   sidebarTypeClickHandler: (name: string) => void;
   sidebarSubTypeClickHandler: (name: string) => void;
 }
@@ -70,18 +70,20 @@ interface FeatureTypeItemProps {
 function FeatureTypeItem({
   typeKey,
   typeName,
-  features,
-  sidebarTypeName,
-  sidebarSubTypeName,
+  subFeatures,
+  // sidebarTypeName,
+  // sidebarSubTypeName,
   sidebarTypeClickHandler,
   sidebarSubTypeClickHandler,
 }: FeatureTypeItemProps): React.ReactElement {
-  const { featureList } = useFeatureTypeItemHook({ featureName: typeKey });
+  const { featureList, feature, subFeature } = useFeatureTypeItemHook({
+    featureName: typeKey,
+  });
 
   return (
     <>
       <FeatureList
-        isChecked={sidebarTypeName === typeKey && sidebarSubTypeName === 'all'}
+        isChecked={feature === typeKey && subFeature === 'all'}
         onClick={() => {
           sidebarTypeClickHandler(typeKey);
           sidebarSubTypeClickHandler('all');
@@ -91,10 +93,10 @@ function FeatureTypeItem({
         {typeName}
         <Pointer>{'>'}</Pointer>
       </FeatureList>
-      {features?.map(({ key, name }) => (
+      {subFeatures.map(({ key, name }) => (
         <SectionList
           key={key}
-          isChecked={sidebarSubTypeName === key}
+          isChecked={subFeature === key}
           onClick={() => {
             sidebarTypeClickHandler(typeKey);
             sidebarSubTypeClickHandler(key);
