@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import { FeaturesType } from '../../../utils/rendering-data/featureTypeData';
-import { FeatureNameType, FeatureState } from '../../../store/common/type';
+import { FeatureNameType, ElementNameType } from '../../../store/common/type';
 import useFeatureTypeItemHook from '../../../hooks/sidebar/useFeatureTypeItem';
 
 interface ListProps {
@@ -61,9 +61,7 @@ interface FeatureTypeItemProps {
   typeKey: FeatureNameType;
   typeName: string;
   subFeatures: FeaturesType[];
-  // sidebarTypeName: string;
-  // sidebarSubTypeName: string;
-  sidebarTypeClickHandler: (name: string) => void;
+  sidebarTypeClickHandler: (name: FeatureNameType | ElementNameType) => void;
   sidebarSubTypeClickHandler: (name: string) => void;
 }
 
@@ -71,8 +69,6 @@ function FeatureTypeItem({
   typeKey,
   typeName,
   subFeatures,
-  // sidebarTypeName,
-  // sidebarSubTypeName,
   sidebarTypeClickHandler,
   sidebarSubTypeClickHandler,
 }: FeatureTypeItemProps): React.ReactElement {

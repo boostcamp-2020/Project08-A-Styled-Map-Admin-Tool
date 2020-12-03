@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import {
+  FeatureNameType,
   ElementNameType,
   SubElementNameType,
   FeatureType,
@@ -8,7 +9,7 @@ import {
 } from '../../store/common/type';
 
 interface UseDetailTypeProps {
-  sidebarTypeClickHandler: (name: string) => void;
+  sidebarTypeClickHandler: (name: FeatureNameType | ElementNameType) => void;
   sidebarSubTypeClickHandler: (name: string) => void;
 }
 

@@ -12,7 +12,7 @@ import {
 } from '../../store/common/type';
 
 export interface SidebarHookType {
-  sidebarTypeClickHandler: (name: string) => void;
+  sidebarTypeClickHandler: (name: FeatureNameType | ElementNameType) => void;
   sidebarSubTypeClickHandler: (name: string) => void;
   feature: FeatureNameType | null;
   subFeature: string | null;
@@ -27,8 +27,8 @@ function useSidebarType(): SidebarHookType {
   ) as PayloadPropsType;
   const { feature, subFeature, element, subElement } = sidebarStates;
 
-  const sidebarTypeClickHandler = (name: string) => {
-    if ([feature, element].includes(name as any)) return;
+  const sidebarTypeClickHandler = (name: FeatureNameType | ElementNameType) => {
+    if ([feature, element].includes(name)) return;
     if (Object.keys(ElementNameType).includes(name)) {
       dispatch(
         setSidebarProperties({
