@@ -29,7 +29,7 @@ const layers = {
   },
   locality: {
     line: [],
-    symbol: ['settlement-label', 'settlement_subdivision-label'],
+    symbol: ['settlement-label', 'settlement-subdivision-label'],
   },
   all: {
     line: [
@@ -42,7 +42,7 @@ const layers = {
     symbol: [
       'country-label',
       'settlement-label',
-      'settlement_subdivision-label',
+      'settlement-subdivision-label',
       'state-label',
     ],
   },
@@ -50,18 +50,18 @@ const layers = {
 
 function administrativeStyling({
   map,
-  subFeatureName,
-  detailName,
-  subDetailName,
+  subFeature,
+  element,
+  subElement,
   key,
   style,
 }: stylingProps): void {
-  const mappingLayers = layers[subFeatureName as subFeatureNameType];
+  const mappingLayers = layers[subFeature as subFeatureNameType];
 
-  if (detailName === ElementNameType.labelIcon) return;
-  if (detailName === ElementNameType.labelText) {
+  if (element === ElementNameType.labelIcon) return;
+  if (element === ElementNameType.labelText) {
     // labelText - fill
-    if (subDetailName === SubElementNameType.fill) {
+    if (subElement === SubElementNameType.fill) {
       if (key === StyleKeyType.weight) return;
       if (key === StyleKeyType.visibility) {
         const styleValue = style[key] === 'none' ? 'none' : 'visible';
@@ -106,11 +106,7 @@ function administrativeStyling({
   }
 
   // section - fill
-  if (
-    subFeatureName === 'locality' ||
-    subFeatureName === 'neighborhood' ||
-    subDetailName === SubElementNameType.fill
-  )
+  if (subFeature === 'locality' || subElement === SubElementNameType.fill)
     return;
 
   // section - stroke

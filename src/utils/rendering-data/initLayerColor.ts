@@ -1,4 +1,11 @@
-export default {
+interface InitLayerColor {
+  [name: string]: {
+    color: string;
+    type: string;
+  };
+}
+
+const initLayerColor: InitLayerColor = {
   'poi-attraction': { color: 'hsl(26, 25%, 32%)', type: 'text' },
   'poi-arts-label': { color: 'hsl(26, 25%, 32%)', type: 'text' },
   'poi-landmark-label': { color: 'hsl(26, 25%, 32%)', type: 'text' },
@@ -35,40 +42,39 @@ export default {
   'water-line-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
   'water-point-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
   'waterway-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
+  //
   'mapbox-airport-aeroway-polygon': {
     color: 'hsl(234, 20%, 30%)',
     type: 'fill',
   },
   'mapbox-airport-polygon': { color: 'hsl(234, 20%, 30%)', type: 'fill' },
   'mapbox-airport-aeroway-line': { color: 'hsl(230, 23%, 82%)', type: 'line' },
-  'mapbox-airport-label': { color: 'hsl(0, 69%, 50%)', type: 'text' },
-  'transit-bus-label': { color: 'hsl(13, 68%, 63%)', type: 'text' },
+  'mapbox-airport-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
+  'transit-bus-label': { color: 'hsl(234, 20%, 30%)', type: 'text' },
   'mapbox-rail-road-line': { color: 'hsl(234, 20%, 30%)', type: 'line' },
   'transit-rail-line': { color: 'hsl(234, 20%, 30%)', type: 'line' },
   'transit-subway-line': { color: 'hsl(192, 70%, 43%)', type: 'line' },
-  'road-arterial': 'hsl(0, 0%, 100%)',
+  'road-arterial': { color: 'hsl(0, 0%, 100%)', type: 'line' },
   'road-arterial-polygon': { color: 'hsl(0, 0%, 100%)', type: 'fill' },
   'road-primary': { color: 'hsl(0, 0%, 100%)', type: 'line' },
-  'road-secondary-teritary': { color: 'hsl(0, 0%, 100%)', type: 'line' },
+  'road-secondary-tertiary': { color: 'hsl(0, 0%, 100%)', type: 'line' },
   'road-motorway-trunk': { color: 'hsl(0, 0%, 100%)', type: 'line' },
   'road-minor': { color: 'hsl(0, 0%, 100%)', type: 'line' },
   'road-minor-low': { color: 'hsl(0, 0%, 100%)', type: 'line' },
   'road-primary-case': { color: 'hsl(230, 24%, 87%)', type: 'line' },
-  'road-secondary-teritary-case': { color: 'hsl(230, 24%, 87%)', type: 'line' },
+  'road-secondary-tertiary-case': { color: 'hsl(230, 24%, 87%)', type: 'line' },
   'road-motorway-trunk-case': { color: 'hsl(230, 24%, 87%)', type: 'line' },
   'road-minor-case': { color: 'hsl(230, 24%, 87%)', type: 'line' },
   'road-number-shield': { color: 'hsl(0, 0%, 100%)', type: 'text' },
   'road-exit-shield': { color: 'hsl(0, 0%, 100%)', type: 'text' },
-  'road-arterial-label': { color: 'hsl(230, 48%, 44%)', type: 'line' },
-  //
+  'road-arterial-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
   'road-local-polygon': { color: 'hsl(35, 14%, 93%)', type: 'fill' },
-  ferry: 'hsl(230, 48%, 44%)',
+  ferry: { color: 'hsl(230, 48%, 44%)', type: 'line' },
   'ferry-auto': { color: 'hsl(35, 14%, 93%)', type: 'line' },
   'road-local': { color: 'hsl(35, 14%, 93%)', type: 'line' },
   'road-street': { color: 'hsl(35, 14%, 93%)', type: 'line' },
   'road-street-case': { color: 'hsl(230, 24%, 87%)', type: 'line' },
-  'road-local-label': { color: 'hsl(230, 48%, 44%)', type: 'line' },
-  //
+  'road-local-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
   'road-pedestrian-polygon-fill': { color: 'hsl(35, 10%, 83%)', type: 'fill' },
   'road-pedestrian-polygon-pattern': {
     color: 'hsl(35, 10%, 83%)',
@@ -80,9 +86,9 @@ export default {
   'road-steps': { color: 'hsl(35, 10%, 83%)', type: 'line' },
   'road-path': { color: 'hsl(35, 10%, 83%)', type: 'line' },
   'road-pedestrian-case': { color: 'hsl(230, 24%, 87%)', type: 'line' },
-  'road-sidewalk-label': { color: 'hsl(230, 48%, 44%)', type: 'line' },
+  'road-sidewalk-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
   'landscape-human-made': { color: 'hsl(35, 11%, 86%)', type: 'fill' },
-  'pitch-outline': { color: 'hsl(75, 57%, 84%)', type: 'fill' },
+  'pitch-outline': { color: 'hsl(75, 57%, 84%)', type: 'line' },
   'landscape-building': { color: 'hsl(35, 11%, 86%)', type: 'fill' },
   building: { color: 'hsl(35, 11%, 86%)', type: 'fill' },
   'building-outline': { color: 'hsl(35, 6%, 79%)', type: 'line' },
@@ -96,3 +102,5 @@ export default {
   'land-structure-line': { color: 'hsl(35, 12%, 89%)', type: 'line' },
   hillshade: { color: 'hsl(56, 59%, 22%)', type: 'fill' },
 };
+
+export default initLayerColor;

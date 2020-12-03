@@ -53,8 +53,8 @@ function FeatureType(): React.ReactElement {
         ))}
       </FeatureTypeWrapper>
       <DetailType
-        featureName={sidebarTypeName as FeatureNameType}
-        subFeatureName={sidebarSubTypeName}
+        feature={sidebarTypeName as FeatureNameType}
+        subFeature={sidebarSubTypeName}
       />
     </>
   );

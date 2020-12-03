@@ -3,22 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useCallback } from 'react';
 import { RootState } from '../../store';
 import {
-  FeatureNameType,
   StyleType,
   StyleKeyType,
   ElementNameType,
   SubElementNameType,
+  ElementPropsType,
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import { getDefaultStyle } from '../../store/style/properties';
 import * as mapStyling from '../../utils/map-styling';
-
-interface UseStyleTypeProps {
-  featureName: FeatureNameType;
-  subFeatureName: string;
-  detailName: ElementNameType;
-  subDetailName?: SubElementNameType;
-}
 
 export interface UseStyleHookType {
   styleElement: StyleType;
@@ -26,36 +19,36 @@ export interface UseStyleHookType {
 }
 
 function useStyleType({
-  featureName,
-  subFeatureName,
-  detailName,
-  subDetailName,
-}: UseStyleTypeProps): UseStyleHookType {
+  feature,
+  subFeature,
+  element,
+  subElement,
+}: ElementPropsType): UseStyleHookType {
   const dispatch = useDispatch();
 
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
   const styleElement = useSelector<RootState>((state) => {
-    if (!detailName) {
+    if (!element) {
       return getDefaultStyle({
-        featureName,
-        subFeatureName,
-        elementName: detailName,
-        subElementName: subDetailName,
+        feature,
+        subFeature,
+        element,
+        subElement,
       });
     }
-    const feature = state[featureName][subFeatureName];
-    if (detailName === ElementNameType.labelIcon) return feature[detailName];
-    return feature[detailName][subDetailName as SubElementNameType];
+    const newFeature = state[feature][subFeature];
+    if (element === ElementNameType.labelIcon) return newFeature[element];
+    return newFeature[element][subElement as SubElementNameType];
   }) as StyleType;
 
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
-      mapStyling[featureName]({
+      mapStyling[feature]({
         map,
-        subFeatureName,
+        subFeature,
         key,
-        detailName,
-        subDetailName: subDetailName as SubElementNameType,
+        element,
+        subElement: subElement as SubElementNameType,
         style: {
           ...styleElement,
           [key]: value,
@@ -64,10 +57,10 @@ function useStyleType({
 
       dispatch(
         setStyle({
-          feature: featureName,
-          subFeature: subFeatureName,
-          element: detailName,
-          subElement: subDetailName,
+          feature,
+          subFeature,
+          element,
+          subElement,
           style: {
             ...styleElement,
             [key]: value,
@@ -75,7 +68,7 @@ function useStyleType({
         })
       );
     },
-    [featureName, subFeatureName, detailName, subDetailName, styleElement]
+    [feature, subFeature, element, subElement, styleElement]
   );
 
   return {
