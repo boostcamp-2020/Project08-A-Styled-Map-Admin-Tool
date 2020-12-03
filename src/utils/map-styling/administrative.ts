@@ -42,7 +42,7 @@ const layers = {
     symbol: [
       'country-label',
       'settlement-label',
-      'settlement_subdivision-label',
+      'settlement-subdivision-label',
       'state-label',
     ],
   },

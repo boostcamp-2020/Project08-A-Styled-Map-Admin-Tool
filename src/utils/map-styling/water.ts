@@ -13,7 +13,7 @@ import {
 } from '../applyStyle';
 
 const layers = {
-  polygon: ['water-polygon', 'water'],
+  polygon: ['water-polygon', 'water', 'water-shadow'],
   symbol: ['water-line-label', 'water-point-label', 'waterway-label'],
 };
 

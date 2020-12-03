@@ -48,7 +48,7 @@ const humanMadeSectionStroke = ['pitch-outline'];
 
 const buildingSectionFill = ['landscape-building', 'building'];
 const buildingSectionStroke = ['building-outline'];
-const buildingLabel = ['building-number-label'];
+const buildingLabel = ['building-number-label', 'poi-building-label'];
 
 const naturalSectionFill = ['landscape-natural'];
 const naturalLabel = ['natural-point-label'];
