@@ -91,7 +91,7 @@ export interface SubElementActionPayload {
   [SubElementNameType.stroke]?: StyleActionPayload;
 }
 
-export interface ElemetnActionPayload {
+export interface ElementActionPayload {
   [ElementNameType.section]?: SubElementActionPayload;
   [ElementNameType.labelText]?: SubElementActionPayload;
   [ElementNameType.labelIcon]?: StyleActionPayload;
@@ -99,7 +99,7 @@ export interface ElemetnActionPayload {
 
 export type WholeStyleActionPayload = {
   [featureName in FeatureNameType]?: {
-    [subFeatureName: string]: ElemetnActionPayload;
+    [subFeatureName: string]: ElementActionPayload;
   };
 };
 

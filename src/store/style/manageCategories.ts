@@ -2,20 +2,20 @@ import {
   ElementNameType,
   SubElementActionPayload,
   StyleActionPayload,
-  ElemetnActionPayload,
+  ElementActionPayload,
 } from '../common/type';
 
 interface combineCatecoryProps {
   element: ElementNameType;
-  elementStyle: ElemetnActionPayload;
-  initialElementStyle: ElemetnActionPayload;
+  elementStyle: ElementActionPayload;
+  initialElementStyle: ElementActionPayload;
 }
 
 export function combineCategory({
   element,
   elementStyle,
   initialElementStyle,
-}: combineCatecoryProps): ElemetnActionPayload {
+}: combineCatecoryProps): ElementActionPayload {
   const update = initialElementStyle;
   if (element === 'labelIcon' && elementStyle[element]) {
     (update[element] as StyleActionPayload) = {
