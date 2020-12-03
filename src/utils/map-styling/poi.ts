@@ -26,7 +26,7 @@ type POI_LAYERS_TYPE = {
   [name in PoiSubFeature]: string[];
 };
 
-const VISIBLE = 1;
+const VISIBLE = -0.001;
 const INVISIBLE = 0;
 const POI_LAYERS: POI_LAYERS_TYPE = {
   all: [
@@ -51,7 +51,6 @@ const POI_LAYERS: POI_LAYERS_TYPE = {
     'poi-etc',
     'poi-industrial-label',
     'poi-historic-label',
-    'poi-building-label',
   ],
   landmark: ['poi-attraction', 'poi-arts-label', 'poi-landmark-label'],
   business: ['poi-business', 'poi-food-label', 'poi-store-label'],
@@ -61,12 +60,7 @@ const POI_LAYERS: POI_LAYERS_TYPE = {
   worship: ['poi-worship', 'poi-religion-label'],
   school: ['poi-school', 'poi-education-label'],
   sports: ['poi-sport-label'],
-  etc: [
-    'poi-etc',
-    'poi-industrial-label',
-    'poi-historic-label',
-    'poi-building-label',
-  ],
+  etc: ['poi-etc', 'poi-industrial-label', 'poi-historic-label'],
 };
 
 const mappingDetailToFunc = {
