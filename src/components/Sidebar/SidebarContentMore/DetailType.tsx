@@ -43,14 +43,10 @@ const Check = styled.div`
   color: ${(props) => props.theme.GREEN};
 `;
 
-function DetailType({
-  feature,
-  subFeature,
-}: FeaturePropsType): React.ReactElement {
+function DetailType(): React.ReactElement {
   const {
     feature,
     element,
-    subElement,
     sidebarTypeClickHandler,
     sidebarSubTypeClickHandler,
   }: SidebarHookType = useSidebarType();
