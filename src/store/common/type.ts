@@ -1,4 +1,5 @@
 import { init, setStyle, setWholeStyle } from '../style/action';
+import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 
 export type hello = 'landmark';
 
@@ -30,6 +31,13 @@ export enum FeatureNameType {
   transit = 'transit',
   water = 'water',
   marker = 'marker',
+}
+
+export enum SidebarProperties {
+  feature = 'feature',
+  subFeature = 'subFeature',
+  element = 'element',
+  subElement = 'subElement',
 }
 
 export interface objType {
@@ -69,13 +77,28 @@ export interface ElementPropsType extends FeaturePropsType {
   subElement?: SubElementNameType;
 }
 
+
+export type SidebarActionType =
+  | ReturnType<typeof setSidebarProperties>
+  | ReturnType<typeof initSidebarProperties>;
+
 export type ActionType =
   | ReturnType<typeof init>
   | ReturnType<typeof setStyle>
   | ReturnType<typeof setWholeStyle>;
 
+
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
+}
+
+
+export interface PayloadPropsType {
+  key: 'feature' | 'subFeature' | 'element' | 'subElement';
+  feature: FeatureNameType | null;
+  subFeature: string | null;
+  element: ElementNameType | null;
+  subElement: SubElementNameType | null;
 }
 
 export interface StyleActionPayload {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Canvas from '../components/Canvas';
 import styled from '../utils/styles/styled';
 
@@ -44,7 +45,9 @@ function Entry(): React.ReactElement {
     <BackGround>
       <Container>
         <Canvas />
-        <StartButton>시작하기</StartButton>
+        <StartButton>
+          <Link to="/map">시작하기</Link>
+        </StartButton>
       </Container>
     </BackGround>
   );

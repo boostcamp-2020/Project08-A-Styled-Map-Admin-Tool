@@ -5,14 +5,11 @@ import {
   ElementNameType,
   SubElementNameType,
   FeatureType,
+  PayloadPropsType,
 } from '../../store/common/type';
 
 interface UseDetailTypeProps {
-  feature: FeatureNameType;
-  subFeature: string;
-  sidebarTypeName: string;
-  sidebarSubTypeName: string;
-  sidebarTypeClickHandler: (name: string) => void;
+  sidebarTypeClickHandler: (name: FeatureNameType | ElementNameType) => void;
   sidebarSubTypeClickHandler: (name: string) => void;
 }
 
@@ -34,15 +31,15 @@ const dummyDetail = {
 };
 
 function useDetailType({
-  feature,
-  subFeature,
-  sidebarTypeName,
-  sidebarSubTypeName,
   sidebarTypeClickHandler,
   sidebarSubTypeClickHandler,
 }: UseDetailTypeProps): UseDetailHookType {
+  const { feature, subFeature, element, subElement } = useSelector<RootState>(
+    (state) => state.sidebar
+  ) as PayloadPropsType;
+
   const detail = useSelector<RootState>((state) => {
-    if (!feature) {
+    if (!feature || !subFeature) {
       return dummyDetail;
     }
 
@@ -50,19 +47,19 @@ function useDetailType({
   }) as FeatureType;
 
   const styleClickHandler = (
-    element: ElementNameType,
-    subElement?: SubElementNameType
+    elementName: ElementNameType,
+    subElementName?: SubElementNameType
   ) => {
-    sidebarTypeClickHandler(element);
-    if (subElement) sidebarSubTypeClickHandler(subElement);
+    sidebarTypeClickHandler(elementName);
+    if (subElementName) sidebarSubTypeClickHandler(subElementName);
   };
 
   const checkIsSelected = (
-    element: ElementNameType,
-    subElement?: SubElementNameType
+    elementName: ElementNameType,
+    subElementName?: SubElementNameType
   ) => {
-    if (!subElement) return sidebarTypeName === element;
-    return sidebarTypeName === element && sidebarSubTypeName === subElement;
+    if (!subElementName) return elementName === element;
+    return elementName === element && subElementName === subElement;
   };
 
   return {

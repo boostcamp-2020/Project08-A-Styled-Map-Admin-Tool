@@ -21,7 +21,7 @@ interface ReducerType {
 export default function getReducer(IDX: number): ReducerType {
   const subFeatures = [
     'all',
-    ...(renderingData[IDX].features?.map((v) => v.key) as string[]),
+    ...(renderingData[IDX].subFeatures?.map((v) => v.key) as string[]),
   ];
 
   const initialState = subFeatures.reduce((acc: FeatureState, cur: string) => {
