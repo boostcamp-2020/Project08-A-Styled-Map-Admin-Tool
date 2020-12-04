@@ -11,7 +11,6 @@ import Styler from './Styler';
 import {
   ElementNameType,
   SubElementNameType,
-  FeaturePropsType,
 } from '../../../store/common/type';
 
 import DetailTypeSubList from './DetailTypeSubList';
@@ -49,8 +48,9 @@ function DetailType({
   subFeature,
 }: FeaturePropsType): React.ReactElement {
   const {
-    sidebarTypeName,
-    sidebarSubTypeName,
+    feature,
+    element,
+    subElement,
     sidebarTypeClickHandler,
     sidebarSubTypeClickHandler,
   }: SidebarHookType = useSidebarType();
@@ -62,10 +62,6 @@ function DetailType({
   }: UseDetailHookType = useDetailType({
     sidebarTypeClickHandler,
     sidebarSubTypeClickHandler,
-    sidebarTypeName,
-    sidebarSubTypeName,
-    feature,
-    subFeature,
   });
 
   if (!feature) {
@@ -141,12 +137,7 @@ function DetailType({
           </List>
         ) : null}
       </DetailWrapper>
-      <Styler
-        feature={feature}
-        subFeature={subFeature}
-        element={sidebarTypeName as ElementNameType}
-        subElement={sidebarSubTypeName as SubElementNameType}
-      />
+      {element ? <Styler /> : <></>}
     </>
   );
 }

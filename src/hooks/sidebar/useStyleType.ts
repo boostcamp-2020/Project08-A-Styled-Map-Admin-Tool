@@ -7,35 +7,29 @@ import {
   StyleKeyType,
   ElementNameType,
   SubElementNameType,
-  ElementPropsType,
+  PayloadPropsType,
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
-import { getDefaultStyle } from '../../store/style/properties';
 import * as mapStyling from '../../utils/map-styling';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
   onStyleChange: (key: StyleKeyType, value: string | number) => void;
+  element: ElementNameType | null;
 }
 
-function useStyleType({
-  feature,
-  subFeature,
-  element,
-  subElement,
-}: ElementPropsType): UseStyleHookType {
+function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
 
+  const { feature, subFeature, element, subElement } = useSelector<RootState>(
+    (state) => state.sidebar
+  ) as PayloadPropsType;
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
   const styleElement = useSelector<RootState>((state) => {
-    if (!element) {
-      return getDefaultStyle({
-        feature,
-        subFeature,
-        element,
-        subElement,
-      });
+    if (!feature || !subFeature || !element) {
+      return null;
     }
+
     const newFeature = state[feature][subFeature];
     if (element === ElementNameType.labelIcon) return newFeature[element];
     return newFeature[element][subElement as SubElementNameType];
@@ -43,6 +37,8 @@ function useStyleType({
 
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
+      if (!feature || !subFeature || !element || !subElement) return;
+
       mapStyling[feature]({
         map,
         subFeature,
@@ -74,6 +70,7 @@ function useStyleType({
   return {
     styleElement,
     onStyleChange,
+    element,
   };
 }
 

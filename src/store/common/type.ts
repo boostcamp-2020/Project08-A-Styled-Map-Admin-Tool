@@ -1,10 +1,5 @@
-import { init, setStyle } from '../style/action';
-import {
-  setFeature,
-  setSubFeature,
-  setElement,
-  setSubElement,
-} from '../sidebar/action';
+import { init, setStyle, setWholeStyle } from '../style/action';
+import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 
 export type hello = 'landmark';
 
@@ -36,6 +31,13 @@ export enum FeatureNameType {
   transit = 'transit',
   water = 'water',
   marker = 'marker',
+}
+
+export enum SidebarProperties {
+  feature = 'feature',
+  subFeature = 'subFeature',
+  element = 'element',
+  subElement = 'subElement',
 }
 
 export interface objType {
@@ -75,16 +77,54 @@ export interface ElementPropsType extends FeaturePropsType {
   subElement?: SubElementNameType;
 }
 
-export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
+
 export type SidebarActionType =
-  | ReturnType<typeof setFeature>
-  | ReturnType<typeof setSubFeature>
-  | ReturnType<typeof setElement>
-  | ReturnType<typeof setSubElement>;
+  | ReturnType<typeof setSidebarProperties>
+  | ReturnType<typeof initSidebarProperties>;
+
+export type ActionType =
+  | ReturnType<typeof init>
+  | ReturnType<typeof setStyle>
+  | ReturnType<typeof setWholeStyle>;
+
 
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
 }
+
+
+export interface PayloadPropsType {
+  key: 'feature' | 'subFeature' | 'element' | 'subElement';
+  feature: FeatureNameType | null;
+  subFeature: string | null;
+  element: ElementNameType | null;
+  subElement: SubElementNameType | null;
+}
+
+export interface StyleActionPayload {
+  isChanged?: boolean;
+  visibility?: string;
+  color?: string;
+  weight?: number;
+  saturation?: number;
+  lightness?: number;
+}
+export interface SubElementActionPayload {
+  [SubElementNameType.fill]?: StyleActionPayload;
+  [SubElementNameType.stroke]?: StyleActionPayload;
+}
+
+export interface ElementActionPayload {
+  [ElementNameType.section]?: SubElementActionPayload;
+  [ElementNameType.labelText]?: SubElementActionPayload;
+  [ElementNameType.labelIcon]?: StyleActionPayload;
+}
+
+export type WholeStyleActionPayload = {
+  [featureName in FeatureNameType]?: {
+    [subFeatureName: string]: ElementActionPayload;
+  };
+};
 
 export interface StylePropsType {
   [SubElementNameType.fill]: string;

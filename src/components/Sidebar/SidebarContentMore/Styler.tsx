@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import { ElementPropsType } from '../../../store/common/type';
 import useStyleType, {
   UseStyleHookType,
 } from '../../../hooks/sidebar/useStyleType';
@@ -35,21 +34,12 @@ const Hr = styled.hr`
   color: ${(props) => props.theme.GREY};
 `;
 
-function Styler({
-  feature,
-  subFeature,
-  element,
-  subElement,
-}: ElementPropsType): React.ReactElement {
+function Styler(): React.ReactElement {
   const {
     styleElement: { visibility, color, weight, saturation, lightness },
     onStyleChange,
-  }: UseStyleHookType = useStyleType({
-    feature,
-    subFeature,
     element,
-    subElement,
-  });
+  }: UseStyleHookType = useStyleType();
 
   if (!element) {
     return <></>;
