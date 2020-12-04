@@ -2,22 +2,27 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import {
   FeatureNameType,
-  FeatureNameOneType,
-} from '../../utils/rendering-data/featureTypeData';
-import { CommonType, LabelType } from '../../store/common/properties';
-
-interface DetailType {
-  section: CommonType;
-  label: LabelType;
-}
+  ElementNameType,
+  SubElementNameType,
+  FeatureType,
+  PayloadPropsType,
+} from '../../store/common/type';
 
 interface UseDetailTypeProps {
-  featureName: string;
-  subFeatureName: string;
+  sidebarTypeClickHandler: (name: FeatureNameType | ElementNameType) => void;
+  sidebarSubTypeClickHandler: (name: string) => void;
 }
 
-interface UseDetailTypeType {
-  detail: DetailType;
+export interface UseDetailHookType {
+  detail: FeatureType;
+  styleClickHandler: (
+    elementName: ElementNameType,
+    subElementName?: SubElementNameType
+  ) => void;
+  checkIsSelected: (
+    elementName: ElementNameType,
+    subElementName?: SubElementNameType
+  ) => boolean;
 }
 
 const dummyDetail = {
@@ -26,22 +31,41 @@ const dummyDetail = {
 };
 
 function useDetailType({
-  featureName,
-  subFeatureName,
-}: UseDetailTypeProps): UseDetailTypeType {
+  sidebarTypeClickHandler,
+  sidebarSubTypeClickHandler,
+}: UseDetailTypeProps): UseDetailHookType {
+  const { feature, subFeature, element, subElement } = useSelector<RootState>(
+    (state) => state.sidebar
+  ) as PayloadPropsType;
+
   const detail = useSelector<RootState>((state) => {
-    if (!featureName) {
+    if (!feature || !subFeature) {
       return dummyDetail;
     }
-    if (featureName === 'water' || featureName === 'marker') {
-      return state[featureName as FeatureNameOneType];
-    }
 
-    return state[featureName as FeatureNameType][subFeatureName];
-  }) as DetailType;
+    return state[feature][subFeature];
+  }) as FeatureType;
+
+  const styleClickHandler = (
+    elementName: ElementNameType,
+    subElementName?: SubElementNameType
+  ) => {
+    sidebarTypeClickHandler(elementName);
+    if (subElementName) sidebarSubTypeClickHandler(subElementName);
+  };
+
+  const checkIsSelected = (
+    elementName: ElementNameType,
+    subElementName?: SubElementNameType
+  ) => {
+    if (!subElementName) return elementName === element;
+    return elementName === element && subElementName === subElement;
+  };
 
   return {
     detail,
+    styleClickHandler,
+    checkIsSelected,
   };
 }
 
