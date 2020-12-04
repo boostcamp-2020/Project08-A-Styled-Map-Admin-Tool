@@ -77,7 +77,6 @@ export interface ElementPropsType extends FeaturePropsType {
   subElement?: SubElementNameType;
 }
 
-
 export type SidebarActionType =
   | ReturnType<typeof setSidebarProperties>
   | ReturnType<typeof initSidebarProperties>;
@@ -87,11 +86,9 @@ export type ActionType =
   | ReturnType<typeof setStyle>
   | ReturnType<typeof setWholeStyle>;
 
-
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
 }
-
 
 export interface PayloadPropsType {
   key: 'feature' | 'subFeature' | 'element' | 'subElement';
