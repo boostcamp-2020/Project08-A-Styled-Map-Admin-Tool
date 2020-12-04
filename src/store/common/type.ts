@@ -1,4 +1,4 @@
-import { init, setStyle } from '../style/action';
+import { init, setStyle, setWholeStyle } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 
 export type hello = 'landmark';
@@ -77,13 +77,21 @@ export interface ElementPropsType extends FeaturePropsType {
   subElement?: SubElementNameType;
 }
 
-export type ActionType = ReturnType<typeof init> | ReturnType<typeof setStyle>;
+
 export type SidebarActionType =
   | ReturnType<typeof setSidebarProperties>
   | ReturnType<typeof initSidebarProperties>;
+
+export type ActionType =
+  | ReturnType<typeof init>
+  | ReturnType<typeof setStyle>
+  | ReturnType<typeof setWholeStyle>;
+
+
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
 }
+
 
 export interface PayloadPropsType {
   key: 'feature' | 'subFeature' | 'element' | 'subElement';
@@ -92,6 +100,31 @@ export interface PayloadPropsType {
   element: ElementNameType | null;
   subElement: SubElementNameType | null;
 }
+
+export interface StyleActionPayload {
+  isChanged?: boolean;
+  visibility?: string;
+  color?: string;
+  weight?: number;
+  saturation?: number;
+  lightness?: number;
+}
+export interface SubElementActionPayload {
+  [SubElementNameType.fill]?: StyleActionPayload;
+  [SubElementNameType.stroke]?: StyleActionPayload;
+}
+
+export interface ElementActionPayload {
+  [ElementNameType.section]?: SubElementActionPayload;
+  [ElementNameType.labelText]?: SubElementActionPayload;
+  [ElementNameType.labelIcon]?: StyleActionPayload;
+}
+
+export type WholeStyleActionPayload = {
+  [featureName in FeatureNameType]?: {
+    [subFeatureName: string]: ElementActionPayload;
+  };
+};
 
 export interface StylePropsType {
   [SubElementNameType.fill]: string;
