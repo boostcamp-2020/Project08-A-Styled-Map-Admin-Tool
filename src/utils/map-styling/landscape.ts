@@ -281,7 +281,7 @@ function landscapeStyling({
   let layerNames =
     layersByType[subFeature as LandscapeSubFeature][element][subElement];
   if (
-    key === 'visibility' &&
+    key === StyleKeyType.visibility &&
     (type === ColorType.icon || type === WeightType.textHalo)
   ) {
     func({
@@ -292,7 +292,7 @@ function landscapeStyling({
     });
     return;
   }
-  if (key === 'visibility') {
+  if (key === StyleKeyType.visibility) {
     func({
       map,
       layerNames,
@@ -300,23 +300,17 @@ function landscapeStyling({
     });
   }
 
-  console.log(map, subFeature, element, subElement, key, style);
-
-  if (subElement === 'fill' && layerNames.includes('land')) {
-    if (key === StyleKeyType.visibility) {
-      func({
-        map,
-        layerNames,
-        visibility: style.visibility,
-      });
-    } else {
-      func({
-        map,
-        layerNames: ['land'],
-        type: ColorType.background,
-        color: style.color,
-      });
-    }
+  if (
+    subElement === 'fill' &&
+    key !== StyleKeyType.visibility &&
+    layerNames.includes('land')
+  ) {
+    func({
+      map,
+      layerNames: ['land'],
+      type: ColorType.background,
+      color: style.color,
+    });
     layerNames = layerNames.filter((item) => item !== 'land');
   }
 
