@@ -300,13 +300,23 @@ function landscapeStyling({
     });
   }
 
-  if (layerNames.includes('land')) {
-    func({
-      map,
-      layerNames: ['land'],
-      type: ColorType.background,
-      color: style.color,
-    });
+  console.log(map, subFeature, element, subElement, key, style);
+
+  if (subElement === 'fill' && layerNames.includes('land')) {
+    if (key === StyleKeyType.visibility) {
+      func({
+        map,
+        layerNames,
+        visibility: style.visibility,
+      });
+    } else {
+      func({
+        map,
+        layerNames: ['land'],
+        type: ColorType.background,
+        color: style.color,
+      });
+    }
     layerNames = layerNames.filter((item) => item !== 'land');
   }
 
