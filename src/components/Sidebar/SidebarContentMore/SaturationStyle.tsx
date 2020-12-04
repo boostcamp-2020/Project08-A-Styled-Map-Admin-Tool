@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import { Range } from '../SidebarContentFewer/DepthItem';
+import useInputRange from '../../../hooks/common/useInputRange';
+import { StyleKeyType } from '../../../store/common/type';
 
 const SaturationWrapper = styled.div`
   display: flex;
@@ -20,7 +22,20 @@ const SaturationControlBar = styled(Range)`
   height: 2px;
 `;
 
-function SaturationStyle(): React.ReactElement {
+interface SaturationStyleProps {
+  saturation: number;
+  onStyleChange: (key: StyleKeyType, value: string | number) => void;
+}
+
+function SaturationStyle({
+  saturation,
+  onStyleChange,
+}: SaturationStyleProps): React.ReactElement {
+  const { curRange, rangeChangeHandler, rangeMouseUpHandler } = useInputRange({
+    range: saturation,
+    onStyleChange,
+  });
+
   return (
     <SaturationWrapper>
       <SaturationTitle htmlFor="styler__saturation">채도</SaturationTitle>
@@ -30,6 +45,9 @@ function SaturationStyle(): React.ReactElement {
         max="100"
         step="5"
         id="styler__saturation"
+        value={curRange}
+        onChange={(e) => rangeChangeHandler(e)}
+        onMouseUp={() => rangeMouseUpHandler(StyleKeyType.saturation)}
       />
     </SaturationWrapper>
   );
