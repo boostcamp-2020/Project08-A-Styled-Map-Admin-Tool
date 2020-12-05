@@ -1,5 +1,6 @@
 import { init, setStyle, setWholeStyle } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
+import { INIT_HISTORY, TOGGLE_HISTORY } from '../history/action';
 
 export type hello = 'landmark';
 
@@ -85,6 +86,15 @@ export type ActionType =
   | ReturnType<typeof init>
   | ReturnType<typeof setStyle>
   | ReturnType<typeof setWholeStyle>;
+
+export interface HistoryPropsType {
+  isHistoryOpen: boolean;
+}
+
+export interface HistoryActionType {
+  type: typeof INIT_HISTORY | typeof TOGGLE_HISTORY;
+  payload: HistoryPropsType;
+}
 
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
