@@ -37,7 +37,7 @@ export function jsonToURL(json: URLJsonType): string {
   return url + queryString;
 }
 
-export function URLToJson(): URLJsonType {
+export function urlToJson(): URLJsonType | null {
   const queryString = window.location.search;
 
   const values = queryString?.split('=')[1]?.split(':');
@@ -49,29 +49,33 @@ export function URLToJson(): URLJsonType {
     subElement: '',
   };
 
-  values?.forEach((value, index) => {
-    const { feature, subFeature, element, subElement } = properties;
-    if (Object.keys(FeatureNameType).includes(value)) {
-      state[value] = {};
-      properties.feature = value;
-    } else if (Object.keys(SubFeatureNameType).includes(value)) {
-      state[feature][value] = {};
-      properties.subFeature = value;
-    } else if (Object.keys(ElementNameType).includes(value)) {
-      state[feature][subFeature][value] = {};
-      properties.element = value;
-    } else if (Object.keys(SubElementNameType).includes(value)) {
-      state[feature][subFeature][element][value] = {};
-      properties.subElement = value;
-    } else if (Object.keys(StyleKeyType).includes(value)) {
-      if (element === ElementNameType.labelIcon) {
-        state[feature][subFeature][element][value] = values[index + 1];
-        return;
+  try {
+    values?.forEach((value, index) => {
+      const { feature, subFeature, element, subElement } = properties;
+      if (Object.keys(FeatureNameType).includes(value)) {
+        state[value] = {};
+        properties.feature = value;
+      } else if (Object.keys(SubFeatureNameType).includes(value)) {
+        state[feature][value] = {};
+        properties.subFeature = value;
+      } else if (Object.keys(ElementNameType).includes(value)) {
+        state[feature][subFeature][value] = {};
+        properties.element = value;
+      } else if (Object.keys(SubElementNameType).includes(value)) {
+        state[feature][subFeature][element][value] = {};
+        properties.subElement = value;
+      } else if (Object.keys(StyleKeyType).includes(value)) {
+        if (element === ElementNameType.labelIcon) {
+          state[feature][subFeature][element][value] = values[index + 1];
+          return;
+        }
+        state[feature][subFeature][element][subElement][value] =
+          values[index + 1];
       }
-      state[feature][subFeature][element][subElement][value] =
-        values[index + 1];
-    }
-  });
+    });
+  } catch (error) {
+    return null;
+  }
 
   return state;
 }
