@@ -19,9 +19,9 @@ export const init = (): { type: typeof INIT } => ({
   type: INIT,
 });
 
-export const getStyle = ():{type: typeof GET} => ({
+export const getStyle = (): { type: typeof GET } => ({
   type: GET,
-})
+});
 
 export const setStyle = ({
   feature,
