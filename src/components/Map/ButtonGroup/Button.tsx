@@ -19,13 +19,16 @@ const Button = styled.button<ButtonPropsInterface>`
 
   border: 0;
   background-color: ${(props) => props.theme.WHITE};
-  border-radius: 5px;
-  box-shadow: 0 0 10px ${(props) => props.theme.GREY};
+  border-radius: 4px;
+
+  box-sizing: border-box;
+  box-shadow: 0 0 1px 2px ${(props) => props.theme.GREY};
   font-weight: 600;
   color: ${(props) => props.theme.DARKGREY};
 
   &:hover {
     color: ${(props) => props.theme.GREEN};
+    background-color: rgb(230, 230, 230);
   }
 `;
 

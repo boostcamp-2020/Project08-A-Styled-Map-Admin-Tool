@@ -15,7 +15,9 @@ const SearchInput = styled.input`
   border-radius: 5px;
 
   background-color: ${(props) => props.theme.WHITE};
-  box-shadow: 0 0 10px ${(props) => props.theme.GREY};
+  box-shadow: 0 0 1px 2px ${(props) => props.theme.GREY};
+
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 function SearchInputPresenter(): ReactElement {
