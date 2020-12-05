@@ -137,3 +137,28 @@ export type PropertyType = {
     };
   };
 };
+
+/** urlJson Type */
+export interface URLJsonStyleType {
+  visibility?: string;
+  color?: string;
+  weight?: number;
+  saturation?: number;
+  lightness?: number;
+}
+
+export type URLJsonSubElementType = {
+  [subElementName in SubElementNameType]?: URLJsonStyleType;
+};
+
+export type URLJsonElementType = {
+  [subElementName in ElementNameType]?: URLJsonSubElementType;
+};
+
+export type URLJsonSubFeatureType = {
+  [subFeatureName: string]: URLJsonElementType;
+};
+
+export type URLJsonType = {
+  [featureName in FeatureNameType]?: URLJsonSubFeatureType | URLJsonElementType;
+};

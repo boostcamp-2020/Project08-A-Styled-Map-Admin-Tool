@@ -1,0 +1,35 @@
+{
+  "poi": {
+    "landmark": {
+      "labelText": {
+        "fill": {
+          "color": "white",
+          "saturation": 30,
+          "lightness": 50,
+          "weight": 10
+        },
+        "stroke": {
+          "visibility": "none"
+        }
+      }
+    }
+  },
+  "water": {
+    "section": {
+      "stroke": {
+        "color": "orange",
+        "saturation": 1,
+        "lightness": 1,
+        "weight": 1
+      }
+    },
+    "labelText": {
+      "stroke": {
+        "color": "black",
+        "saturation": 20,
+        "lightness": 0,
+        "weight": 3
+      }
+    }
+  }
+}
