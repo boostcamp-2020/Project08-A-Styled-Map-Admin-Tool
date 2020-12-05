@@ -3,6 +3,7 @@ import styled from '../../../utils/styles/styled';
 import useUpperButtons, {
   useUpperButtonsType,
 } from '../../../hooks/map/useUpperButtons';
+import useHistoryFeature from '../../../hooks/common/useHistoryFeature';
 
 import Button from './Button';
 import FullScreenIcon from '../../Icon/FullScreen';
@@ -40,12 +41,19 @@ function UpperButtons({ mapRef }: UpperButtonsProps): ReactElement {
     smallScreenButtonClickHandler,
   }: useUpperButtonsType = useUpperButtons({ mapRef });
 
+  const { clickHistoryBtnHandler } = useHistoryFeature();
+
   return (
     <UpperButtonsWrapper>
       <SearchInput />
       <ButtonsWrapper>
-        <Button width="40px" height="40px" onClick={compareButtonClickHandler}>
-          비교하기
+        <Button
+          fontSize="12px"
+          width="60px"
+          height="40px"
+          onClick={clickHistoryBtnHandler}
+        >
+          History
         </Button>
         <Button
           width="40px"

@@ -4,6 +4,7 @@ import useMap, { MapHookType } from '../../hooks/map/useMap';
 
 import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
+import History from './History/History';
 
 const MapWrapper = styled.div`
   position: absolute;
@@ -13,9 +14,6 @@ const MapWrapper = styled.div`
   width: calc(100% - 370px);
   display: flex;
   flex: 1 1 auto;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
 
   canvas {
     outline: none;
@@ -28,6 +26,7 @@ function Map(): React.ReactElement {
   return (
     <MapWrapper ref={mapRef}>
       <UpperButtons mapRef={mapRef} />
+      <History />
       <LowerButtons />
     </MapWrapper>
   );
