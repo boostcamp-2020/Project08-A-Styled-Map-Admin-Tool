@@ -69,15 +69,25 @@ function stylingCategory({
       if (subElement === SubElementNameType.fill)
         applyVisibility({
           map,
-          layerNames: layerNames.text.noStroke,
+          layerNames: layerNames.text.all,
           visibility,
         });
-      else if (subElement === SubElementNameType.stroke)
-        applyVisibility({
-          map,
-          layerNames: layerNames.text.hasStroke,
-          visibility,
-        });
+      else if (subElement === SubElementNameType.stroke) {
+        if (visibility === 'none')
+          applyWeight({
+            map,
+            layerNames: layerNames.text.hasStroke,
+            type: WeightType.textHalo,
+            weight: 0,
+          });
+        else if (visibility === 'visible' || visibility === 'inherit')
+          applyWeight({
+            map,
+            layerNames: layerNames.text.hasStroke,
+            type: WeightType.textHalo,
+            weight: weight === 0 ? 1 : weight,
+          });
+      }
     }
   } else if (key === 'color' || key === 'saturation' || key === 'lightness') {
     if (element === ElementNameType.section) {
@@ -143,7 +153,7 @@ function stylingCategory({
       }
     }
     if (element === ElementNameType.labelText) {
-      if (subElement === SubElementNameType.stroke)
+      if (subElement === SubElementNameType.stroke && visibility === 'visible')
         applyWeight({
           map,
           layerNames: layerNames.text.hasStroke,
