@@ -37,7 +37,7 @@ function useStyleType(): UseStyleHookType {
 
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
-      if (!feature || !subFeature || !element || !subElement) return;
+      if (!feature || !subFeature || !element) return;
 
       mapStyling[feature]({
         map,
@@ -56,7 +56,7 @@ function useStyleType(): UseStyleHookType {
           feature,
           subFeature,
           element,
-          subElement,
+          subElement: subElement as SubElementNameType,
           style: {
             ...styleElement,
             [key]: value,
