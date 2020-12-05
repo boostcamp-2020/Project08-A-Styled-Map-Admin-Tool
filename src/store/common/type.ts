@@ -40,6 +40,69 @@ export enum SidebarProperties {
   subElement = 'subElement',
 }
 
+export enum PoiNameType {
+  all = 'all',
+  landmark = 'landmark',
+  business = 'business',
+  government = 'government',
+  medical = 'medical',
+  park = 'park',
+  worship = 'worship',
+  school = 'school',
+  sports = 'sports',
+  etc = 'etc',
+}
+
+export enum RoadNameType {
+  all = 'all',
+  arterial = 'arterial',
+  local = 'local',
+  sidewalk = 'sidewalk',
+}
+
+export enum AdministrativeNameType {
+  all = 'all',
+  country = 'country',
+  state = 'state',
+  locality = 'locality',
+}
+
+export enum LandScapeNameType {
+  all = 'all',
+  'human-made' = 'human-made',
+  building = 'building',
+  natural = 'natural',
+  landcover = 'landcover',
+  mountain = 'mountain',
+}
+
+export enum TransitNameType {
+  all = 'all',
+  airport = 'airport',
+  bus = 'bus',
+  rail = 'rail',
+  subway = 'subway',
+}
+
+export enum WaterNameType {
+  all = 'all',
+}
+
+export enum MarkerNameType {
+  all = 'all',
+}
+
+export const SubFeatureNameType = {
+  ...PoiNameType,
+  ...RoadNameType,
+  ...LandScapeNameType,
+  ...TransitNameType,
+  ...AdministrativeNameType,
+  ...WaterNameType,
+  ...MarkerNameType,
+};
+export type SubFeatureNameType = typeof SubFeatureNameType;
+
 export interface objType {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [name: string]: any;
@@ -152,7 +215,9 @@ export type URLJsonSubElementType = {
 };
 
 export type URLJsonElementType = {
-  [subElementName in ElementNameType]?: URLJsonSubElementType;
+  [ElementNameType.section]?: URLJsonSubElementType;
+  [ElementNameType.labelText]?: URLJsonSubElementType;
+  [ElementNameType.labelIcon]?: URLJsonStyleType;
 };
 
 export type URLJsonSubFeatureType = {
@@ -160,5 +225,5 @@ export type URLJsonSubFeatureType = {
 };
 
 export type URLJsonType = {
-  [featureName in FeatureNameType]?: URLJsonSubFeatureType | URLJsonElementType;
+  [featureName in FeatureNameType]?: URLJsonSubFeatureType;
 };
