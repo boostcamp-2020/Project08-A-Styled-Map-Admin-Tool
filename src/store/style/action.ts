@@ -1,6 +1,7 @@
 import { ActionPayload, WholeStyleActionPayload } from '../common/type';
 
 export const INIT = 'INIT' as const;
+export const GET = 'GET' as const;
 export const SET = 'SET' as const;
 export const SET_WHOLE = 'SET_WHOLE' as const;
 
@@ -17,6 +18,10 @@ export interface SetWholeType {
 export const init = (): { type: typeof INIT } => ({
   type: INIT,
 });
+
+export const getStyle = ():{type: typeof GET} => ({
+  type: GET,
+})
 
 export const setStyle = ({
   feature,

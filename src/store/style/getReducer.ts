@@ -10,7 +10,7 @@ import {
   SubElementType,
 } from '../common/type';
 import { getDefaultFeature } from './properties';
-import { INIT, SET, SET_WHOLE } from './action';
+import { INIT, GET, SET, SET_WHOLE } from './action';
 import { checkStyleIsChanged, checkFeatureIsChanged } from './compareStyle';
 import { combineElement } from './manageCategories';
 
@@ -37,6 +37,9 @@ export default function getReducer(IDX: number): ReducerType {
   ): FeatureState {
     switch (action.type) {
       case INIT:
+        return initialState;
+      case GET:
+        console.log(initialState);
         return initialState;
       case SET: {
         const {
