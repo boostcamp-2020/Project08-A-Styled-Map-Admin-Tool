@@ -14,7 +14,11 @@ function useSidebarFooter() {
     setIsOpen(true);
   };
 
-  return { isOpen, stringifiedStyle, onClickExport, data };
+  const onCloseModal = () => {
+    setIsOpen(false);
+  }
+
+  return { isOpen, stringifiedStyle, onClickExport, onCloseModal, data };
 }
 
 export default useSidebarFooter;

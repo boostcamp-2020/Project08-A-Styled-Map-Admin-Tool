@@ -37,7 +37,12 @@ function SidebarFooter({
   isAdvanced,
   setIsAdvanced,
 }: SidebarFooterProps): React.ReactElement {
-  const { isOpen, onClickExport, stringifiedStyle, data } = useSidebarFooter();
+  const {
+    isOpen,
+    onClickExport,
+    onCloseModal,
+    stringifiedStyle,
+  } = useSidebarFooter();
 
   return (
     <FooterWrapper>
@@ -45,7 +50,11 @@ function SidebarFooter({
         {isAdvanced ? '돌아가기' : '고급설정'}
       </Button>
       <Button onClick={onClickExport}>내보내기</Button>
-      <ExportModal isOpen={isOpen} content={stringifiedStyle} />
+      <ExportModal
+        isOpen={isOpen}
+        onClose={onCloseModal}
+        content={stringifiedStyle}
+      />
     </FooterWrapper>
   );
 }
