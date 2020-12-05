@@ -13,6 +13,7 @@ export const theme: ThemeType = {
   DEEPGREY: '#434343',
   WHITE: '#FFFFFF',
   GOOGLE_GREY: '#f5f5f5',
+  RED: '#cb2431',
 };
 
 export default styled as CreateStyled<ThemeType>;

@@ -92,18 +92,26 @@ const ModalCloseButton = styled.button`
   }
 `;
 
-const ModalOKButton = styled.button`
+interface ModalButtonProps {
+  inputStatus: boolean;
+}
+
+const ModalOKButton = styled.button<ModalButtonProps>`
+  position: relative;
   background-color: transparent;
   padding: 20px 0;
-  color: ${(props) => props.theme.GREEN};
+  color: ${(props) =>
+    props.inputStatus ? props.theme.GREEN : props.theme.RED};
   width: 100%;
   border: none;
   font-weight: 600;
   font-size: 1.6rem;
 
   &:hover {
-    color: ${(props) => props.theme.WHITE};
-    background-color: ${(props) => props.theme.GREEN};
+    color: ${(props) =>
+      props.inputStatus ? props.theme.WHITE : props.theme.RED};
+    background-color: ${(props) =>
+      props.inputStatus ? props.theme.GREEN : props.theme.WHITE};
   }
 `;
 
@@ -134,8 +142,11 @@ function ImportModal({
           value={inputText}
           onChange={onInputChange}
         />
-        <ModalOKButton onClick={() => onClickOK(inputText)}>
-          지도 가져오기
+        <ModalOKButton
+          inputStatus={inputStatus}
+          onClick={() => onClickOK(inputText)}
+        >
+          {inputStatus ? '지도 가져오기' : ' 잘못된 입력입니다'}
         </ModalOKButton>
       </ModalWrapper>
     </>

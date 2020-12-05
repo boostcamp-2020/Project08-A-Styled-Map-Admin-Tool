@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useWholeStyle from '../common/useWholeStyle';
 import validateStyle from '../../utils/validateStyle';
 
@@ -12,11 +12,25 @@ export interface useModalStatusType {
   onClickOK: (inputText: string) => void;
 }
 
+const Delay = 2000;
+
 function useModalStatus({
   importModalToggleHandler,
 }: useModalStatusProps): useModalStatusType {
   const [inputStatus, setInputStatus] = useState(true);
   const { changeStyle } = useWholeStyle();
+
+  useEffect(() => {
+    if (inputStatus) return;
+    const timer = setTimeout(() => {
+      setInputStatus(true);
+    }, Delay);
+
+    // eslint-disable-next-line consistent-return
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [inputStatus]);
 
   const onClickClose = () => {
     importModalToggleHandler();
@@ -24,6 +38,7 @@ function useModalStatus({
 
   const onClickOK = (inputText: string) => {
     try {
+      if (!inputStatus) return;
       const input = JSON.parse(inputText);
       if (!validateStyle(input)) throw new Error('InvalidStyle');
       changeStyle(input);
