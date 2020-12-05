@@ -83,6 +83,7 @@ const layersColor: PropertyType = {
         fill: 'transparent',
         stroke: 'transparent',
       },
+      labelIcon: 'transparent',
     },
     arterial: {
       section: {
@@ -93,6 +94,7 @@ const layersColor: PropertyType = {
         fill: 'hsl(230, 48%, 44%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
+      labelIcon: 'transparent',
     },
     local: {
       section: {
@@ -103,6 +105,7 @@ const layersColor: PropertyType = {
         fill: 'hsl(230, 48%, 44%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
+      labelIcon: 'transparent',
     },
     sidewalk: {
       section: {
@@ -113,6 +116,7 @@ const layersColor: PropertyType = {
         fill: 'hsl(230, 48%, 44%)',
         stroke: 'hsl(0, 0%, 100%)',
       },
+      labelIcon: 'transparent',
     },
   },
   administrative: {

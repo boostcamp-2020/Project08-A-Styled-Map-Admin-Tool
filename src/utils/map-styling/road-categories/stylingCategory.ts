@@ -88,6 +88,12 @@ function stylingCategory({
             weight: weight === 0 ? 1 : weight,
           });
       }
+    } else if (element === ElementNameType.labelIcon) {
+      applyVisibility({
+        map,
+        layerNames: layerNames.icon,
+        visibility,
+      });
     }
   } else if (key === 'color' || key === 'saturation' || key === 'lightness') {
     if (element === ElementNameType.section) {
