@@ -75,17 +75,8 @@ function filterSubElement(
     if (!styleKey.isChanged) {
       return accu;
     }
-    console.log({ ...currentLocation, subElement: key });
-    console.log(
-      'default',
-      getDefaultStyle({
-        ...currentLocation,
-        subElement: key as SubElementNameType,
-      })
-    );
 
-    const { isChanged, ...changedStyleKey } = styleKey;
-    return isChanged
+    return styleKey.isChanged
       ? {
           ...accu,
           [key]: compareChange(
