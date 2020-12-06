@@ -62,7 +62,10 @@ function ExportModal({
           </ModalCloseButton>
         </ModalHeader>
         <ModalBody>
-          <ModalContent>{content}</ModalContent>
+          <h2>JSON 형식으로 내보내기</h2>
+          <ModalContent>
+            <pre>{content}</pre>
+          </ModalContent>
         </ModalBody>
       </ExportModalWrapper>
     </>

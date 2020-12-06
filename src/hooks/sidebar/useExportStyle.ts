@@ -21,6 +21,7 @@ interface StyleType {
 }
 
 interface SubElementType {
+  isChanged?: boolean;
   fill?: StyleType;
   stroke?: StyleType;
 }
@@ -36,15 +37,51 @@ interface ElementType {
   labelIcon?: StyleType | null;
 }
 
-// function filterSubElement() {}
+function filterStyleKey(styleKey: StyleType) {
+  return styleKey;
+}
 
-function filterElement(element: ElementType): ElementType {
-  if (!element.isChanged) {
+function filterSubElement(subElement: SubElementType): SubElementType {
+  if (subElement === null) {
     return {};
   }
 
-  // Object.entries(element).reduce();
-  return element;
+  const { isChanged, ...changedSubElement } = subElement;
+
+  const ret = Object.entries(changedSubElement).reduce(
+    (accu, [key, styleKey]) => {
+      if (!styleKey.isChanged) {
+        return accu;
+      }
+
+      const { isChange, ...changedStyleKey } = styleKey;
+      return { ...accu, [key]: changedStyleKey };
+    },
+    {}
+  );
+
+  return ret;
+}
+
+function filterElement(element: ElementType): ElementType {
+  if (element === null || !element.isChanged) {
+    return {};
+  }
+
+  const { isChanged, ...changedElement } = element;
+
+  const ret = Object.entries(changedElement).reduce(
+    (accu, [key, subElement]) => {
+      const filteredValue = filterSubElement(subElement);
+
+      return Object.keys(filteredValue).length === 0
+        ? accu
+        : { ...accu, [key]: subElement };
+    },
+    {}
+  );
+
+  return ret;
 }
 
 function filterSubFeature(subFeature: SubFeatureType) {
