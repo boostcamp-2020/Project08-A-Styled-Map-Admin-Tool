@@ -64,7 +64,7 @@ function filterSubElement(subElement: SubElementType): SubElementType {
 }
 
 function filterElement(element: ElementType): ElementType {
-  if (element === null || !element.isChanged) {
+  if (!element.isChanged) {
     return {};
   }
 
@@ -72,11 +72,14 @@ function filterElement(element: ElementType): ElementType {
 
   const ret = Object.entries(changedElement).reduce(
     (accu, [key, subElement]) => {
+      if (subElement === null) {
+        return accu;
+      }
       const filteredValue = filterSubElement(subElement);
 
       return Object.keys(filteredValue).length === 0
         ? accu
-        : { ...accu, [key]: subElement };
+        : { ...accu, [key]: changedElement };
     },
     {}
   );
@@ -93,7 +96,7 @@ function filterSubFeature(subFeature: SubFeatureType) {
 
     return Object.keys(filteredValue).length === 0
       ? accu
-      : { ...accu, [key]: element };
+      : { ...accu, [key]: filteredValue };
   }, {});
 
   return ret;
