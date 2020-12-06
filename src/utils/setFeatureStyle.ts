@@ -24,7 +24,12 @@ function setFeatureStyle({
   featureState,
 }: setWholeStyleProps): void {
   const subFeatures = Object.keys(featureState);
-  for (const subFeature of subFeatures) {
+  const sortedFeatures = subFeatures.sort((x, y) => {
+    if (featureState[x].isChanged || !featureState[y].isChanged) return 1;
+    return -1;
+  });
+
+  for (const subFeature of sortedFeatures) {
     const elements = Object.keys(featureState[subFeature]) as ElementNameType[];
     for (const element of elements) {
       const elementStyle = featureState[subFeature][element];
