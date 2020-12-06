@@ -11,6 +11,7 @@ import {
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
+import useHistoryFeature from '../../hooks/common/useHistoryFeature';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
@@ -34,6 +35,8 @@ function useStyleType(): UseStyleHookType {
     if (element === ElementNameType.labelIcon) return newFeature[element];
     return newFeature[element][subElement as SubElementNameType];
   }) as StyleType;
+
+  const { addHistory } = useHistoryFeature();
 
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
@@ -63,6 +66,19 @@ function useStyleType(): UseStyleHookType {
           },
         })
       );
+
+      addHistory({
+        changedKey: key,
+        value,
+        feature,
+        subFeature,
+        element,
+        subElement,
+        style: {
+          ...styleElement,
+          [key]: value,
+        },
+      });
     },
     [feature, subFeature, element, subElement, styleElement]
   );
