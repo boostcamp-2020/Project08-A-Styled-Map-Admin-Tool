@@ -1,7 +1,14 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import mapboxgl from 'mapbox-gl';
-import { FeatureNameType } from '../../store/common/type';
+import {
+  ElementNameType,
+  ElementPropsType,
+  FeatureNameType,
+  StyleKeyType,
+  SubElementNameType,
+} from '../../store/common/type';
+import { getDefaultStyle } from '../../store/style/properties';
 
 interface StoreDataType {
   [key: string]: FeatureNameType | mapboxgl.Map | undefined;
@@ -37,24 +44,67 @@ interface ElementType {
   labelIcon?: StyleType | null;
 }
 
-function filterSubElement(subElement: SubElementType): SubElementType {
+function compareChange(
+  defaultStyle: StyleType,
+  newStyle: StyleType
+): StyleType {
+  const ret = Object.keys(defaultStyle).reduce((accu, key) => {
+    if (key === 'isChanged') {
+      return accu;
+    }
+
+    if (defaultStyle[key as StyleKeyType] === newStyle[key as StyleKeyType]) {
+      return accu;
+    }
+
+    return { ...accu, [key]: newStyle[key as StyleKeyType] };
+  }, {});
+
+  return ret;
+}
+
+function filterSubElement(
+  currentLocation: ElementPropsType,
+  subElement: SubElementType
+): SubElementType {
   if (subElement.isChanged) {
-    const { isChanged, ...changedSubElement } = subElement;
-    return changedSubElement;
+    return compareChange(getDefaultStyle(currentLocation), subElement);
   }
 
   const ret = Object.entries(subElement).reduce((accu, [key, styleKey]) => {
     if (!styleKey.isChanged) {
       return accu;
     }
+    console.log({ ...currentLocation, subElement: key });
+    console.log(
+      'default',
+      getDefaultStyle({
+        ...currentLocation,
+        subElement: key as SubElementNameType,
+      })
+    );
 
     const { isChanged, ...changedStyleKey } = styleKey;
-    return isChanged ? { ...accu, [key]: changedStyleKey } : accu;
+    return isChanged
+      ? {
+          ...accu,
+          [key]: compareChange(
+            getDefaultStyle({
+              ...currentLocation,
+              subElement: key as SubElementNameType,
+            }),
+            styleKey
+          ),
+        }
+      : accu;
   }, {});
   return ret;
 }
 
-function filterElement(element: ElementType): ElementType {
+function filterElement(
+  currentLocation: ElementPropsType,
+  element: ElementType
+): ElementType {
   if (!element.isChanged) {
     return {};
   }
@@ -66,7 +116,10 @@ function filterElement(element: ElementType): ElementType {
       if (subElement === null) {
         return accu;
       }
-      const filteredValue = filterSubElement(subElement);
+      const filteredValue = filterSubElement(
+        { ...currentLocation, element: key as ElementNameType },
+        subElement
+      );
 
       return Object.keys(filteredValue).length === 0
         ? accu
@@ -77,12 +130,18 @@ function filterElement(element: ElementType): ElementType {
   return ret;
 }
 
-function filterSubFeature(subFeature: SubFeatureType) {
+function filterSubFeature(
+  currentLocation: ElementPropsType,
+  subFeature: SubFeatureType
+) {
   const ret = Object.entries(subFeature).reduce((accu, [key, element]) => {
     if (key === 'all') {
       return accu;
     }
-    const filteredValue = filterElement(element as ElementType);
+    const filteredValue = filterElement(
+      { ...currentLocation, subFeature: key },
+      element as ElementType
+    );
 
     return Object.keys(filteredValue).length === 0
       ? accu
@@ -94,7 +153,16 @@ function filterSubFeature(subFeature: SubFeatureType) {
 
 function filterStyle(style: StoreDataType): StoreDataType {
   const ret = Object.entries(style).reduce((accu, [key, subFeature]) => {
-    const filteredValue = filterSubFeature(subFeature as SubFeatureType);
+    const currentLocation: ElementPropsType = {
+      feature: key as FeatureNameType,
+      subFeature: '',
+      element: 'section' as ElementNameType,
+      subElement: undefined,
+    };
+    const filteredValue = filterSubFeature(
+      currentLocation,
+      subFeature as SubFeatureType
+    );
     return Object.keys(filteredValue).length === 0
       ? accu
       : { ...accu, [key]: filteredValue };
