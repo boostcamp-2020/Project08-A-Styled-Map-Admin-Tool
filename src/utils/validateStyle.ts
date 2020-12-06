@@ -107,7 +107,7 @@ function checkStyle(input: StyleActionPayload): boolean {
 function checkColor<T>(inputColor: T): boolean {
   if (typeof inputColor !== 'string') return false;
   const color = inputColor.replaceAll(' ', '');
-  const hslReg = /^#[0-9A-F]{6}$/;
+  const hslReg = /^#[0-9A-F]{6}$/i;
   if (!color.match(hslReg)) return false;
   return true;
 }
