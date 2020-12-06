@@ -11,12 +11,65 @@ import {
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
+import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
   onStyleChange: (key: StyleKeyType, value: string | number) => void;
   element: ElementNameType | null;
 }
+
+const colorRelatedKeysArr: StyleKeyType[] = [
+  StyleKeyType.color,
+  StyleKeyType.lightness,
+  StyleKeyType.saturation,
+];
+
+const getNewColorStyle = (
+  key: StyleKeyType,
+  value: string | number,
+  styleElement: StyleType
+) => {
+  const { color, saturation, lightness } = styleElement;
+  const newStyleObj = {
+    color,
+    saturation,
+    lightness,
+  };
+
+  const { h: beforeColor, s: beforeSaturation, l: beforeLight } = hexToHSL(
+    color
+  );
+
+  switch (key) {
+    case StyleKeyType.saturation:
+      newStyleObj.saturation = value as number;
+      newStyleObj.color = hslToHEX(
+        `hsl(${beforeColor}, ${value}%, ${beforeLight}%)`
+      );
+      break;
+
+    case StyleKeyType.lightness:
+      newStyleObj.lightness = value as number;
+      newStyleObj.color = hslToHEX(
+        `hsl(${beforeColor}, ${beforeSaturation}%, ${value}%)`
+      );
+      break;
+
+    case StyleKeyType.color:
+      // eslint-disable-next-line no-case-declarations
+      const { s: newSaturation, l: newLightness } = hexToHSL(value as string);
+      newStyleObj.color = value as string;
+      newStyleObj.saturation = newSaturation;
+      newStyleObj.lightness = newLightness;
+      break;
+
+    default:
+      break;
+  }
+
+  return newStyleObj;
+};
 
 function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
@@ -39,6 +92,10 @@ function useStyleType(): UseStyleHookType {
     (key: StyleKeyType, value: string | number) => {
       if (!feature || !subFeature || !element || !subElement) return;
 
+      const newStyleObj = colorRelatedKeysArr.includes(key)
+        ? getNewColorStyle(key, value, styleElement)
+        : { [key]: value };
+
       mapStyling[feature]({
         map,
         subFeature,
@@ -47,7 +104,7 @@ function useStyleType(): UseStyleHookType {
         subElement: subElement as SubElementNameType,
         style: {
           ...styleElement,
-          [key]: value,
+          ...newStyleObj,
         },
       });
 
@@ -59,7 +116,7 @@ function useStyleType(): UseStyleHookType {
           subElement,
           style: {
             ...styleElement,
-            [key]: value,
+            ...newStyleObj,
           },
         })
       );
