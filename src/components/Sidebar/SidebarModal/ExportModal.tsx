@@ -47,6 +47,8 @@ interface StoreDataType {
   [key: string]: FeatureNameType | undefined;
 }
 
+const URL = 'http://localhost:3000/map?q=';
+
 function ExportModal({
   isOpen,
   onClose,
@@ -67,10 +69,18 @@ function ExportModal({
           </ModalCloseButton>
         </ModalHeader>
         <ModalBody>
-          <h2>JSON 형식으로 내보내기</h2>
-          <ModalContent>
-            <pre>{JSON.stringify(style, null, 2)}</pre>
-          </ModalContent>
+          <div>
+            <h2>JSON 형식으로 내보내기</h2>
+            <ModalContent>
+              <pre>{JSON.stringify(style, null, 2)}</pre>
+            </ModalContent>
+          </div>
+          <div>
+            <h2>URL로 내보내기</h2>
+            <ModalContent>
+              <pre>{URL + encodeURIComponent(JSON.stringify(style))}</pre>
+            </ModalContent>
+          </div>
         </ModalBody>
       </ExportModalWrapper>
     </>
