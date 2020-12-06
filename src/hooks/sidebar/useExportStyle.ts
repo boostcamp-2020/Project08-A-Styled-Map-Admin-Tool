@@ -37,29 +37,20 @@ interface ElementType {
   labelIcon?: StyleType | null;
 }
 
-function filterStyleKey(styleKey: StyleType) {
-  return styleKey;
-}
-
 function filterSubElement(subElement: SubElementType): SubElementType {
-  if (subElement === null) {
-    return {};
+  if (subElement.isChanged) {
+    const { isChanged, ...changedSubElement } = subElement;
+    return changedSubElement;
   }
 
-  const { isChanged, ...changedSubElement } = subElement;
+  const ret = Object.entries(subElement).reduce((accu, [key, styleKey]) => {
+    if (!styleKey.isChanged) {
+      return accu;
+    }
 
-  const ret = Object.entries(changedSubElement).reduce(
-    (accu, [key, styleKey]) => {
-      if (!styleKey.isChanged) {
-        return accu;
-      }
-
-      const { isChange, ...changedStyleKey } = styleKey;
-      return { ...accu, [key]: changedStyleKey };
-    },
-    {}
-  );
-
+    const { isChanged, ...changedStyleKey } = styleKey;
+    return isChanged ? { ...accu, [key]: changedStyleKey } : accu;
+  }, {});
   return ret;
 }
 
@@ -79,11 +70,10 @@ function filterElement(element: ElementType): ElementType {
 
       return Object.keys(filteredValue).length === 0
         ? accu
-        : { ...accu, [key]: changedElement };
+        : { ...accu, [key]: filteredValue };
     },
     {}
   );
-
   return ret;
 }
 
@@ -119,7 +109,7 @@ function useExportStyle(): UseExportStyleType {
   ) as StoreDataType;
 
   const exportStyle = (): StoreDataType => {
-    if ('map' in data) {
+    if ('map' in data || 'sidebar' in data) {
       const { map, sidebar, ...style } = data;
       const filteredStyle = filterStyle(style);
       return filteredStyle;
