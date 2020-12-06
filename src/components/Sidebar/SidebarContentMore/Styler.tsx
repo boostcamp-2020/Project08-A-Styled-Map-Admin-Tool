@@ -4,10 +4,9 @@ import useStyleType, {
   UseStyleHookType,
 } from '../../../hooks/sidebar/useStyleType';
 
-import ColorStyle from './ColorStyle';
+// import ColorStyle from './ColorStyle';
+import ColorStyle from './ColorStyle2';
 import WeightStyle from './WeightStyle';
-import SaturationStyle from './SaturationStyle';
-import LightnessStyle from './LightnessStyle';
 import VisibilityStyle from './VisibilityStyle';
 
 const StylerWrapper = styled.div`
@@ -50,11 +49,17 @@ function Styler(): React.ReactElement {
       <StylerTitle>스타일</StylerTitle>
       <VisibilityStyle visibility={visibility} onStyleChange={onStyleChange} />
       <Hr />
-      <ColorStyle color={color} onStyleChange={onStyleChange} />
+      {/* <ColorStyle color={color} onStyleChange={onStyleChange} /> */}
+      <ColorStyle
+        color2={color}
+        saturation={saturation}
+        lightness={lightness}
+        onStyleChange={onStyleChange}
+      />
       <Hr />
       <WeightStyle weight={weight} onStyleChange={onStyleChange} />
-      <SaturationStyle saturation={saturation} onStyleChange={onStyleChange} />
-      <LightnessStyle lightness={lightness} onStyleChange={onStyleChange} />
+      {/* <SaturationStyle saturation={saturation} onStyleChange={onStyleChange} />
+      <LightnessStyle lightness={lightness} onStyleChange={onStyleChange} /> */}
     </StylerWrapper>
   );
 }
