@@ -3,14 +3,14 @@ import useExportStyle from './useExportStyle';
 
 function useSidebarFooter() {
   const [isOpen, setIsOpen] = useState(false);
-  const [stringifiedStyle, setStringifiedStyle] = useState('');
+  const [style, setStyle] = useState({});
 
   const { exportStyle } = useExportStyle();
 
   const data = exportStyle();
 
   const onClickExport = () => {
-    setStringifiedStyle(data);
+    setStyle(data);
     setIsOpen(true);
   };
 
@@ -18,7 +18,7 @@ function useSidebarFooter() {
     setIsOpen(false);
   };
 
-  return { isOpen, stringifiedStyle, onClickExport, onCloseModal, data };
+  return { isOpen, onClickExport, onCloseModal, style };
 }
 
 export default useSidebarFooter;

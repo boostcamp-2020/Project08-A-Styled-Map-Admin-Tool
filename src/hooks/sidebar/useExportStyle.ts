@@ -8,7 +8,7 @@ interface StoreDataType {
 }
 
 interface UseExportStyleType {
-  exportStyle: () => string;
+  exportStyle: () => StoreDataType;
 }
 
 interface StyleType {
@@ -99,7 +99,7 @@ function filterSubFeature(subFeature: SubFeatureType) {
   return ret;
 }
 
-function filterStyleJSON(style: StoreDataType): string {
+function filterStyle(style: StoreDataType): StoreDataType {
   const ret = Object.entries(style).reduce((accu, [key, subFeature]) => {
     const filteredValue = filterSubFeature(subFeature as SubFeatureType);
     return Object.keys(filteredValue).length === 0
@@ -107,7 +107,7 @@ function filterStyleJSON(style: StoreDataType): string {
       : { ...accu, [key]: filteredValue };
   }, {});
 
-  return JSON.stringify(ret, null, 2);
+  return ret;
 }
 
 function useExportStyle(): UseExportStyleType {
@@ -115,14 +115,14 @@ function useExportStyle(): UseExportStyleType {
     (state) => state
   ) as StoreDataType;
 
-  const exportStyle = (): string => {
+  const exportStyle = (): StoreDataType => {
     if ('map' in data) {
       const { map, sidebar, ...style } = data;
-      const stringifiedStyle = filterStyleJSON(style);
-      return stringifiedStyle;
+      const filteredStyle = filterStyle(style);
+      return filteredStyle;
     }
 
-    return '';
+    return {};
   };
 
   return { exportStyle };

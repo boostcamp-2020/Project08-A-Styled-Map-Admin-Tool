@@ -7,6 +7,7 @@ import {
   ModalCloseButton,
 } from './common';
 import CloseIcon from '../../Icon/CloseIcon';
+import { FeatureNameType } from '../../../store/common/type';
 
 const Background = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -42,14 +43,18 @@ const ModalContent = styled.article`
   word-break: break-all;
 `;
 
+interface StoreDataType {
+  [key: string]: FeatureNameType | undefined;
+}
+
 function ExportModal({
   isOpen,
   onClose,
-  content,
+  style,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  content: string;
+  style: StoreDataType;
 }): React.ReactElement {
   return (
     <>
@@ -64,7 +69,7 @@ function ExportModal({
         <ModalBody>
           <h2>JSON 형식으로 내보내기</h2>
           <ModalContent>
-            <pre>{content}</pre>
+            <pre>{JSON.stringify(style, null, 2)}</pre>
           </ModalContent>
         </ModalBody>
       </ExportModalWrapper>
