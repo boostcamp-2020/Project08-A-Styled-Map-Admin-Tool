@@ -83,11 +83,16 @@ export default function getReducer(IDX: number): ReducerType {
 
         const subFeatures = Object.keys(inputStyle);
         subFeatures.forEach((subFeature) => {
-          updateStyle[subFeature] = combineElement({
+          const newFeature = combineElement({
             elementStyle: inputStyle[subFeature],
             initialElementStyle: updateStyle[subFeature],
           });
+          updateStyle[subFeature] = {
+            ...newFeature,
+            isChanged: checkFeatureIsChanged(newFeature),
+          };
         });
+
         return updateStyle;
       }
 
