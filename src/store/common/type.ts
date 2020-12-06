@@ -1,4 +1,4 @@
-import { init, getStyle, setStyle, setWholeStyle } from '../style/action';
+import { init, setStyle, setWholeStyle } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 
 export type hello = 'landmark';
@@ -84,8 +84,7 @@ export type SidebarActionType =
 export type ActionType =
   | ReturnType<typeof init>
   | ReturnType<typeof setStyle>
-  | ReturnType<typeof setWholeStyle>
-  | ReturnType<typeof getStyle>;
+  | ReturnType<typeof setWholeStyle>;
 
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
