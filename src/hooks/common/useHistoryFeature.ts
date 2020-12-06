@@ -7,7 +7,7 @@ import {
 } from '../../store/common/type';
 
 export interface useHistoryFeatureType {
-  initIsOpenHistory: () => void;
+  initHistoryStatus: () => void;
   clickHistoryBtnHandler: () => void;
   addHistory: (info: HistoryInfoPropsType) => void;
 }
@@ -23,7 +23,7 @@ function useHistoryFeature(): useHistoryFeatureType {
     dispatch(toggleHistory({ isHistoryOpen, log: [] }));
   };
 
-  const initIsOpenHistory = () => {
+  const initHistoryStatus = () => {
     dispatch(initHistory({ isHistoryOpen }));
   };
 
@@ -32,7 +32,7 @@ function useHistoryFeature(): useHistoryFeatureType {
   };
 
   return {
-    initIsOpenHistory,
+    initHistoryStatus,
     clickHistoryBtnHandler,
     addHistory,
   };

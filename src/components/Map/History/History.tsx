@@ -29,9 +29,9 @@ const HistoryTitle = styled.div`
 `;
 
 function History(): ReactElement {
-  const { initIsOpenHistory } = useHistoryFeature();
+  const { initHistoryStatus } = useHistoryFeature();
   useEffect(() => {
-    initIsOpenHistory();
+    initHistoryStatus();
   }, []);
 
   const historyStates = useSelector<RootState>(
