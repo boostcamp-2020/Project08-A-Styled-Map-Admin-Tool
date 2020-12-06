@@ -1,11 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
-import { initHistory, toggleHistory } from '../../store/history/action';
-import { HistoryPropsType } from '../../store/common/type';
+import { initHistory, toggleHistory, addLog } from '../../store/history/action';
+import {
+  HistoryPropsType,
+  HistoryInfoPropsType,
+} from '../../store/common/type';
 
 export interface useHistoryFeatureType {
   initIsOpenHistory: () => void;
   clickHistoryBtnHandler: () => void;
+  addHistory: (info: HistoryInfoPropsType) => void;
 }
 
 function useHistoryFeature(): useHistoryFeatureType {
@@ -16,16 +20,21 @@ function useHistoryFeature(): useHistoryFeatureType {
   const { isHistoryOpen } = historyStates;
 
   const clickHistoryBtnHandler = () => {
-    dispatch(toggleHistory({ isHistoryOpen }));
+    dispatch(toggleHistory({ isHistoryOpen, log: [] }));
   };
 
   const initIsOpenHistory = () => {
     dispatch(initHistory({ isHistoryOpen }));
   };
 
+  const addHistory = (info: HistoryInfoPropsType) => {
+    dispatch(addLog(info));
+  };
+
   return {
     initIsOpenHistory,
     clickHistoryBtnHandler,
+    addHistory,
   };
 }
 
