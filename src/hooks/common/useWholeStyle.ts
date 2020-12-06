@@ -15,54 +15,45 @@ interface WholeStyleHook {
   changeStyle: (inputStyle: WholeStyleActionPayload) => void;
 }
 
+type WholeStyleStoreType = {
+  [featureName in FeatureNameType]: FeatureState;
+};
+
 function useWholeStyle(): WholeStyleHook {
   const [flag, setFlag] = useState(false);
   const dispatch = useDispatch();
 
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
-  const poi = useSelector<RootState>((state) => state.poi) as FeatureState;
-  const landscape = useSelector<RootState>(
-    (state) => state.landscape
-  ) as FeatureState;
-  const administrative = useSelector<RootState>(
-    (state) => state.administrative
-  ) as FeatureState;
-  const road = useSelector<RootState>((state) => state.road) as FeatureState;
-  const transit = useSelector<RootState>(
-    (state) => state.transit
-  ) as FeatureState;
-  const water = useSelector<RootState>((state) => state.water) as FeatureState;
+  const {
+    poi,
+    landscape,
+    administrative,
+    road,
+    transit,
+    water,
+    marker,
+  } = useSelector<RootState>((state) => state) as WholeStyleStoreType;
 
   useEffect(() => {
     if (!flag) return;
-
-    setFeatureStyle({ map, feature: FeatureNameType.poi, featureState: poi });
-    setFeatureStyle({
-      map,
-      feature: FeatureNameType.landscape,
-      featureState: landscape,
-    });
-    setFeatureStyle({
-      map,
-      feature: FeatureNameType.administrative,
-      featureState: administrative,
-    });
-    setFeatureStyle({
-      map,
-      feature: FeatureNameType.road,
-      featureState: road,
-    });
-    setFeatureStyle({
-      map,
-      feature: FeatureNameType.transit,
-      featureState: transit,
-    });
-    setFeatureStyle({
-      map,
-      feature: FeatureNameType.water,
-      featureState: water,
-    });
-
+    const stores: WholeStyleStoreType = {
+      poi,
+      landscape,
+      administrative,
+      road,
+      transit,
+      water,
+      marker,
+    };
+    const features = Object.keys(stores) as FeatureNameType[];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const feature of features) {
+      setFeatureStyle({
+        map,
+        feature: feature as FeatureNameType,
+        featureState: stores[feature] as FeatureState,
+      });
+    }
     setFlag(false);
   }, [flag]);
 
