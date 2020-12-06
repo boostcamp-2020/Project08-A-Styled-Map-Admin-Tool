@@ -16,7 +16,7 @@ function useSidebarFooter() {
 
   const onCloseModal = () => {
     setIsOpen(false);
-  }
+  };
 
   return { isOpen, stringifiedStyle, onClickExport, onCloseModal, data };
 }
