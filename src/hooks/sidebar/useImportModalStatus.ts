@@ -18,7 +18,7 @@ function useModalStatus({
   importModalToggleHandler,
 }: useModalStatusProps): useModalStatusType {
   const [inputStatus, setInputStatus] = useState(true);
-  const { changeStyle } = useWholeStyle();
+  const { flag: isImporting, changeStyle } = useWholeStyle();
 
   useEffect(() => {
     if (inputStatus) return;
@@ -32,8 +32,13 @@ function useModalStatus({
     };
   }, [inputStatus]);
 
-  const onClickClose = () => {
+  useEffect(() => {
+    if (!isImporting) return;
     importModalToggleHandler();
+  }, [isImporting]);
+
+  const onClickClose = () => {
+    if (!isImporting) importModalToggleHandler();
   };
 
   const onClickOK = (inputText: string) => {
@@ -42,7 +47,6 @@ function useModalStatus({
       const input = JSON.parse(inputText);
       if (!validateStyle(input)) throw new Error('InvalidStyle');
       changeStyle(input);
-      importModalToggleHandler();
     } catch {
       setInputStatus(false);
     }

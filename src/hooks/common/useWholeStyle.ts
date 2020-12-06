@@ -72,6 +72,7 @@ function useWholeStyle(): WholeStyleHook {
   };
 
   return {
+    flag,
     changeStyle,
   };
 }
