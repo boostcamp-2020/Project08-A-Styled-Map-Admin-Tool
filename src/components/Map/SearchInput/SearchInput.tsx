@@ -9,7 +9,7 @@ const SearchInput = styled.input`
   height: 40px;
   margin: 0;
   padding-left: 15px;
-  text-align: left;
+  z-index: 10;
 
   border: 0;
   border-radius: 5px;
@@ -17,6 +17,7 @@ const SearchInput = styled.input`
   background-color: ${(props) => props.theme.WHITE};
   box-shadow: 0 0 1px 2px ${(props) => props.theme.GREY};
 
+  text-align: left;
   font-family: 'Noto Sans KR', sans-serif;
 `;
 

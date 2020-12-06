@@ -1,13 +1,6 @@
-import { MouseEvent, useState, useEffect, RefObject } from 'react';
-
-const compareButtonClickHandler = (e: MouseEvent<HTMLElement>) => {
-  // alert('비교 버튼 클릭!');
-};
+import { useState, useEffect, useRef, RefObject } from 'react';
 
 export interface useUpperButtonsType {
-  compareButtonClickHandler?: (
-    e: React.MouseEvent<HTMLElement, globalThis.MouseEvent>
-  ) => void;
   fullScreenButtonClickHandler?: () => void;
   smallScreenButtonClickHandler?: () => void;
   isFullscreen: boolean;
@@ -50,7 +43,6 @@ function useUpperButtons({
 
   return {
     isFullscreen,
-    compareButtonClickHandler,
     fullScreenButtonClickHandler,
     smallScreenButtonClickHandler,
   };
