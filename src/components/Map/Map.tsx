@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '../../utils/styles/styled';
 import useMap, { MapHookType } from '../../hooks/map/useMap';
 import useHistoryFeature from '../../hooks/map/useHistoryFeature';
+import useCompareFeature from '../../hooks/map/useCompareFeature';
 
 import useComparisonButton, {
   ComparisonType,

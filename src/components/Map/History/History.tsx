@@ -5,7 +5,7 @@ import { RootState } from '../../../store/index';
 import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
 import { HistoryPropsType } from '../../../store/common/type';
 
-import { comparisonButtonClickHandlerType } from '../../../hooks/map/useComparisonButton';
+import { comparisonButtonClickHandlerType } from '../../../hooks/map/useCompareFeature';
 
 const HistoryWapper = styled.div`
   z-index: 30;
