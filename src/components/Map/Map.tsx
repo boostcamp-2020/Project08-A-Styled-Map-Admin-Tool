@@ -60,13 +60,7 @@ const CompareMapWrapper = styled.div<ComparisonType>`
 `;
 
 function Map(): React.ReactElement {
-  const { mapRef }: MapHookType = useMap();
-  const {
-    isComparisonToggle,
-    comparisonButtonClickHandler,
-    afterMapRef,
-    comparisonMapRef,
-  } = useComparisonButton(mapRef);
+  const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap();
   const { isHistoryOpen, historyBtnHandler } = useHistoryFeature();
 
   return (

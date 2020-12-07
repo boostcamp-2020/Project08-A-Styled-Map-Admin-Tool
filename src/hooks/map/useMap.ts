@@ -4,19 +4,25 @@ import { useDispatch } from 'react-redux';
 import { initMap } from '../../store/map/action';
 
 export interface MapHookType {
-  mapRef: RefObject<HTMLDivElement>;
+  containerRef: RefObject<HTMLDivElement>;
+  afterMapRef: RefObject<HTMLDivElement>;
+  beforeMapRef: RefObject<HTMLDivElement>;
 }
 
 function useMap(): MapHookType {
   const dispatch = useDispatch();
-  const mapRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const afterMapRef = useRef<HTMLDivElement>(null);
+  const beforeMapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(initMap(mapRef));
+    dispatch(initMap(afterMapRef));
   }, []);
 
   return {
-    mapRef,
+    containerRef,
+    afterMapRef,
+    beforeMapRef,
   };
 }
 
