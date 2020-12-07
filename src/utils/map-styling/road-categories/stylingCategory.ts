@@ -46,7 +46,7 @@ function stylingCategory({
   style,
 }: catergoryStylingProps): void {
   const { visibility, color, weight } = style;
-  if (key === 'visibility') {
+  if (key === StyleKeyType.visibility) {
     if (element === ElementNameType.section) {
       if (subElement === SubElementNameType.fill) {
         applyVisibility({
@@ -69,17 +69,37 @@ function stylingCategory({
       if (subElement === SubElementNameType.fill)
         applyVisibility({
           map,
-          layerNames: layerNames.text.noStroke,
+          layerNames: layerNames.text.all,
           visibility,
         });
-      else if (subElement === SubElementNameType.stroke)
-        applyVisibility({
-          map,
-          layerNames: layerNames.text.hasStroke,
-          visibility,
-        });
+      else if (subElement === SubElementNameType.stroke) {
+        if (visibility === 'none')
+          applyWeight({
+            map,
+            layerNames: layerNames.text.hasStroke,
+            type: WeightType.textHalo,
+            weight: 0,
+          });
+        else if (visibility === 'visible' || visibility === 'inherit')
+          applyWeight({
+            map,
+            layerNames: layerNames.text.hasStroke,
+            type: WeightType.textHalo,
+            weight: weight === 0 ? 1 : weight,
+          });
+      }
+    } else if (element === ElementNameType.labelIcon) {
+      applyVisibility({
+        map,
+        layerNames: layerNames.icon,
+        visibility,
+      });
     }
-  } else if (key === 'color' || key === 'saturation' || key === 'lightness') {
+  } else if (
+    key === StyleKeyType.color ||
+    key === StyleKeyType.saturation ||
+    key === StyleKeyType.lightness
+  ) {
     if (element === ElementNameType.section) {
       if (subElement === SubElementNameType.fill) {
         applyColor({
@@ -124,7 +144,7 @@ function stylingCategory({
         });
       }
     }
-  } else if (key === 'weight') {
+  } else if (key === StyleKeyType.weight) {
     if (element === ElementNameType.section) {
       if (subElement === SubElementNameType.fill) {
         applyWeight({
@@ -143,7 +163,7 @@ function stylingCategory({
       }
     }
     if (element === ElementNameType.labelText) {
-      if (subElement === SubElementNameType.stroke)
+      if (subElement === SubElementNameType.stroke && visibility === 'visible')
         applyWeight({
           map,
           layerNames: layerNames.text.hasStroke,
