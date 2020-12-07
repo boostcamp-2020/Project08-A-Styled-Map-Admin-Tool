@@ -33,7 +33,8 @@ export default function validateStyle(
         initialLayers[feature as FeatureNameType][subFeature];
 
       if (
-        (!initialSubFeatureStyle || typeof subFeatureStyle !== 'object') &&
+        !initialSubFeatureStyle ||
+        typeof subFeatureStyle !== 'object' ||
         !checkElement({ subFeatureStyle, initialSubFeatureStyle })
       ) {
         return false;
@@ -85,8 +86,8 @@ function checkSubElement(input: SubElementActionPayload): boolean {
     const subElementSytle = (input as SubElementActionPayload)[subElement];
 
     if (
-      (!(subElement in SubElementNameType) ||
-        typeof subElementSytle !== 'object') &&
+      !(subElement in SubElementNameType) ||
+      typeof subElementSytle !== 'object' ||
       !checkStyle(subElementSytle as StyleActionPayload)
     ) {
       return false;
@@ -104,16 +105,23 @@ function checkStyle(input: StyleActionPayload): boolean {
 
     const style = input[key];
 
-    const isColorValid = key === StyleKeyType.color && !checkColor(style);
-    const isRangeValid =
-      (key === StyleKeyType.saturation || key === StyleKeyType.lightness) &&
-      !checkRange(style, -100, 100);
-    const isVisibilityValid =
-      key === StyleKeyType.visibility &&
-      !((input.visibility as VisibilityValueType) in VisibilityValueType);
-
-    if (!isColorValid || !isRangeValid || !isVisibilityValid) {
-      return false;
+    switch (key) {
+      case StyleKeyType.color:
+        if (!checkColor(style)) return false;
+        break;
+      case StyleKeyType.saturation:
+      case StyleKeyType.lightness:
+        if (!checkRange(style, -100, 100)) return false;
+        break;
+      case StyleKeyType.weight:
+        if (!checkRange(style, 0, 8)) return false;
+        break;
+      case StyleKeyType.visibility:
+        if (!((input.visibility as VisibilityValueType) in VisibilityValueType))
+          return false;
+        break;
+      default:
+        return false;
     }
   }
 
