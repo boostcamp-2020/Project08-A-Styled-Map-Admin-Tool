@@ -126,9 +126,6 @@ function filterSubFeature(
   subFeature: SubFeatureType
 ) {
   const ret = Object.entries(subFeature).reduce((accu, [key, element]) => {
-    if (key === 'all') {
-      return accu;
-    }
     const filteredValue = filterElement(
       { ...currentLocation, subFeature: key },
       element as ElementType
