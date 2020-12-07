@@ -8,7 +8,6 @@ import {
   ElementNameType,
   SubElementNameType,
   PayloadPropsType,
-  PropertyType,
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
@@ -87,7 +86,7 @@ function useStyleType(): UseStyleHookType {
     transit,
     water,
     marker,
-  } = useSelector<RootState>((state) => state) as PropertyType;
+  } = useSelector<RootState>((state) => state) as any;
   const { feature, subFeature, element, subElement } = useSelector<RootState>(
     (state) => state.sidebar
   ) as PayloadPropsType;
@@ -142,6 +141,12 @@ function useStyleType(): UseStyleHookType {
         transit,
         water,
         marker,
+      };
+      wholeStyle[feature][subFeature][element][
+        subElement as SubElementNameType
+      ] = {
+        ...styleElement,
+        ...newStyleObj,
       };
       addHistory({
         changedKey: key,
