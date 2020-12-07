@@ -26,7 +26,7 @@ function jsonToURLGetQueryString(
     if (typeof value === 'object') {
       return `${queryString}${key}:${jsonToURLGetQueryString(value)}`;
     }
-    return `${queryString}${key}:${value}:`;
+    return encodeURIComponent(`${queryString}${key}:${value}:`);
   }, '');
 }
 
@@ -38,7 +38,7 @@ export function jsonToURL(json: URLJsonType): string {
 }
 
 export function urlToJson(): URLJsonType | null {
-  const queryString = window.location.search;
+  const queryString = decodeURIComponent(window.location.search);
 
   const values = queryString?.split('=')[1]?.split(':');
   const state: any = {};

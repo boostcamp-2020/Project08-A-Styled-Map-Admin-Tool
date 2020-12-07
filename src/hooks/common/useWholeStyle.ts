@@ -45,6 +45,7 @@ function useWholeStyle(): WholeStyleHook {
       water,
       marker,
     };
+
     const features = Object.keys(stores) as FeatureNameType[];
     // eslint-disable-next-line no-restricted-syntax
     for (const feature of features) {
@@ -58,8 +59,8 @@ function useWholeStyle(): WholeStyleHook {
   }, [flag]);
 
   const changeStyle = (inputStyle: WholeStyleActionPayload): void => {
-    setFlag(true);
     dispatch(setWholeStyle(inputStyle));
+    setFlag(true);
   };
 
   return {
