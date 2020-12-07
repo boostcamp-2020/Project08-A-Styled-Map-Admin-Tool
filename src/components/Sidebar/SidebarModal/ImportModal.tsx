@@ -3,13 +3,11 @@ import styled from '../../../utils/styles/styled';
 import useSidebarImportModal, {
   useModalStatusProps,
   useModalStatusType,
-} from '../../../hooks/common/useModalStatus';
+} from '../../../hooks/sidebar/useImportModalStatus';
 import useInputText, {
   InputTextHookType,
 } from '../../../hooks/common/useInputText';
 import CloseIcon from '../../Icon/CloseIcon';
-import useWholeStyle from '../../../hooks/common/useWholeStyle';
-import { WholeStyleActionPayload } from '../../../store/common/type';
 
 const Overlay = styled.div`
   position: fixed;
@@ -94,31 +92,40 @@ const ModalCloseButton = styled.button`
   }
 `;
 
-const ModalOKButton = styled.button`
+interface ModalButtonProps {
+  inputStatus: boolean;
+}
+
+const ModalOKButton = styled.button<ModalButtonProps>`
+  position: relative;
   background-color: transparent;
   padding: 20px 0;
-  color: ${(props) => props.theme.GREEN};
+  color: ${(props) =>
+    props.inputStatus ? props.theme.GREEN : props.theme.RED};
   width: 100%;
   border: none;
   font-weight: 600;
   font-size: 1.6rem;
 
   &:hover {
-    color: ${(props) => props.theme.WHITE};
-    background-color: ${(props) => props.theme.GREEN};
+    color: ${(props) =>
+      props.inputStatus ? props.theme.WHITE : props.theme.RED};
+    background-color: ${(props) =>
+      props.inputStatus ? props.theme.GREEN : props.theme.WHITE};
   }
 `;
 
 function ImportModal({
   importModalToggleHandler,
 }: useModalStatusProps): React.ReactElement {
-  const { onClickClose, onClickOK }: useModalStatusType = useSidebarImportModal(
-    {
-      importModalToggleHandler,
-    }
-  );
+  const {
+    inputStatus,
+    onClickClose,
+    onClickOK,
+  }: useModalStatusType = useSidebarImportModal({
+    importModalToggleHandler,
+  });
   const { inputText, onInputChange }: InputTextHookType = useInputText();
-  const { changeStyle } = useWholeStyle();
 
   return (
     <>
@@ -135,15 +142,12 @@ function ImportModal({
           value={inputText}
           onChange={onInputChange}
         />
-        <ModalOKButton onClick={onClickOK}>지도 가져오기</ModalOKButton>
-        <button
-          type="button"
-          onClick={() => {
-            changeStyle(JSON.parse(inputText) as WholeStyleActionPayload);
-          }}
+        <ModalOKButton
+          inputStatus={inputStatus}
+          onClick={() => onClickOK(inputText)}
         >
-          테스트
-        </button>
+          {inputStatus ? '지도 가져오기' : ' 잘못된 입력입니다'}
+        </ModalOKButton>
       </ModalWrapper>
     </>
   );
