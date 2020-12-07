@@ -73,26 +73,26 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
       map.removeLayer(element);
     });
 
-    map.addSource(Sources.polygon, {
-      type: 'vector',
-      tiles: ['http://110.93.147.18:8080/boostcamp/polygon/{x}/{y}/{z}'],
-    });
-    map.addSource(Sources.line, {
-      type: 'vector',
-      tiles: ['http://110.93.147.18:8080/boostcamp/line/{x}/{y}/{z}'],
-    });
-    map.addSource(Sources.poi, {
-      type: 'vector',
-      tiles: ['http:/110.93.147.18:8080/boostcamp/poi/{x}/{y}/{z}'],
-    });
+    // map.addSource(Sources.polygon, {
+    //   type: 'vector',
+    //   tiles: ['http://110.93.147.18:8080/boostcamp/polygon/{x}/{y}/{z}'],
+    // });
+    // map.addSource(Sources.line, {
+    //   type: 'vector',
+    //   tiles: ['http://110.93.147.18:8080/boostcamp/line/{x}/{y}/{z}'],
+    // });
+    // map.addSource(Sources.poi, {
+    //   type: 'vector',
+    //   tiles: ['http:/110.93.147.18:8080/boostcamp/poi/{x}/{y}/{z}'],
+    // });
 
     const layers = [
-      ...road,
-      ...landscape,
-      ...transit,
-      ...water,
+      // ...road,
+      // ...landscape,
+      // ...transit,
+      // ...water,
       ...mapboxPOI,
-      ...poi,
+      // ...poi,
     ] as mapboxgl.Layer[];
     layers.forEach((layer: mapboxgl.Layer) => map.addLayer(layer));
 
