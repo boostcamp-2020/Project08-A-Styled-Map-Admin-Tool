@@ -7,7 +7,7 @@ interface SidebarDropdownProps {
 
 export interface useSidebarDropdownType {
   resetClickHandler: (e: React.MouseEvent) => void;
-  importModalToggleHandler: (e: React.MouseEvent) => void;
+  importModalToggleHandler: () => void;
   isModalOpened: boolean;
 }
 
