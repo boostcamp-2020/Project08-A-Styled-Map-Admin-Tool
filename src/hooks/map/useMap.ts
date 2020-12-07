@@ -1,14 +1,25 @@
 import { RefObject, useRef } from 'react';
 
 export interface MapHookType {
-  mapRef: RefObject<HTMLDivElement>;
+  containerRef: RefObject<HTMLDivElement>;
+  afterMapRef: RefObject<HTMLDivElement>;
+  beforeMapRef: RefObject<HTMLDivElement>;
 }
 
 function useMap(): MapHookType {
-  const mapRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const afterMapRef = useRef<HTMLDivElement>(null);
+  const beforeMapRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    dispatch(initMap(afterMapRef));
+  }, []);
+ 
   return {
-    mapRef,
+    containerRef,
+    afterMapRef,
+    beforeMapRef,
   };
 }
 
