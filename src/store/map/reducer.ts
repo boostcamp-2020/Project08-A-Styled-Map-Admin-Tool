@@ -18,6 +18,7 @@ function mapReducer(
     case INIT_MAP: {
       const map = initializeMap({
         mapRef: action.payload.mapRef,
+        initializeMap: action.payload.initializeMap,
       });
       return {
         ...state,

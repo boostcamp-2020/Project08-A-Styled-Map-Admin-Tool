@@ -9,6 +9,7 @@ function App(): React.ReactElement {
     <Switch>
       <Route path="/" exact component={Entry} />
       <Route path="/map" component={Main} />
+      <Route path="/show" component={Main} />
     </Switch>
   );
 }

@@ -31,7 +31,7 @@ function jsonToURLGetQueryString(
 }
 
 export function jsonToURL(json: URLJsonType): string {
-  const url = 'http://localhost:3000/map?=';
+  const url = 'http://localhost:3000/show?=';
   const queryString = `${jsonToURLGetQueryString(json)}end`;
 
   return url + queryString;
