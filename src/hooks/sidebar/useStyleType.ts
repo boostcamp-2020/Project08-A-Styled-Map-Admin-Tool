@@ -11,7 +11,7 @@ import {
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
-import useHistoryFeature from '../../hooks/common/useHistoryFeature';
+import useHistoryFeature from '../map/useHistoryFeature';
 
 export interface UseStyleHookType {
   styleElement: StyleType;

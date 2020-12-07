@@ -1,4 +1,4 @@
-function randomId(length: number): string {
+function getRandomId(length: number): string {
   let result = '';
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -11,4 +11,4 @@ function randomId(length: number): string {
   return result;
 }
 
-export default randomId;
+export default getRandomId;

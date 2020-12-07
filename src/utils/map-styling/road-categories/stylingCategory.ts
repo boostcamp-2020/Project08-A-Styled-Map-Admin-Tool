@@ -46,7 +46,7 @@ function stylingCategory({
   style,
 }: catergoryStylingProps): void {
   const { visibility, color, weight } = style;
-  if (key === 'visibility') {
+  if (key === StyleKeyType.visibility) {
     if (element === ElementNameType.section) {
       if (subElement === SubElementNameType.fill) {
         applyVisibility({
@@ -95,7 +95,11 @@ function stylingCategory({
         visibility,
       });
     }
-  } else if (key === 'color' || key === 'saturation' || key === 'lightness') {
+  } else if (
+    key === StyleKeyType.color ||
+    key === StyleKeyType.saturation ||
+    key === StyleKeyType.lightness
+  ) {
     if (element === ElementNameType.section) {
       if (subElement === SubElementNameType.fill) {
         applyColor({
@@ -140,7 +144,7 @@ function stylingCategory({
         });
       }
     }
-  } else if (key === 'weight') {
+  } else if (key === StyleKeyType.weight) {
     if (element === ElementNameType.section) {
       if (subElement === SubElementNameType.fill) {
         applyWeight({
