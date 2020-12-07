@@ -5,13 +5,11 @@
   "dependencies": {
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
-    
     "dotenv": "^8.2.0",
     "emotion-reset": "^2.0.7",
     "emotion-theming": "^10.0.27",
     "mapbox-gl": "^1.12.0",
     "mapbox-gl-compare": "^0.4.0",
-    "qs": "^6.9.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
