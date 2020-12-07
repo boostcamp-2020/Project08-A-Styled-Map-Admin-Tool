@@ -9,6 +9,7 @@ import {
   ElementNameType,
   SubElementNameType,
   StyleKeyType,
+  VisibilityValueType,
 } from '../store/common/type';
 import initialLayers from './rendering-data/layersColor';
 
@@ -28,35 +29,49 @@ export default function validateStyle(
 
     for (const subFeature of subFeatures) {
       const subFeatureStyle = inputFeatureStyle[subFeature];
-      const layer = initialLayers[feature as FeatureNameType][subFeature];
-      if (!layer || typeof subFeatureStyle !== 'object') return false;
+      const initialSubFeatureStyle =
+        initialLayers[feature as FeatureNameType][subFeature];
 
-      if (!checkElement(subFeatureStyle, layer)) return false;
+      if (
+        (!initialSubFeatureStyle || typeof subFeatureStyle !== 'object') &&
+        !checkElement({ subFeatureStyle, initialSubFeatureStyle })
+      ) {
+        return false;
+      }
     }
   }
   return true;
 }
 
-function checkElement(
-  input: ElementActionPayload,
-  origin: StyleElementPropsType
-): boolean {
-  const elements = Object.keys(input) as ElementNameType[];
+interface checkElementProps {
+  subFeatureStyle: ElementActionPayload;
+  initialSubFeatureStyle: StyleElementPropsType;
+}
+
+function checkElement({
+  subFeatureStyle,
+  initialSubFeatureStyle,
+}: checkElementProps): boolean {
+  const elements = Object.keys(subFeatureStyle) as ElementNameType[];
 
   for (const element of elements) {
-    const elementSytle = input[element];
-    if (!origin[element] || typeof elementSytle !== 'object') return false;
+    const elementSytle = subFeatureStyle[element];
+    if (!initialSubFeatureStyle[element] || typeof elementSytle !== 'object')
+      return false;
 
-    if (element === ElementNameType.labelIcon) {
-      if (!checkStyle(elementSytle as StyleActionPayload)) return false;
+    if (
+      element === ElementNameType.labelIcon &&
+      !checkStyle(elementSytle as StyleActionPayload)
+    ) {
+      return false;
     }
 
     if (
-      element === ElementNameType.labelText ||
-      element === ElementNameType.section
+      (element === ElementNameType.labelText ||
+        element === ElementNameType.section) &&
+      !checkSubElement(elementSytle as SubElementActionPayload)
     ) {
-      if (!checkSubElement(elementSytle as SubElementActionPayload))
-        return false;
+      return false;
     }
   }
 
@@ -68,14 +83,14 @@ function checkSubElement(input: SubElementActionPayload): boolean {
 
   for (const subElement of subElements) {
     const subElementSytle = (input as SubElementActionPayload)[subElement];
+
     if (
-      !(subElement in SubElementNameType) ||
-      typeof subElementSytle !== 'object'
+      (!(subElement in SubElementNameType) ||
+        typeof subElementSytle !== 'object') &&
+      !checkStyle(subElementSytle as StyleActionPayload)
     ) {
       return false;
     }
-
-    if (!checkStyle(subElementSytle)) return false;
   }
 
   return true;
@@ -88,17 +103,18 @@ function checkStyle(input: StyleActionPayload): boolean {
     if (!(key in StyleKeyType)) return false;
 
     const style = input[key];
-    if (key === StyleKeyType.color && !checkColor(style)) return false;
-    if (
+
+    const isColorInvalid = key === StyleKeyType.color && !checkColor(style);
+    const isRangeInvalid =
       (key === StyleKeyType.saturation || key === StyleKeyType.lightness) &&
-      !checkRange(style, -100, 100)
-    )
-      return false;
-    if (
+      !checkRange(style, -100, 100);
+    const isVisibilityInvalid =
       key === StyleKeyType.visibility &&
-      typeof input.visibility !== 'boolean'
-    )
+      !((input.visibility as VisibilityValueType) in VisibilityValueType);
+
+    if (isColorInvalid || isRangeInvalid || isVisibilityInvalid) {
       return false;
+    }
   }
 
   return true;

@@ -52,9 +52,9 @@ export const arterialLayerNames = {
     'bridge-primary-secondary-tertiary-case',
   ],
   text: {
-    all: ['road-number-shield', 'road-exit-shield', 'road-arterial-label'],
+    all: ['road-arterial-label'],
     hasStroke: ['road-arterial-label'],
-    noStroke: ['road-number-shield', 'road-exit-shield'],
+    noStroke: [],
   },
-  icon: [],
+  icon: ['road-number-shield', 'road-exit-shield'],
 };

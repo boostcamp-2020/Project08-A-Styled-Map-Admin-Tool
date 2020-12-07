@@ -11,7 +11,9 @@ import {
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
+
 import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
+import useHistoryFeature from '../map/useHistoryFeature';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
@@ -88,6 +90,8 @@ function useStyleType(): UseStyleHookType {
     return newFeature[element][subElement as SubElementNameType];
   }) as StyleType;
 
+  const { addHistory } = useHistoryFeature();
+
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
       if (!feature || !subFeature || !element) return;
@@ -120,6 +124,19 @@ function useStyleType(): UseStyleHookType {
           },
         })
       );
+
+      addHistory({
+        changedKey: key,
+        value,
+        feature,
+        subFeature,
+        element,
+        subElement,
+        style: {
+          ...styleElement,
+          [key]: value,
+        },
+      });
     },
     [feature, subFeature, element, subElement, styleElement]
   );

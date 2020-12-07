@@ -5,6 +5,7 @@ import useSidebarHeader, {
 } from '../../../hooks/sidebar/useSidebarHeader';
 
 import UndoIcon from '../../Icon/UndoIcon';
+import RedoIcon from '../../Icon/RedoIcon';
 import MoreVertIcon from '../../Icon/MoreVertIcon';
 import SidebarDropdown from './SidebarDropdown';
 
@@ -44,6 +45,16 @@ const UndoBtn = styled(UndoIcon)`
   }
 `;
 
+const RedoBtn = styled(RedoIcon)`
+  margin: 0 0 0 10px;
+  fill: ${(props) => props.theme.WHITE};
+  cursor: pointer;
+
+  &:hover {
+    fill: ${(props) => props.theme.DARKGREY};
+  }
+`;
+
 const DropdownBtn = styled(MoreVertIcon)`
   margin-left: 10px;
   fill: ${(props) => props.theme.WHITE};
@@ -71,6 +82,7 @@ function SidebarHeader({
       <HeaderTitle>{isAdvanced ? '고급 설정' : '스타일 맵 만들기'}</HeaderTitle>
       <Btns>
         <UndoBtn />
+        <RedoBtn />
         <DropdownBtn onClick={dropdownToggleHandler} />
         <SidebarDropdown
           isOpened={isOpened}

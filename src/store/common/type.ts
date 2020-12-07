@@ -1,5 +1,6 @@
 import { init, setStyle, setWholeStyle } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
+import { INIT_HISTORY, ADD_LOG } from '../history/action';
 
 export type hello = 'landmark';
 
@@ -21,6 +22,12 @@ export enum StyleKeyType {
   saturation = 'saturation',
   lightness = 'lightness',
   isChanged = 'isChanged',
+}
+
+export enum VisibilityValueType {
+  visiable = 'visiable',
+  none = 'none',
+  inherit = 'inherit',
 }
 
 export enum FeatureNameType {
@@ -148,6 +155,31 @@ export type ActionType =
   | ReturnType<typeof init>
   | ReturnType<typeof setStyle>
   | ReturnType<typeof setWholeStyle>;
+
+export interface HistoryPropsType {
+  isHistoryOpen: boolean;
+  log?: { id: string; display: string }[];
+}
+
+export interface HistoryInfoPropsType {
+  value: string | number;
+  changedKey: StyleKeyType;
+  feature: FeatureNameType | null;
+  subFeature: string | null;
+  element: ElementNameType | null;
+  subElement: SubElementNameType | null;
+  style: StyleType;
+}
+export interface HistoryActionType {
+  type: typeof INIT_HISTORY | typeof ADD_LOG;
+  payload: null | {
+    changedKey: StyleKeyType;
+    feature: FeatureNameType | null;
+    subFeature: string | null;
+    element: ElementNameType | null;
+    subElement: SubElementNameType | null;
+  };
+}
 
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;

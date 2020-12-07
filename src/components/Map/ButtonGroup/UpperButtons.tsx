@@ -13,7 +13,9 @@ import SearchInput from '../SearchInput/SearchInput';
 
 interface UpperButtonsProps {
   mapRef: RefObject<HTMLDivElement>;
-  comparisonButtonClickHandler: comparisonButtonClickHandlerType;
+//   comparisonButtonClickHandler: comparisonButtonClickHandlerType;
+  historyBtnHandler: () => void;
+
 }
 
 const UpperButtonsWrapper = styled.div`
@@ -38,7 +40,7 @@ const ButtonsWrapper = styled.div`
 
 function UpperButtons({
   mapRef,
-  comparisonButtonClickHandler,
+  historyBtnHandler,
 }: UpperButtonsProps): ReactElement {
   const {
     isFullscreen,
@@ -51,14 +53,12 @@ function UpperButtons({
       <SearchInput />
       <ButtonsWrapper>
         <Button
-          width="40px"
+          fontSize="12px"
+          width="60px"
           height="40px"
-          onClick={
-            () => comparisonButtonClickHandler()
-            // eslint-disable-next-line react/jsx-curly-newline
-          }
+          onClick={historyBtnHandler}
         >
-          비교하기
+          History
         </Button>
         <Button
           width="40px"

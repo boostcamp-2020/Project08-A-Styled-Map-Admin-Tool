@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
 import useMap, { MapHookType } from '../../hooks/map/useMap';
+import useHistoryFeature from '../../hooks/map/useHistoryFeature';
+
 import useComparisonButton, {
   ComparisonType,
 } from '../../hooks/map/useComparisonButton';
 
 import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
+import History from './History/History';
 
 const MapsWrapper = styled.div`
   height: 100vh;
@@ -21,9 +24,6 @@ const CurrentMapWrapper = styled.div`
   width: 100%;
   display: flex;
   flex: 1 1 auto;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
 
   canvas {
     outline: none;
@@ -66,10 +66,12 @@ function Map(): React.ReactElement {
     afterMapRef,
     comparisonMapRef,
   } = useComparisonButton(mapRef);
+  const { isHistoryOpen, historyBtnHandler } = useHistoryFeature();
 
   return (
     <MapsWrapper ref={comparisonMapRef}>
       <CurrentMapWrapper ref={mapRef}>
+        <History isHistoryOpen={isHistoryOpen} />
         <UpperButtons
           mapRef={mapRef}
           comparisonButtonClickHandler={comparisonButtonClickHandler}
