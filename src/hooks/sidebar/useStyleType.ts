@@ -8,6 +8,7 @@ import {
   ElementNameType,
   SubElementNameType,
   PayloadPropsType,
+  PropertyType,
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
@@ -77,10 +78,19 @@ function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
 
   const { addHistory } = useHistoryFeature();
+  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
+  const {
+    poi,
+    landscape,
+    administrative,
+    road,
+    transit,
+    water,
+    marker,
+  } = useSelector<RootState>((state) => state) as PropertyType;
   const { feature, subFeature, element, subElement } = useSelector<RootState>(
     (state) => state.sidebar
   ) as PayloadPropsType;
-  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
   const styleElement = useSelector<RootState>((state) => {
     if (!feature || !subFeature || !element) {
       return null;
@@ -124,6 +134,15 @@ function useStyleType(): UseStyleHookType {
         })
       );
 
+      const wholeStyle = {
+        poi,
+        landscape,
+        administrative,
+        road,
+        transit,
+        water,
+        marker,
+      };
       addHistory({
         changedKey: key,
         value,
@@ -135,6 +154,7 @@ function useStyleType(): UseStyleHookType {
           ...styleElement,
           [key]: value,
         },
+        wholeStyle,
       });
     },
     [feature, subFeature, element, subElement, styleElement]

@@ -108,6 +108,7 @@ export const SubFeatureNameType = {
   ...WaterNameType,
   ...MarkerNameType,
 };
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 export type SubFeatureNameType = typeof SubFeatureNameType;
 
 export interface objType {
@@ -157,7 +158,6 @@ export type ActionType =
   | ReturnType<typeof setWholeStyle>;
 
 export interface HistoryPropsType {
-  isHistoryOpen: boolean;
   log?: { id: string; display: string }[];
 }
 
@@ -169,6 +169,7 @@ export interface HistoryInfoPropsType {
   element: ElementNameType | null;
   subElement: SubElementNameType | null;
   style: StyleType;
+  wholeStyle: PropertyType;
 }
 export interface HistoryActionType {
   type: typeof INIT_HISTORY | typeof ADD_LOG;
@@ -178,6 +179,7 @@ export interface HistoryActionType {
     subFeature: string | null;
     element: ElementNameType | null;
     subElement: SubElementNameType | null;
+    wholeStyle: PropertyType;
   };
 }
 
@@ -231,10 +233,12 @@ export interface StyleElementPropsType {
   [ElementNameType.labelIcon]?: string | null;
 }
 
+export type FeaturePropertyType = {
+  [subFeatureName: string]: StyleElementPropsType;
+};
+
 export type PropertyType = {
-  [featureName in FeatureNameType]: {
-    [subFeatureName: string]: StyleElementPropsType;
-  };
+  [featureName in FeatureNameType]: FeaturePropertyType;
 };
 
 /** urlJson Type */
