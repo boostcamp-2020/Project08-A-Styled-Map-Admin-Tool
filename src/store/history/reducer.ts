@@ -1,4 +1,4 @@
-import { ADD_LOG, INIT_HISTORY, TOGGLE_HISTORY } from './action';
+import { ADD_LOG, INIT_HISTORY } from './action';
 import {
   HistoryPropsType,
   HistoryActionType,
@@ -8,7 +8,7 @@ import {
   SubElementNameType,
   StyleType,
 } from '../common/type';
-import randomId from '../../utils/randomId';
+import getRandomId from '../../utils/getRandomId';
 
 interface localStorageProps {
   id: string;
@@ -22,8 +22,13 @@ interface localStorageProps {
   style: StyleType;
 }
 
+const initialState: HistoryPropsType = {
+  isHistoryOpen: false,
+  log: [],
+};
+
 function historyReducer(
-  state: HistoryPropsType,
+  state: HistoryPropsType = initialState,
   action: HistoryActionType
 ): HistoryPropsType {
   switch (action.type) {
@@ -34,16 +39,9 @@ function historyReducer(
 
       return {
         ...state,
-        isHistoryOpen: false,
         log: log.map((item: localStorageProps) => {
           return { id: item.id, display: item.display };
         }),
-      };
-    }
-    case TOGGLE_HISTORY: {
-      return {
-        ...state,
-        isHistoryOpen: !state.isHistoryOpen,
       };
     }
     case ADD_LOG: {
@@ -58,7 +56,7 @@ function historyReducer(
       } = action.payload as HistoryInfoPropsType;
 
       if (state.log !== undefined) {
-        const id = randomId(8);
+        const id = getRandomId(8);
         state.log.push({
           id,
           display: `${feature} -> ${subFeature} -> ${element} -> ${subElement}에서 ${changedKey} 항목에 대하여\n ${value}로의 변화가 있었습니다.`,

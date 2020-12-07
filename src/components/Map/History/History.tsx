@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '../../../utils/styles/styled';
 import { RootState } from '../../../store/index';
-import useHistoryFeature from '../../../hooks/common/useHistoryFeature';
+import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
 import { HistoryPropsType } from '../../../store/common/type';
 
 const HistoryWapper = styled.div`
@@ -28,17 +28,18 @@ const HistoryTitle = styled.div`
   text-align: center;
 `;
 
-function History(): ReactElement {
+interface HistoryProps {
+  isHistoryOpen: boolean;
+}
+function History({ isHistoryOpen }: HistoryProps): ReactElement {
   const { initHistoryStatus } = useHistoryFeature();
   useEffect(() => {
     initHistoryStatus();
   }, []);
 
-  const historyStates = useSelector<RootState>(
+  const { log } = useSelector<RootState>(
     (state) => state.history
   ) as HistoryPropsType;
-
-  const { isHistoryOpen, log } = historyStates;
 
   if (!isHistoryOpen) return <></>;
 

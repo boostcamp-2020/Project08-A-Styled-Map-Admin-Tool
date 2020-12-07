@@ -3,7 +3,6 @@ import styled from '../../../utils/styles/styled';
 import useUpperButtons, {
   useUpperButtonsType,
 } from '../../../hooks/map/useUpperButtons';
-import useHistoryFeature from '../../../hooks/common/useHistoryFeature';
 
 import Button from './Button';
 import FullScreenIcon from '../../Icon/FullScreen';
@@ -12,6 +11,7 @@ import SearchInput from '../SearchInput/SearchInput';
 
 interface UpperButtonsProps {
   mapRef: RefObject<HTMLDivElement>;
+  historyBtnHandler: () => void;
 }
 
 const UpperButtonsWrapper = styled.div`
@@ -33,15 +33,16 @@ const ButtonsWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-function UpperButtons({ mapRef }: UpperButtonsProps): ReactElement {
+function UpperButtons({
+  mapRef,
+  historyBtnHandler,
+}: UpperButtonsProps): ReactElement {
   const {
     isFullscreen,
     compareButtonClickHandler,
     fullScreenButtonClickHandler,
     smallScreenButtonClickHandler,
   }: useUpperButtonsType = useUpperButtons({ mapRef });
-
-  const { clickHistoryBtnHandler } = useHistoryFeature();
 
   return (
     <UpperButtonsWrapper>
@@ -51,7 +52,7 @@ function UpperButtons({ mapRef }: UpperButtonsProps): ReactElement {
           fontSize="12px"
           width="60px"
           height="40px"
-          onClick={clickHistoryBtnHandler}
+          onClick={historyBtnHandler}
         >
           History
         </Button>

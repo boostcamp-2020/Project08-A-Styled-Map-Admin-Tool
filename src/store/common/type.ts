@@ -1,6 +1,6 @@
 import { init, setStyle, setWholeStyle } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
-import { INIT_HISTORY, TOGGLE_HISTORY, ADD_LOG } from '../history/action';
+import { INIT_HISTORY, ADD_LOG } from '../history/action';
 
 export type hello = 'landmark';
 
@@ -102,16 +102,14 @@ export interface HistoryInfoPropsType {
   style: StyleType;
 }
 export interface HistoryActionType {
-  type: typeof INIT_HISTORY | typeof TOGGLE_HISTORY | typeof ADD_LOG;
-  payload:
-    | { isHistoryOpen: boolean }
-    | {
-        changedKey: StyleKeyType;
-        feature: FeatureNameType | null;
-        subFeature: string | null;
-        element: ElementNameType | null;
-        subElement: SubElementNameType | null;
-      };
+  type: typeof INIT_HISTORY | typeof ADD_LOG;
+  payload: null | {
+    changedKey: StyleKeyType;
+    feature: FeatureNameType | null;
+    subFeature: string | null;
+    element: ElementNameType | null;
+    subElement: SubElementNameType | null;
+  };
 }
 
 export interface ActionPayload extends ElementPropsType {
