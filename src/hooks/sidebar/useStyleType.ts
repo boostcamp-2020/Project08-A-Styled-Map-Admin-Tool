@@ -76,6 +76,7 @@ const getNewColorStyle = (
 function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
 
+  const { addHistory } = useHistoryFeature();
   const { feature, subFeature, element, subElement } = useSelector<RootState>(
     (state) => state.sidebar
   ) as PayloadPropsType;
@@ -89,8 +90,6 @@ function useStyleType(): UseStyleHookType {
     if (element === ElementNameType.labelIcon) return newFeature[element];
     return newFeature[element][subElement as SubElementNameType];
   }) as StyleType;
-
-  const { addHistory } = useHistoryFeature();
 
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
