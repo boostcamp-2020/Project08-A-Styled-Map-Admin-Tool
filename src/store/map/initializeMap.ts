@@ -3,13 +3,9 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import dotenv from 'dotenv';
 
-import road from './layers/road';
-import transit from './layers/transit';
-import poi from './layers/poi';
-import landscape from './layers/landscape';
-import water from './layers/water';
-import mapboxPOI from './layers/mapbox-poi';
-
+import poiLayers from '../../utils/rendering-data/layers/poi';
+import roadLayers from '../../utils/rendering-data/layers/road';
+import transitLayers from '../../utils/rendering-data/layers/transit';
 import initLayersColor from '../../utils/rendering-data/initLayerColor';
 
 const LNG = 126.978;
@@ -28,12 +24,6 @@ const LABEL_LAYERS: string[] = [
   'natural-point-label',
   'natural-line-label',
 ];
-
-enum Sources {
-  polygon = 'polygon_source',
-  line = 'line_source',
-  poi = 'poi_source',
-}
 
 dotenv.config();
 mapboxgl.accessToken = process.env.REACT_APP_ACCESS_TOKEN as string;
@@ -77,26 +67,10 @@ function initializeMap({
       map.removeLayer(element);
     });
 
-    // map.addSource(Sources.polygon, {
-    //   type: 'vector',
-    //   tiles: ['http://110.93.147.18:8080/boostcamp/polygon/{x}/{y}/{z}'],
-    // });
-    // map.addSource(Sources.line, {
-    //   type: 'vector',
-    //   tiles: ['http://110.93.147.18:8080/boostcamp/line/{x}/{y}/{z}'],
-    // });
-    // map.addSource(Sources.poi, {
-    //   type: 'vector',
-    //   tiles: ['http:/110.93.147.18:8080/boostcamp/poi/{x}/{y}/{z}'],
-    // });
-
     const layers = [
-      // ...road,
-      // ...landscape,
-      // ...transit,
-      // ...water,
-      ...mapboxPOI,
-      // ...poi,
+      ...roadLayers,
+      ...transitLayers,
+      ...poiLayers,
     ] as mapboxgl.Layer[];
     layers.forEach((layer: mapboxgl.Layer) => map.addLayer(layer));
 
