@@ -50,7 +50,7 @@ function ColorStyle({
         type="color"
         id="styler__color"
         onChange={rangeChangeHandler}
-        onMouseOut={() => rangeMouseUpHandler(StyleKeyType.color)}
+        onBlur={() => rangeMouseUpHandler(StyleKeyType.color)}
         value={curRange}
       />
     </ColorWrapper>

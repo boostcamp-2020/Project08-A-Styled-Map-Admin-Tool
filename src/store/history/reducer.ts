@@ -23,7 +23,6 @@ interface localStorageProps {
 }
 
 const initialState: HistoryPropsType = {
-  isHistoryOpen: false,
   log: [],
 };
 
@@ -39,9 +38,7 @@ function historyReducer(
 
       return {
         ...state,
-        log: log.map((item: localStorageProps) => {
-          return { id: item.id, display: item.display };
-        }),
+        log,
       };
     }
     case ADD_LOG: {
@@ -53,14 +50,16 @@ function historyReducer(
         element,
         subElement,
         style,
+        wholeStyle,
       } = action.payload as HistoryInfoPropsType;
 
       const id = getRandomId(8);
       const newState = JSON.parse(JSON.stringify(state));
 
+      const display = `${feature} > ${subFeature} > ${element} > ${subElement}의 ${changedKey} 항목을\n ${value}로 변경`;
       newState.log.push({
         id,
-        display: `${feature} -> ${subFeature} -> ${element} -> ${subElement}에서 ${changedKey} 항목에 대하여\n ${value}로의 변화가 있었습니다.`,
+        display,
       });
       const storedLog =
         localStorage.getItem('log') === null
@@ -71,13 +70,14 @@ function historyReducer(
         storedLog.push({
           id,
           value,
-          display: `${feature} -> ${subFeature} -> ${element} -> ${subElement}에서 ${changedKey} 항목에 대하여\n ${value}로의 변화가 있었습니다.`,
+          display,
           changedKey,
           feature,
           subFeature,
           element,
           subElement,
           style,
+          wholeStyle,
         });
         localStorage.setItem('log', JSON.stringify(storedLog));
       }
@@ -88,7 +88,6 @@ function historyReducer(
     default:
       return {
         ...state,
-        isHistoryOpen: false,
       };
   }
 }

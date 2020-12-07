@@ -9,9 +9,10 @@ import { comparisonButtonClickHandlerType } from '../../../hooks/map/useComparis
 
 const HistoryWapper = styled.div`
   z-index: 30;
-  width: 515px;
+  width: 370px;
+  height: 200px;
   background-color: white;
-  padding: 15px 20px;
+  padding: 15px 10px;
   position: fixed;
   top: 110px;
   right: 15px;
@@ -19,10 +20,13 @@ const HistoryWapper = styled.div`
   box-shadow: 0 0 10px ${(props) => props.theme.GREY};
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 `;
 
 const HistoryItem = styled.div`
   margin-bottom: 5px;
+  padding: 3px;
+  border-radius: 3px;
 
   cursor: pointer;
 
@@ -33,6 +37,7 @@ const HistoryItem = styled.div`
 
 const HistoryTitle = styled.div`
   margin-bottom: 5px;
+  font-weight: bold;
   text-align: center;
 `;
 

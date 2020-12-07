@@ -76,10 +76,20 @@ const getNewColorStyle = (
 function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
 
+  const { addHistory } = useHistoryFeature();
+  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
+  const {
+    poi,
+    landscape,
+    administrative,
+    road,
+    transit,
+    water,
+    marker,
+  } = useSelector<RootState>((state) => state) as any;
   const { feature, subFeature, element, subElement } = useSelector<RootState>(
     (state) => state.sidebar
   ) as PayloadPropsType;
-  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
   const styleElement = useSelector<RootState>((state) => {
     if (!feature || !subFeature || !element) {
       return null;
@@ -89,8 +99,6 @@ function useStyleType(): UseStyleHookType {
     if (element === ElementNameType.labelIcon) return newFeature[element];
     return newFeature[element][subElement as SubElementNameType];
   }) as StyleType;
-
-  const { addHistory } = useHistoryFeature();
 
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
@@ -125,6 +133,21 @@ function useStyleType(): UseStyleHookType {
         })
       );
 
+      const wholeStyle = {
+        poi,
+        landscape,
+        administrative,
+        road,
+        transit,
+        water,
+        marker,
+      };
+      wholeStyle[feature][subFeature][element][
+        subElement as SubElementNameType
+      ] = {
+        ...styleElement,
+        ...newStyleObj,
+      };
       addHistory({
         changedKey: key,
         value,
@@ -136,6 +159,7 @@ function useStyleType(): UseStyleHookType {
           ...styleElement,
           [key]: value,
         },
+        wholeStyle,
       });
     },
     [feature, subFeature, element, subElement, styleElement]
