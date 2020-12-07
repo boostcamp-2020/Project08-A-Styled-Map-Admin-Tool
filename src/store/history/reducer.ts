@@ -23,7 +23,6 @@ interface localStorageProps {
 }
 
 const initialState: HistoryPropsType = {
-  isHistoryOpen: false,
   log: [],
 };
 
@@ -39,9 +38,7 @@ function historyReducer(
 
       return {
         ...state,
-        log: log.map((item: localStorageProps) => {
-          return { id: item.id, display: item.display };
-        }),
+        log,
       };
     }
     case ADD_LOG: {
@@ -53,6 +50,7 @@ function historyReducer(
         element,
         subElement,
         style,
+        wholeStyle,
       } = action.payload as HistoryInfoPropsType;
 
       const id = getRandomId(8);
@@ -79,6 +77,7 @@ function historyReducer(
           element,
           subElement,
           style,
+          wholeStyle,
         });
         localStorage.setItem('log', JSON.stringify(storedLog));
       }
@@ -89,7 +88,6 @@ function historyReducer(
     default:
       return {
         ...state,
-        isHistoryOpen: false,
       };
   }
 }
