@@ -55,35 +55,34 @@ function historyReducer(
         style,
       } = action.payload as HistoryInfoPropsType;
 
-      if (state.log !== undefined) {
-        const id = getRandomId(8);
-        state.log.push({
-          id,
-          display: `${feature} -> ${subFeature} -> ${element} -> ${subElement}에서 ${changedKey} 항목에 대하여\n ${value}로의 변화가 있었습니다.`,
-        });
-        const storedLog =
-          localStorage.getItem('log') === null
-            ? []
-            : JSON.parse(localStorage.getItem('log') as string);
+      const id = getRandomId(8);
+      const newState = JSON.parse(JSON.stringify(state));
 
-        if (storedLog !== undefined) {
-          storedLog.push({
-            id,
-            value,
-            display: `${feature} -> ${subFeature} -> ${element} -> ${subElement}에서 ${changedKey} 항목에 대하여\n ${value}로의 변화가 있었습니다.`,
-            changedKey,
-            feature,
-            subFeature,
-            element,
-            subElement,
-            style,
-          });
-          localStorage.setItem('log', JSON.stringify(storedLog));
-        }
+      newState.log.push({
+        id,
+        display: `${feature} -> ${subFeature} -> ${element} -> ${subElement}에서 ${changedKey} 항목에 대하여\n ${value}로의 변화가 있었습니다.`,
+      });
+      const storedLog =
+        localStorage.getItem('log') === null
+          ? []
+          : JSON.parse(localStorage.getItem('log') as string);
+
+      if (storedLog !== undefined) {
+        storedLog.push({
+          id,
+          value,
+          display: `${feature} -> ${subFeature} -> ${element} -> ${subElement}에서 ${changedKey} 항목에 대하여\n ${value}로의 변화가 있었습니다.`,
+          changedKey,
+          feature,
+          subFeature,
+          element,
+          subElement,
+          style,
+        });
+        localStorage.setItem('log', JSON.stringify(storedLog));
       }
-      return {
-        ...state,
-      };
+
+      return newState;
     }
 
     default:
