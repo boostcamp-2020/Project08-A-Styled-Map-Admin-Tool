@@ -39,19 +39,17 @@ function makeSubElement(
   return { fill: fillLayers, stroke: strokeLayers };
 }
 
-const humanMadeSectionFill = ['landscape-human-made'];
 const humanMadeSectionStroke = ['pitch-outline'];
 
-const buildingSectionFill = ['landscape-building', 'building'];
+const buildingSectionFill = ['building'];
 const buildingSectionStroke = ['building-outline'];
 const buildingLabel = ['building-number-label', 'poi-building-label'];
 
-const naturalSectionFill = ['landscape-natural', 'national-park'];
+const naturalSectionFill = ['national-park'];
 const naturalLabel = ['natural-point-label'];
 
 const landCoverSectionFill = [
   'land',
-  'landscape-landcover',
   'landcover',
   'landuse',
   'land-structure-polygon',
@@ -62,7 +60,7 @@ const mountainCoverSectionFill = ['hillshade'];
 
 const layersByType: { [key in LandscapeSubFeature]: ElementsType } = {
   'human-made': {
-    [SECTION]: makeSubElement(humanMadeSectionFill, humanMadeSectionStroke),
+    [SECTION]: makeSubElement([], humanMadeSectionStroke),
     [LABELTEXT]: makeSubElement([], []),
     [LABELICON]: makeSubElement([], []),
   },
@@ -89,7 +87,6 @@ const layersByType: { [key in LandscapeSubFeature]: ElementsType } = {
   all: {
     [SECTION]: makeSubElement(
       [
-        ...humanMadeSectionFill,
         ...buildingSectionFill,
         ...naturalSectionFill,
         ...landCoverSectionFill,
