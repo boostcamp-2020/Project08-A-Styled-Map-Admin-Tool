@@ -104,15 +104,15 @@ function checkStyle(input: StyleActionPayload): boolean {
 
     const style = input[key];
 
-    const isColorInvalid = key === StyleKeyType.color && !checkColor(style);
-    const isRangeInvalid =
+    const isColorValid = key === StyleKeyType.color && !checkColor(style);
+    const isRangeValid =
       (key === StyleKeyType.saturation || key === StyleKeyType.lightness) &&
       !checkRange(style, -100, 100);
-    const isVisibilityInvalid =
+    const isVisibilityValid =
       key === StyleKeyType.visibility &&
       !((input.visibility as VisibilityValueType) in VisibilityValueType);
 
-    if (isColorInvalid || isRangeInvalid || isVisibilityInvalid) {
+    if (!isColorValid || !isRangeValid || !isVisibilityValid) {
       return false;
     }
   }
