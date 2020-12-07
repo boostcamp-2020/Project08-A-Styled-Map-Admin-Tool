@@ -4,6 +4,8 @@ import useUpperButtons, {
   useUpperButtonsType,
 } from '../../../hooks/map/useUpperButtons';
 
+import { comparisonButtonClickHandlerType } from '../../../hooks/map/useComparisonButton';
+
 import Button from './Button';
 import FullScreenIcon from '../../Icon/FullScreen';
 import SmallScreenIcon from '../../Icon/SmallScreen';
@@ -11,7 +13,9 @@ import SearchInput from '../SearchInput/SearchInput';
 
 interface UpperButtonsProps {
   mapRef: RefObject<HTMLDivElement>;
+//   comparisonButtonClickHandler: comparisonButtonClickHandlerType;
   historyBtnHandler: () => void;
+
 }
 
 const UpperButtonsWrapper = styled.div`
@@ -31,6 +35,7 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  z-index: 10;
 `;
 
 function UpperButtons({
@@ -39,7 +44,6 @@ function UpperButtons({
 }: UpperButtonsProps): ReactElement {
   const {
     isFullscreen,
-    compareButtonClickHandler,
     fullScreenButtonClickHandler,
     smallScreenButtonClickHandler,
   }: useUpperButtonsType = useUpperButtons({ mapRef });

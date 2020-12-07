@@ -24,10 +24,10 @@ function LowerButtons(): React.ReactElement {
 
   return (
     <LowerButtonsWrapper>
-      <Button width="30x" height="30px" onClick={plusZoom}>
+      <Button width="29px" height="29px" onClick={plusZoom}>
         <PlusIcon />
       </Button>
-      <Button width="31px" height="31px" onClick={minusZoom}>
+      <Button width="29px" height="29px" onClick={minusZoom}>
         <MinusIcon />
       </Button>
     </LowerButtonsWrapper>

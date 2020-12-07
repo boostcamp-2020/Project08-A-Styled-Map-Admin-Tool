@@ -17,6 +17,7 @@ const SidebarWrapper = styled.div`
   height: 100vh;
   z-index: 30;
   background-color: white;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 function SidebarPresenter(): React.ReactElement {
