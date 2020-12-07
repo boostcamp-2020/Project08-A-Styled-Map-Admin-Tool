@@ -85,34 +85,6 @@ export default [
     },
   },
   {
-    id: 'transit-subway-line',
-    type: 'line',
-    source: 'line_source',
-    'source-layer': 'line',
-    layout: {
-      visibility: 'visible',
-    },
-    paint: {
-      'line-color': 'hsl(192, 70%, 43%)',
-      'line-width': 2,
-    },
-    filter: ['==', ['get', 'type'], 'subway'],
-  },
-  {
-    id: 'transit-rail-line',
-    type: 'line',
-    source: 'line_source',
-    'source-layer': 'line',
-    layout: {
-      visibility: 'visible',
-    },
-    paint: {
-      'line-color': 'hsl(201, 100%, 14%)',
-      'line-width': 1,
-    },
-    filter: ['match', ['get', 'type'], 'rail', true, false],
-  },
-  {
     id: 'mapbox-rail-road-line',
     type: 'line',
     source: 'composite',
@@ -132,22 +104,5 @@ export default [
       ['match', ['get', 'class'], ['major_rail', 'minor_rail'], true, false],
       ['match', ['get', 'structure'], ['none', 'ford'], true, false],
     ],
-  },
-  {
-    id: 'transit-bus-label',
-    type: 'symbol',
-    source: 'poi_source',
-    'source-layer': 'poi',
-    layout: {
-      'text-field': ['get', 'name'],
-      'text-size': 12,
-      visibility: 'visible',
-    },
-    paint: {
-      'text-halo-color': 'hsl(0, 0%, 100%)',
-      'text-halo-width': 1,
-      'text-color': 'hsl(13, 68%, 63%)',
-    },
-    filter: ['==', ['get', 'type'], 'bus_stop'],
   },
 ];

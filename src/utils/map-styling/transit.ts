@@ -20,13 +20,8 @@ const PolygonLayers = [
   'mapbox-airport-aeroway-polygon',
   'mapbox-airport-polygon',
 ];
-const LineLayers = [
-  'mapbox-airport-aeroway-line',
-  'transit-subway-line',
-  'transit-rail-line',
-  'mapbox-rail-road-line',
-];
-const LabelLayers = ['mapbox-airport-label', 'transit-bus-label'];
+const LineLayers = ['mapbox-airport-aeroway-line', 'mapbox-rail-road-line'];
+const LabelLayers = ['mapbox-airport-label'];
 
 function transitStyling({
   map,
