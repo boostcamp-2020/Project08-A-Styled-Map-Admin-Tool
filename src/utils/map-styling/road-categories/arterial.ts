@@ -1,7 +1,6 @@
 export const arterialLayerNames = {
   all: [
     'road-arterial-polygon',
-    'road-arterial',
     'road-primary',
     'road-secondary-tertiary',
     'road-motorway-trunk',
@@ -28,7 +27,6 @@ export const arterialLayerNames = {
   ],
   polygon: ['road-arterial-polygon'],
   line: [
-    'road-arterial',
     'road-primary',
     'road-secondary-tertiary',
     'road-motorway-trunk',
