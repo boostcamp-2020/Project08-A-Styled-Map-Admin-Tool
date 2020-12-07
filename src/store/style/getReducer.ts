@@ -9,7 +9,7 @@ import {
   ElementNameType,
   SubElementType,
 } from '../common/type';
-import { getDefaultFeature, getDefaultStyle } from './properties';
+import { getDefaultFeature } from './properties';
 import { INIT, SET, SET_WHOLE } from './action';
 import { checkStyleIsChanged, checkFeatureIsChanged } from './compareStyle';
 import { combineElement } from './manageCategories';
@@ -48,9 +48,7 @@ export default function getReducer(IDX: number): ReducerType {
         } = action.payload;
         if (feature !== renderingData[IDX].typeKey) return state;
 
-        const defaultStyle = getDefaultStyle(action.payload);
-        style.isChanged = checkStyleIsChanged({ defaultStyle, style });
-
+        style.isChanged = checkStyleIsChanged(action.payload);
         const newState: FeatureState = JSON.parse(JSON.stringify(state));
         const newFeature: FeatureType = newState[subFeature as string];
 
@@ -83,16 +81,11 @@ export default function getReducer(IDX: number): ReducerType {
 
         const subFeatures = Object.keys(inputStyle);
         subFeatures.forEach((subFeature) => {
-          const newFeature = combineElement({
+          updateStyle[subFeature] = combineElement({
             elementStyle: inputStyle[subFeature],
             initialElementStyle: updateStyle[subFeature],
           });
-          updateStyle[subFeature] = {
-            ...newFeature,
-            isChanged: checkFeatureIsChanged(newFeature),
-          };
         });
-
         return updateStyle;
       }
 

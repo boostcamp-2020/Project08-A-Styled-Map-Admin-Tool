@@ -1,14 +1,9 @@
 import {
   SubElementActionPayload,
   ElementActionPayload,
-  StyleActionPayload,
   FeatureType,
   SubElementType,
-  StyleType,
-  SubElementNameType,
-  ElementNameType,
 } from '../common/type';
-import { checkStyleIsChanged } from './compareStyle';
 
 interface combineElementProps {
   elementStyle: ElementActionPayload;
@@ -20,26 +15,27 @@ export const combineElement = ({
   initialElementStyle,
 }: combineElementProps): FeatureType => {
   const update = initialElementStyle;
-  const elements = Object.keys(elementStyle);
-  elements.forEach((element) => {
-    switch (element) {
-      case ElementNameType.labelIcon:
-        combineStyle({
-          style: update[element] as StyleActionPayload,
-          defaultStyle: elementStyle[element] as StyleType,
-        });
-        break;
-      case ElementNameType.section:
-      case ElementNameType.labelText:
-        update[element] = combineSubElement({
-          subElementStyle: elementStyle[element] as SubElementActionPayload,
-          initialSubElementStyle: update[element] as SubElementType,
-        });
-        break;
-      default:
-        break;
-    }
-  });
+  if (elementStyle.labelIcon && update.labelIcon) {
+    update.labelIcon = {
+      ...update.labelIcon,
+      ...elementStyle.labelIcon,
+    };
+  }
+
+  if (elementStyle.labelText && update.labelText) {
+    update.labelText = combineSubElement({
+      subElementStyle: elementStyle.labelText,
+      initialSubElementStyle: update.labelText,
+    });
+  }
+
+  if (elementStyle.section && update.section) {
+    update.section = combineSubElement({
+      subElementStyle: elementStyle.section,
+      initialSubElementStyle: update.section,
+    });
+  }
+
   return update;
 };
 
@@ -53,31 +49,11 @@ const combineSubElement = ({
   initialSubElementStyle,
 }: combineSubElementProps): SubElementType => {
   const update = initialSubElementStyle;
-  const subElements = Object.keys(subElementStyle) as SubElementNameType[];
-  subElements.forEach((subElement) => {
-    update[subElement] = combineStyle({
-      style: subElementStyle[subElement] as StyleActionPayload,
-      defaultStyle: update[subElement],
-    });
-  });
+  if (subElementStyle.fill) {
+    update.fill = { ...update.fill, ...subElementStyle.fill };
+  }
+  if (subElementStyle.stroke) {
+    update.stroke = { ...update.stroke, ...subElementStyle.stroke };
+  }
   return update as SubElementType;
-};
-
-interface combineStyleProps {
-  style: StyleActionPayload;
-  defaultStyle: StyleType;
-}
-
-const combineStyle = ({
-  style,
-  defaultStyle,
-}: combineStyleProps): StyleType => {
-  const update: StyleType = {
-    ...defaultStyle,
-    ...style,
-  };
-  return {
-    ...update,
-    isChanged: checkStyleIsChanged({ defaultStyle, style: update }),
-  };
 };
