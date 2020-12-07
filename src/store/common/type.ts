@@ -180,10 +180,12 @@ export interface ElementActionPayload {
   [ElementNameType.labelIcon]?: StyleActionPayload;
 }
 
+export interface SubFeatureActionPayload {
+  [subFeatureName: string]: ElementActionPayload;
+}
+
 export type WholeStyleActionPayload = {
-  [featureName in FeatureNameType]?: {
-    [subFeatureName: string]: ElementActionPayload;
-  };
+  [featureName in FeatureNameType]?: SubFeatureActionPayload;
 };
 
 export interface StylePropsType {
@@ -191,13 +193,15 @@ export interface StylePropsType {
   [SubElementNameType.stroke]: string;
 }
 
+export interface StyleElementPropsType {
+  [ElementNameType.section]?: StylePropsType | null;
+  [ElementNameType.labelText]?: StylePropsType | null;
+  [ElementNameType.labelIcon]?: string | null;
+}
+
 export type PropertyType = {
   [featureName in FeatureNameType]: {
-    [subFeatureName: string]: {
-      [ElementNameType.section]?: StylePropsType | null;
-      [ElementNameType.labelText]?: StylePropsType | null;
-      [ElementNameType.labelIcon]?: string | null;
-    };
+    [subFeatureName: string]: StyleElementPropsType;
   };
 };
 

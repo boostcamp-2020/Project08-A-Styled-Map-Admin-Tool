@@ -15,7 +15,7 @@ const SidebarWrapper = styled.div`
   justify-content: space-between;
   flex: 0 0 370px;
   height: 100vh;
-  z-index: 10;
+  z-index: 30;
   background-color: white;
   font-family: 'Noto Sans KR', sans-serif;
 `;
