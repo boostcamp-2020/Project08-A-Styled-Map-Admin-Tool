@@ -44,7 +44,7 @@ function LightnessStyle({
           type="range"
           min="0"
           max="100"
-          step="5"
+          step="1"
           id="styler__lightness"
           value={curRange}
           onChange={(e) => rangeChangeHandler(e)}
