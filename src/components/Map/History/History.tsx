@@ -5,6 +5,8 @@ import { RootState } from '../../../store/index';
 import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
 import { HistoryPropsType } from '../../../store/common/type';
 
+import { comparisonButtonClickHandlerType } from '../../../hooks/map/useComparisonButton';
+
 const HistoryWapper = styled.div`
   z-index: 30;
   width: 515px;
@@ -21,6 +23,12 @@ const HistoryWapper = styled.div`
 
 const HistoryItem = styled.div`
   margin-bottom: 5px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => props.theme.LIGHTGREY};
+  }
 `;
 
 const HistoryTitle = styled.div`
@@ -30,8 +38,13 @@ const HistoryTitle = styled.div`
 
 interface HistoryProps {
   isHistoryOpen: boolean;
+  comparisonButtonClickHandler: comparisonButtonClickHandlerType;
 }
-function History({ isHistoryOpen }: HistoryProps): ReactElement {
+
+function History({
+  isHistoryOpen,
+  comparisonButtonClickHandler,
+}: HistoryProps): ReactElement {
   const { initHistoryStatus } = useHistoryFeature();
   useEffect(() => {
     initHistoryStatus();
@@ -44,18 +57,21 @@ function History({ isHistoryOpen }: HistoryProps): ReactElement {
   if (!isHistoryOpen) return <></>;
 
   return (
-    <>
-      <HistoryWapper>
-        <HistoryTitle text-align="center">HISTORY LIST</HistoryTitle>
-        {log ? (
-          log.map((item) => (
-            <HistoryItem key={item.id}>{item.display}</HistoryItem>
-          ))
-        ) : (
-          <></>
-        )}
-      </HistoryWapper>
-    </>
+    <HistoryWapper>
+      <HistoryTitle text-align="center">HISTORY LIST</HistoryTitle>
+      {log ? (
+        log.map((item) => (
+          <HistoryItem
+            key={item.id}
+            onClick={() => comparisonButtonClickHandler(/** props */)}
+          >
+            {item.display}
+          </HistoryItem>
+        ))
+      ) : (
+        <></>
+      )}
+    </HistoryWapper>
   );
 }
 

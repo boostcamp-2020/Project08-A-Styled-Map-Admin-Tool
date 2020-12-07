@@ -37,10 +37,10 @@ const CompareMapWrapper = styled.div<ComparisonType>`
   z-index: 1;
 
   display: ${({ isComparisonToggle }) =>
-    isComparisonToggle ? 'absolute' : 'none'};
+    isComparisonToggle ? 'flex' : 'none'};
   width: 400px;
   height: 100%;
-  background-color: #222;
+  background-color: ${(props) => props.theme.BLACK};
 
   animation: show-from-right 0.4s ease-in-out;
 
@@ -48,7 +48,7 @@ const CompareMapWrapper = styled.div<ComparisonType>`
     0% {
       transform: translateX(500px);
       opacity: 0;
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.GOOGLE_GREY};
     }
 
     100% {
@@ -71,11 +71,11 @@ function Map(): React.ReactElement {
   return (
     <MapsWrapper ref={comparisonMapRef}>
       <CurrentMapWrapper ref={mapRef}>
-        <History isHistoryOpen={isHistoryOpen} />
-        <UpperButtons
-          mapRef={mapRef}
+        <History
+          isHistoryOpen={isHistoryOpen}
           comparisonButtonClickHandler={comparisonButtonClickHandler}
         />
+        <UpperButtons mapRef={mapRef} historyBtnHandler={historyBtnHandler} />
         <LowerButtons />
       </CurrentMapWrapper>
       <CompareMapWrapper

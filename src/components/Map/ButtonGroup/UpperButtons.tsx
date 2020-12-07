@@ -4,8 +4,6 @@ import useUpperButtons, {
   useUpperButtonsType,
 } from '../../../hooks/map/useUpperButtons';
 
-import { comparisonButtonClickHandlerType } from '../../../hooks/map/useComparisonButton';
-
 import Button from './Button';
 import FullScreenIcon from '../../Icon/FullScreen';
 import SmallScreenIcon from '../../Icon/SmallScreen';
@@ -13,9 +11,7 @@ import SearchInput from '../SearchInput/SearchInput';
 
 interface UpperButtonsProps {
   mapRef: RefObject<HTMLDivElement>;
-//   comparisonButtonClickHandler: comparisonButtonClickHandlerType;
   historyBtnHandler: () => void;
-
 }
 
 const UpperButtonsWrapper = styled.div`
