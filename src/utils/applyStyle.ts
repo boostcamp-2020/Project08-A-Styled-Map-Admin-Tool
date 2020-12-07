@@ -31,6 +31,8 @@ interface ApplyProps {
 
 export enum VisibilityType {
   visibility = 'visibility',
+  inherit = 'inherit',
+  none = 'none',
 }
 
 export type StyleTypes = VisibilityType | ColorType | WeightType;

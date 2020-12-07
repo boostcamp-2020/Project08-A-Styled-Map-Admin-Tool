@@ -90,7 +90,7 @@ function useStyleType(): UseStyleHookType {
 
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
-      if (!feature || !subFeature || !element || !subElement) return;
+      if (!feature || !subFeature || !element) return;
 
       const newStyleObj = colorRelatedKeysArr.includes(key)
         ? getNewColorStyle(key, value, styleElement)
@@ -113,7 +113,7 @@ function useStyleType(): UseStyleHookType {
           feature,
           subFeature,
           element,
-          subElement,
+          subElement: subElement as SubElementNameType,
           style: {
             ...styleElement,
             ...newStyleObj,
