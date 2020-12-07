@@ -33,8 +33,7 @@ export default function validateStyle(
         initialLayers[feature as FeatureNameType][subFeature];
 
       if (
-        !initialSubFeatureStyle ||
-        typeof subFeatureStyle !== 'object' ||
+        (!initialSubFeatureStyle || typeof subFeatureStyle !== 'object') &&
         !checkElement({ subFeatureStyle, initialSubFeatureStyle })
       ) {
         return false;
@@ -61,15 +60,15 @@ function checkElement({
       return false;
 
     if (
-      element === ElementNameType.labelIcon ||
+      element === ElementNameType.labelIcon &&
       !checkStyle(elementSytle as StyleActionPayload)
     ) {
       return false;
     }
 
     if (
-      element === ElementNameType.labelText ||
-      element === ElementNameType.section ||
+      (element === ElementNameType.labelText ||
+        element === ElementNameType.section) &&
       !checkSubElement(elementSytle as SubElementActionPayload)
     ) {
       return false;
@@ -86,9 +85,9 @@ function checkSubElement(input: SubElementActionPayload): boolean {
     const subElementSytle = (input as SubElementActionPayload)[subElement];
 
     if (
-      !(subElement in SubElementNameType) ||
-      typeof subElementSytle !== 'object' ||
-      !checkStyle(subElementSytle)
+      (!(subElement in SubElementNameType) ||
+        typeof subElementSytle !== 'object') &&
+      !checkStyle(subElementSytle as StyleActionPayload)
     ) {
       return false;
     }
