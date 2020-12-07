@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
-import { MapHookType } from '../../hooks/map/useMap';
+import useMap, { MapHookType } from '../../hooks/map/useMap';
 import useHistoryFeature from '../../hooks/map/useHistoryFeature';
 import useCompareFeature from '../../hooks/map/useCompareFeature';
 
@@ -8,17 +8,21 @@ import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
 import History from './History/History';
 
+interface CurrentMapWrapperProps {
+  isPageShow: boolean;
+}
+
 const MapsWrapper = styled.div`
   height: 100vh;
   width: calc(100% - 370px);
 `;
 
-const CurrentMapWrapper = styled.div`
+const CurrentMapWrapper = styled.div<CurrentMapWrapperProps>`
   position: absolute;
   top: 0px;
   right: 0px;
   height: 100vh;
-  width: calc(100% - 370px);
+  width: ${(props) => (props.isPageShow ? ' 100%' : 'calc(100% - 370px)')};
   display: flex;
   flex: 1 1 auto;
 
@@ -51,8 +55,12 @@ const CompareMapWrapper = styled.div`
   // }
 `;
 
-function Map({ mapRef }: MapHookType): React.ReactElement {
-  const { containerRef, beforeMapRef }: MapHookType = useMap();
+interface MapProps {
+  pathname?: string;
+}
+
+function Map({ pathname }: MapProps): React.ReactElement {
+  const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap();
 
   const { isHistoryOpen, historyBtnHandler } = useHistoryFeature();
   const { isCompareActive, comparisonButtonClickHandler } = useCompareFeature({
@@ -63,13 +71,13 @@ function Map({ mapRef }: MapHookType): React.ReactElement {
   return (
     <MapsWrapper ref={containerRef}>
       {isCompareActive ? <CompareMapWrapper ref={beforeMapRef} /> : <></>}
-      <CurrentMapWrapper ref={mapRef}>
+      <CurrentMapWrapper ref={afterMapRef} isPageShow={pathname === '/show'}>
         <History
           isHistoryOpen={isHistoryOpen}
           comparisonButtonClickHandler={comparisonButtonClickHandler}
         />
         <UpperButtons
-          mapRef={mapRef}
+          mapRef={afterMapRef}
           historyBtnHandler={historyBtnHandler}
         />
         <LowerButtons />
