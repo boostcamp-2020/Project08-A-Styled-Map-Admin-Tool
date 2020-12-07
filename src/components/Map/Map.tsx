@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
-import useMap, { MapHookType } from '../../hooks/map/useMap';
+import { MapHookType } from '../../hooks/map/useMap';
 import useHistoryFeature from '../../hooks/map/useHistoryFeature';
 
 import useComparisonButton, {
@@ -58,8 +58,7 @@ const CompareMapWrapper = styled.div<ComparisonType>`
   }
 `;
 
-function Map(): React.ReactElement {
-  const { mapRef }: MapHookType = useMap();
+function Map({ mapRef }: MapHookType): React.ReactElement {
   const {
     isComparisonToggle,
     comparisonButtonClickHandler,
