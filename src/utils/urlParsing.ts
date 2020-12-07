@@ -31,7 +31,7 @@ function jsonToURLGetQueryString(
 }
 
 export function jsonToURL(json: URLJsonType): string {
-  const url = 'http://localhost:3000/map?=';
+  const url = 'http://localhost:3000/show?=';
   const queryString = `${jsonToURLGetQueryString(json)}end`;
 
   return url + queryString;
@@ -52,19 +52,19 @@ export function urlToJson(): URLJsonType | null {
   try {
     values?.forEach((value, index) => {
       const { feature, subFeature, element, subElement } = properties;
-      if (Object.keys(FeatureNameType).includes(value)) {
+      if (value in FeatureNameType) {
         state[value] = {};
         properties.feature = value;
-      } else if (Object.keys(SubFeatureNameType).includes(value)) {
+      } else if (value in SubFeatureNameType) {
         state[feature][value] = {};
         properties.subFeature = value;
-      } else if (Object.keys(ElementNameType).includes(value)) {
+      } else if (value in ElementNameType) {
         state[feature][subFeature][value] = {};
         properties.element = value;
-      } else if (Object.keys(SubElementNameType).includes(value)) {
+      } else if (value in SubElementNameType) {
         state[feature][subFeature][element][value] = {};
         properties.subElement = value;
-      } else if (Object.keys(StyleKeyType).includes(value)) {
+      } else if (value in StyleKeyType) {
         if (element === ElementNameType.labelIcon) {
           state[feature][subFeature][element][value] = values[index + 1];
           return;

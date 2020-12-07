@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
-import useMap, { MapHookType } from '../../hooks/map/useMap';
+import { MapHookType } from '../../hooks/map/useMap';
 import useHistoryFeature from '../../hooks/map/useHistoryFeature';
 import useCompareFeature from '../../hooks/map/useCompareFeature';
 
@@ -51,8 +51,9 @@ const CompareMapWrapper = styled.div`
   // }
 `;
 
-function Map(): React.ReactElement {
-  const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap();
+function Map({ mapRef }: MapHookType): React.ReactElement {
+  const { containerRef, beforeMapRef }: MapHookType = useMap();
+
   const { isHistoryOpen, historyBtnHandler } = useHistoryFeature();
   const { isCompareActive, comparisonButtonClickHandler } = useCompareFeature({
     containerRef,
@@ -62,13 +63,13 @@ function Map(): React.ReactElement {
   return (
     <MapsWrapper ref={containerRef}>
       {isCompareActive ? <CompareMapWrapper ref={beforeMapRef} /> : <></>}
-      <CurrentMapWrapper ref={afterMapRef}>
+      <CurrentMapWrapper ref={mapRef}>
         <History
           isHistoryOpen={isHistoryOpen}
           comparisonButtonClickHandler={comparisonButtonClickHandler}
         />
         <UpperButtons
-          mapRef={afterMapRef}
+          mapRef={mapRef}
           historyBtnHandler={historyBtnHandler}
         />
         <LowerButtons />

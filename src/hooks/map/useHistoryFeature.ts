@@ -20,7 +20,7 @@ function useHistoryFeature(): useHistoryFeatureType {
   };
 
   const initHistoryStatus = () => {
-    dispatch(initHistory({ isHistoryOpen }));
+    dispatch(initHistory());
   };
 
   const addHistory = (info: HistoryInfoPropsType) => {

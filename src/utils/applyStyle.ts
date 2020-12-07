@@ -1,5 +1,4 @@
 /* eslint-disable consistent-return */
-/* eslint-disable no-debugger */
 /* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
 import { hexToHSL } from './colorFormat';

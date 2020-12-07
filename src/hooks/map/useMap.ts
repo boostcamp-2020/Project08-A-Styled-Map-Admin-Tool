@@ -1,7 +1,4 @@
-import { RefObject, useRef, useEffect } from 'react';
-
-import { useDispatch } from 'react-redux';
-import { initMap } from '../../store/map/action';
+import { RefObject, useRef } from 'react';
 
 export interface MapHookType {
   containerRef: RefObject<HTMLDivElement>;
@@ -18,7 +15,7 @@ function useMap(): MapHookType {
   useEffect(() => {
     dispatch(initMap(afterMapRef));
   }, []);
-
+ 
   return {
     containerRef,
     afterMapRef,

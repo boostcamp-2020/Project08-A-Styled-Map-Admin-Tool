@@ -40,6 +40,7 @@ mapboxgl.accessToken = process.env.REACT_APP_ACCESS_TOKEN as string;
 
 interface InitializeMapProps {
   mapRef: RefObject<HTMLDivElement>;
+  initializeMap: () => void;
 }
 
 function translate(map: mapboxgl.Map) {
@@ -48,7 +49,10 @@ function translate(map: mapboxgl.Map) {
   });
 }
 
-function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
+function initializeMap({
+  mapRef,
+  initializeMap,
+}: InitializeMapProps): mapboxgl.Map {
   const map = new mapboxgl.Map({
     container: mapRef.current as HTMLDivElement,
     style: 'mapbox://styles/mapbox/streets-v11',
@@ -99,6 +103,8 @@ function initializeMap({ mapRef }: InitializeMapProps): mapboxgl.Map {
     Object.entries(initLayersColor).forEach(([key, value]) => {
       map.setPaintProperty(key, `${value.type}-color`, value.color);
     });
+
+    initializeMap();
   });
 
   return map;

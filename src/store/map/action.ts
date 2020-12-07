@@ -6,10 +6,14 @@ export interface InitActionType {
   type: typeof INIT_MAP;
   payload: {
     mapRef: RefObject<HTMLDivElement>;
+    initializeMap: () => void;
   };
 }
 
-export const initMap = (mapRef: RefObject<HTMLDivElement>): InitActionType => ({
+export const initMap = (
+  mapRef: RefObject<HTMLDivElement>,
+  initializeMap: () => void
+): InitActionType => ({
   type: INIT_MAP,
-  payload: { mapRef },
+  payload: { mapRef, initializeMap },
 });

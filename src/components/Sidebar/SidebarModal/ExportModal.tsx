@@ -8,6 +8,7 @@ import {
 } from './common';
 import CloseIcon from '../../Icon/CloseIcon';
 import { FeatureNameType } from '../../../store/common/type';
+import { jsonToURL } from '../../../utils/urlParsing';
 
 const Background = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -32,7 +33,7 @@ const ExportModalWrapper = styled(ModalWrapper)<{
 const ModalBody = styled.div`
   width: 100%;
   height: 100%;
-  overflow-y: hidden;
+  overflow-y: scroll;
 `;
 
 const ModalContent = styled.article`
@@ -78,7 +79,7 @@ function ExportModal({
           <div>
             <h2>URL로 내보내기</h2>
             <ModalContent>
-              <pre>{URL + encodeURIComponent(JSON.stringify(style))}</pre>
+              <pre>{jsonToURL(style)}</pre>
             </ModalContent>
           </div>
         </ModalBody>
