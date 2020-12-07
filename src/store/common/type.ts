@@ -23,6 +23,12 @@ export enum StyleKeyType {
   isChanged = 'isChanged',
 }
 
+export enum VisibilityValueType {
+  visiable = 'visiable',
+  none = 'none',
+  inherit = 'inherit',
+}
+
 export enum FeatureNameType {
   poi = 'poi',
   administrative = 'administrative',
