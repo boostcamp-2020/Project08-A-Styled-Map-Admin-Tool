@@ -29,9 +29,19 @@ export const getDefaultStyle = ({
   const defaultColor = subElement
     ? (defaultStyle[feature][subFeature][element] as StylePropsType)[subElement]
     : defaultStyle[feature][subFeature][element];
+
+  const hslArr = (defaultColor && defaultColor !== 'transparent'
+    ? (defaultColor as string)
+    : 'hsl(0, 0%, 0%)'
+  ).match(/hsl\((\d+), (\d+)%, (\d+)%\)/) as string[];
+  const s = hslArr[2];
+  const l = hslArr[3];
+
   return {
     ...JSON.parse(JSON.stringify(style)),
     color: defaultColor ? hslToHEX(defaultColor as string) : '#000000',
+    saturation: Number(s),
+    lightness: Number(l),
   };
 };
 
