@@ -41,7 +41,7 @@ function SaturationStyle({
       <SaturationTitle htmlFor="styler__saturation">채도</SaturationTitle>
       <SaturationControlBar
         type="range"
-        min="-100"
+        min="0"
         max="100"
         step="5"
         id="styler__saturation"
