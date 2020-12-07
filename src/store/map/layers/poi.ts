@@ -199,7 +199,7 @@ export default [
       visibility: 'visible',
     },
     paint: {
-      'text-halo-color': 'hsl(26, 25%, 32%)',
+      'text-halo-color': 'hsl(0, 0%, 100%)',
       'text-halo-width': 0.5,
       'text-halo-blur': 0.5,
       'text-color': 'green',

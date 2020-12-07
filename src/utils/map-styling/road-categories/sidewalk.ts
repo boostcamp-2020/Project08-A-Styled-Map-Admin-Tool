@@ -9,13 +9,20 @@ export const sidewalkLayerNames = {
     'road-steps',
     'road-path',
     'road-pedestrian-case',
+    'city-wall',
   ],
   polygon: [
     'road-pedestrian-polygon-fill',
     'road-pedestrian-polygon-pattern',
     'road-sidewalk-polygon',
   ],
-  line: ['road-footway', 'road-pedestrian', 'road-steps', 'road-path'],
+  line: [
+    'road-footway',
+    'road-pedestrian',
+    'road-steps',
+    'road-path',
+    'city-wall',
+  ],
   stroke: ['road-pedestrian-case'],
   text: {
     all: ['road-sidewalk-label'],
