@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import getCompareMap from './getCompareMap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import 'mapbox-gl-compare/style.css';
 
 export interface mapProps {
   container: string | HTMLElement;
