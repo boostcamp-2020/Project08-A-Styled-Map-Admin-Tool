@@ -1,8 +1,9 @@
-import { ADD_LOG, INIT_HISTORY } from './action';
+import { ADD_LOG, INIT_HISTORY, SET_CURRENT_INDEX } from './action';
 import {
   HistoryPropsType,
   HistoryActionType,
   HistoryInfoPropsType,
+  SetIndexPayload,
 } from '../common/type';
 import getRandomId from '../../utils/getRandomId';
 
@@ -34,13 +35,11 @@ function historyReducer(
     case ADD_LOG: {
       const id = getRandomId(8);
       const newState = JSON.parse(JSON.stringify(state));
+      if (newState.log.length !== newState.currentIdx + 1) {
+        newState.log.splice(newState.currentIdx + 1);
+      }
 
-      if (newState.log.length >= 100) newState.log.shift(); // localstorage에서도 빼는 작업이 필요하겠네요!
-
-      newState.log.push({
-        id,
-        ...JSON.parse(JSON.stringify(action.payload)),
-      });
+      newState.log.push({ id, ...action.payload });
       newState.currentIdx = newState.log.length - 1;
 
       const storedLog =
@@ -49,6 +48,7 @@ function historyReducer(
           : JSON.parse(localStorage.getItem('log') as string);
 
       // TODO: localstorage update before Event(refresh, close..)
+      // localstorage에 업로드 할때 100개만 가져가면 되지 않을까요?
       if (storedLog !== undefined) {
         storedLog.push({
           id,
@@ -57,6 +57,12 @@ function historyReducer(
         localStorage.setItem('log', JSON.stringify(storedLog));
       }
 
+      return newState;
+    }
+
+    case SET_CURRENT_INDEX: {
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.currentIdx = (action.payload as SetIndexPayload).currentIndex;
       return newState;
     }
 

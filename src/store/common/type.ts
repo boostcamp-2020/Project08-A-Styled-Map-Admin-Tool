@@ -5,7 +5,7 @@ import {
   setWholeStyle,
 } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
-import { INIT_HISTORY, ADD_LOG } from '../history/action';
+import { INIT_HISTORY, ADD_LOG, SET_CURRENT_INDEX } from '../history/action';
 
 export type hello = 'landmark';
 
@@ -173,10 +173,10 @@ export interface HistoryInfoPropsType {
   id?: string;
   changedValue: string | number;
   changedKey: StyleKeyType;
-  feature: FeatureNameType | null;
-  subFeature: string | null;
-  element: ElementNameType | null;
-  subElement: SubElementNameType | null;
+  feature: FeatureNameType;
+  subFeature: string;
+  element: ElementNameType;
+  subElement: SubElementNameType;
   style: StyleType;
   wholeStyle: StyleStoreType;
 }
@@ -186,16 +186,23 @@ export interface HistoryPropsType {
   currentIdx: number | null;
 }
 
+export interface SetIndexPayload {
+  currentIndex: number;
+}
+
 export interface HistoryActionType {
-  type: typeof INIT_HISTORY | typeof ADD_LOG;
-  payload: null | {
-    changedKey: StyleKeyType;
-    feature: FeatureNameType | null;
-    subFeature: string | null;
-    element: ElementNameType | null;
-    subElement: SubElementNameType | null;
-    wholeStyle: StyleStoreType;
-  };
+  type: typeof INIT_HISTORY | typeof ADD_LOG | typeof SET_CURRENT_INDEX;
+  payload:
+    | null
+    | SetIndexPayload
+    | {
+        changedKey: StyleKeyType;
+        feature: FeatureNameType;
+        subFeature: string;
+        element: ElementNameType;
+        subElement?: SubElementNameType;
+        wholeStyle: StyleStoreType;
+      };
 }
 
 export interface ActionPayload extends ElementPropsType {
