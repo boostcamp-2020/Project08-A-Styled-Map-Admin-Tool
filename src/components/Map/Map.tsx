@@ -12,33 +12,42 @@ interface CurrentMapWrapperProps {
   isPageShow: boolean;
 }
 
-const MapsWrapper = styled.div`
-  height: 100vh;
-  width: calc(100% - 370px);
-`;
-
-const CurrentMapWrapper = styled.div<CurrentMapWrapperProps>`
+const MapsWrapper = styled.div<CurrentMapWrapperProps>`
   position: absolute;
   top: 0px;
   right: 0px;
   height: 100vh;
-  width: ${(props) => (props.isPageShow ? ' 100%' : 'calc(100% - 370px)')};
+  width: ${(props) => (props.isPageShow ? '100%' : 'calc(100% - 370px)')};
+  overflow: hidden;
+`;
+
+const CurrentMapWrapper = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex: 1 1 auto;
+  user-select: none;
 
   canvas {
     outline: none;
   }
 `;
 
+// 얘가 밀림
 const CompareMapWrapper = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
-  z-index: 1;
 
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: ${(props) => props.theme.BLACK};
+
+  canvas {
+    outline: none;
+  }
 
   // animation: show-from-left 0.4s ease-in-out;
 
@@ -69,15 +78,15 @@ function Map({ pathname }: MapProps): React.ReactElement {
   });
 
   return (
-    <MapsWrapper ref={containerRef}>
-      {isCompareActive ? <CompareMapWrapper ref={beforeMapRef} /> : <></>}
-      <CurrentMapWrapper ref={afterMapRef} isPageShow={pathname === '/show'}>
+    <MapsWrapper ref={containerRef} isPageShow={pathname === '/show'}>
+      {isCompareActive && <CompareMapWrapper ref={beforeMapRef} />}
+      <CurrentMapWrapper ref={afterMapRef}>
         <History
           isHistoryOpen={isHistoryOpen}
           comparisonButtonClickHandler={comparisonButtonClickHandler}
         />
         <UpperButtons
-          mapRef={afterMapRef}
+          mapRef={containerRef}
           historyBtnHandler={historyBtnHandler}
         />
         <LowerButtons />
