@@ -7,22 +7,9 @@ import {
   ModalCloseButton,
 } from './common';
 import CloseIcon from '../../Icon/CloseIcon';
+import Overlay from '../../common/Overlay';
 import { FeatureNameType } from '../../../store/common/type';
 import { jsonToURL } from '../../../utils/urlParsing';
-
-const Background = styled.div<{ isOpen: boolean }>`
-  position: fixed;
-  ${(props) => (props.isOpen ? '' : 'display: none')};
-  width: 100vw;
-  height: 100vh;
-
-  top: 0px;
-  left: 0px;
-
-  background-color: #00000040;
-
-  z-index: 20;
-`;
 
 const ExportModalWrapper = styled(ModalWrapper)<{
   isOpen: boolean;
@@ -48,8 +35,6 @@ interface StoreDataType {
   [key: string]: FeatureNameType | undefined;
 }
 
-const URL = 'http://localhost:3000/map?q=';
-
 function ExportModal({
   isOpen,
   onClose,
@@ -61,7 +46,7 @@ function ExportModal({
 }): React.ReactElement {
   return (
     <>
-      <Background isOpen={isOpen} onClick={onClose} />
+      {isOpen && <Overlay toggleHandler={onClose} color="black" />}
       <ExportModalWrapper isOpen={isOpen}>
         <ModalHeader>
           <ModalTitle>JSON 내보내기</ModalTitle>
