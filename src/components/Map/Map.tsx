@@ -80,17 +80,16 @@ function Map({ pathname }: MapProps): React.ReactElement {
   return (
     <MapsWrapper ref={containerRef} isPageShow={pathname === '/show'}>
       {isCompareActive && <CompareMapWrapper ref={beforeMapRef} />}
-      <CurrentMapWrapper ref={afterMapRef}>
-        <History
-          isHistoryOpen={isHistoryOpen}
-          comparisonButtonClickHandler={comparisonButtonClickHandler}
-        />
-        <UpperButtons
-          mapRef={containerRef}
-          historyBtnHandler={historyBtnHandler}
-        />
-        <LowerButtons />
-      </CurrentMapWrapper>
+      <CurrentMapWrapper ref={afterMapRef} />
+      <History
+        isHistoryOpen={isHistoryOpen}
+        comparisonButtonClickHandler={comparisonButtonClickHandler}
+      />
+      <UpperButtons
+        mapRef={containerRef}
+        historyBtnHandler={historyBtnHandler}
+      />
+      <LowerButtons />
     </MapsWrapper>
   );
 }
