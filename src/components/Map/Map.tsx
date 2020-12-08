@@ -1,35 +1,88 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
 import useMap, { MapHookType } from '../../hooks/map/useMap';
+import useHistoryFeature from '../../hooks/map/useHistoryFeature';
+import useCompareFeature from '../../hooks/map/useCompareFeature';
 
 import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
+import History from './History/History';
 
-const MapWrapper = styled.div`
+interface CurrentMapWrapperProps {
+  isPageShow: boolean;
+}
+
+const MapsWrapper = styled.div`
+  height: 100vh;
+  width: calc(100% - 370px);
+`;
+
+const CurrentMapWrapper = styled.div<CurrentMapWrapperProps>`
   position: absolute;
   top: 0px;
   right: 0px;
   height: 100vh;
-  width: calc(100% - 370px);
+  width: ${(props) => (props.isPageShow ? ' 100%' : 'calc(100% - 370px)')};
   display: flex;
   flex: 1 1 auto;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
 
   canvas {
     outline: none;
   }
 `;
 
-function Map(): React.ReactElement {
-  const { mapRef }: MapHookType = useMap();
+const CompareMapWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+  background-color: ${(props) => props.theme.BLACK};
+
+  // animation: show-from-left 0.4s ease-in-out;
+
+  // @keyframes show-from-left {
+  //   0% {
+  //     transform: translateX(500px);
+  //     opacity: 0;
+  //   }
+
+  //   100% {
+  //     transform: translateX(0);
+  //     opacity: 1;
+  //   }
+  // }
+`;
+
+interface MapProps {
+  pathname?: string;
+}
+
+function Map({ pathname }: MapProps): React.ReactElement {
+  const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap();
+
+  const { isHistoryOpen, historyBtnHandler } = useHistoryFeature();
+  const { isCompareActive, comparisonButtonClickHandler } = useCompareFeature({
+    containerRef,
+    beforeMapRef,
+  });
 
   return (
-    <MapWrapper ref={mapRef}>
-      <UpperButtons mapRef={mapRef} />
-      <LowerButtons />
-    </MapWrapper>
+    <MapsWrapper ref={containerRef}>
+      {isCompareActive ? <CompareMapWrapper ref={beforeMapRef} /> : <></>}
+      <CurrentMapWrapper ref={afterMapRef} isPageShow={pathname === '/show'}>
+        <History
+          isHistoryOpen={isHistoryOpen}
+          comparisonButtonClickHandler={comparisonButtonClickHandler}
+        />
+        <UpperButtons
+          mapRef={afterMapRef}
+          historyBtnHandler={historyBtnHandler}
+        />
+        <LowerButtons />
+      </CurrentMapWrapper>
+    </MapsWrapper>
   );
 }
 

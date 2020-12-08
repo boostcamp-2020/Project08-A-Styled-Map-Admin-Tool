@@ -11,6 +11,7 @@ import SearchInput from '../SearchInput/SearchInput';
 
 interface UpperButtonsProps {
   mapRef: RefObject<HTMLDivElement>;
+  historyBtnHandler: () => void;
 }
 
 const UpperButtonsWrapper = styled.div`
@@ -30,12 +31,15 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  z-index: 10;
 `;
 
-function UpperButtons({ mapRef }: UpperButtonsProps): ReactElement {
+function UpperButtons({
+  mapRef,
+  historyBtnHandler,
+}: UpperButtonsProps): ReactElement {
   const {
     isFullscreen,
-    compareButtonClickHandler,
     fullScreenButtonClickHandler,
     smallScreenButtonClickHandler,
   }: useUpperButtonsType = useUpperButtons({ mapRef });
@@ -44,8 +48,13 @@ function UpperButtons({ mapRef }: UpperButtonsProps): ReactElement {
     <UpperButtonsWrapper>
       <SearchInput />
       <ButtonsWrapper>
-        <Button width="40px" height="40px" onClick={compareButtonClickHandler}>
-          비교하기
+        <Button
+          fontSize="12px"
+          width="60px"
+          height="40px"
+          onClick={historyBtnHandler}
+        >
+          History
         </Button>
         <Button
           width="40px"

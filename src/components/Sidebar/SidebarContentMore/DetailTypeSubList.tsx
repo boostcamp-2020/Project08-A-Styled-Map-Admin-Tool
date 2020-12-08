@@ -59,11 +59,11 @@ function DetailTypeSubList({
 }: PropsType): React.ReactElement {
   const childComponent = childrenProps.map((child: ChildrenType) => {
     return child.childrenProps.length !== 0 ? (
-      <div>
+      <div key={child.title}>
         <Text padding="second">{child.title}</Text>
-        {child.childrenProps.map((innerChild) => {
+        {child.childrenProps.map((innerChild: ChildrenType) => {
           return (
-            <div>
+            <div key={innerChild.title}>
               {innerChild.isChanged ? <Check>✓</Check> : null}
               <ListItem
                 isSelected={checkIsSelected(

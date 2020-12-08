@@ -1,0 +1,85 @@
+{
+  "poi": {
+    "all": {
+      "labelText": {
+        "fill": {
+          "visibility": "none"
+        }
+      }
+    }
+  },
+  "road": {
+    "all": {
+      "section": {
+        "fill": {
+          "color": "#405CB0"
+        }
+      }
+    },
+    "arterial": {
+      "labelText": {
+        "fill": {
+          "visibility": "none"
+        }
+      }
+    }
+  },
+  "administrative": {
+    "all": {
+      "section": {
+        "stroke": {
+          "color": "#ffffff"
+        }
+      },
+      "labelText": {
+        "fill": {
+          "color": "#405CB0"
+        }
+      }
+    }
+  },
+  "landscape": {
+    "all": {
+      "section": {
+        "fill": {
+          "color": "#405CB0"
+        }
+      }
+    },
+    "building": {
+      "labelText": {
+        "fill": {
+          "visibility": "none"
+        }
+      }
+    }
+  },
+  "transit": {
+    "all": {
+      "section": {
+        "stroke": {
+          "color": "#ffffff"
+        }
+      }
+    },
+    "airport": {
+      "section": {
+        "fill": {
+          "color": "#405CB0"
+        },
+        "stroke": {
+          "color": "#ffffff"
+        }
+      }
+    }
+  },
+  "water": {
+    "all": {
+      "section": {
+        "fill": {
+          "color": "#405CB0"
+        }
+      }
+    }
+  }
+}

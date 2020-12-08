@@ -1,5 +1,6 @@
 import { init, setStyle, setWholeStyle } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
+import { INIT_HISTORY, ADD_LOG } from '../history/action';
 
 export type hello = 'landmark';
 
@@ -23,6 +24,12 @@ export enum StyleKeyType {
   isChanged = 'isChanged',
 }
 
+export enum VisibilityValueType {
+  visiable = 'visiable',
+  none = 'none',
+  inherit = 'inherit',
+}
+
 export enum FeatureNameType {
   poi = 'poi',
   administrative = 'administrative',
@@ -39,6 +46,70 @@ export enum SidebarProperties {
   element = 'element',
   subElement = 'subElement',
 }
+
+export enum PoiNameType {
+  all = 'all',
+  landmark = 'landmark',
+  business = 'business',
+  government = 'government',
+  medical = 'medical',
+  park = 'park',
+  worship = 'worship',
+  school = 'school',
+  sports = 'sports',
+  etc = 'etc',
+}
+
+export enum RoadNameType {
+  all = 'all',
+  arterial = 'arterial',
+  local = 'local',
+  sidewalk = 'sidewalk',
+}
+
+export enum AdministrativeNameType {
+  all = 'all',
+  country = 'country',
+  state = 'state',
+  locality = 'locality',
+}
+
+export enum LandScapeNameType {
+  all = 'all',
+  'human-made' = 'human-made',
+  building = 'building',
+  natural = 'natural',
+  landcover = 'landcover',
+  mountain = 'mountain',
+}
+
+export enum TransitNameType {
+  all = 'all',
+  airport = 'airport',
+  bus = 'bus',
+  rail = 'rail',
+  subway = 'subway',
+}
+
+export enum WaterNameType {
+  all = 'all',
+}
+
+export enum MarkerNameType {
+  all = 'all',
+}
+
+export const SubFeatureNameType = {
+  ...PoiNameType,
+  ...RoadNameType,
+  ...LandScapeNameType,
+  ...TransitNameType,
+  ...AdministrativeNameType,
+  ...WaterNameType,
+  ...MarkerNameType,
+};
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export type SubFeatureNameType = typeof SubFeatureNameType;
 
 export interface objType {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -86,6 +157,32 @@ export type ActionType =
   | ReturnType<typeof setStyle>
   | ReturnType<typeof setWholeStyle>;
 
+export interface HistoryPropsType {
+  log?: { id: string; display: string }[];
+}
+
+export interface HistoryInfoPropsType {
+  value: string | number;
+  changedKey: StyleKeyType;
+  feature: FeatureNameType | null;
+  subFeature: string | null;
+  element: ElementNameType | null;
+  subElement: SubElementNameType | null;
+  style: StyleType;
+  wholeStyle: PropertyType;
+}
+export interface HistoryActionType {
+  type: typeof INIT_HISTORY | typeof ADD_LOG;
+  payload: null | {
+    changedKey: StyleKeyType;
+    feature: FeatureNameType | null;
+    subFeature: string | null;
+    element: ElementNameType | null;
+    subElement: SubElementNameType | null;
+    wholeStyle: PropertyType;
+  };
+}
+
 export interface ActionPayload extends ElementPropsType {
   style: StyleType;
 }
@@ -117,10 +214,12 @@ export interface ElementActionPayload {
   [ElementNameType.labelIcon]?: StyleActionPayload;
 }
 
+export interface SubFeatureActionPayload {
+  [subFeatureName: string]: ElementActionPayload;
+}
+
 export type WholeStyleActionPayload = {
-  [featureName in FeatureNameType]?: {
-    [subFeatureName: string]: ElementActionPayload;
-  };
+  [featureName in FeatureNameType]?: SubFeatureActionPayload;
 };
 
 export interface StylePropsType {
@@ -128,12 +227,43 @@ export interface StylePropsType {
   [SubElementNameType.stroke]: string;
 }
 
+export interface StyleElementPropsType {
+  [ElementNameType.section]?: StylePropsType | null;
+  [ElementNameType.labelText]?: StylePropsType | null;
+  [ElementNameType.labelIcon]?: string | null;
+}
+
+export type FeaturePropertyType = {
+  [subFeatureName: string]: StyleElementPropsType;
+};
+
 export type PropertyType = {
-  [featureName in FeatureNameType]: {
-    [subFeatureName: string]: {
-      [ElementNameType.section]?: StylePropsType | null;
-      [ElementNameType.labelText]?: StylePropsType | null;
-      [ElementNameType.labelIcon]?: string | null;
-    };
-  };
+  [featureName in FeatureNameType]: FeaturePropertyType;
+};
+
+/** urlJson Type */
+export interface URLJsonStyleType {
+  visibility?: string;
+  color?: string;
+  weight?: number;
+  saturation?: number;
+  lightness?: number;
+}
+
+export type URLJsonSubElementType = {
+  [subElementName in SubElementNameType]?: URLJsonStyleType;
+};
+
+export type URLJsonElementType = {
+  [ElementNameType.section]?: URLJsonSubElementType;
+  [ElementNameType.labelText]?: URLJsonSubElementType;
+  [ElementNameType.labelIcon]?: URLJsonStyleType;
+};
+
+export type URLJsonSubFeatureType = {
+  [subFeatureName: string]: URLJsonElementType;
+};
+
+export type URLJsonType = {
+  [featureName in FeatureNameType]?: URLJsonSubFeatureType;
 };

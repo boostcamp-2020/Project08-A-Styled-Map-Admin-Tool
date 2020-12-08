@@ -1,5 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import useSidebarFooter from '../../../hooks/sidebar/useSidebarFooter';
 import styled from '../../../utils/styles/styled';
+import ExportModal from '../SidebarModal/ExportModal';
 
 const FooterWrapper = styled.footer`
   display: flex;
@@ -35,12 +37,15 @@ function SidebarFooter({
   isAdvanced,
   setIsAdvanced,
 }: SidebarFooterProps): React.ReactElement {
+  const { isOpen, onClickExport, onCloseModal, style } = useSidebarFooter();
+
   return (
     <FooterWrapper>
       <Button onClick={() => setIsAdvanced(!isAdvanced)}>
         {isAdvanced ? '돌아가기' : '고급설정'}
       </Button>
-      <Button>내보내기</Button>
+      <Button onClick={onClickExport}>내보내기</Button>
+      <ExportModal isOpen={isOpen} onClose={onCloseModal} style={style} />
     </FooterWrapper>
   );
 }

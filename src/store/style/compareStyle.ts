@@ -1,24 +1,14 @@
-import { getDefaultStyle } from './properties';
-import {
-  StyleType,
-  StyleKeyType,
-  objType,
-  ActionPayload,
-} from '../common/type';
+import { StyleType, StyleKeyType, objType } from '../common/type';
+
+interface checkStyleIsChangedProps {
+  defaultStyle: StyleType;
+  style: StyleType;
+}
 
 export function checkStyleIsChanged({
-  feature,
-  subFeature,
-  element,
-  subElement,
+  defaultStyle,
   style,
-}: ActionPayload): boolean {
-  const defaultStyle: StyleType = getDefaultStyle({
-    feature,
-    subFeature,
-    element,
-    subElement,
-  });
+}: checkStyleIsChangedProps): boolean {
   const keys = Object.keys(defaultStyle) as StyleKeyType[];
 
   const filteredKeys = keys.filter(

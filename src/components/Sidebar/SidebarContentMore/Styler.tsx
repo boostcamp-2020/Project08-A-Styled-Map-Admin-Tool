@@ -4,10 +4,14 @@ import useStyleType, {
   UseStyleHookType,
 } from '../../../hooks/sidebar/useStyleType';
 
+/**
+ * FIXME: custom color picker 테스트 중
+ */
 import ColorStyle from './ColorStyle';
-import WeightStyle from './WeightStyle';
+// import ColorStyle from './ColorStyle2';
 import SaturationStyle from './SaturationStyle';
 import LightnessStyle from './LightnessStyle';
+import WeightStyle from './WeightStyle';
 import VisibilityStyle from './VisibilityStyle';
 
 const StylerWrapper = styled.div`
@@ -51,6 +55,16 @@ function Styler(): React.ReactElement {
       <VisibilityStyle visibility={visibility} onStyleChange={onStyleChange} />
       <Hr />
       <ColorStyle color={color} onStyleChange={onStyleChange} />
+
+      {/* 
+        * FIXME: custom color picker 테스트 중
+        
+      <ColorStyle
+        color2={color}
+        saturation={saturation}
+        lightness={lightness}
+        onStyleChange={onStyleChange}
+      /> */}
       <Hr />
       <WeightStyle weight={weight} onStyleChange={onStyleChange} />
       <SaturationStyle saturation={saturation} onStyleChange={onStyleChange} />

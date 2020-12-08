@@ -1,5 +1,4 @@
 /* eslint-disable consistent-return */
-/* eslint-disable no-debugger */
 /* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
 import { hexToHSL } from './colorFormat';
@@ -31,6 +30,8 @@ interface ApplyProps {
 
 export enum VisibilityType {
   visibility = 'visibility',
+  inherit = 'inherit',
+  none = 'none',
 }
 
 export type StyleTypes = VisibilityType | ColorType | WeightType;
@@ -48,21 +49,13 @@ export function applyColor({
 
   if (saturation) {
     return layerNames.forEach((layerName) => {
-      map.setPaintProperty(
-        layerName,
-        type,
-        `hsl(${h}, ${50 + saturation / 2}%, ${l}%)`
-      );
+      map.setPaintProperty(layerName, type, `hsl(${h}, ${saturation}%, ${l}%)`);
     });
   }
 
   if (lightness) {
     return layerNames.forEach((layerName) => {
-      map.setPaintProperty(
-        layerName,
-        type,
-        `hsl(${h}, ${s}%, ${50 + lightness / 2}%)`
-      );
+      map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${lightness}%)`);
     });
   }
 

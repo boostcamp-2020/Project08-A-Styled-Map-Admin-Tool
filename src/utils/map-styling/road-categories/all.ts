@@ -40,5 +40,9 @@ export const allRoadLayerNames = {
       ...sidewalkLayerNames.text.noStroke,
     ],
   },
-  icon: [],
+  icon: [
+    ...arterialLayerNames.icon,
+    ...localLayerNames.icon,
+    ...sidewalkLayerNames.icon,
+  ],
 };

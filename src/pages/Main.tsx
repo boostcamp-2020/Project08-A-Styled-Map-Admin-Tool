@@ -3,6 +3,15 @@ import styled from '../utils/styles/styled';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Map from '../components/Map/Map';
 
+interface MainProps {
+  location: {
+    pathname?: string;
+    search?: string;
+    hash?: string;
+    state?: string;
+  };
+}
+
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -12,11 +21,13 @@ const MainWrapper = styled.div`
   height: 100%;
 `;
 
-function Main(): React.ReactElement {
+function Main({
+  location: { search, pathname },
+}: MainProps): React.ReactElement {
   return (
     <MainWrapper>
-      <Sidebar />
-      <Map />
+      {search && pathname === '/show' ? <></> : <Sidebar />}
+      <Map pathname={pathname} />
     </MainWrapper>
   );
 }
