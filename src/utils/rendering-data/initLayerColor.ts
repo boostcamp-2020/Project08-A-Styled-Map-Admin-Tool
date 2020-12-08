@@ -104,7 +104,7 @@ const initLayerColor: InitLayerColor = {
     color: 'hsl(35, 10%, 83%)',
     type: 'line',
   },
-  'landscape-human-made': { color: 'hsl(35, 11%, 86%)', type: 'fill' },
+  'landscape-humanmade': { color: 'hsl(35, 11%, 86%)', type: 'fill' },
   'pitch-outline': { color: 'hsl(75, 57%, 84%)', type: 'line' },
   'landscape-building': { color: 'hsl(35, 11%, 86%)', type: 'fill' },
   building: { color: 'hsl(35, 11%, 86%)', type: 'fill' },
