@@ -1,10 +1,8 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '../../../utils/styles/styled';
 import { RootState } from '../../../store/index';
-import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
 import { HistoryPropsType } from '../../../store/common/type';
-
 import { comparisonButtonClickHandlerType } from '../../../hooks/map/useCompareFeature';
 
 const HistoryWapper = styled.div`
@@ -50,11 +48,6 @@ function History({
   isHistoryOpen,
   comparisonButtonClickHandler,
 }: HistoryProps): ReactElement {
-  const { initHistoryStatus } = useHistoryFeature();
-  useEffect(() => {
-    initHistoryStatus();
-  }, []);
-
   const { log } = useSelector<RootState>(
     (state) => state.history
   ) as HistoryPropsType;
@@ -65,14 +58,17 @@ function History({
     <HistoryWapper>
       <HistoryTitle text-align="center">HISTORY LIST</HistoryTitle>
       {log ? (
-        log.map((item) => (
-          <HistoryItem
-            key={item.id}
-            onClick={() => comparisonButtonClickHandler(/** props */)}
-          >
-            {item.display}
-          </HistoryItem>
-        ))
+        log
+          .map((item) => (
+            <HistoryItem
+              key={item.id}
+              onClick={() => comparisonButtonClickHandler(/** props */)}
+            >
+              <p>{`${item.feature} > ${item.subFeature} > ${item.element} > ${item.subElement}`}</p>
+              <p>{`${item.changedKey}가 ${item.changedValue}로 변경`}</p>
+            </HistoryItem>
+          ))
+          .reverse()
       ) : (
         <></>
       )}
