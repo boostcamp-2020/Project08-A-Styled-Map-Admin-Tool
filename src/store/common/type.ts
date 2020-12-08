@@ -158,10 +158,11 @@ export type ActionType =
   | ReturnType<typeof setWholeStyle>;
 
 export interface HistoryPropsType {
-  log?: { id: string; display: string }[];
+  log?: HistoryInfoPropsType[];
 }
 
 export interface HistoryInfoPropsType {
+  id?: string;
   value: string | number;
   changedKey: StyleKeyType;
   feature: FeatureNameType | null;

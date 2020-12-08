@@ -3,24 +3,10 @@ import {
   HistoryPropsType,
   HistoryActionType,
   HistoryInfoPropsType,
-  FeatureNameType,
-  ElementNameType,
-  SubElementNameType,
-  StyleType,
 } from '../common/type';
 import getRandomId from '../../utils/getRandomId';
 
-interface localStorageProps {
-  id: string;
-  value: string;
-  display: string;
-  changedKey: string | null;
-  feature: FeatureNameType;
-  subFeature: string | null;
-  element: ElementNameType | null;
-  subElement: SubElementNameType | null;
-  style: StyleType;
-}
+const logKey = 'log' as const;
 
 const initialState: HistoryPropsType = {
   log: [],
@@ -32,8 +18,8 @@ function historyReducer(
 ): HistoryPropsType {
   switch (action.type) {
     case INIT_HISTORY: {
-      const log = localStorage.getItem('log')
-        ? JSON.parse(localStorage.getItem('log') as string)
+      const log = localStorage.getItem(logKey)
+        ? JSON.parse(localStorage.getItem(logKey) as string)
         : [];
 
       return {
@@ -56,31 +42,25 @@ function historyReducer(
       const id = getRandomId(8);
       const newState = JSON.parse(JSON.stringify(state));
 
-      const display = `${feature} > ${subFeature} > ${element} > ${subElement}의 ${changedKey} 항목을\n ${value}로 변경`;
-      newState.log.push({
+      const newLog: HistoryInfoPropsType = {
         id,
-        display,
-      });
+        value,
+        changedKey,
+        feature,
+        subFeature,
+        element,
+        subElement,
+        style,
+        wholeStyle,
+      };
+      newState.log.push(newLog);
       const storedLog =
-        localStorage.getItem('log') === null
+        localStorage.getItem(logKey) === null
           ? []
-          : JSON.parse(localStorage.getItem('log') as string);
+          : JSON.parse(localStorage.getItem(logKey) as string);
 
-      if (storedLog !== undefined) {
-        storedLog.push({
-          id,
-          value,
-          display,
-          changedKey,
-          feature,
-          subFeature,
-          element,
-          subElement,
-          style,
-          wholeStyle,
-        });
-        localStorage.setItem('log', JSON.stringify(storedLog));
-      }
+      storedLog.push(newLog);
+      localStorage.setItem(logKey, JSON.stringify(storedLog));
 
       return newState;
     }
