@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
+import 'mapbox-gl-compare/style.css';
 import useMap, { MapHookType } from '../../hooks/map/useMap';
 import useHistoryFeature from '../../hooks/map/useHistoryFeature';
 import useCompareFeature from '../../hooks/map/useCompareFeature';
@@ -36,7 +37,6 @@ const CurrentMapWrapper = styled.div`
   }
 `;
 
-// 얘가 밀림
 const CompareMapWrapper = styled.div`
   position: absolute;
   top: 0;
@@ -49,19 +49,24 @@ const CompareMapWrapper = styled.div`
     outline: none;
   }
 
-  // animation: show-from-left 0.4s ease-in-out;
+  /* 
+  &,
+  .compare-swiper,
+  .compare-swiper-vertical {
+    animation: show-from-left 0.4s ease-in-out;
+  }
 
-  // @keyframes show-from-left {
-  //   0% {
-  //     transform: translateX(500px);
-  //     opacity: 0;
-  //   }
+  @keyframes show-from-left {
+    0% {
+      transform: translateX(-500px);
+      opacity: 0;
+    }
 
-  //   100% {
-  //     transform: translateX(0);
-  //     opacity: 1;
-  //   }
-  // }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  } */
 `;
 
 interface MapProps {
@@ -72,14 +77,14 @@ function Map({ pathname }: MapProps): React.ReactElement {
   const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap();
 
   const { isHistoryOpen, historyBtnHandler } = useHistoryFeature();
-  const { isCompareActive, comparisonButtonClickHandler } = useCompareFeature({
+  const { logId, comparisonButtonClickHandler } = useCompareFeature({
     containerRef,
     beforeMapRef,
   });
 
   return (
     <MapsWrapper ref={containerRef} isPageShow={pathname === '/show'}>
-      {isCompareActive && <CompareMapWrapper ref={beforeMapRef} />}
+      {logId && <CompareMapWrapper ref={beforeMapRef} />}
       <CurrentMapWrapper ref={afterMapRef} />
       <History
         isHistoryOpen={isHistoryOpen}

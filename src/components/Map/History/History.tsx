@@ -5,12 +5,10 @@ import { RootState } from '../../../store/index';
 import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
 import { HistoryPropsType } from '../../../store/common/type';
 
-import { comparisonButtonClickHandlerType } from '../../../hooks/map/useCompareFeature';
-
 const HistoryWapper = styled.div`
   z-index: 30;
-  width: 370px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   background-color: white;
   padding: 15px 10px;
   position: fixed;
@@ -48,7 +46,7 @@ const HistoryTitle = styled.div`
   text-align: center;
 `;
 
-const Explain = styled.span`
+const Explain = styled.p`
   padding-left: 7px;
   font-size: 1.3rem;
   color: ${(props) => props.theme.DARKGREY};
@@ -56,7 +54,7 @@ const Explain = styled.span`
 
 interface HistoryProps {
   isHistoryOpen: boolean;
-  comparisonButtonClickHandler: comparisonButtonClickHandlerType;
+  comparisonButtonClickHandler: (id: string) => void;
 }
 
 function History({
@@ -82,14 +80,17 @@ function History({
       </HistoryTitle>
       <HistoryList>
         {log ? (
-          log.map((item) => (
-            <HistoryItem
-              key={item.id}
-              onClick={() => comparisonButtonClickHandler(/** props */)}
-            >
-              {item.display}
-            </HistoryItem>
-          ))
+          log
+            .map((item) => (
+              <HistoryItem
+                key={item.id}
+                onClick={() => comparisonButtonClickHandler(item.id as string)}
+              >
+                <p>{`${item.feature} > ${item.subFeature} > ${item.element} > ${item.subElement}`}</p>
+                <p>{`${item.changedKey}가 ${item.value}로 변경`}</p>
+              </HistoryItem>
+            ))
+            .reverse()
         ) : (
           <></>
         )}
