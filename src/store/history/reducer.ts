@@ -3,27 +3,12 @@ import {
   HistoryPropsType,
   HistoryActionType,
   HistoryInfoPropsType,
-  FeatureNameType,
-  ElementNameType,
-  SubElementNameType,
-  StyleType,
 } from '../common/type';
 import getRandomId from '../../utils/getRandomId';
 
-interface localStorageProps {
-  id: string;
-  value: string;
-  display: string;
-  changedKey: string | null;
-  feature: FeatureNameType;
-  subFeature: string | null;
-  element: ElementNameType | null;
-  subElement: SubElementNameType | null;
-  style: StyleType;
-}
-
 const initialState: HistoryPropsType = {
   log: [],
+  currentIdx: null,
 };
 
 function historyReducer(
@@ -32,52 +17,42 @@ function historyReducer(
 ): HistoryPropsType {
   switch (action.type) {
     case INIT_HISTORY: {
-      const log = localStorage.getItem('log')
-        ? JSON.parse(localStorage.getItem('log') as string)
+      const localStorageLog = JSON.parse(localStorage.getItem('log') as string);
+
+      const log = localStorageLog
+        ? (localStorageLog as HistoryInfoPropsType[])
         : [];
 
+      const currentIdx = log.length ? log.length - 1 : null;
+
       return {
-        ...state,
         log,
+        currentIdx,
       };
     }
-    case ADD_LOG: {
-      const {
-        value,
-        changedKey,
-        feature,
-        subFeature,
-        element,
-        subElement,
-        style,
-        wholeStyle,
-      } = action.payload as HistoryInfoPropsType;
 
+    case ADD_LOG: {
       const id = getRandomId(8);
       const newState = JSON.parse(JSON.stringify(state));
 
-      const display = `${feature} > ${subFeature} > ${element} > ${subElement}의 ${changedKey} 항목을\n ${value}로 변경`;
+      if (newState.log.length >= 100) newState.log.shift(); // localstorage에서도 빼는 작업이 필요하겠네요!
+
       newState.log.push({
         id,
-        display,
+        ...JSON.parse(JSON.stringify(action.payload)),
       });
+      newState.currentIdx = newState.log.length - 1;
+
       const storedLog =
         localStorage.getItem('log') === null
           ? []
           : JSON.parse(localStorage.getItem('log') as string);
 
+      // TODO: localstorage update before Event(refresh, close..)
       if (storedLog !== undefined) {
         storedLog.push({
           id,
-          value,
-          display,
-          changedKey,
-          feature,
-          subFeature,
-          element,
-          subElement,
-          style,
-          wholeStyle,
+          ...JSON.parse(JSON.stringify(action.payload)),
         });
         localStorage.setItem('log', JSON.stringify(storedLog));
       }
@@ -86,9 +61,7 @@ function historyReducer(
     }
 
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 }
 
