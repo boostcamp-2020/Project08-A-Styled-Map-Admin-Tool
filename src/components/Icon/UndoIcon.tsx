@@ -2,11 +2,13 @@ import React from 'react';
 
 interface UndoIconProps {
   className?: string;
+  onClick: () => void;
 }
 
-function UndoIcon({ className }: UndoIconProps): React.ReactElement {
+function UndoIcon({ className, onClick }: UndoIconProps): React.ReactElement {
   return (
     <svg
+      onClick={onClick}
       className={className}
       xmlns="http://www.w3.org/2000/svg"
       height="24"
