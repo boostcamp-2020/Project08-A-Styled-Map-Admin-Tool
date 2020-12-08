@@ -48,12 +48,9 @@ function useCompareFeature({
     });
 
     beforeMap.on('load', () => {
-      if (!history) return;
-      const [log] = history.log?.filter((log) => log.id === logId) || [];
+      if (!history || !beforeMap) return;
 
-      if (!beforeMap) {
-        return;
-      }
+      const [log] = history.log?.filter((log) => log.id === logId) || [];
 
       for (const feature in log.wholeStyle) {
         setFeatureStyle({

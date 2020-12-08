@@ -29,7 +29,7 @@ function historyReducer(
     }
     case ADD_LOG: {
       const {
-        value,
+        changedValue: value,
         changedKey,
         feature,
         subFeature,
@@ -44,7 +44,7 @@ function historyReducer(
 
       const newLog: HistoryInfoPropsType = {
         id,
-        value,
+        changedValue: value,
         changedKey,
         feature,
         subFeature,

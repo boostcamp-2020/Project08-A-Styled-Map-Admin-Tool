@@ -79,21 +79,17 @@ function History({
         <Explain>클릭 시 현재 화면과 비교할 수 있습니다.</Explain>
       </HistoryTitle>
       <HistoryList>
-        {log ? (
-          log
-            .map((item) => (
-              <HistoryItem
-                key={item.id}
-                onClick={() => comparisonButtonClickHandler(item.id as string)}
-              >
-                <p>{`${item.feature} > ${item.subFeature} > ${item.element} > ${item.subElement}`}</p>
-                <p>{`${item.changedKey}가 ${item.value}로 변경`}</p>
-              </HistoryItem>
-            ))
-            .reverse()
-        ) : (
-          <></>
-        )}
+        {(log || [])
+          .map((item) => (
+            <HistoryItem
+              key={item.id}
+              onClick={() => comparisonButtonClickHandler(item.id as string)}
+            >
+              <p>{`${item.feature} > ${item.subFeature} > ${item.element} > ${item.subElement}`}</p>
+              <p>{`${item.changedKey}가 ${item.changedValue}로 변경`}</p>
+            </HistoryItem>
+          ))
+          .reverse()}
       </HistoryList>
     </HistoryWapper>
   );

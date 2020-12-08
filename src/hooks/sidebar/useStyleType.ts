@@ -150,7 +150,7 @@ function useStyleType(): UseStyleHookType {
       };
       addHistory({
         changedKey: key,
-        value,
+        changedValue: value,
         feature,
         subFeature,
         element,

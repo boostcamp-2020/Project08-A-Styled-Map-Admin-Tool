@@ -163,7 +163,7 @@ export interface HistoryPropsType {
 
 export interface HistoryInfoPropsType {
   id?: string;
-  value: string | number;
+  changedValue: string | number;
   changedKey: StyleKeyType;
   feature: FeatureNameType | null;
   subFeature: string | null;
