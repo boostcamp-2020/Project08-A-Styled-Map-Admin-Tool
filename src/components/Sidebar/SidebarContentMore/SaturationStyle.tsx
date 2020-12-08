@@ -41,9 +41,9 @@ function SaturationStyle({
       <SaturationTitle htmlFor="styler__saturation">채도</SaturationTitle>
       <SaturationControlBar
         type="range"
-        min="0"
+        min="1"
         max="100"
-        step="5"
+        step="1"
         id="styler__saturation"
         value={curRange}
         onChange={(e) => rangeChangeHandler(e)}

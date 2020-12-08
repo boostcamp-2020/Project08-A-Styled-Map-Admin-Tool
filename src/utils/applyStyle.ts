@@ -49,21 +49,13 @@ export function applyColor({
 
   if (saturation) {
     return layerNames.forEach((layerName) => {
-      map.setPaintProperty(
-        layerName,
-        type,
-        `hsl(${h}, ${50 + saturation / 2}%, ${l}%)`
-      );
+      map.setPaintProperty(layerName, type, `hsl(${h}, ${saturation}%, ${l}%)`);
     });
   }
 
   if (lightness) {
     return layerNames.forEach((layerName) => {
-      map.setPaintProperty(
-        layerName,
-        type,
-        `hsl(${h}, ${s}%, ${50 + lightness / 2}%)`
-      );
+      map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${lightness}%)`);
     });
   }
 
