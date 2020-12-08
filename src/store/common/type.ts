@@ -1,4 +1,9 @@
-import { init, setStyle, setWholeStyle } from '../style/action';
+import {
+  init,
+  replaceWholeStyle,
+  setStyle,
+  setWholeStyle,
+} from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 import { INIT_HISTORY, ADD_LOG } from '../history/action';
 
@@ -155,22 +160,32 @@ export type SidebarActionType =
 export type ActionType =
   | ReturnType<typeof init>
   | ReturnType<typeof setStyle>
-  | ReturnType<typeof setWholeStyle>;
+  | ReturnType<typeof setWholeStyle>
+  | ReturnType<typeof replaceWholeStyle>;
 
-export interface HistoryPropsType {
-  log?: { id: string; display: string }[];
-}
+/** Style Store Type for Replace */
+export type StyleStoreType = {
+  [featureName in FeatureNameType]: FeatureState;
+};
 
+/** History Type */
 export interface HistoryInfoPropsType {
-  value: string | number;
+  id?: string;
+  changedValue: string | number;
   changedKey: StyleKeyType;
   feature: FeatureNameType | null;
   subFeature: string | null;
   element: ElementNameType | null;
   subElement: SubElementNameType | null;
   style: StyleType;
-  wholeStyle: PropertyType;
+  wholeStyle: StyleStoreType;
 }
+
+export interface HistoryPropsType {
+  log?: HistoryInfoPropsType[];
+  currentIdx: number | null;
+}
+
 export interface HistoryActionType {
   type: typeof INIT_HISTORY | typeof ADD_LOG;
   payload: null | {
@@ -179,7 +194,7 @@ export interface HistoryActionType {
     subFeature: string | null;
     element: ElementNameType | null;
     subElement: SubElementNameType | null;
-    wholeStyle: PropertyType;
+    wholeStyle: StyleStoreType;
   };
 }
 
@@ -195,6 +210,7 @@ export interface PayloadPropsType {
   subElement: SubElementNameType | null;
 }
 
+/** Whole Style Type for Set */
 export interface StyleActionPayload {
   isChanged?: boolean;
   visibility?: string;
