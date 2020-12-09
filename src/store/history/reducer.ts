@@ -3,6 +3,7 @@ import {
   HistoryPropsType,
   HistoryActionType,
   HistoryInfoPropsType,
+  SetIndexPayload,
 } from '../common/type';
 import getRandomId from '../../utils/getRandomId';
 
@@ -19,7 +20,6 @@ function historyReducer(
 ): HistoryPropsType {
   switch (action.type) {
     case INIT_HISTORY: {
-
       const localStorageLog = JSON.parse(localStorage.getItem('log') as string);
 
       const log = localStorageLog
@@ -57,7 +57,6 @@ function historyReducer(
         });
         localStorage.setItem('log', JSON.stringify(storedLog));
       }
-
 
       return newState;
     }

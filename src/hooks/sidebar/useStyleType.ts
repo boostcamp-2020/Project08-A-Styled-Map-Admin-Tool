@@ -192,7 +192,7 @@ function useStyleType(): UseStyleHookType {
         feature,
         subFeature,
         element,
-        subElement,
+        subElement: subElement as SubElementNameType,
         style: {
           ...styleElement,
           [key]: value,
