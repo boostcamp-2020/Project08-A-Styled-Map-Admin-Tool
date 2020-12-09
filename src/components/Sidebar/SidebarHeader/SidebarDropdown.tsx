@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import ImportModal from '../SidebarModal/ImportModal';
+import Overlay from '../../common/Overlay';
 import useSidebarDropdown, {
   useSidebarDropdownType,
 } from '../../../hooks/sidebar/useSidebarDropdown';
@@ -48,21 +49,19 @@ function SidebarDropdownPresenter({
 
   return (
     <>
-      {isOpened ? (
-        <DropdownWrapper>
-          <DropdownItem onClick={resetClickHandler}>초기화</DropdownItem>
-          <DropdownItem onClick={importModalToggleHandler}>
-            JSON 불러오기
-          </DropdownItem>
-        </DropdownWrapper>
-      ) : (
-        <></>
+      {isOpened && (
+        <>
+          <Overlay toggleHandler={dropdownToggleHandler} />
+          <DropdownWrapper>
+            <DropdownItem onClick={resetClickHandler}>초기화</DropdownItem>
+            <DropdownItem onClick={importModalToggleHandler}>
+              JSON 불러오기
+            </DropdownItem>
+          </DropdownWrapper>
+        </>
       )}
-
-      {isModalOpened ? (
+      {isModalOpened && (
         <ImportModal importModalToggleHandler={importModalToggleHandler} />
-      ) : (
-        <></>
       )}
     </>
   );

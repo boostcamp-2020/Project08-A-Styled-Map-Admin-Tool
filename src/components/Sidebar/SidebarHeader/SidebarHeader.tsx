@@ -3,6 +3,7 @@ import styled from '../../../utils/styles/styled';
 import useSidebarHeader, {
   useSidebarHeaderType,
 } from '../../../hooks/sidebar/useSidebarHeader';
+import useUndoRedo from '../../../hooks/sidebar/useUndoRedo';
 
 import UndoIcon from '../../Icon/UndoIcon';
 import RedoIcon from '../../Icon/RedoIcon';
@@ -76,13 +77,14 @@ function SidebarHeader({
     isOpened,
     dropdownToggleHandler,
   }: useSidebarHeaderType = useSidebarHeader();
+  const { undoHandler, redoHandler } = useUndoRedo();
 
   return (
     <HeaderWrapper>
       <HeaderTitle>{isAdvanced ? '고급 설정' : '스타일 맵 만들기'}</HeaderTitle>
       <Btns>
-        <UndoBtn />
-        <RedoBtn />
+        <UndoBtn onClick={undoHandler} />
+        <RedoBtn onClick={redoHandler} />
         <DropdownBtn onClick={dropdownToggleHandler} />
         <SidebarDropdown
           isOpened={isOpened}

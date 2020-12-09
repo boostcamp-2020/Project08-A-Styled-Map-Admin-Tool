@@ -7,6 +7,7 @@ import useSidebarImportModal, {
 import useInputText, {
   InputTextHookType,
 } from '../../../hooks/common/useInputText';
+import Overlay from '../../common/Overlay';
 import CloseIcon from '../../Icon/CloseIcon';
 import {
   ModalWrapper,
@@ -14,17 +15,6 @@ import {
   ModalTitle,
   ModalCloseButton,
 } from './common';
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: ${(props) => props.theme.BLACK};
-  opacity: 0.5;
-  z-index: 20;
-`;
 
 const ModalInput = styled.textarea`
   width: 100%;
@@ -73,7 +63,7 @@ function ImportModal({
 
   return (
     <>
-      <Overlay onClick={onClickClose} />
+      <Overlay toggleHandler={onClickClose} color="black" />
       <ModalWrapper>
         <ModalHeader>
           <ModalTitle>JSON 불러오기</ModalTitle>
