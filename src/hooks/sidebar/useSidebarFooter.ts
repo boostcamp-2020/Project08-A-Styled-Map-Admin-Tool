@@ -7,9 +7,8 @@ function useSidebarFooter() {
 
   const { exportStyle } = useExportStyle();
 
-  const data = exportStyle();
-
   const onClickExport = () => {
+    const data = exportStyle();
     setStyle(data);
     setIsOpen(true);
   };

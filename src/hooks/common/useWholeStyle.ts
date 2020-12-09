@@ -1,11 +1,12 @@
 import mapboxgl from 'mapbox-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { setWholeStyle } from '../../store/style/action';
+import { setWholeStyle, replaceWholeStyle } from '../../store/style/action';
 import {
   WholeStyleActionPayload,
   FeatureState,
   FeatureNameType,
+  StyleStoreType,
 } from '../../store/common/type';
 import { useEffect, useState } from 'react';
 import setFeatureStyle from '../../utils/setFeatureStyle';
@@ -13,9 +14,10 @@ import setFeatureStyle from '../../utils/setFeatureStyle';
 interface WholeStyleHook {
   flag: boolean;
   changeStyle: (inputStyle: WholeStyleActionPayload) => void;
+  replaceStyle: (inputStyle: StyleStoreType) => void;
 }
 
-type WholeStyleStoreType = {
+export type WholeStyleStoreType = {
   [featureName in FeatureNameType]: FeatureState;
 };
 
@@ -63,9 +65,15 @@ function useWholeStyle(): WholeStyleHook {
     setFlag(true);
   };
 
+  const replaceStyle = (inputStyle: StyleStoreType): void => {
+    dispatch(replaceWholeStyle(inputStyle));
+    setFlag(true);
+  };
+
   return {
     flag,
     changeStyle,
+    replaceStyle,
   };
 }
 
