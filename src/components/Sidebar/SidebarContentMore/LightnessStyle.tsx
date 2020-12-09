@@ -42,7 +42,7 @@ function LightnessStyle({
         <LightnessTitle htmlFor="styler__lightness">밝기</LightnessTitle>
         <LightnessControlBar
           type="range"
-          min="0"
+          min="1"
           max="100"
           step="1"
           id="styler__lightness"

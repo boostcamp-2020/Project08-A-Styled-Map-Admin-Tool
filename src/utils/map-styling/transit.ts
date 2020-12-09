@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-case-declarations */
 import { stylingProps } from '.';
-import transitLayers from '../../store/map/layers/transit';
+import transitLayers from '../rendering-data/layers/transit.json';
 import {
   StyleKeyType,
   ElementNameType,
@@ -30,7 +30,7 @@ interface GetLayerNamesProps {
   key: StyleKeyType;
 }
 
-const transitLayerIds = transitLayers.map(({ id }) => id);
+const transitLayerIds = transitLayers.transit.map(({ id }) => id);
 
 const getLayerNames = ({
   subFeature,
@@ -43,15 +43,26 @@ const getLayerNames = ({
 
   if (isInvalidOrder()) return [];
 
-  const getTypedLayer = (layerName: string) =>
-    subFeature === layerTypes.all ? layerName : layerName.includes(element);
-
-  const strokeableLayer = (layerName: string) =>
+  const isLineOrNot = (layerName: string) =>
+    element === ElementNameType.section &&
     subElement === SubElementNameType.stroke
       ? layerName.includes(layerTypes.line)
-      : layerName.includes(layerTypes.section);
+      : !layerName.includes(layerTypes.line);
 
-  return transitLayerIds.filter(getTypedLayer).filter(strokeableLayer);
+  const isLabelOrNot = (layerName: string) =>
+    element === ElementNameType.section
+      ? !layerName.includes(layerTypes.labelText)
+      : layerName.includes(layerTypes.labelText);
+
+  const getSubfeatureLayer = (layerName: string) =>
+    subFeature === layerTypes.all || layerName.includes(subFeature);
+
+  const layerNames = transitLayerIds
+    .filter(isLabelOrNot)
+    .filter(isLineOrNot)
+    .filter(getSubfeatureLayer);
+
+  return layerNames;
 };
 
 function transitStyling({

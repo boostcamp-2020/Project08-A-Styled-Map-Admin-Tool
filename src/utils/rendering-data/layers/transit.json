@@ -1,7 +1,7 @@
 {
   "transit": [
     {
-      "id": "mapbox-airport-section",
+      "id": "transit-airport-section",
       "type": "fill",
       "source": "composite",
       "source-layer": "landuse",
@@ -11,294 +11,11 @@
       "paint": {
         "fill-color": "hsl(234, 20%, 30%)"
       },
-      "filter": [
-        "==",
-        [
-          "get",
-          "class"
-        ],
-        "airport"
-      ]
+      "filter": ["==", ["get", "class"], "airport"]
     },
     {
       "id": "transit-airport-aeroway-section",
       "type": "fill",
-      "metadata": {},
-      "source": "composite",
-      "source-layer": "aeroway",
-      "minzoom": 11,
-      "filter": [
-        "all",
-        [
-          "==",
-          [
-            "geometry-type"
-          ],
-          "Polygon"
-        ],
-        [
-          "match",
-          [
-            "get",
-            "type"
-          ],
-          [
-            "runway",
-            "taxiway",
-            "helipad"
-          ],
-          true,
-          false
-        ]
-      ],
-      "layout": {},
-      "paint": {
-        "fill-color": "hsl(234, 20%, 30%)"
-      }
-    },
-    {
-      "id": "transit-airport-aeroway-line",
-      "type": "line",
-      "metadata": {},
-      "source": "composite",
-      "source-layer": "aeroway",
-      "minzoom": 9,
-      "filter": [
-        "==",
-        [
-          "geometry-type"
-        ],
-        "LineString"
-      ],
-      "layout": {},
-      "paint": {
-        "line-color": "hsl(230, 23%, 82%)",
-        "line-width": [
-          "interpolate",
-          [
-            "exponential",
-            1.5
-          ],
-          [
-            "zoom"
-          ],
-          9,
-          [
-            "match",
-            [
-              "get",
-              "type"
-            ],
-            "runway",
-            1,
-            "taxiway",
-            0.5,
-            0.5
-          ],
-          18,
-          [
-            "match",
-            [
-              "get",
-              "type"
-            ],
-            "runway",
-            80,
-            "taxiway",
-            20,
-            20
-          ]
-        ]
-      }
-    },
-    {
-      "id": "transit-airport-labelText",
-      "type": "symbol",
-      "source": "composite",
-      "source-layer": "airport_label",
-      "minzoom": 8,
-      "layout": {
-        "text-size": 12,
-        "icon-image": [
-          "step",
-          [
-            "get",
-            "sizerank"
-          ],
-          [
-            "concat",
-            [
-              "get",
-              "maki"
-            ],
-            "-15"
-          ],
-          12,
-          [
-            "concat",
-            [
-              "get",
-              "maki"
-            ],
-            "-11"
-          ]
-        ],
-        "text-offset": [
-          0,
-          0.75
-        ],
-        "text-rotation-alignment": "viewport",
-        "text-anchor": "top",
-        "text-field": [
-          "step",
-          [
-            "get",
-            "sizerank"
-          ],
-          [
-            "coalesce",
-            [
-              "get",
-              "name_ko"
-            ],
-            [
-              "get",
-              "name"
-            ]
-          ],
-          15,
-          [
-            "get",
-            "ref"
-          ]
-        ],
-        "text-max-width": 9
-      },
-      "paint": {
-        "text-color": "hsl(230, 48%, 44%)",
-        "text-halo-color": "hsl(0, 0%, 100%)",
-        "text-halo-width": 1
-      }
-    },
-    {
-      "id": "transit-subway-line",
-      "type": "line",
-      "source": "line_source",
-      "source-layer": "line",
-      "layout": {
-        "visibility": "visible"
-      },
-      "paint": {
-        "line-color": "hsl(192, 70%, 43%)",
-        "line-width": 2
-      },
-      "filter": [
-        "==",
-        [
-          "get",
-          "type"
-        ],
-        "subway"
-      ]
-    },
-    {
-      "id": "transit-rail-line",
-      "type": "line",
-      "source": "line_source",
-      "source-layer": "line",
-      "layout": {
-        "visibility": "visible"
-      },
-      "paint": {
-        "line-color": "hsl(234, 20%, 30%)",
-        "line-width": 1
-      },
-      "filter": [
-        "match",
-        [
-          "get",
-          "type"
-        ],
-        "rail",
-        true,
-        false
-      ]
-    },
-    {
-      "id": "transit-rail-road-line",
-      "type": "line",
-      "source": "composite",
-      "source-layer": "road",
-      "layout": {
-        "visibility": "visible",
-        "line-join": "round"
-      },
-      "minzoom": 13,
-      "paint": {
-        "line-color": "hsl(234, 20%, 30%)",
-        "line-width": 1
-      },
-      "filter": [
-        "all",
-        [
-          "match",
-          [
-            "get",
-            "class"
-          ],
-          [
-            "major_rail",
-            "minor_rail"
-          ],
-          true,
-          false
-        ],
-        [
-          "match",
-          [
-            "get",
-            "structure"
-          ],
-          [
-            "none",
-            "ford"
-          ],
-          true,
-          false
-        ]
-      ]
-    },
-    {
-      "id": "transit-bus-labelText",
-      "type": "symbol",
-      "source": "poi_source",
-      "source-layer": "poi",
-      "layout": {
-        "text-field": [
-          "get",
-          "name"
-        ],
-        "text-size": 12,
-        "visibility": "visible"
-      },
-      "paint": {
-        "text-halo-color": "hsl(0, 0%, 100%)",
-        "text-halo-width": 1,
-        "text-color": "hsl(234, 20%, 30%)"
-      },
-      "filter": [
-        "==",
-        [
-          "get",
-          "type"
-        ],
-        "bus_stop"
-      ]
-    },
-        {
-      "id": "aeroway-polygon",
-      "type": "fill",
-      "metadata": {},
       "source": "composite",
       "source-layer": "aeroway",
       "minzoom": 11,
@@ -315,37 +32,19 @@
       ],
       "layout": {},
       "paint": {
-        "fill-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          15,
-          "hsl(234, 20%, 30%)",
-          16,
-          "hsl(230, 37%, 84%)"
-        ],
-        "fill-opacity": ["interpolate", ["linear"], ["zoom"], 11, 0, 11.5, 1]
+        "fill-color": "hsl(40, 97%, 64%)"
       }
     },
     {
-      "id": "aeroway-line",
+      "id": "transit-airport-aeroway-line",
       "type": "line",
-      "metadata": {},
       "source": "composite",
       "source-layer": "aeroway",
       "minzoom": 9,
       "filter": ["==", ["geometry-type"], "LineString"],
       "layout": {},
       "paint": {
-        "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          15,
-          "hsl(230, 23%, 82%)",
-          16,
-          "hsl(230, 37%, 84%)"
-        ],
+        "line-color": "hsl(230, 23%, 82%)",
         "line-width": [
           "interpolate",
           ["exponential", 1.5],
@@ -358,377 +57,18 @@
       }
     },
     {
-      "id": "ferry",
-      "type": "line",
-      "metadata": {},
-      "source": "composite",
-      "source-layer": "road",
-      "minzoom": 8,
-      "filter": ["==", ["get", "type"], "ferry"],
-      "layout": { "line-join": "round" },
-      "paint": {
-        "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          15,
-          "hsl(230, 48%, 44%)",
-          17,
-          "hsl(230, 73%, 63%)"
-        ],
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          14,
-          0.5,
-          20,
-          1
-        ],
-        "line-dasharray": [
-          "step",
-          ["zoom"],
-          ["literal", [1, 0]],
-          13,
-          ["literal", [12, 4]]
-        ]
-      }
-    },
-    {
-      "id": "ferry-auto",
-      "type": "line",
-      "metadata": {},
-      "source": "composite",
-      "source-layer": "road",
-      "filter": ["==", ["get", "type"], "ferry_auto"],
-      "layout": { "line-join": "round" },
-      "paint": {
-        "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          15,
-          "hsl(35, 14%, 93%)",
-          17,
-          "hsl(230, 73%, 63%)"
-        ],
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          14,
-          0.5,
-          20,
-          1
-        ]
-      }
-    },
-    {
-      "id": "road-rail-tracks",
-      "type": "line",
-      "metadata": { "mapbox:group": "1444855786460.0557" },
-      "source": "composite",
-      "source-layer": "road",
-      "minzoom": 13,
-      "filter": [
-        "all",
-        ["match", ["get", "class"], ["major_rail", "minor_rail"], true, false],
-        ["match", ["get", "structure"], ["none", "ford"], true, false]
-      ],
-      "layout": { "line-join": "round" },
-      "paint": {
-        "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          13,
-          "hsl(50, 17%, 82%)",
-          16,
-          "hsl(230, 10%, 74%)"
-        ],
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          14,
-          4,
-          20,
-          8
-        ],
-        "line-dasharray": [0.1, 15],
-        "line-opacity": ["interpolate", ["linear"], ["zoom"], 13.75, 0, 14, 1]
-      }
-    },
-    {
-      "id": "level-crossing",
+      "id": "transit-airport-labelText",
       "type": "symbol",
-      "metadata": { "mapbox:group": "1444855786460.0557" },
-      "source": "composite",
-      "source-layer": "road",
-      "minzoom": 16,
-      "filter": ["==", ["get", "class"], "level_crossing"],
-      "layout": { "icon-image": "level-crossing", "icon-allow-overlap": true },
-      "paint": {}
-    },
-    {
-      "id": "bridge-rail",
-      "type": "line",
-      "metadata": { "mapbox:group": "1444855799204.86" },
-      "source": "composite",
-      "source-layer": "road",
-      "minzoom": 13,
-      "filter": [
-        "all",
-        ["==", ["get", "structure"], "bridge"],
-        ["match", ["get", "class"], ["major_rail", "minor_rail"], true, false]
-      ],
-      "layout": { "line-join": "round" },
-      "paint": {
-        "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          13,
-          "hsl(50, 17%, 82%)",
-          16,
-          "hsl(230, 10%, 74%)"
-        ],
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          14,
-          0.5,
-          20,
-          1
-        ]
-      }
-    },
-    {
-      "id": "bridge-rail-tracks",
-      "type": "line",
-      "metadata": { "mapbox:group": "1444855799204.86" },
-      "source": "composite",
-      "source-layer": "road",
-      "minzoom": 13,
-      "filter": [
-        "all",
-        ["==", ["get", "structure"], "bridge"],
-        ["match", ["get", "class"], ["major_rail", "minor_rail"], true, false]
-      ],
-      "layout": { "line-join": "round" },
-      "paint": {
-        "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          13,
-          "hsl(50, 17%, 82%)",
-          16,
-          "hsl(230, 10%, 74%)"
-        ],
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          14,
-          4,
-          20,
-          8
-        ],
-        "line-dasharray": [0.1, 15],
-        "line-opacity": ["interpolate", ["linear"], ["zoom"], 13.75, 0, 14, 1]
-      }
-    },
-    {
-      "id": "aerialway",
-      "type": "line",
-      "metadata": {},
-      "source": "composite",
-      "source-layer": "road",
-      "minzoom": 13,
-      "filter": ["==", ["get", "class"], "aerialway"],
-      "layout": { "line-join": "round" },
-      "paint": {
-        "line-color": "hsl(230, 10%, 74%)",
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          14,
-          0.5,
-          20,
-          1
-        ]
-      }
-    },
-    {
-      "id": "waterway-label",
-      "type": "symbol",
-      "metadata": {},
-      "source": "composite",
-      "source-layer": "natural_label",
-      "minzoom": 13,
-      "filter": [
-        "all",
-        ["match", ["get", "class"], ["canal", "river", "stream"], true, false],
-        ["==", ["geometry-type"], "LineString"]
-      ],
-      "layout": {
-        "text-max-angle": 30,
-        "symbol-spacing": [
-          "interpolate",
-          ["linear", 1],
-          ["zoom"],
-          15,
-          250,
-          17,
-          400
-        ],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 13, 12, 18, 16],
-        "symbol-placement": "line",
-        "text-pitch-alignment": "viewport",
-        "text-field": ["coalesce", ["get", "name_ko"], ["get", "name"]]
-      },
-      "paint": { "text-color": "hsl(230, 48%, 44%)" }
-    },
-    {
-      "id": "transit-label",
-      "type": "symbol",
-      "metadata": {},
-      "source": "composite",
-      "source-layer": "transit_stop_label",
-      "minzoom": 12,
-      "filter": [
-        "step",
-        ["zoom"],
-        [
-          "all",
-          ["match", ["get", "mode"], ["rail", "metro_rail"], true, false],
-          ["!=", ["get", "stop_type"], "entrance"]
-        ],
-        15,
-        [
-          "all",
-          [
-            "match",
-            ["get", "mode"],
-            ["rail", "metro_rail", "ferry", "light_rail"],
-            true,
-            false
-          ],
-          ["!=", ["get", "stop_type"], "entrance"]
-        ],
-        16,
-        [
-          "all",
-          ["!=", ["get", "mode"], "bus"],
-          ["!=", ["get", "stop_type"], "entrance"]
-        ],
-        17,
-        ["!=", ["get", "stop_type"], "entrance"],
-        19,
-        true
-      ],
-      "layout": {
-        "text-size": 12,
-        "icon-image": ["get", "network"],
-        "text-justify": [
-          "match",
-          ["get", "stop_type"],
-          "entrance",
-          "left",
-          "center"
-        ],
-        "text-offset": [
-          "match",
-          ["get", "stop_type"],
-          "entrance",
-          ["literal", [1, 0]],
-          ["literal", [0, 0.8]]
-        ],
-        "text-anchor": [
-          "match",
-          ["get", "stop_type"],
-          "entrance",
-          "left",
-          "top"
-        ],
-        "text-field": [
-          "step",
-          ["zoom"],
-          "",
-          14,
-          [
-            "match",
-            ["get", "mode"],
-            ["rail", "metro_rail"],
-            ["coalesce", ["get", "name_ko"], ["get", "name"]],
-            ""
-          ],
-          16,
-          [
-            "match",
-            ["get", "mode"],
-            ["bus", "bicycle"],
-            "",
-            ["coalesce", ["get", "name_ko"], ["get", "name"]]
-          ],
-          18,
-          ["coalesce", ["get", "name_ko"], ["get", "name"]]
-        ],
-        "text-letter-spacing": 0.01,
-        "text-max-width": ["match", ["get", "stop_type"], "entrance", 15, 9]
-      },
-      "paint": {
-        "text-halo-color": "hsl(0, 0%, 100%)",
-        "text-color": [
-          "match",
-          ["get", "network"],
-          "entrance",
-          "hsl(230, 48%, 44%)",
-          "tokyo-metro",
-          "hsl(180, 50%, 30%)",
-          "mexico-city-metro",
-          "hsl(25, 100%, 40%)",
-          [
-            "barcelona-metro",
-            "delhi-metro",
-            "hong-kong-mtr",
-            "milan-metro",
-            "osaka-subway"
-          ],
-          "hsl(0, 90%, 47%)",
-          ["boston-t", "washington-metro"],
-          "hsl(0, 0%, 0%)",
-          [
-            "chongqing-rail-transit",
-            "kiev-metro",
-            "singapore-mrt",
-            "taipei-metro"
-          ],
-          "hsl(140, 90%, 25%)",
-          "hsl(230, 48%, 44%)"
-        ],
-        "text-halo-blur": 0.5,
-        "text-halo-width": 0.5
-      }
-    },
-    {
-      "id": "airport-label",
-      "type": "symbol",
-      "metadata": {},
       "source": "composite",
       "source-layer": "airport_label",
       "minzoom": 8,
       "layout": {
-        "text-line-height": 1.1,
-        "text-size": ["step", ["get", "sizerank"], 18, 9, 12],
+        "text-size": 12,
         "icon-image": [
           "step",
           ["get", "sizerank"],
           ["concat", ["get", "maki"], "-15"],
-          9,
+          12,
           ["concat", ["get", "maki"], "-11"]
         ],
         "text-offset": [0, 0.75],
@@ -737,18 +77,83 @@
         "text-field": [
           "step",
           ["get", "sizerank"],
-          ["coalesce", ["get", "name_ko"], ["get", "name"]],
+          ["coalesce", ["get", "name_en"], ["get", "name"]],
           15,
           ["get", "ref"]
         ],
-        "text-letter-spacing": 0.01,
         "text-max-width": 9
       },
       "paint": {
-        "text-color": "hsl(230, 48%, 44%)",
+        "text-color": "hsl(0, 69%, 50%)",
         "text-halo-color": "hsl(0, 0%, 100%)",
         "text-halo-width": 1
       }
+    },
+    {
+      "id": "transit-subway-line",
+      "type": "line",
+      "source": "line_source",
+      "source-layer": "line",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "hsl(192, 70%, 43%)",
+        "line-width": 2
+      },
+      "filter": ["==", ["get", "type"], "subway"]
+    },
+    {
+      "id": "transit-rail-line",
+      "type": "line",
+      "source": "line_source",
+      "source-layer": "line",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "hsl(201, 100%, 14%)",
+        "line-width": 1
+      },
+      "filter": ["match", ["get", "type"], "rail", true, false]
+    },
+    {
+      "id": "transit-rail-road-line",
+      "type": "line",
+      "source": "composite",
+      "source-layer": "road",
+      "layout": {
+        "visibility": "visible",
+        "line-join": "round"
+      },
+      "minzoom": 13,
+
+      "paint": {
+        "line-color": "hsl(234, 20%, 30%)",
+        "line-width": 1
+      },
+      "filter": [
+        "all",
+        ["match", ["get", "class"], ["major_rail", "minor_rail"], true, false],
+        ["match", ["get", "structure"], ["none", "ford"], true, false]
+      ]
+    },
+    {
+      "id": "transit-bus-labelText",
+      "type": "symbol",
+      "source": "poi_source",
+      "source-layer": "poi",
+      "layout": {
+        "text-field": ["get", "name"],
+        "text-size": 12,
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-halo-color": "hsl(0, 0%, 100%)",
+        "text-halo-width": 1,
+        "text-color": "hsl(13, 68%, 63%)"
+      },
+      "filter": ["==", ["get", "type"], "bus_stop"]
     }
   ]
 }

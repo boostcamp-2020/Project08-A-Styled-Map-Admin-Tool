@@ -225,41 +225,41 @@
         "text-font": [
           "step",
           ["zoom"],
-          ["literal", ["san-serif"]],
+          ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]],
           8,
           [
             "step",
             ["get", "symbolrank"],
-            ["literal", ["san-serif"]],
+            ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]],
             11,
-            ["literal", ["san-serif"]]
+            ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]]
           ],
           10,
           [
             "step",
             ["get", "symbolrank"],
-            ["literal", ["san-serif"]],
+            ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]],
             12,
-            ["literal", ["san-serif"]]
+            ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]]
           ],
           11,
           [
             "step",
             ["get", "symbolrank"],
-            ["literal", ["san-serif"]],
+            ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]],
             13,
-            ["literal", ["san-serif"]]
+            ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]]
           ],
           12,
           [
             "step",
             ["get", "symbolrank"],
-            ["literal", ["san-serif"]],
+            ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]],
             15,
-            ["literal", ["san-serif"]]
+            ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]]
           ],
           13,
-          ["literal", ["san-serif"]]
+          ["literal", ["DIN Offc Pro Italic", "Arial Unicode MS Regular"]]
         ],
         "text-offset": [
           "step",
