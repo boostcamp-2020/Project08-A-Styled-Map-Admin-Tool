@@ -11,7 +11,7 @@ import {
   StyleKeyType,
   VisibilityValueType,
 } from '../store/common/type';
-import initialLayers from './rendering-data/layersColor';
+import initialLayers from './rendering-data/defaultStyle';
 
 /* eslint-disable no-restricted-syntax */
 export default function validateStyle(
@@ -35,7 +35,10 @@ export default function validateStyle(
       if (
         !initialSubFeatureStyle ||
         typeof subFeatureStyle !== 'object' ||
-        !checkElement({ subFeatureStyle, initialSubFeatureStyle })
+        !checkElement({
+          subFeatureStyle,
+          initialSubFeatureStyle: initialSubFeatureStyle as StyleElementPropsType,
+        })
       ) {
         return false;
       }

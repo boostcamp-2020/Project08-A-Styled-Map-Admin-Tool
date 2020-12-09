@@ -84,7 +84,7 @@ function DetailTypeSubList({
         })}
       </div>
     ) : (
-      <div>
+      <div key={`${child.title}`}>
         {child.isChanged ? <Check>✓</Check> : null}
         <ListItem
           isSelected={checkIsSelected(

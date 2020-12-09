@@ -17,8 +17,8 @@ export const localLayerNames = {
   ],
   stroke: ['road-local-section-stroke-1'],
   text: {
-    all: ['road-local-labelText-fill-1'],
-    hasStroke: ['road-local-labelText-fill-1'],
+    all: ['road-local-labelText-1'],
+    hasStroke: ['road-local-labelText-1'],
     noStroke: [],
   },
   icon: [],
