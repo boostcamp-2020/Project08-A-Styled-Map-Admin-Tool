@@ -91,7 +91,7 @@ const defaultStyle: DefaultWholeStyle = {
         stroke: { color: 'hsl(230, 24%, 87%)', weight: 1 },
       },
       labelText: {
-        fill: { color: 'hsl(230, 48%, 44%)', weight: 0 },
+        fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
         stroke: { color: 'hsl(0, 0%, 100%)', weight: 1 },
       },
       labelIcon: { color: 'transparent', weight: 0 },
@@ -102,7 +102,7 @@ const defaultStyle: DefaultWholeStyle = {
         stroke: { color: 'hsl(230, 24%, 87%)', weight: 1 },
       },
       labelText: {
-        fill: { color: 'hsl(230, 48%, 44%)', weight: 0 },
+        fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
         stroke: { color: 'hsl(0, 0%, 100%)', weight: 1 },
       },
       labelIcon: { color: 'transparent', weight: 0 },
@@ -113,7 +113,7 @@ const defaultStyle: DefaultWholeStyle = {
         stroke: { color: 'hsl(230, 24%, 87%)', weight: 1 },
       },
       labelText: {
-        fill: { color: 'hsl(230, 48%, 44%)', weight: 0 },
+        fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
         stroke: { color: 'hsl(0, 0%, 100%)', weight: 1 },
       },
       labelIcon: { color: 'transparent', weight: 0 },
@@ -232,7 +232,7 @@ const defaultStyle: DefaultWholeStyle = {
     },
     airport: {
       section: {
-        fill: { color: 'hsl(234, 20%, 30%)', weight: 0 },
+        fill: { color: 'hsl(230, 23%, 82%)', weight: 0 },
         stroke: { color: 'hsl(230, 23%, 82%)', weight: 1 },
       },
       labelText: {
