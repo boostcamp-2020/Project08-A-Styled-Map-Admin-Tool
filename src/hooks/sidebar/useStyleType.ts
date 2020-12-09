@@ -3,11 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
 import { RootState } from '../../store';
 import {
+  SubElementType,
   StyleType,
   StyleKeyType,
   ElementNameType,
   SubElementNameType,
   PayloadPropsType,
+  HistoryPropsType,
+  StyleStoreType,
 } from '../../store/common/type';
 import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
@@ -79,18 +82,29 @@ interface changedObjType {
   value?: string | number;
 }
 
+interface ReduxStateType {
+  map: mapboxgl.Map;
+  sidebar: PayloadPropsType;
+  history: HistoryPropsType;
+  features: StyleStoreType;
+}
+
 function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
   const [changedObj, setChangedObj] = useState<changedObjType>({});
   const { addHistory } = useHistoryFeature();
-  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
-
-  const { map: mapR, sidebar, history, ...features } = useSelector<RootState>(
-    (state) => state
-  ) as any;
-  const { feature, subFeature, element, subElement } = useSelector<RootState>(
-    (state) => state.sidebar
-  ) as PayloadPropsType;
+  const {
+    map,
+    sidebar: { feature, subFeature, element, subElement },
+    features,
+  } = useSelector<RootState>((state) => {
+    const { map, sidebar, history, ...features } = state;
+    return {
+      map: map.map,
+      sidebar,
+      features,
+    };
+  }) as ReduxStateType;
 
   const styleElement = useSelector<RootState>((state) => {
     if (!feature || !subFeature || !element) {
@@ -105,8 +119,6 @@ function useStyleType(): UseStyleHookType {
   useEffect(() => {
     const { key, value } = changedObj;
     if (key && value && feature && subFeature && element) {
-      const wholeStyle = features;
-
       addHistory({
         changedKey: key,
         changedValue: value,
@@ -118,7 +130,7 @@ function useStyleType(): UseStyleHookType {
           ...styleElement,
           [key]: value,
         },
-        wholeStyle,
+        wholeStyle: features,
       });
 
       setChangedObj({});
@@ -149,10 +161,12 @@ function useStyleType(): UseStyleHookType {
       let parentVisibility = '';
       if (value === VisibilityType.inherit) {
         if (subElement) {
-          parentVisibility =
-            features[feature].all[element][subElement].visibility;
+          parentVisibility = (features[feature].all[element] as SubElementType)[
+            subElement
+          ].visibility;
         } else {
-          parentVisibility = features[feature].all[element].visibility;
+          parentVisibility = (features[feature].all[element] as StyleType)
+            .visibility;
         }
       }
 
