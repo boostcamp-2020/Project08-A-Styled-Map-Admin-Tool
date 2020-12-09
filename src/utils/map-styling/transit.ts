@@ -30,6 +30,12 @@ interface GetLayerNamesProps {
   key: StyleKeyType;
 }
 
+interface GetStylePropertyTypeProps {
+  styleKey: StyleKeyType;
+  element: ElementNameType;
+  subElement: SubElementNameType;
+}
+
 const transitLayerIds = transitLayers.map(({ id }) => id);
 
 const getLayerNames = ({
@@ -43,7 +49,7 @@ const getLayerNames = ({
 
   if (isInvalidOrder()) return [];
 
-  const isLineOrPolygon = (layerName: string) =>
+  const isPolygonOrNot = (layerName: string) =>
     element === ElementNameType.section &&
     subElement === SubElementNameType.fill
       ? layerName.includes(layerTypes.fill)
@@ -54,18 +60,49 @@ const getLayerNames = ({
       ? layerName.includes(layerTypes.labelText)
       : !layerName.includes(layerTypes.labelText);
 
-  const getSubfeatureLayer = (layerName: string) =>
+  const isAllOrSubfeature = (layerName: string) =>
     subFeature === layerTypes.all || layerName.includes(subFeature);
 
   const layerNames = transitLayerIds
     .filter(isLabelOrNot)
-    .filter(isLineOrPolygon)
-    .filter(getSubfeatureLayer);
+    .filter(isPolygonOrNot)
+    .filter(isAllOrSubfeature);
   return layerNames;
 };
 
-const getLayerPropertyType = () => {
-  // TODO: refactoring ..
+const stylePropertyTypes = [
+  ...Object.values(ColorType),
+  ...Object.values(WeightType),
+];
+
+const getStyleType = ({
+  styleKey,
+  element,
+  subElement,
+}: GetStylePropertyTypeProps): StyleTypes => {
+  const isWeight = (type: StyleTypes) =>
+    styleKey === StyleKeyType.weight
+      ? type.includes('width')
+      : !type.includes('width');
+
+  const isLabelText = (type: StyleTypes) =>
+    element === ElementNameType.labelText
+      ? type.includes('text')
+      : !type.includes('text');
+
+  const isStroke = (type: StyleTypes) => {
+    const strokeReg = /(line|halo)/;
+    return subElement === SubElementNameType.stroke
+      ? strokeReg.test(type)
+      : !strokeReg.test(type);
+  };
+
+  const [type] = stylePropertyTypes
+    .filter(isWeight)
+    .filter(isLabelText)
+    .filter(isStroke);
+
+  return type;
 };
 
 function transitStyling({
@@ -89,7 +126,11 @@ function transitStyling({
 
   const styleKey = key as StyleKeyType;
   const { [styleKey]: styleValue } = style;
-  let layerPropertyType: StyleTypes;
+  const styleType = getStyleType({
+    styleKey,
+    element,
+    subElement,
+  });
 
   switch (styleKey) {
     case StyleKeyType.visibility:
@@ -103,15 +144,6 @@ function transitStyling({
     case StyleKeyType.color:
     case StyleKeyType.saturation:
     case StyleKeyType.lightness:
-      layerPropertyType =
-        element === ElementNameType.labelText
-          ? subElement === SubElementNameType.fill
-            ? ColorType.text
-            : ColorType.textHalo
-          : subElement === SubElementNameType.fill
-          ? ColorType.fill
-          : ColorType.line;
-
       const satureOrLight =
         key === StyleKeyType.saturation
           ? { saturation: +style[StyleKeyType.saturation] }
@@ -121,24 +153,19 @@ function transitStyling({
       applyColor({
         map,
         layerNames,
-        type: layerPropertyType,
+        type: styleType,
         color: style[StyleKeyType.color],
         ...satureOrLight,
       });
       break;
 
     case StyleKeyType.weight:
-      layerPropertyType =
-        element === ElementNameType.labelText
-          ? WeightType.textHalo
-          : WeightType.line;
       applyWeight({
         map,
         layerNames,
-        type: layerPropertyType,
+        type: styleType,
         weight: styleValue as number,
       });
-
       break;
 
     default:
