@@ -146,7 +146,7 @@
         true,
         false
       ],
-      "id": "poi-park-labelText"
+      "id": "poi-park-labelText-1"
     },
     {
       "type": "symbol",
@@ -470,53 +470,6 @@
       "metadata": {},
       "minzoom": 6,
       "filter": ["==", ["get", "class"], "landmark"],
-      "layout": {
-        "text-size": 12,
-        "icon-image": [
-          "step",
-          ["zoom"],
-          ["concat", ["get", "maki"], "-11"],
-          15,
-          ["concat", ["get", "maki"], "-15"]
-        ],
-        "text-offset": [
-          "step",
-          ["zoom"],
-          [
-            "step",
-            ["get", "sizerank"],
-            ["literal", [0, 0]],
-            5,
-            ["literal", [0, 0.75]]
-          ],
-          17,
-          [
-            "step",
-            ["get", "sizerank"],
-            ["literal", [0, 0]],
-            13,
-            ["literal", [0, 0.75]]
-          ]
-        ],
-        "text-anchor": "top",
-        "text-field": ["coalesce", ["get", "name_ko"], ["get", "name"]]
-      },
-      "paint": {
-        "icon-opacity": 1,
-        "text-halo-color": "hsl(0, 0%, 100%)",
-        "text-halo-width": 0.5,
-        "text-halo-blur": 0.5,
-        "text-color": "hsl(26, 25%, 32%)"
-      }
-    },
-    {
-      "id": "poi-building-labelText",
-      "type": "symbol",
-      "source": "composite",
-      "source-layer": "poi_label",
-      "metadata": {},
-      "minzoom": 6,
-      "filter": ["==", ["get", "class"], "building"],
       "layout": {
         "text-size": 12,
         "icon-image": [
