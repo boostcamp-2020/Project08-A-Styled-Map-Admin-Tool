@@ -1,0 +1,120 @@
+{
+  "poi": {
+    "all": {
+      "labelText": {
+        "fill": {
+          "color": "#9cfcd2"
+        },
+        "stroke": {
+          "visibility": "visible",
+          "color": "#070808"
+        }
+      }
+    }
+  },
+  "road": {
+    "all": {
+      "section": {
+        "fill": {
+          "color": "#4aa57e"
+        }
+      }
+    }
+  },
+  "administrative": {
+    "all": {
+      "section": {
+        "stroke": {
+          "color": "#ffffff"
+        }
+      },
+      "labelText": {
+        "fill": {
+          "color": "#9cfcd2"
+        },
+        "stroke": {
+          "color": "#070808"
+        }
+      }
+    }
+  },
+  "landscape": {
+    "all": {
+      "section": {
+        "fill": {
+          "color": "#070808"
+        }
+      },
+      "labelText": {
+        "fill": {
+          "color": "#9cfcd2"
+        },
+        "stroke": {
+          "color": "#070808"
+        }
+      }
+    },
+    "building": {
+      "section": {
+        "fill": {
+          "visibility": "visible",
+          "color": "#87cfb0"
+        },
+        "stroke": {
+          "color": "#070808"
+        }
+      },
+      "labelText": {
+        "fill": {
+          "visibility": "9cfcd2"
+        },
+        "stroke": {
+          "color": "#070808"
+        }
+      }
+    },
+    "landcover": {
+      "section": {
+        "fill": {
+          "color": "#070808"
+        }
+      }
+    }
+  },
+  "transit": {
+    "all": {
+      "section": {
+        "stroke": {
+          "color": "#ffffff"
+        }
+    },
+      "labelText": {
+        "fill": {
+          "color": "#9cfcd2"
+        },
+        "stroke": {
+          "color": "#070808"
+        }
+      }
+    },
+    "airport": {
+      "section": {
+        "fill": {
+          "color": "#9cfcd2"
+        },
+        "stroke": {
+          "color": "#070808"
+        }
+      }
+    }
+  },
+  "water": {
+    "all": {
+      "section": {
+        "fill": {
+          "color": "#182f25"
+        }
+      }
+    }
+  }
+}

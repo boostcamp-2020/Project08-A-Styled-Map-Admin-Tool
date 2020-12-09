@@ -1,4 +1,5 @@
 import blueprint from './theme/blueprint.json';
+import monochrome from './theme/monochrome.json';
 
 const data = [
   {
@@ -14,7 +15,8 @@ const data = [
   {
     src:
       'https://i.pinimg.com/originals/8f/6d/97/8f6d971f3d086edaf6cee773991abb27.jpg',
-    name: '레트로',
+    name: '단색',
+    theme: monochrome,
   },
   {
     src:
