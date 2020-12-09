@@ -1,7 +1,7 @@
 {
   "transit": [
     {
-      "id": "transit-airport-section",
+      "id": "transit-airport-section-fill",
       "type": "fill",
       "source": "composite",
       "source-layer": "landuse",
@@ -14,7 +14,7 @@
       "filter": ["==", ["get", "class"], "airport"]
     },
     {
-      "id": "transit-airport-aeroway-section",
+      "id": "transit-airport-section-fill-2",
       "type": "fill",
       "source": "composite",
       "source-layer": "aeroway",
@@ -36,7 +36,7 @@
       }
     },
     {
-      "id": "transit-airport-aeroway-line",
+      "id": "transit-airport-line",
       "type": "line",
       "source": "composite",
       "source-layer": "aeroway",
@@ -118,7 +118,7 @@
       "filter": ["match", ["get", "type"], "rail", true, false]
     },
     {
-      "id": "transit-rail-road-line",
+      "id": "transit-rail-line-2",
       "type": "line",
       "source": "composite",
       "source-layer": "road",
