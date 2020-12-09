@@ -1,6 +1,6 @@
 export default [
   {
-    id: 'transit-airport-section',
+    id: 'transit-airport-section-fill',
     type: 'fill',
     source: 'composite',
     'source-layer': 'landuse',
@@ -13,7 +13,7 @@ export default [
     filter: ['==', ['get', 'class'], 'airport'],
   },
   {
-    id: 'transit-airport-aeroway-section',
+    id: 'transit-airport-section-fill-2',
     type: 'fill',
     source: 'composite',
     'source-layer': 'aeroway',
@@ -25,11 +25,11 @@ export default [
     ],
     layout: {},
     paint: {
-      'fill-color': 'hsl(40, 97%, 64%)',
+      'fill-color': 'hsl(234, 20%, 30%)',
     },
   },
   {
-    id: 'transit-airport-aeroway-line',
+    id: 'transit-airport-section-stroke',
     type: 'line',
     source: 'composite',
     'source-layer': 'aeroway',
@@ -37,7 +37,7 @@ export default [
     filter: ['==', ['geometry-type'], 'LineString'],
     layout: {},
     paint: {
-      'line-color': 'hsl(230, 23%, 82%)',
+      'line-color': 'hsl(234, 20%, 30%)',
       'line-width': [
         'interpolate',
         ['exponential', 1.5],
@@ -77,13 +77,13 @@ export default [
       'text-max-width': 9,
     },
     paint: {
-      'text-color': 'hsl(0, 69%, 50%)',
+      'text-color': 'hsl(230, 48%, 44%)',
       'text-halo-color': 'hsl(0, 0%, 100%)',
       'text-halo-width': 1,
     },
   },
   {
-    id: 'transit-subway-line',
+    id: 'transit-subway-section-stroke',
     type: 'line',
     source: 'line_source',
     'source-layer': 'line',
@@ -97,7 +97,7 @@ export default [
     filter: ['==', ['get', 'type'], 'subway'],
   },
   {
-    id: 'transit-rail-line',
+    id: 'transit-rail-section-stroke',
     type: 'line',
     source: 'line_source',
     'source-layer': 'line',
@@ -105,13 +105,13 @@ export default [
       visibility: 'visible',
     },
     paint: {
-      'line-color': 'hsl(201, 100%, 14%)',
+      'line-color': 'hsl(234, 20%, 30%)',
       'line-width': 1,
     },
     filter: ['match', ['get', 'type'], 'rail', true, false],
   },
   {
-    id: 'transit-rail-road-line',
+    id: 'transit-rail-section-stroke2',
     type: 'line',
     source: 'composite',
     'source-layer': 'road',
@@ -144,7 +144,7 @@ export default [
     paint: {
       'text-halo-color': 'hsl(0, 0%, 100%)',
       'text-halo-width': 1,
-      'text-color': 'hsl(13, 68%, 63%)',
+      'text-color': 'hsl(234, 20%, 30%)',
     },
     filter: ['==', ['get', 'type'], 'bus_stop'],
   },

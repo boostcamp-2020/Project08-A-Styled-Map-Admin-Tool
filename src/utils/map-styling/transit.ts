@@ -18,8 +18,8 @@ import {
 
 enum layerTypes {
   all = 'all',
-  section = 'section',
-  line = 'line',
+  fill = 'fill',
+  stroke = 'stroke',
   labelText = 'labelText',
 }
 
@@ -43,23 +43,23 @@ const getLayerNames = ({
 
   if (isInvalidOrder()) return [];
 
-  const isLineOrNot = (layerName: string) =>
+  const isLineOrPolygon = (layerName: string) =>
     element === ElementNameType.section &&
-    subElement === SubElementNameType.stroke
-      ? layerName.includes(layerTypes.line)
-      : !layerName.includes(layerTypes.line);
+    subElement === SubElementNameType.fill
+      ? layerName.includes(layerTypes.fill)
+      : !layerName.includes(layerTypes.fill);
 
   const isLabelOrNot = (layerName: string) =>
-    element === ElementNameType.section
-      ? !layerName.includes(layerTypes.labelText)
-      : layerName.includes(layerTypes.labelText);
+    element === ElementNameType.labelText
+      ? layerName.includes(layerTypes.labelText)
+      : !layerName.includes(layerTypes.labelText);
 
   const getSubfeatureLayer = (layerName: string) =>
-    subFeature === 'all' || layerName.includes(subFeature);
+    subFeature === layerTypes.all || layerName.includes(subFeature);
 
   const layerNames = transitLayerIds
     .filter(isLabelOrNot)
-    .filter(isLineOrNot)
+    .filter(isLineOrPolygon)
     .filter(getSubfeatureLayer);
   return layerNames;
 };
