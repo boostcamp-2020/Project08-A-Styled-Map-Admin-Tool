@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import styled from '../../../utils/styles/styled';
 import { RootState } from '../../../store/index';
 import { HistoryPropsType } from '../../../store/common/type';
-import { comparisonButtonClickHandlerType } from '../../../hooks/map/useCompareFeature';
 
 const HistoryWapper = styled.div`
   z-index: 30;
