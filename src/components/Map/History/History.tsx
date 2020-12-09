@@ -27,6 +27,7 @@ const HistoryList = styled.ul`
 
 interface HistoryItemProps {
   isCurrent: boolean;
+  isCompared: boolean;
 }
 
 const HistoryItem = styled.li<HistoryItemProps>`
@@ -35,6 +36,8 @@ const HistoryItem = styled.li<HistoryItemProps>`
   border-radius: 3px;
   font-size: 1.3rem;
   color: ${(props) => (props.isCurrent ? props.theme.GREEN : props.theme.GREY)};
+  background-color: ${(props) =>
+    props.isCompared ? props.theme.LIGHTGREY : props.theme.WHITE};
 
   cursor: pointer;
 
@@ -55,10 +58,15 @@ const Explain = styled.p`
   font-size: 1.3rem;
   color: ${(props) => props.theme.DARKGREY};
 `;
+const Content = styled.div`
+  padding: 2px;
+  position: relative;
+`;
 
 interface HistoryProps {
   isHistoryOpen: boolean;
   comparisonButtonClickHandler: (id: string) => void;
+  compareId: string | undefined;
 }
 
 const featureName = featureTypeData.reduce(
@@ -97,6 +105,7 @@ const elementName = {
 function History({
   isHistoryOpen,
   comparisonButtonClickHandler,
+  compareId,
 }: HistoryProps): ReactElement {
   const { log, currentIdx } = useSelector<RootState>(
     (state) => state.history
@@ -108,7 +117,7 @@ function History({
     <HistoryWapper>
       <HistoryTitle text-align="center">
         HISTORY LIST
-        <Explain>클릭 시 현재 화면과 비교할 수 있습니다.</Explain>
+        <Explain>클릭 시 현재 화면과 비교 가능</Explain>
       </HistoryTitle>
       <HistoryList>
         {(log || [])
@@ -116,20 +125,18 @@ function History({
             <HistoryItem
               key={item.id}
               isCurrent={currentIdx === idx}
+              isCompared={item.id === compareId}
               onClick={() => comparisonButtonClickHandler(item.id as string)}
             >
-              <p>
+              <Content>
                 {`${featureName.feature[item.feature]} > ${
                   featureName.subFeature[item.feature][item.subFeature]
                 } > ${elementName.element[item.element]} > ${
                   elementName.subElement[item.subElement]
                 }`}
-              </p>
-              <p>
-                {`${elementName.style[item.changedKey]} ${
-                  item.changedValue
-                }로 변경`}
-              </p>
+                {`> ${elementName.style[item.changedKey]} 
+                ${item.changedValue}로 변경`}
+              </Content>
             </HistoryItem>
           ))
           .reverse()}
