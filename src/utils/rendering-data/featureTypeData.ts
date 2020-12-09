@@ -48,7 +48,7 @@ const data: DataType[] = [
     typeKey: FeatureNameType.landscape,
     typeName: '경관',
     subFeatures: [
-      { key: 'human-made', name: '인공물' },
+      { key: 'humanmade', name: '인공물' },
       { key: 'building', name: '건물' },
       { key: 'natural', name: '자연물' },
       { key: 'landcover', name: '평지' },

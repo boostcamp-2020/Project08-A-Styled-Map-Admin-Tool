@@ -81,7 +81,7 @@ export enum AdministrativeNameType {
 
 export enum LandScapeNameType {
   all = 'all',
-  'human-made' = 'human-made',
+  'humanmade' = 'humanmade',
   building = 'building',
   natural = 'natural',
   landcover = 'landcover',

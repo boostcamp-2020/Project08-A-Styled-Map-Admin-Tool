@@ -168,7 +168,7 @@ const layersColor: PropertyType = {
         stroke: 'transparent',
       },
     },
-    'human-made': {
+    humanmade: {
       section: {
         fill: 'hsl(35, 11%, 86%)',
         stroke: 'hsl(75, 57%, 84%)',

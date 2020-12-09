@@ -1,6 +1,6 @@
 export default [
   {
-    id: 'landscape-human-made',
+    id: 'landscape-humanmade',
     type: 'fill',
     source: 'polygon_source',
     'source-layer': 'polygon',
