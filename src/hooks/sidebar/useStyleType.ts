@@ -14,6 +14,7 @@ import * as mapStyling from '../../utils/map-styling';
 
 import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
 import useHistoryFeature from '../map/useHistoryFeature';
+import { VisibilityType } from '../../utils/applyStyle';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
@@ -84,15 +85,9 @@ function useStyleType(): UseStyleHookType {
   const { addHistory } = useHistoryFeature();
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
 
-  const {
-    poi,
-    landscape,
-    administrative,
-    road,
-    transit,
-    water,
-    marker,
-  } = useSelector<RootState>((state) => state) as any;
+  const { map: mapR, sidebar, history, ...features } = useSelector<RootState>(
+    (state) => state
+  ) as any;
   const { feature, subFeature, element, subElement } = useSelector<RootState>(
     (state) => state.sidebar
   ) as PayloadPropsType;
@@ -110,15 +105,7 @@ function useStyleType(): UseStyleHookType {
   useEffect(() => {
     const { key, value } = changedObj;
     if (key && value && feature && subFeature && element) {
-      const wholeStyle = {
-        poi,
-        landscape,
-        administrative,
-        road,
-        transit,
-        water,
-        marker,
-      };
+      const wholeStyle = features;
 
       addHistory({
         changedKey: key,
@@ -146,18 +133,6 @@ function useStyleType(): UseStyleHookType {
         ? getNewColorStyle(key, value, styleElement)
         : { [key]: value };
 
-      mapStyling[feature]({
-        map,
-        subFeature,
-        key,
-        element,
-        subElement: subElement as SubElementNameType,
-        style: {
-          ...styleElement,
-          ...newStyleObj,
-        },
-      });
-
       dispatch(
         setStyle({
           feature,
@@ -171,34 +146,29 @@ function useStyleType(): UseStyleHookType {
         })
       );
 
-      const wholeStyle = {
-        poi,
-        landscape,
-        administrative,
-        road,
-        transit,
-        water,
-        marker,
-      };
-      wholeStyle[feature][subFeature][element][
-        subElement as SubElementNameType
-      ] = {
-        ...styleElement,
-        ...newStyleObj,
-      };
-      addHistory({
-        changedKey: key,
-        changedValue: value,
-        feature,
+      let parentVisibility = '';
+      if (value === VisibilityType.inherit) {
+        if (subElement) {
+          parentVisibility =
+            features[feature].all[element][subElement].visibility;
+        } else {
+          parentVisibility = features[feature].all[element].visibility;
+        }
+      }
+
+      mapStyling[feature]({
+        map,
         subFeature,
+        key,
         element,
         subElement: subElement as SubElementNameType,
         style: {
           ...styleElement,
-          [key]: value,
+          ...newStyleObj,
+          [key]: parentVisibility || value,
         },
-        wholeStyle,
       });
+
       setChangedObj({ key, value });
     },
     [feature, subFeature, element, subElement, styleElement]
