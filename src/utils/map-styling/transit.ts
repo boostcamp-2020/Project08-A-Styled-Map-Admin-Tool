@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-case-declarations */
 import { stylingProps } from '.';
-import transitLayers from '../../store/map/layers/transit';
+import transitLayers from '../rendering-data/layers/transit.json';
 import {
   StyleKeyType,
   ElementNameType,
@@ -36,7 +36,7 @@ interface GetStylePropertyTypeProps {
   subElement: SubElementNameType;
 }
 
-const transitLayerIds = transitLayers.map(({ id }) => id);
+const transitLayerIds = transitLayers.transit.map(({ id }) => id);
 
 const getLayerNames = ({
   subFeature,

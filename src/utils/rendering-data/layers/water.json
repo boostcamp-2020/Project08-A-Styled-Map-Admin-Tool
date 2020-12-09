@@ -1,13 +1,13 @@
 {
   "water": [
     {
-      "id": "water-shadow-section",
+      "id": "water-all-section-fill-1",
       "type": "fill",
       "source": "composite",
       "source-layer": "water",
       "layout": {},
       "paint": {
-        "fill-color": "hsl(215, 84%, 69%)",
+        "fill-color": "hsl(196, 80%, 70%)",
         "fill-translate": [
           "interpolate",
           ["exponential", 1.2],
@@ -21,7 +21,7 @@
       }
     },
     {
-      "id": "water-section",
+      "id": "water-all-section-fill-2",
       "type": "fill",
       "source": "composite",
       "source-layer": "water",
@@ -29,7 +29,7 @@
       "paint": { "fill-color": "hsl(196, 80%, 70%)" }
     },
     {
-      "id": "water-polygon",
+      "id": "water-all-section-fill-3",
       "type": "fill",
       "source": "polygon_source",
       "source-layer": "polygon",
@@ -37,7 +37,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "fill-color": "hsl(243, 57%, 50%)",
+        "fill-color": "hsl(196, 80%, 70%)",
         "fill-opacity": 0.5,
         "fill-translate": [
           "interpolate",
@@ -52,7 +52,7 @@
       "filter": ["==", ["get", "type"], "water"]
     },
     {
-      "id": "water-waterway-labelText",
+      "id": "water-all-labelText-1",
       "type": "symbol",
       "source": "composite",
       "source-layer": "natural_label",
@@ -81,7 +81,7 @@
       "paint": { "text-color": "hsl(230, 48%, 44%)" }
     },
     {
-      "id": "water-labelText",
+      "id": "water-all-labelText-2",
       "type": "symbol",
       "source": "composite",
       "source-layer": "natural_label",
@@ -133,7 +133,7 @@
       }
     },
     {
-      "id": "water-point-labelText",
+      "id": "water-all-labelText-3",
       "type": "symbol",
       "source": "composite",
       "source-layer": "natural_label",

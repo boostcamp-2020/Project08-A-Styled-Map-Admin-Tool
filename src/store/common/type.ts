@@ -81,7 +81,7 @@ export enum AdministrativeNameType {
 
 export enum LandScapeNameType {
   all = 'all',
-  'human-made' = 'human-made',
+  'humanmade' = 'humanmade',
   building = 'building',
   natural = 'natural',
   landcover = 'landcover',
@@ -262,6 +262,29 @@ export type FeaturePropertyType = {
 
 export type PropertyType = {
   [featureName in FeatureNameType]: FeaturePropertyType;
+};
+
+/** defatult style Type */
+export type DefaultStyleType = {
+  color: string;
+  weight: number;
+};
+
+export type DefaultElementType = {
+  fill: DefaultStyleType;
+  stroke: DefaultStyleType;
+};
+
+export type DefaultFeatureType = {
+  [subFeatureName: string]: {
+    [ElementNameType.section]?: DefaultElementType;
+    [ElementNameType.labelText]?: DefaultElementType;
+    [ElementNameType.labelIcon]?: DefaultStyleType;
+  };
+};
+
+export type DefaultWholeStyle = {
+  [featureName in FeatureNameType]: DefaultFeatureType;
 };
 
 /** urlJson Type */

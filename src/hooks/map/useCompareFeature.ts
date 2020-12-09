@@ -2,6 +2,7 @@
 /* eslint-disable guard-for-in */
 import { useState, RefObject, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
+import initLayers from '../../utils/rendering-data/layers/init';
 import getCompareMap from './getCompareMap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -42,7 +43,7 @@ function useCompareFeature({
 
     const beforeMap = new mapboxgl.Map({
       container: beforeMapRef.current as HTMLDivElement,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: initLayers as mapboxgl.Style,
       center: [map.getCenter().lng, map.getCenter().lat],
       zoom: map.getZoom(),
     });

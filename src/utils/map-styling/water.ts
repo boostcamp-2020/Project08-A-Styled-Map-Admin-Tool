@@ -13,8 +13,16 @@ import {
 } from '../applyStyle';
 
 const layers = {
-  polygon: ['water-polygon', 'water', 'water-shadow'],
-  symbol: ['water-line-label', 'water-point-label', 'waterway-label'],
+  polygon: [
+    'water-all-section-fill-1',
+    'water-all-section-fill-2',
+    'water-all-section-fill-3',
+  ],
+  symbol: [
+    'water-all-labelText-1',
+    'water-all-labelText-2',
+    'water-all-labelText-3',
+  ],
 };
 
 function waterStyling({

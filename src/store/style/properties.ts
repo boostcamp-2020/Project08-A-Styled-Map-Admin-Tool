@@ -5,11 +5,12 @@ import {
   SubElementNameType,
   FeaturePropsType,
   ElementPropsType,
-  StylePropsType,
+  DefaultElementType,
+  DefaultStyleType,
 } from '../common/type';
 import { hslToHEX } from '../../utils/colorFormat';
 
-import defaultStyle from '../../utils/rendering-data/layersColor';
+import defaultStyle from '../../utils/rendering-data/defaultStyle';
 
 const style: StyleType = {
   isChanged: false,
@@ -26,20 +27,25 @@ export const getDefaultStyle = ({
   element,
   subElement,
 }: ElementPropsType): StyleType => {
-  const defaultColor = subElement
-    ? (defaultStyle[feature][subFeature][element] as StylePropsType)[subElement]
-    : defaultStyle[feature][subFeature][element];
+  const defaultState = subElement
+    ? ((defaultStyle[feature][subFeature][element] as DefaultElementType)[
+        subElement
+      ] as DefaultStyleType)
+    : (defaultStyle[feature][subFeature][element] as DefaultStyleType);
 
-  const hslArr = (defaultColor && defaultColor !== 'transparent'
-    ? (defaultColor as string)
-    : 'hsl(0, 0%, 0%)'
-  ).match(/hsl\((\d+), (\d+)%, (\d+)%\)/) as string[];
+  if (defaultState.color === 'transparent')
+    defaultState.color = 'hsl(0, 0%, 0%)';
+
+  const hslArr = defaultState.color.match(
+    /hsl\((\d+), (\d+)%, (\d+)%\)/
+  ) as string[];
   const s = hslArr[2];
   const l = hslArr[3];
 
   return {
     ...JSON.parse(JSON.stringify(style)),
-    color: defaultColor ? hslToHEX(defaultColor as string) : '#000000',
+    color: hslToHEX(defaultState.color as string),
+    weight: defaultState.weight,
     saturation: Number(s),
     lightness: Number(l),
   };
