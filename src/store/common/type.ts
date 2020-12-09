@@ -163,6 +163,10 @@ export type ActionType =
   | ReturnType<typeof setWholeStyle>
   | ReturnType<typeof replaceWholeStyle>;
 
+export interface HistoryPropsType {
+  log?: HistoryInfoPropsType[];
+}
+
 /** Style Store Type for Replace */
 export type StyleStoreType = {
   [featureName in FeatureNameType]: FeatureState;

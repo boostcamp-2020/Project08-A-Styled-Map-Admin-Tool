@@ -3,9 +3,10 @@ import {
   HistoryPropsType,
   HistoryActionType,
   HistoryInfoPropsType,
-  SetIndexPayload,
 } from '../common/type';
 import getRandomId from '../../utils/getRandomId';
+
+const logKey = 'log' as const;
 
 const initialState: HistoryPropsType = {
   log: [],
@@ -18,6 +19,7 @@ function historyReducer(
 ): HistoryPropsType {
   switch (action.type) {
     case INIT_HISTORY: {
+
       const localStorageLog = JSON.parse(localStorage.getItem('log') as string);
 
       const log = localStorageLog
@@ -31,7 +33,6 @@ function historyReducer(
         currentIdx,
       };
     }
-
     case ADD_LOG: {
       const id = getRandomId(8);
       const newState = JSON.parse(JSON.stringify(state));
@@ -43,9 +44,9 @@ function historyReducer(
       newState.currentIdx = newState.log.length - 1;
 
       const storedLog =
-        localStorage.getItem('log') === null
+        localStorage.getItem(logKey) === null
           ? []
-          : JSON.parse(localStorage.getItem('log') as string);
+          : JSON.parse(localStorage.getItem(logKey) as string);
 
       // TODO: localstorage update before Event(refresh, close..)
       // localstorage에 업로드 할때 100개만 가져가면 되지 않을까요?
@@ -56,6 +57,7 @@ function historyReducer(
         });
         localStorage.setItem('log', JSON.stringify(storedLog));
       }
+
 
       return newState;
     }

@@ -170,6 +170,35 @@ function useStyleType(): UseStyleHookType {
           },
         })
       );
+
+      const wholeStyle = {
+        poi,
+        landscape,
+        administrative,
+        road,
+        transit,
+        water,
+        marker,
+      };
+      wholeStyle[feature][subFeature][element][
+        subElement as SubElementNameType
+      ] = {
+        ...styleElement,
+        ...newStyleObj,
+      };
+      addHistory({
+        changedKey: key,
+        changedValue: value,
+        feature,
+        subFeature,
+        element,
+        subElement,
+        style: {
+          ...styleElement,
+          [key]: value,
+        },
+        wholeStyle,
+      });
       setChangedObj({ key, value });
     },
     [feature, subFeature, element, subElement, styleElement]
