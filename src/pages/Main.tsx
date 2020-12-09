@@ -21,12 +21,10 @@ const MainWrapper = styled.div`
   height: 100%;
 `;
 
-function Main({
-  location: { search, pathname },
-}: MainProps): React.ReactElement {
+function Main({ location: { pathname } }: MainProps): React.ReactElement {
   return (
     <MainWrapper>
-      {search && pathname === '/show' ? <></> : <Sidebar />}
+      {pathname === '/map' && <Sidebar />}
       <Map pathname={pathname} />
     </MainWrapper>
   );

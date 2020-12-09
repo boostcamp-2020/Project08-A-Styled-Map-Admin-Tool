@@ -7,48 +7,55 @@ import {
   ModalCloseButton,
 } from './common';
 import CloseIcon from '../../Icon/CloseIcon';
+import Overlay from '../../common/Overlay';
 import { FeatureNameType } from '../../../store/common/type';
 import { jsonToURL } from '../../../utils/urlParsing';
 
-const Background = styled.div<{ isOpen: boolean }>`
-  position: fixed;
-  ${(props) => (props.isOpen ? '' : 'display: none')};
-  width: 100vw;
-  height: 100vh;
-
-  top: 0px;
-  left: 0px;
-
-  background-color: #00000040;
-
-  z-index: 20;
-`;
-
-const ExportModalWrapper = styled(ModalWrapper)<{
-  isOpen: boolean;
-}>`
-  ${(props) => (props.isOpen ? '' : 'display:none;')}
-`;
+const ExportModalWrapper = styled(ModalWrapper)``;
 
 const ModalBody = styled.div`
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
-const ModalContent = styled.article`
-  padding: 1rem;
-  width: 100%;
-  height: 20%;
+const Content = styled.article`
+  font-size: 1.3rem;
   overflow-y: scroll;
+  height: 70%;
   word-break: break-all;
+  white-space: normal;
+  color: ${(props) => props.theme.GREY};
+  line-height: 16px;
+  background-color: ${(props) => props.theme.GOOGLE_GREY};
+  padding: 10px;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
+`;
+
+const ExportToJson = styled.div`
+  padding: 0px 30px;
+  height: 50%;
+`;
+
+const ExportToURL = styled.div`
+  padding: 0px 30px;
+  height: 50%;
+`;
+
+const SubTitle = styled.h2`
+  padding: 10px 0;
+  font-size: 1.6rem;
+  color: ${(props) => props.theme.GREEN};
 `;
 
 interface StoreDataType {
   [key: string]: FeatureNameType | undefined;
 }
-
-const URL = 'http://localhost:3000/map?q=';
 
 function ExportModal({
   isOpen,
@@ -59,29 +66,26 @@ function ExportModal({
   onClose: () => void;
   style: StoreDataType;
 }): React.ReactElement {
+  if (!isOpen) return <></>;
   return (
     <>
-      <Background isOpen={isOpen} onClick={onClose} />
-      <ExportModalWrapper isOpen={isOpen}>
+      <Overlay toggleHandler={onClose} color="black" />
+      <ExportModalWrapper>
         <ModalHeader>
-          <ModalTitle>JSON 내보내기</ModalTitle>
+          <ModalTitle>스타일 내보내기</ModalTitle>
           <ModalCloseButton onClick={onClose}>
             <CloseIcon />
           </ModalCloseButton>
         </ModalHeader>
         <ModalBody>
-          <div>
-            <h2>JSON 형식으로 내보내기</h2>
-            <ModalContent>
-              <pre>{JSON.stringify(style, null, 2)}</pre>
-            </ModalContent>
-          </div>
-          <div>
-            <h2>URL로 내보내기</h2>
-            <ModalContent>
-              <pre>{jsonToURL(style)}</pre>
-            </ModalContent>
-          </div>
+          <ExportToJson>
+            <SubTitle>JSON 형식으로 내보내기</SubTitle>
+            <Content>{JSON.stringify(style, null, 2)}</Content>
+          </ExportToJson>
+          <ExportToURL>
+            <SubTitle>URL로 내보내기</SubTitle>
+            <Content>{jsonToURL(style)}</Content>
+          </ExportToURL>
         </ModalBody>
       </ExportModalWrapper>
     </>

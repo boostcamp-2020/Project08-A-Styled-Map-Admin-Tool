@@ -10,7 +10,7 @@ import {
   SubElementType,
 } from '../common/type';
 import { getDefaultFeature, getDefaultStyle } from './properties';
-import { INIT, SET, SET_WHOLE } from './action';
+import { INIT, SET, SET_WHOLE, REPLACE_WHOLE } from './action';
 import { checkStyleIsChanged, checkFeatureIsChanged } from './compareStyle';
 import { combineElement } from './manageCategories';
 
@@ -19,6 +19,7 @@ interface ReducerType {
 }
 
 export default function getReducer(IDX: number): ReducerType {
+  const featureName = renderingData[IDX].typeKey;
   const subFeatures = [
     'all',
     ...(renderingData[IDX].subFeatures?.map((v) => v.key) as string[]),
@@ -26,11 +27,12 @@ export default function getReducer(IDX: number): ReducerType {
 
   const initialState = subFeatures.reduce((acc: FeatureState, cur: string) => {
     acc[cur] = getDefaultFeature({
-      feature: renderingData[IDX].typeKey,
+      feature: featureName,
       subFeature: cur,
     });
     return acc;
   }, {});
+
   return function reducer(
     state: FeatureState = initialState,
     action: ActionType
@@ -38,6 +40,10 @@ export default function getReducer(IDX: number): ReducerType {
     switch (action.type) {
       case INIT:
         return initialState;
+
+      case REPLACE_WHOLE:
+        return action.payload[featureName];
+
       case SET: {
         const {
           feature,
@@ -46,7 +52,8 @@ export default function getReducer(IDX: number): ReducerType {
           subElement,
           style,
         } = action.payload;
-        if (feature !== renderingData[IDX].typeKey) return state;
+
+        if (feature !== featureName) return state;
 
         const defaultStyle = getDefaultStyle(action.payload);
         style.isChanged = checkStyleIsChanged({ defaultStyle, style });
@@ -75,8 +82,9 @@ export default function getReducer(IDX: number): ReducerType {
 
         return newState;
       }
+
       case SET_WHOLE: {
-        const inputStyle = action.payload[renderingData[IDX].typeKey];
+        const inputStyle = action.payload[featureName];
         const updateStyle = JSON.parse(JSON.stringify(initialState));
 
         if (!inputStyle) return updateStyle;

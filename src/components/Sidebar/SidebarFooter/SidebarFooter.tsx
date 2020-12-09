@@ -12,8 +12,6 @@ const FooterWrapper = styled.footer`
 `;
 
 const Button = styled.button`
-  position: relative;
-  z-index: 10;
   width: 100px;
   background-color: ${(props) => props.theme.WHITE};
   border: none;
