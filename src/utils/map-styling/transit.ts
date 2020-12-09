@@ -18,9 +18,9 @@ import {
 
 enum layerTypes {
   all = 'all',
-  fill = 'fill',
+  section = 'section',
   line = 'line',
-  symbol = 'symbol',
+  labelText = 'labelText',
 }
 
 interface GetLayerNamesProps {
@@ -30,13 +30,7 @@ interface GetLayerNamesProps {
   key: StyleKeyType;
 }
 
-const transitLayerIds = transitLayers.map(({ type, id }) => ({ type, id }));
-const getTypedLayerIds = (typeName: layerTypes) =>
-  transitLayerIds.filter(({ type }) => type === typeName).map(({ id }) => id);
-
-const PolygonLayers = getTypedLayerIds(layerTypes.fill);
-const LineLayers = getTypedLayerIds(layerTypes.line);
-const LabelLayers = getTypedLayerIds(layerTypes.symbol);
+const transitLayerIds = transitLayers.map(({ id }) => id);
 
 const getLayerNames = ({
   subFeature,
@@ -44,19 +38,20 @@ const getLayerNames = ({
   subElement,
   key,
 }: GetLayerNamesProps) => {
-  if (subElement === SubElementNameType.fill && key === StyleKeyType.weight)
-    return [];
+  const isInvalidOrder = () =>
+    subElement === SubElementNameType.fill && key === StyleKeyType.weight;
 
-  const layerNamesArray =
-    element === ElementNameType.labelText
-      ? [...LabelLayers]
-      : subElement === SubElementNameType.fill
-      ? [...PolygonLayers]
-      : [...LineLayers];
+  if (isInvalidOrder()) return [];
 
-  return subFeature === layerTypes.all
-    ? layerNamesArray
-    : layerNamesArray.filter((name) => name.includes(subFeature));
+  const getTypedLayer = (layerName: string) =>
+    subFeature === layerTypes.all ? layerName : layerName.includes(element);
+
+  const strokeableLayer = (layerName: string) =>
+    subElement === SubElementNameType.stroke
+      ? layerName.includes(layerTypes.line)
+      : layerName.includes(layerTypes.section);
+
+  return transitLayerIds.filter(getTypedLayer).filter(strokeableLayer);
 };
 
 function transitStyling({

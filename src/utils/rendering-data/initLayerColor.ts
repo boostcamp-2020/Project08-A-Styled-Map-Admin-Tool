@@ -43,15 +43,15 @@ const initLayerColor: InitLayerColor = {
   'water-point-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
   'waterway-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
   //
-  'mapbox-airport-aeroway-polygon': {
+  'transit-airport-aeroway-section': {
     color: 'hsl(234, 20%, 30%)',
     type: 'fill',
   },
-  'mapbox-airport-polygon': { color: 'hsl(234, 20%, 30%)', type: 'fill' },
-  'mapbox-airport-aeroway-line': { color: 'hsl(230, 23%, 82%)', type: 'line' },
-  'mapbox-airport-label': { color: 'hsl(230, 48%, 44%)', type: 'text' },
-  'transit-bus-label': { color: 'hsl(234, 20%, 30%)', type: 'text' },
-  'mapbox-rail-road-line': { color: 'hsl(234, 20%, 30%)', type: 'line' },
+  'transit-airport-section': { color: 'hsl(234, 20%, 30%)', type: 'fill' },
+  'transit-airport-aeroway-line': { color: 'hsl(230, 23%, 82%)', type: 'line' },
+  'transit-airport-labelText': { color: 'hsl(230, 48%, 44%)', type: 'text' },
+  'transit-bus-labelText': { color: 'hsl(234, 20%, 30%)', type: 'text' },
+  'transit-rail-road-line': { color: 'hsl(234, 20%, 30%)', type: 'line' },
   'transit-rail-line': { color: 'hsl(234, 20%, 30%)', type: 'line' },
   'transit-subway-line': { color: 'hsl(192, 70%, 43%)', type: 'line' },
   'road-arterial': { color: 'hsl(0, 0%, 100%)', type: 'line' },

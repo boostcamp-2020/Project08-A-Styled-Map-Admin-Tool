@@ -1,6 +1,6 @@
 export default [
   {
-    id: 'mapbox-airport-polygon',
+    id: 'transit-airport-section',
     type: 'fill',
     source: 'composite',
     'source-layer': 'landuse',
@@ -13,9 +13,8 @@ export default [
     filter: ['==', ['get', 'class'], 'airport'],
   },
   {
-    id: 'mapbox-airport-aeroway-polygon',
+    id: 'transit-airport-aeroway-section',
     type: 'fill',
-    metadata: {},
     source: 'composite',
     'source-layer': 'aeroway',
     minzoom: 11,
@@ -30,9 +29,8 @@ export default [
     },
   },
   {
-    id: 'mapbox-airport-aeroway-line',
+    id: 'transit-airport-aeroway-line',
     type: 'line',
-    metadata: {},
     source: 'composite',
     'source-layer': 'aeroway',
     minzoom: 9,
@@ -52,7 +50,7 @@ export default [
     },
   },
   {
-    id: 'mapbox-airport-label',
+    id: 'transit-airport-labelText',
     type: 'symbol',
     source: 'composite',
     'source-layer': 'airport_label',
@@ -113,7 +111,7 @@ export default [
     filter: ['match', ['get', 'type'], 'rail', true, false],
   },
   {
-    id: 'mapbox-rail-road-line',
+    id: 'transit-rail-road-line',
     type: 'line',
     source: 'composite',
     'source-layer': 'road',
@@ -134,7 +132,7 @@ export default [
     ],
   },
   {
-    id: 'transit-bus-label',
+    id: 'transit-bus-labelText',
     type: 'symbol',
     source: 'poi_source',
     'source-layer': 'poi',

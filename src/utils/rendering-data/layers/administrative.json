@@ -1,37 +1,7 @@
 {
   "administrative": [
     {
-      "id": "admin-1-boundary-bg",
-      "type": "line",
-      "metadata": { "mapbox:group": "1444934295202.7542" },
-      "source": "composite",
-      "source-layer": "admin",
-      "filter": [
-        "all",
-        ["==", ["get", "admin_level"], 1],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", "US"], true, false]
-      ],
-      "layout": { "line-join": "bevel" },
-      "paint": {
-        "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          8,
-          "hsl(35, 12%, 89%)",
-          16,
-          "hsl(230, 49%, 90%)"
-        ],
-        "line-width": ["interpolate", ["linear"], ["zoom"], 7, 3.75, 12, 5.5],
-        "line-opacity": ["interpolate", ["linear"], ["zoom"], 7, 0, 8, 0.75],
-        "line-dasharray": [1, 0],
-        "line-translate": [0, 0],
-        "line-blur": ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 3]
-      }
-    },
-    {
-      "id": "admin-0-boundary-bg",
+      "id": "administrative-country-bg-line",
       "type": "line",
       "metadata": { "mapbox:group": "1444934295202.7542" },
       "source": "composite",
@@ -61,7 +31,57 @@
       }
     },
     {
-      "id": "admin-1-boundary",
+      "id": "administrative-state-bg-line",
+      "type": "line",
+      "metadata": { "mapbox:group": "1444934295202.7542" },
+      "source": "composite",
+      "source-layer": "admin",
+      "filter": [
+        "all",
+        ["==", ["get", "admin_level"], 1],
+        ["==", ["get", "maritime"], "false"],
+        ["match", ["get", "worldview"], ["all", "US"], true, false]
+      ],
+      "layout": { "line-join": "bevel" },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          "hsl(35, 12%, 89%)",
+          16,
+          "hsl(230, 49%, 90%)"
+        ],
+        "line-width": ["interpolate", ["linear"], ["zoom"], 7, 3.75, 12, 5.5],
+        "line-opacity": ["interpolate", ["linear"], ["zoom"], 7, 0, 8, 0.75],
+        "line-dasharray": [1, 0],
+        "line-translate": [0, 0],
+        "line-blur": ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 3]
+      }
+    },
+    {
+      "id": "administrative-country-line",
+      "type": "line",
+      "metadata": { "mapbox:group": "1444934295202.7542" },
+      "source": "composite",
+      "source-layer": "admin",
+      "minzoom": 1,
+      "filter": [
+        "all",
+        ["==", ["get", "admin_level"], 0],
+        ["==", ["get", "disputed"], "false"],
+        ["==", ["get", "maritime"], "false"],
+        ["match", ["get", "worldview"], ["all", "US"], true, false]
+      ],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": {
+        "line-color": "hsl(230, 8%, 51%)",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 3, 0.5, 10, 2]
+      }
+    },
+    {
+      "id": "administrative-state-line",
       "type": "line",
       "metadata": { "mapbox:group": "1444934295202.7542" },
       "source": "composite",
@@ -94,28 +114,9 @@
         ]
       }
     },
+
     {
-      "id": "admin-0-boundary",
-      "type": "line",
-      "metadata": { "mapbox:group": "1444934295202.7542" },
-      "source": "composite",
-      "source-layer": "admin",
-      "minzoom": 1,
-      "filter": [
-        "all",
-        ["==", ["get", "admin_level"], 0],
-        ["==", ["get", "disputed"], "false"],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", "US"], true, false]
-      ],
-      "layout": { "line-join": "round", "line-cap": "round" },
-      "paint": {
-        "line-color": "hsl(230, 8%, 51%)",
-        "line-width": ["interpolate", ["linear"], ["zoom"], 3, 0.5, 10, 2]
-      }
-    },
-    {
-      "id": "admin-0-boundary-disputed",
+      "id": "administrative-country-line-disputed",
       "type": "line",
       "metadata": { "mapbox:group": "1444934295202.7542" },
       "source": "composite",
@@ -136,7 +137,7 @@
       }
     },
     {
-      "id": "settlement-subdivision-label",
+      "id": "administrative-settlement-subdivision-labelText",
       "type": "symbol",
       "source": "composite",
       "source-layer": "place_label",
@@ -195,7 +196,7 @@
       }
     },
     {
-      "id": "settlement-label",
+      "id": "administrative-settlement-labelText",
       "type": "symbol",
       "source": "composite",
       "source-layer": "place_label",
@@ -385,7 +386,7 @@
       }
     },
     {
-      "id": "state-label",
+      "id": "administrative-state-labelText",
       "type": "symbol",
       "source": "composite",
       "source-layer": "place_label",
@@ -427,7 +428,7 @@
     },
 
     {
-      "id": "country-label",
+      "id": "administrative-country-labelText",
       "type": "symbol",
       "source": "composite",
       "source-layer": "place_label",

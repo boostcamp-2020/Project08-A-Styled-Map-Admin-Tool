@@ -1,7 +1,7 @@
 {
   "water": [
     {
-      "id": "water-shadow",
+      "id": "water-shadow-section",
       "type": "fill",
       "source": "composite",
       "source-layer": "water",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "id": "water",
+      "id": "water-section",
       "type": "fill",
       "source": "composite",
       "source-layer": "water",
@@ -52,7 +52,7 @@
       "filter": ["==", ["get", "type"], "water"]
     },
     {
-      "id": "waterway-label",
+      "id": "water-waterway-labelText",
       "type": "symbol",
       "source": "composite",
       "source-layer": "natural_label",
@@ -81,7 +81,7 @@
       "paint": { "text-color": "hsl(230, 48%, 44%)" }
     },
     {
-      "id": "water-line-label",
+      "id": "water-labelText",
       "type": "symbol",
       "source": "composite",
       "source-layer": "natural_label",
@@ -133,7 +133,7 @@
       }
     },
     {
-      "id": "water-point-label",
+      "id": "water-point-labelText",
       "type": "symbol",
       "source": "composite",
       "source-layer": "natural_label",
