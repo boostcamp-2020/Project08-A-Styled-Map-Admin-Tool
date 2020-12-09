@@ -30,7 +30,7 @@ function useUndoRedo(): UseUndoRedoType {
   })) as ReduxStateType;
 
   const undoHandler = () => {
-    if (!log || currentIdx === null || currentIdx < 0) return;
+    if (!map || !log || currentIdx === null || currentIdx < 0) return;
     const undoIdx = currentIdx - 1;
     const { feature, subFeature, element, subElement, style, changedKey } = log[
       currentIdx

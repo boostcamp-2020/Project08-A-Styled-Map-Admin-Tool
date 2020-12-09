@@ -37,7 +37,7 @@ function useWholeStyle(): WholeStyleHook {
   } = useSelector<RootState>((state) => state) as WholeStyleStoreType;
 
   useEffect(() => {
-    if (!flag) return;
+    if (!flag || !map) return;
     const stores: WholeStyleStoreType = {
       poi,
       landscape,

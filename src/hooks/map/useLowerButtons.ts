@@ -10,11 +10,13 @@ function useLowerButtons(): LowerButtonsHookType {
   const map = useSelector((state: RootState) => state.map.map);
 
   const plusZoom = () => {
+    if (!map) return;
     const zoom = map?.getZoom() as number;
     map?.flyTo({ zoom: zoom + 1 });
   };
 
   const minusZoom = () => {
+    if (!map) return;
     const zoom = map?.getZoom() as number;
     map?.flyTo({ zoom: zoom - 1 });
   };

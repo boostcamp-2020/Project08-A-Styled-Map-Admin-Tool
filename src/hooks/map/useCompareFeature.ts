@@ -42,7 +42,7 @@ function useCompareFeature({
   })) as ReduxStateType;
 
   useEffect(() => {
-    if (!logId) return;
+    if (!map || !logId) return;
 
     const beforeMap = new mapboxgl.Map({
       container: beforeMapRef.current as HTMLDivElement,

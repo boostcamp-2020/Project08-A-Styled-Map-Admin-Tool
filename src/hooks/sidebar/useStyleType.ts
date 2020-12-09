@@ -127,7 +127,7 @@ function useStyleType(): UseStyleHookType {
 
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
-      if (!feature || !subFeature || !element) return;
+      if (!feature || !subFeature || !element || !map) return;
 
       const newStyleObj = colorRelatedKeysArr.includes(key)
         ? getNewColorStyle(key, value, styleElement)
