@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from '../../../utils/styles/styled';
 import SidebarContentDepth from './SidebarContentDepth';
 import SidebarContentTheme from './SidebarContentTheme';
@@ -19,4 +19,4 @@ function SidebarContent(): React.ReactElement {
   );
 }
 
-export default SidebarContent;
+export default memo(SidebarContent);
