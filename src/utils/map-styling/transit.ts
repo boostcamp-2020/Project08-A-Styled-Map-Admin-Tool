@@ -43,15 +43,29 @@ const getLayerNames = ({
 
   if (isInvalidOrder()) return [];
 
-  const getTypedLayer = (layerName: string) =>
-    subFeature === layerTypes.all ? layerName : layerName.includes(element);
-
-  const strokeableLayer = (layerName: string) =>
+  const isLineOrNot = (layerName: string) =>
+    element === ElementNameType.section &&
     subElement === SubElementNameType.stroke
       ? layerName.includes(layerTypes.line)
-      : layerName.includes(layerTypes.section);
+      : !layerName.includes(layerTypes.line);
 
-  return transitLayerIds.filter(getTypedLayer).filter(strokeableLayer);
+  const isLabelOrNot = (layerName: string) =>
+    element === ElementNameType.section
+      ? !layerName.includes(layerTypes.labelText)
+      : layerName.includes(layerTypes.labelText);
+
+  const getSubfeatureLayer = (layerName: string) =>
+    subFeature === 'all' || layerName.includes(subFeature);
+
+  const layerNames = transitLayerIds
+    .filter(isLabelOrNot)
+    .filter(isLineOrNot)
+    .filter(getSubfeatureLayer);
+  return layerNames;
+};
+
+const getLayerPropertyType = () => {
+  // TODO: refactoring ..
 };
 
 function transitStyling({
