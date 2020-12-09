@@ -24,12 +24,16 @@ const HistoryList = styled.ul`
   margin-top: 10px;
 `;
 
-const HistoryItem = styled.li`
+interface HistoryItemProps {
+  isCurrent: boolean;
+}
+
+const HistoryItem = styled.li<HistoryItemProps>`
   margin-bottom: 5px;
   padding: 3px;
   border-radius: 3px;
   font-size: 1.3rem;
-  color: ${(props) => props.theme.GREY};
+  color: ${(props) => (props.isCurrent ? props.theme.GREEN : props.theme.GREY)};
 
   cursor: pointer;
 
@@ -60,7 +64,7 @@ function History({
   isHistoryOpen,
   comparisonButtonClickHandler,
 }: HistoryProps): ReactElement {
-  const { log } = useSelector<RootState>(
+  const { log, currentIdx } = useSelector<RootState>(
     (state) => state.history
   ) as HistoryPropsType;
 
@@ -74,9 +78,10 @@ function History({
       </HistoryTitle>
       <HistoryList>
         {(log || [])
-          .map((item) => (
+          .map((item, idx) => (
             <HistoryItem
               key={item.id}
+              isCurrent={currentIdx === idx}
               onClick={() => comparisonButtonClickHandler(item.id as string)}
             >
               <p>{`${item.feature} > ${item.subFeature} > ${item.element} > ${item.subElement}`}</p>
