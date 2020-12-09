@@ -17,12 +17,17 @@ interface UseUndoRedoType {
   redoHandler: () => void;
 }
 
+interface ReduxStateType extends HistoryPropsType {
+  map: mapboxgl.Map;
+}
+
 function useUndoRedo(): UseUndoRedoType {
   const dispatch = useDispatch();
-  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
-  const { log, currentIdx } = useSelector<RootState>(
-    (state) => state.history
-  ) as HistoryPropsType;
+  const { map, log, currentIdx } = useSelector<RootState>((state) => ({
+    map: state.map.map,
+    log: state.history.log,
+    currentIdx: state.history.currentIdx,
+  })) as ReduxStateType;
 
   const undoHandler = () => {
     if (!log || currentIdx === null || currentIdx < 0) return;
