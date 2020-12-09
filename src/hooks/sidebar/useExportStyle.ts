@@ -49,7 +49,7 @@ function compareChange(
   newStyle: StyleType
 ): StyleType {
   const ret = Object.keys(defaultStyle).reduce((accu, key) => {
-    if (key === 'isChanged') {
+    if (key === StyleKeyType.isChanged) {
       return accu;
     }
 
