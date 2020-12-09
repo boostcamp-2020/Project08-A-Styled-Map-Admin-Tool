@@ -22,7 +22,7 @@
         true,
         false
       ],
-      "id": "poi-attraction"
+      "id": "poi-landmark-labelText-3"
     },
     {
       "type": "symbol",
@@ -67,7 +67,7 @@
         true,
         false
       ],
-      "id": "poi-business"
+      "id": "poi-business-labelText-1"
     },
     {
       "type": "symbol",
@@ -98,7 +98,7 @@
         true,
         false
       ],
-      "id": "poi-government"
+      "id": "poi-government-labelText-1"
     },
     {
       "type": "symbol",
@@ -122,7 +122,7 @@
         true,
         false
       ],
-      "id": "poi-medical"
+      "id": "poi-medical-labelText-1"
     },
     {
       "type": "symbol",
@@ -146,7 +146,7 @@
         true,
         false
       ],
-      "id": "poi-park"
+      "id": "poi-park-labelText"
     },
     {
       "type": "symbol",
@@ -164,7 +164,7 @@
         "text-color": "hsl(26, 25%, 32%)"
       },
       "filter": ["match", ["get", "type"], ["place_of_worship"], true, false],
-      "id": "poi-worship"
+      "id": "poi-worship-labelText-1"
     },
     {
       "type": "symbol",
@@ -188,7 +188,7 @@
         true,
         false
       ],
-      "id": "poi-school"
+      "id": "poi-school-labelText-1"
     },
     {
       "type": "symbol",
@@ -225,10 +225,10 @@
         "spring",
         "atm"
       ],
-      "id": "poi-etc"
+      "id": "poi-etc-labelText-1"
     },
     {
-      "id": "poi-food-label",
+      "id": "poi-business-labelText-2",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -275,7 +275,7 @@
       }
     },
     {
-      "id": "poi-park-label",
+      "id": "poi-park-labelText-2",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -322,7 +322,7 @@
       }
     },
     {
-      "id": "poi-education-label",
+      "id": "poi-school-labelText-2",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -369,7 +369,7 @@
       }
     },
     {
-      "id": "poi-medical-label",
+      "id": "poi-medical-labelText-2",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -416,7 +416,7 @@
       }
     },
     {
-      "id": "poi-arts-label",
+      "id": "poi-landmark-labelText-1",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -463,7 +463,7 @@
       }
     },
     {
-      "id": "poi-landmark-label",
+      "id": "poi-landmark-labelText-2",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -510,7 +510,7 @@
       }
     },
     {
-      "id": "poi-building-label",
+      "id": "poi-building-labelText",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -557,7 +557,7 @@
       }
     },
     {
-      "id": "poi-general-label",
+      "id": "poi-government-labelText-3",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -604,7 +604,7 @@
       }
     },
     {
-      "id": "poi-historic-label",
+      "id": "poi-etc-labelText-3",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -651,7 +651,7 @@
       }
     },
     {
-      "id": "poi-industrial-label",
+      "id": "poi-etc-labelText-2",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -698,7 +698,7 @@
       }
     },
     {
-      "id": "poi-public-label",
+      "id": "poi-government-labelText-2",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -745,7 +745,7 @@
       }
     },
     {
-      "id": "poi-religion-label",
+      "id": "poi-worship-labelText-2",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -792,7 +792,7 @@
       }
     },
     {
-      "id": "poi-store-label",
+      "id": "poi-business-labelText-3",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -839,7 +839,7 @@
       }
     },
     {
-      "id": "poi-sport-label",
+      "id": "poi-sport-labelText",
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
