@@ -1,6 +1,6 @@
 import mapboxgl from 'mapbox-gl';
 import { useSelector, useDispatch } from 'react-redux';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { RootState } from '../../store';
 import {
   StyleType,
@@ -73,11 +73,17 @@ const getNewColorStyle = (
   return newStyleObj;
 };
 
+interface changedObjType {
+  key?: StyleKeyType;
+  value?: string | number;
+}
+
 function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
-
+  const [changedObj, setChangedObj] = useState<changedObjType>({});
   const { addHistory } = useHistoryFeature();
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
+
   const {
     poi,
     landscape,
@@ -90,6 +96,7 @@ function useStyleType(): UseStyleHookType {
   const { feature, subFeature, element, subElement } = useSelector<RootState>(
     (state) => state.sidebar
   ) as PayloadPropsType;
+
   const styleElement = useSelector<RootState>((state) => {
     if (!feature || !subFeature || !element) {
       return null;
@@ -99,6 +106,37 @@ function useStyleType(): UseStyleHookType {
     if (element === ElementNameType.labelIcon) return newFeature[element];
     return newFeature[element][subElement as SubElementNameType];
   }) as StyleType;
+
+  useEffect(() => {
+    const { key, value } = changedObj;
+    if (key && value && feature && subFeature && element) {
+      const wholeStyle = {
+        poi,
+        landscape,
+        administrative,
+        road,
+        transit,
+        water,
+        marker,
+      };
+
+      addHistory({
+        changedKey: key,
+        changedValue: value,
+        feature,
+        subFeature,
+        element,
+        subElement: subElement as SubElementNameType,
+        style: {
+          ...styleElement,
+          [key]: value,
+        },
+        wholeStyle,
+      });
+
+      setChangedObj({});
+    }
+  }, [changedObj]);
 
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
@@ -161,6 +199,7 @@ function useStyleType(): UseStyleHookType {
         },
         wholeStyle,
       });
+      setChangedObj({ key, value });
     },
     [feature, subFeature, element, subElement, styleElement]
   );

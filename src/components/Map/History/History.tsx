@@ -1,9 +1,9 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '../../../utils/styles/styled';
 import { RootState } from '../../../store/index';
-import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
 import { HistoryPropsType } from '../../../store/common/type';
+import { comparisonButtonClickHandlerType } from '../../../hooks/map/useCompareFeature';
 
 const HistoryWapper = styled.div`
   z-index: 30;
@@ -61,11 +61,6 @@ function History({
   isHistoryOpen,
   comparisonButtonClickHandler,
 }: HistoryProps): ReactElement {
-  const { initHistoryStatus } = useHistoryFeature();
-  useEffect(() => {
-    initHistoryStatus();
-  }, []);
-
   const { log } = useSelector<RootState>(
     (state) => state.history
   ) as HistoryPropsType;

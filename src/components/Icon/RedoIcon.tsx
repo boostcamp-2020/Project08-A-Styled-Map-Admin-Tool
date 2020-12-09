@@ -2,11 +2,13 @@ import React from 'react';
 
 interface RedoIconProps {
   className?: string;
+  onClick: () => void;
 }
 
-function RedoIcon({ className }: RedoIconProps): React.ReactElement {
+function RedoIcon({ className, onClick }: RedoIconProps): React.ReactElement {
   return (
     <svg
+      onClick={onClick}
       className={className}
       xmlns="http://www.w3.org/2000/svg"
       height="24"
