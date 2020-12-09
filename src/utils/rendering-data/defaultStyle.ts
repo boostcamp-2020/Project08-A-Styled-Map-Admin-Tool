@@ -85,6 +85,17 @@ const defaultStyle: DefaultWholeStyle = {
       },
       labelIcon: { color: 'transparent', weight: 0 },
     },
+    highway: {
+      section: {
+        fill: { color: 'hsl(26, 87%, 62%)', weight: 1 },
+        stroke: { color: 'hsl(0, 0%, 100%)', weight: 0.5 },
+      },
+      labelText: {
+        fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
+        stroke: { color: 'hsl(0, 0%, 100%)', weight: 1 },
+      },
+      labelIcon: { color: 'transparent', weight: 0 },
+    },
     arterial: {
       section: {
         fill: { color: 'hsl(0, 0%, 100%)', weight: 4 },

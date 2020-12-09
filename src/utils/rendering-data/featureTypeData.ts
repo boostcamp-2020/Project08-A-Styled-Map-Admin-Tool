@@ -30,6 +30,7 @@ const data: DataType[] = [
     typeKey: FeatureNameType.road,
     typeName: '도로',
     subFeatures: [
+      { key: 'highway', name: '중심도로' },
       { key: 'arterial', name: '주요도로' },
       { key: 'local', name: '일반도로' },
       { key: 'sidewalk', name: '인도' },
