@@ -12,6 +12,7 @@ import {
 } from './style/reducer';
 import sidebar from './sidebar/reducer';
 import history from './history/reducer';
+import depthTheme from './depth-theme/reducer';
 
 const rootReducer = combineReducers({
   map,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   marker,
   sidebar,
   history,
+  depthTheme,
 });
 
 const store = createStore(rootReducer);
