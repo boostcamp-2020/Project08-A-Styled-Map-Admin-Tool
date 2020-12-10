@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from '../../utils/styles/styled';
 import useSidebar, {
   ToggleStatusHook,
@@ -32,4 +32,4 @@ function SidebarPresenter(): React.ReactElement {
   );
 }
 
-export default SidebarPresenter;
+export default memo(SidebarPresenter);

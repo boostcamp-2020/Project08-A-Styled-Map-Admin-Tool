@@ -1,4 +1,5 @@
 import { stylingProps } from '.';
+import { highwayLayerNames } from './road-categories/highway';
 import { arterialLayerNames } from './road-categories/arterial';
 import { localLayerNames } from './road-categories/local';
 import { sidewalkLayerNames } from './road-categories/sidewalk';
@@ -17,6 +18,7 @@ function roadStyling({
 
   const mappingSubFeatureLayerNames = {
     all: allRoadLayerNames,
+    highway: highwayLayerNames,
     arterial: arterialLayerNames,
     local: localLayerNames,
     sidewalk: sidewalkLayerNames,

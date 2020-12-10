@@ -94,7 +94,7 @@ const layers = [
     },
   },
   {
-    id: 'landcover-section-fill-3',
+    id: 'natural-section-fill-3',
     type: 'fill',
     source: 'polygon_source',
     'source-layer': 'polygon',
@@ -102,7 +102,7 @@ const layers = [
       visibility: 'visible',
     },
     paint: {
-      'fill-color': defaultStyle.landscape.landcover.section?.fill.color,
+      'fill-color': defaultStyle.landscape.natural.section?.fill.color,
       'fill-opacity': 0.5,
     },
     filter: [

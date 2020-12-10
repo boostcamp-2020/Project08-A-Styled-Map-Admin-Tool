@@ -29,7 +29,7 @@ interface ApplyProps {
 }
 
 export enum VisibilityType {
-  visibility = 'visibility',
+  visible = 'visible',
   inherit = 'inherit',
   none = 'none',
 }

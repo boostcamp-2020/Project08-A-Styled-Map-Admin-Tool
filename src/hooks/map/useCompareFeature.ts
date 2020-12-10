@@ -27,19 +27,22 @@ export interface useCompareFeatureProps {
   containerRef: RefObject<HTMLDivElement>;
   beforeMapRef: RefObject<HTMLDivElement>;
 }
+interface ReduxStateType extends HistoryPropsType {
+  map: mapboxgl.Map;
+}
 
 function useCompareFeature({
   containerRef,
   beforeMapRef,
 }: useCompareFeatureProps): useComparisonButtonType {
   const [logId, setLogId] = useState<string>();
-  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
-  const history = useSelector<RootState>(
-    (state) => state.history
-  ) as HistoryPropsType;
+  const { map, log } = useSelector<RootState>((state) => ({
+    map: state.map.map,
+    log: state.history.log,
+  })) as ReduxStateType;
 
   useEffect(() => {
-    if (!logId) return;
+    if (!map || !logId) return;
 
     const beforeMap = new mapboxgl.Map({
       container: beforeMapRef.current as HTMLDivElement,
@@ -49,15 +52,15 @@ function useCompareFeature({
     });
 
     beforeMap.on('load', () => {
-      if (!history || !beforeMap) return;
+      if (!log || !beforeMap) return;
 
-      const [log] = history.log?.filter((log) => log.id === logId) || [];
+      const [item] = log?.filter((val) => val.id === logId) || [];
 
-      for (const feature in log.wholeStyle) {
+      for (const feature in item.wholeStyle) {
         setFeatureStyle({
           map: beforeMap as mapboxgl.Map,
           feature: feature as FeatureNameType,
-          featureState: log.wholeStyle[
+          featureState: item.wholeStyle[
             feature as FeatureNameType
           ] as FeatureState,
         });

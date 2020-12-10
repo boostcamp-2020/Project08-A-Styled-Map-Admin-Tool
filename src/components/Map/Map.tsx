@@ -89,6 +89,7 @@ function Map({ pathname }: MapProps): React.ReactElement {
       <History
         isHistoryOpen={isHistoryOpen}
         comparisonButtonClickHandler={comparisonButtonClickHandler}
+        compareId={logId}
       />
       <UpperButtons
         mapRef={containerRef}

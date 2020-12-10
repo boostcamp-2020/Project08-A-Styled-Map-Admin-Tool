@@ -98,7 +98,7 @@ function FeatureTypeItem({
             sidebarSubTypeClickHandler(key);
           }}
         >
-          {featureList[key]?.isChanged ? <Check>✓</Check> : <></>}
+          {featureList[key]?.isChanged && <Check>✓</Check>}
           {name}
           <Pointer>{'>'}</Pointer>
         </SectionList>

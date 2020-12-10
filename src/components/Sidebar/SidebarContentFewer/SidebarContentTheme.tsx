@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import useMapTheme, { MapThemeHookType } from '../../../hooks/map/useMapTheme';
 import ThemeItem from './ThemeItem';
 import styled from '../../../utils/styles/styled';
@@ -39,4 +39,4 @@ function SidebarContentTheme(): React.ReactElement {
   );
 }
 
-export default SidebarContentTheme;
+export default memo(SidebarContentTheme);
