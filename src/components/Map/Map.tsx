@@ -8,6 +8,7 @@ import useCompareFeature from '../../hooks/map/useCompareFeature';
 import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
 import History from './History/History';
+import useMarkerFeature from '../../hooks/map/useMarkerFeature';
 
 interface CurrentMapWrapperProps {
   isPageShow: boolean;
@@ -81,6 +82,7 @@ function Map({ pathname }: MapProps): React.ReactElement {
     containerRef,
     beforeMapRef,
   });
+  const { markerPos, resetMarkerPos, registerMarker } = useMarkerFeature();
 
   return (
     <MapsWrapper ref={containerRef} isPageShow={pathname === '/show'}>
