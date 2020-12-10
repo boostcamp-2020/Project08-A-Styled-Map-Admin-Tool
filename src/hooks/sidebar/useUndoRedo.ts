@@ -31,6 +31,7 @@ function useUndoRedo(): UseUndoRedoType {
     log: state.history.log,
     currentIdx: state.history.currentIdx,
   })) as ReduxStateType;
+  const initColor = 'init' as const;
 
   const undoHandler = () => {
     if (!map || !log || currentIdx === null || currentIdx < 0) return;
@@ -45,7 +46,7 @@ function useUndoRedo(): UseUndoRedoType {
     const isChangeWholeStyle =
       undoIdx >= 0 &&
       log[undoIdx].subFeature === 'all' &&
-      log[undoIdx].changedValue === 'init';
+      log[undoIdx].changedValue === initColor;
     if (isChangeWholeStyle) {
       changeStyle(log[undoIdx].wholeStyle as WholeStyleActionPayload);
       return;
@@ -117,7 +118,8 @@ function useUndoRedo(): UseUndoRedoType {
     dispatch(setCurrentIndex(redoIdx));
 
     /** 전체를 다시 한번 그리는 경우 */
-    const isChangeWholeStyle = subFeature === 'all' && changedValue === 'init';
+    const isChangeWholeStyle =
+      subFeature === 'all' && changedValue === initColor;
     if (isChangeWholeStyle) {
       changeStyle(wholeStyle as WholeStyleActionPayload);
       return;
