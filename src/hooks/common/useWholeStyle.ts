@@ -26,15 +26,9 @@ function useWholeStyle(): WholeStyleHook {
   const dispatch = useDispatch();
 
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
-  const {
-    poi,
-    landscape,
-    administrative,
-    road,
-    transit,
-    water,
-    marker,
-  } = useSelector<RootState>((state) => state) as WholeStyleStoreType;
+  const { poi, landscape, administrative, road, transit, water } = useSelector<
+    RootState
+  >((state) => state) as WholeStyleStoreType;
 
   useEffect(() => {
     if (!flag || !map) return;
@@ -45,7 +39,6 @@ function useWholeStyle(): WholeStyleHook {
       road,
       transit,
       water,
-      marker,
     };
 
     const features = Object.keys(stores) as FeatureNameType[];

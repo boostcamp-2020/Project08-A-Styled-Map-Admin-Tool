@@ -40,7 +40,6 @@ export enum FeatureNameType {
   road = 'road',
   transit = 'transit',
   water = 'water',
-  marker = 'marker',
 }
 
 export enum SidebarProperties {
@@ -98,10 +97,6 @@ export enum WaterNameType {
   all = 'all',
 }
 
-export enum MarkerNameType {
-  all = 'all',
-}
-
 export const SubFeatureNameType = {
   ...PoiNameType,
   ...RoadNameType,
@@ -109,7 +104,6 @@ export const SubFeatureNameType = {
   ...TransitNameType,
   ...AdministrativeNameType,
   ...WaterNameType,
-  ...MarkerNameType,
 };
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type SubFeatureNameType = typeof SubFeatureNameType;

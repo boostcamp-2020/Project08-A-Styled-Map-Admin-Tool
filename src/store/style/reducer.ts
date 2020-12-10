@@ -7,7 +7,6 @@ const INDEX = {
   LANDSCAPE: 3,
   TRANSIT: 4,
   WATER: 5,
-  MARKER: 6,
 };
 
 export const poiReducer = getReducer(INDEX.POI);
@@ -21,5 +20,3 @@ export const landscapeReducer = getReducer(INDEX.LANDSCAPE);
 export const transitReducer = getReducer(INDEX.TRANSIT);
 
 export const waterReducer = getReducer(INDEX.WATER);
-
-export const markerReducer = getReducer(INDEX.MARKER);

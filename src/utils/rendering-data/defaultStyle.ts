@@ -294,14 +294,6 @@ const defaultStyle: DefaultWholeStyle = {
       },
     },
   },
-  marker: {
-    all: {
-      labelText: {
-        fill: { color: 'transparent', weight: 0 },
-        stroke: { color: 'transparent', weight: 0 },
-      },
-    },
-  },
 };
 
 export default defaultStyle;
