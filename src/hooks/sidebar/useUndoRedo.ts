@@ -6,11 +6,13 @@ import {
   SubElementNameType,
   StyleType,
   SubElementType,
+  WholeStyleActionPayload,
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
 import { setCurrentIndex } from '../../store/history/action';
 import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
+import useWholeStyle from '../common/useWholeStyle';
 
 interface UseUndoRedoType {
   undoHandler: () => void;
@@ -23,6 +25,7 @@ interface ReduxStateType extends HistoryPropsType {
 
 function useUndoRedo(): UseUndoRedoType {
   const dispatch = useDispatch();
+  const { changeStyle } = useWholeStyle();
   const { map, log, currentIdx } = useSelector<RootState>((state) => ({
     map: state.map.map,
     log: state.history.log,
@@ -38,6 +41,16 @@ function useUndoRedo(): UseUndoRedoType {
     if (!feature || !subFeature || !element) return;
 
     dispatch(setCurrentIndex(undoIdx));
+    /** 전체를 다시 한번 그리는 경우 */
+    const isChangeWholeStyle =
+      undoIdx >= 0 &&
+      log[undoIdx].subFeature === 'all' &&
+      log[undoIdx].changedValue === 'init';
+    if (isChangeWholeStyle) {
+      changeStyle(log[undoIdx].wholeStyle as WholeStyleActionPayload);
+      return;
+    }
+
     let beforeStyle;
     if (currentIdx === 0) {
       beforeStyle = subElement
@@ -58,6 +71,7 @@ function useUndoRedo(): UseUndoRedoType {
           : wholeStyle[feature][subFeature][element];
     }
 
+    /** 변경된 사항에만 그리는 경우 */
     mapStyling[feature]({
       map,
       subFeature,
@@ -88,13 +102,28 @@ function useUndoRedo(): UseUndoRedoType {
     if (!log || (log && currentIdx === log.length - 1)) return;
     const redoIdx = (currentIdx as number) + 1;
 
-    const { feature, subFeature, element, subElement, style, changedKey } = log[
-      redoIdx as number
-    ];
+    const {
+      feature,
+      subFeature,
+      element,
+      subElement,
+      style,
+      changedKey,
+      changedValue,
+      wholeStyle,
+    } = log[redoIdx as number];
     if (!feature || !subFeature || !element) return;
 
     dispatch(setCurrentIndex(redoIdx));
 
+    /** 전체를 다시 한번 그리는 경우 */
+    const isChangeWholeStyle = subFeature === 'all' && changedValue === 'init';
+    if (isChangeWholeStyle) {
+      changeStyle(wholeStyle as WholeStyleActionPayload);
+      return;
+    }
+
+    /** 변경된 사항에만 그리는 경우 */
     mapStyling[feature]({
       map,
       subFeature,
