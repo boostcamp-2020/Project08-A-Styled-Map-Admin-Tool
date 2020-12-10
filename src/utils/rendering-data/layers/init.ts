@@ -1437,7 +1437,7 @@ const initLayers = {
       filter: ['match', ['get', 'type'], 'rail', true, false],
     },
     {
-      id: 'transit-rail-road-line',
+      id: 'transit-rail-line-2',
       type: 'line',
       source: 'composite',
       'source-layer': 'road',
