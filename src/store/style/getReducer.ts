@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import renderingData from '../../utils/rendering-data/featureTypeData';
 
 import {
@@ -10,7 +11,7 @@ import {
   SubElementType,
 } from '../common/type';
 import { getDefaultFeature, getDefaultStyle } from './properties';
-import { INIT, SET, SET_WHOLE, REPLACE_WHOLE } from './action';
+import { INIT, SET, SET_WHOLE, REPLACE_WHOLE, INIT_COLORS } from './action';
 import { checkStyleIsChanged, checkFeatureIsChanged } from './compareStyle';
 import { combineElement } from './manageCategories';
 
@@ -104,6 +105,30 @@ export default function getReducer(IDX: number): ReducerType {
         return updateStyle;
       }
 
+      case INIT_COLORS: {
+        const { feature, element, subElement } = action.payload;
+        if (feature !== featureName) return state;
+        const newState: FeatureState = JSON.parse(JSON.stringify(state));
+
+        Object.keys(newState).forEach((subFeature) => {
+          const defaultStyle = getDefaultStyle({
+            feature,
+            subElement,
+            element,
+            subFeature,
+          });
+
+          const style = (newState[subFeature][element] as SubElementType)[
+            subElement
+          ];
+          style.color = defaultStyle.color;
+          style.isChanged = checkStyleIsChanged({ defaultStyle, style });
+        });
+        delete (newState.all as objType).isChanged;
+        newState.all.isChanged = checkFeatureIsChanged(newState.all);
+
+        return newState;
+      }
       default:
         return state;
     }
