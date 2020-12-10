@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { DepthItemKeyTypes } from '../../../hooks/sidebar/useSidebarDepthItem';
 import styled from '../../../utils/styles/styled';
 import DepthItem from './DepthItem';
 
@@ -24,12 +25,11 @@ function SidebarDepth(): React.ReactElement {
     <DepthController>
       <DepthControllerTitle>표기 단계 조절</DepthControllerTitle>
       <DepthList>
-        <DepthItem name="도로" />
-        <DepthItem name="랜드마크" />
-        <DepthItem name="라벨" />
+        <DepthItem name="도로" itemKey={DepthItemKeyTypes.road} />
+        <DepthItem name="행정구역" itemKey={DepthItemKeyTypes.administrative} />
       </DepthList>
     </DepthController>
   );
 }
 
-export default SidebarDepth;
+export default memo(SidebarDepth);
