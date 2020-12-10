@@ -2,11 +2,12 @@ import { RefObject, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import {
-  ElementActionPayload,
+  AdministrativeNameType,
   ElementNameType,
+  RoadNameType,
+  StyleStoreType,
   SubElementNameType,
   SubFeatureActionPayload,
-  WholeStyleActionPayload,
 } from '../../store/common/type';
 import {
   DepthThemePropsType,
@@ -21,13 +22,7 @@ export enum DepthItemKeyTypes {
   road = 'road',
 }
 
-enum idFilterNames {
-  arterial = 'arterial',
-  sidewalk = 'sidewalk',
-  local = 'local',
-  state = 'state',
-  settlement = 'settlement',
-}
+type IdFilterNames = RoadNameType | AdministrativeNameType;
 
 interface useSidebarDepthItemType {
   depth: number;
@@ -37,53 +32,40 @@ interface useSidebarDepthItemType {
 
 type changeableLayersByDepthType = {
   [keyType in DepthItemKeyTypes]: {
-    [depth: number]: {
-      targetLayers: idFilterNames[];
-      layerNames: string[];
-    };
+    [depth: number]: IdFilterNames[];
   };
 };
 
+const roadIdReg = /^road-/;
+const administrativeIdReg = /^administrative-/;
+
 const layers = initLayers.layers.map(({ id }) => id);
 const roadLayerIds = layers.filter((name) => {
-  const roadIdReg = /^road-/;
   return roadIdReg.test(name);
 });
 const administrativeLayerIds = layers.filter((name) => {
-  const administrativeIdReg = /^administrative-/;
   return administrativeIdReg.test(name);
 });
 
+const getTargetLayerNames = (
+  featureLayers: string[],
+  targetLayers: IdFilterNames[]
+) => {
+  const targetNameReg = new RegExp(`\\S-(${targetLayers.join('|')})-`, 'i');
+  const targetLayerNames = featureLayers.filter((name) =>
+    targetNameReg.test(name)
+  );
+  return targetLayerNames;
+};
+
 const changeableLayersByDepth: changeableLayersByDepthType = {
   [DepthItemKeyTypes.administrative]: {
-    2: {
-      targetLayers: [idFilterNames.settlement],
-      layerNames: administrativeLayerIds.filter((id) =>
-        id.includes(idFilterNames.settlement)
-      ),
-    },
-    1: {
-      targetLayers: [idFilterNames.state],
-      layerNames: administrativeLayerIds.filter((id) =>
-        id.includes(idFilterNames.state)
-      ),
-    },
+    2: [AdministrativeNameType.locality],
+    1: [AdministrativeNameType.state],
   },
   [DepthItemKeyTypes.road]: {
-    2: {
-      targetLayers: [idFilterNames.sidewalk],
-      layerNames: roadLayerIds.filter((id) =>
-        id.includes(idFilterNames.sidewalk)
-      ),
-    },
-    1: {
-      targetLayers: [idFilterNames.arterial, idFilterNames.local],
-      layerNames: roadLayerIds.filter(
-        (id) =>
-          id.includes(idFilterNames.arterial) ||
-          id.includes(idFilterNames.local)
-      ),
-    },
+    2: [RoadNameType.sidewalk, RoadNameType.local],
+    1: [RoadNameType.arterial],
   },
 };
 
@@ -96,35 +78,42 @@ const getVisibilityAndDepthRange = (
       ? [VisibilityType.none, currentDepth, changedDepth]
       : [VisibilityType.visible, changedDepth, currentDepth];
 
-  return [
-    visibility,
-    Array.from(Array(high - low).keys()).map((num) => num + low),
-  ];
+  const getDepthRange = () =>
+    Array.from(Array(high - low).keys()).map((num) => num + low);
+
+  return [visibility, getDepthRange()];
 };
 
 const getChangeStyleProps = (
   itemKey: DepthItemKeyTypes,
   depth: number,
-  visibility: string
-): WholeStyleActionPayload => {
-  const subfeatureNames = changeableLayersByDepth[itemKey][depth].targetLayers;
+  visibility: string,
+  style: StyleStoreType
+): StyleStoreType => {
+  const subfeatureNames = changeableLayersByDepth[itemKey][depth];
 
   const visibilityPayload = { visibility };
-
-  const sectionVisibility: ElementActionPayload = {
-    [ElementNameType.section]: {
-      [SubElementNameType.fill]: visibilityPayload,
-      [SubElementNameType.stroke]: visibilityPayload,
-    },
+  const subElementVisibility = {
+    [SubElementNameType.fill]: visibilityPayload,
+    [SubElementNameType.stroke]: visibilityPayload,
+  };
+  const labelTextVisibility = {
+    [ElementNameType.labelText]: subElementVisibility,
+  };
+  const elementVisibility = {
+    [ElementNameType.section]: subElementVisibility,
+    [ElementNameType.labelText]: subElementVisibility,
   };
 
   const subFeaturePayload: SubFeatureActionPayload = {};
-
-  subfeatureNames.forEach((currentName) => {
-    subFeaturePayload[currentName] = sectionVisibility;
+  subfeatureNames.forEach((subfeature) => {
+    subFeaturePayload[subfeature] =
+      subfeature === AdministrativeNameType.locality
+        ? labelTextVisibility
+        : elementVisibility;
   });
 
-  const featurePayload = { [itemKey]: subFeaturePayload };
+  const featurePayload = { ...style, [itemKey]: subFeaturePayload };
   return featurePayload;
 };
 
@@ -134,15 +123,15 @@ function useSidebarDepthItem(
   const { roadDepth, administrativeDepth } = useSelector<RootState>(
     (state) => state.depthTheme
   ) as DepthThemePropsType;
-  const depth = (itemKey === DepthItemKeyTypes.road
-    ? roadDepth
-    : administrativeDepth) as number;
+
+  const [featureLayers, depth] = (itemKey === DepthItemKeyTypes.road
+    ? [roadLayerIds, roadDepth]
+    : [administrativeLayerIds, administrativeDepth]) as [string[], number];
 
   const dispatch = useDispatch();
   const depthRef = useRef<HTMLInputElement>(null);
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
-
-  const { changeStyle } = useWholeStyle();
+  const { getWholeStyle, replaceStyle } = useWholeStyle();
 
   const depthRangeHandler = () => {
     const changedDepth = Number(depthRef.current?.value);
@@ -150,12 +139,21 @@ function useSidebarDepthItem(
       depth,
       changedDepth
     );
+    const currentStyleState = getWholeStyle();
+
     depthRange.forEach((depth) => {
-      const { layerNames } = changeableLayersByDepth[itemKey][depth];
+      const targetLayers = changeableLayersByDepth[itemKey][depth];
+      const layerNames = getTargetLayerNames(featureLayers, targetLayers);
       applyVisibility({ map, layerNames, visibility });
-      const changedStyle = getChangeStyleProps(itemKey, depth, visibility);
-      changeStyle(changedStyle);
+      const changedStyle = getChangeStyleProps(
+        itemKey,
+        depth,
+        visibility,
+        currentStyleState
+      );
+      replaceStyle(changedStyle);
     });
+
     dispatch(
       setShowDepthProperties({
         selectedFeature: itemKey,
