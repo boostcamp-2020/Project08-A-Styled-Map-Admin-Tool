@@ -12,12 +12,14 @@ import {
   HistoryPropsType,
   StyleStoreType,
 } from '../../store/common/type';
-import { setStyle } from '../../store/style/action';
+import { setStyle, initColors } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
 
 import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
 import useHistoryFeature from '../map/useHistoryFeature';
 import { VisibilityType } from '../../utils/applyStyle';
+import { getDefaultStyle } from '../../store/style/properties';
+import removeNullFromObject from '../../utils/removeNullFromObject';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
@@ -68,6 +70,7 @@ const getNewColorStyle = (
       newStyleObj.color = value as string;
       newStyleObj.saturation = newSaturation;
       newStyleObj.lightness = newLightness;
+
       break;
 
     default:
@@ -130,7 +133,7 @@ function useStyleType(): UseStyleHookType {
           ...styleElement,
           [key]: value,
         },
-        wholeStyle: features,
+        wholeStyle: removeNullFromObject(JSON.parse(JSON.stringify(features))),
       });
 
       setChangedObj({});
@@ -140,23 +143,19 @@ function useStyleType(): UseStyleHookType {
   const onStyleChange = useCallback(
     (key: StyleKeyType, value: string | number) => {
       if (!feature || !subFeature || !element || !map) return;
+      const initColor = 'init' as const;
 
-      const newStyleObj = colorRelatedKeysArr.includes(key)
-        ? getNewColorStyle(key, value, styleElement)
-        : { [key]: value };
-
-      dispatch(
-        setStyle({
+      /** 한개의 초기 색상을 바꿀 때 , 가시성 상속 표기 */
+      let initialColor = '';
+      if (value === initColor && subElement) {
+        const style = getDefaultStyle({
           feature,
           subFeature,
           element,
-          subElement: subElement as SubElementNameType,
-          style: {
-            ...styleElement,
-            ...newStyleObj,
-          },
-        })
-      );
+          subElement,
+        });
+        initialColor = style.color;
+      }
 
       let parentVisibility = '';
       if (value === VisibilityType.inherit) {
@@ -170,6 +169,55 @@ function useStyleType(): UseStyleHookType {
         }
       }
 
+      const newStyleObj = colorRelatedKeysArr.includes(key)
+        ? getNewColorStyle(key, initialColor || value, styleElement)
+        : { [key]: initialColor || value };
+
+      /** all의 색상을 바꿀 때 */
+      if (value === initColor && subFeature === 'all' && subElement) {
+        dispatch(initColors(feature, element, subElement));
+        Object.keys(features[feature]).forEach((subFeatureName) => {
+          const style = getDefaultStyle({
+            feature,
+            subFeature: subFeatureName,
+            element,
+            subElement,
+          });
+
+          mapStyling[feature]({
+            map,
+            subFeature: subFeatureName,
+            key,
+            element,
+            subElement: subElement as SubElementNameType,
+            style: {
+              ...styleElement,
+              ...newStyleObj,
+              color: style.color,
+            },
+          });
+        });
+        setChangedObj({
+          key,
+          value,
+        });
+        return;
+      }
+
+      /** 한개의 색상을 바꿀 때 */
+      dispatch(
+        setStyle({
+          feature,
+          subFeature,
+          element,
+          subElement: subElement as SubElementNameType,
+          style: {
+            ...styleElement,
+            ...newStyleObj,
+          },
+        })
+      );
+
       mapStyling[feature]({
         map,
         subFeature,
@@ -179,11 +227,11 @@ function useStyleType(): UseStyleHookType {
         style: {
           ...styleElement,
           ...newStyleObj,
-          [key]: parentVisibility || value,
+          [key]: parentVisibility || initialColor || value,
         },
       });
 
-      setChangedObj({ key, value });
+      setChangedObj({ key, value: initialColor || parentVisibility || value });
     },
     [feature, subFeature, element, subElement, styleElement]
   );
