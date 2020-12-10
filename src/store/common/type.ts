@@ -7,8 +7,6 @@ import {
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 import { INIT_HISTORY, ADD_LOG, SET_CURRENT_INDEX } from '../history/action';
 
-export type hello = 'landmark';
-
 export enum ElementNameType {
   section = 'section',
   labelText = 'labelText',
