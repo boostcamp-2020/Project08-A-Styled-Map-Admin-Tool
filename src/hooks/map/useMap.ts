@@ -9,7 +9,8 @@ import {
 } from '../../store/common/type';
 import validateStyle from '../../utils/validateStyle';
 import { RootState } from '../../store/index';
-import useHistoryFeature from './useHistoryFeature';
+import { initMarker, MarkerState } from '../../store/marker/action';
+import { initHistory } from '../../store/history/action';
 
 export interface MapHookType {
   containerRef: RefObject<HTMLDivElement>;
@@ -17,14 +18,23 @@ export interface MapHookType {
   beforeMapRef: RefObject<HTMLDivElement>;
 }
 
+interface ReduxStateType {
+  history: HistoryPropsType;
+  marker: MarkerState;
+}
+
 function useMap(): MapHookType {
   const dispatch = useDispatch();
   const containerRef = useRef<HTMLDivElement>(null);
   const afterMapRef = useRef<HTMLDivElement>(null);
   const beforeMapRef = useRef<HTMLDivElement>(null);
-  const { log, currentIdx } = useSelector<RootState>(
-    (state) => state.history
-  ) as HistoryPropsType;
+  const {
+    history: { log, currentIdx },
+    marker,
+  } = useSelector<RootState>((state) => ({
+    history: state.history,
+    marker: state.marker,
+  })) as ReduxStateType;
 
   const { changeStyle, replaceStyle } = useWholeStyle();
   const { initHistoryStatus } = useHistoryFeature();
@@ -39,7 +49,8 @@ function useMap(): MapHookType {
       }
       return;
     }
-    initHistoryStatus();
+    dispatch(initHistory());
+    dispatch(initMarker());
     setFlag(true);
   };
 
