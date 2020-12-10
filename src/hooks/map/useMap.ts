@@ -2,6 +2,7 @@ import { RefObject, useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initMap } from '../../store/map/action';
 import useWholeStyle from '../../hooks/common/useWholeStyle';
+import useMarkerFeature from '../../hooks/map/useMarkerFeature';
 import { urlToJson } from '../../utils/urlParsing';
 import {
   WholeStyleActionPayload,
@@ -37,9 +38,9 @@ function useMap(): MapHookType {
   })) as ReduxStateType;
 
   const { changeStyle, replaceStyle } = useWholeStyle();
-  const { initHistoryStatus } = useHistoryFeature();
   const [flag, setFlag] = useState(false);
   const { search, pathname } = window.location;
+  const { registerMarker } = useMarkerFeature();
 
   const initializeMap = (): void => {
     if (search && pathname === '/show') {
@@ -54,12 +55,28 @@ function useMap(): MapHookType {
     setFlag(true);
   };
 
+  const printMarker = (): void => {
+    if (!marker) return;
+
+    marker.markers.forEach((item) => {
+      registerMarker({
+        id: item.id,
+        text: item.text,
+        lngLat: { lng: item.lng, lat: item.lat },
+      });
+    });
+  };
+
   useEffect(() => {
-    if (flag && log && log.length) {
+    if (!flag) return;
+    if (log && log.length) {
       const { wholeStyle } = log[currentIdx as number];
       if (wholeStyle) replaceStyle(wholeStyle);
-      setFlag(false);
     }
+    if (marker && marker.markers.length) {
+      printMarker();
+    }
+    setFlag(false);
   }, [flag]);
 
   useEffect(() => {
