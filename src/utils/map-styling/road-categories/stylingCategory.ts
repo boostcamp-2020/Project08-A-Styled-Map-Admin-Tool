@@ -12,6 +12,7 @@ import {
   StyleKeyType,
   StyleType,
 } from '../../../store/common/type';
+import weightTemplate from '../../rendering-data/layers/weightTemplate';
 
 export interface layerProps {
   all: string[];
@@ -147,11 +148,15 @@ function stylingCategory({
   } else if (key === StyleKeyType.weight) {
     if (element === ElementNameType.section) {
       if (subElement === SubElementNameType.fill) {
+        let zoomWeight = 0;
+        if (weightTemplate[subFeature]) {
+          zoomWeight = weightTemplate[subFeature][subElement](weight);
+        }
         applyWeight({
           map,
           layerNames: layerNames.line,
           type: WeightType.line,
-          weight,
+          weight: zoomWeight || weight,
         });
       } else if (subElement === SubElementNameType.stroke) {
         applyWeight({
@@ -163,13 +168,21 @@ function stylingCategory({
       }
     }
     if (element === ElementNameType.labelText) {
-      if (subElement === SubElementNameType.stroke && visibility === 'visible')
+      if (
+        subElement === SubElementNameType.stroke &&
+        visibility === 'visible'
+      ) {
+        let zoomWeight = 0;
+        if (weightTemplate[subFeature]) {
+          zoomWeight = weightTemplate[subFeature][subElement](weight);
+        }
         applyWeight({
           map,
           layerNames: layerNames.text.hasStroke,
           type: WeightType.textHalo,
-          weight,
+          weight: zoomWeight || weight,
         });
+      }
     }
   }
 }

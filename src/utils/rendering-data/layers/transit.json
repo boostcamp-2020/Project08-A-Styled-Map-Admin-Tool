@@ -1,7 +1,7 @@
 {
   "transit": [
     {
-      "id": "transit-airport-section",
+      "id": "transit-airport-section-fill",
       "type": "fill",
       "source": "composite",
       "source-layer": "landuse",
@@ -9,12 +9,12 @@
         "visibility": "visible"
       },
       "paint": {
-        "fill-color": "hsl(234, 20%, 30%)"
+        "fill-color": "hsl(230, 23%, 82%)"
       },
       "filter": ["==", ["get", "class"], "airport"]
     },
     {
-      "id": "transit-airport-aeroway-section",
+      "id": "transit-airport-section-fill-2",
       "type": "fill",
       "source": "composite",
       "source-layer": "aeroway",
@@ -32,7 +32,7 @@
       ],
       "layout": {},
       "paint": {
-        "fill-color": "hsl(40, 97%, 64%)"
+        "fill-color": "hsl(230, 23%, 82%)"
       }
     },
     {
