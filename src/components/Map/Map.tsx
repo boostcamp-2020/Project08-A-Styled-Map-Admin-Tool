@@ -9,6 +9,7 @@ import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
 import History from './History/History';
 import useMarkerFeature from '../../hooks/map/useMarkerFeature';
+import MarkerPopUp from './Marker/MarkerPopup';
 
 interface CurrentMapWrapperProps {
   isPageShow: boolean;
@@ -87,7 +88,13 @@ function Map({ pathname }: MapProps): React.ReactElement {
   return (
     <MapsWrapper ref={containerRef} isPageShow={pathname === '/show'}>
       {logId && <CompareMapWrapper ref={beforeMapRef} />}
-      <CurrentMapWrapper ref={afterMapRef} />
+      <CurrentMapWrapper ref={afterMapRef} onClick={resetMarkerPos}>
+        <MarkerPopUp
+          markerPos={markerPos}
+          resetMarkerPos={resetMarkerPos}
+          registerMarker={registerMarker}
+        />
+      </CurrentMapWrapper>
       <History
         isHistoryOpen={isHistoryOpen}
         comparisonButtonClickHandler={comparisonButtonClickHandler}
