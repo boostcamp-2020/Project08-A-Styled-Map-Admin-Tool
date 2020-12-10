@@ -1,85 +1,46 @@
 {
-  "poi": {
+  "poi": { "all": { "labelText": { "fill": { "visibility": "none" } } } },
+  "landscape": {
+    "all": { "section": { "fill": { "color": "#405CB0" } } },
+    "building": { "labelText": { "fill": { "visibility": "none" } } }
+  },
+  "administrative": {
     "all": {
+      "section": { "stroke": { "color": "#ffffff" } },
       "labelText": {
-        "fill": {
-          "visibility": "none"
-        }
+        "fill": { "color": "#405CB0", "saturation": 46.7, "lightness": 47.1 },
+        "stroke": { "color": "#ffffff", "lightness": 100 }
       }
     }
   },
   "road": {
     "all": {
       "section": {
-        "fill": {
-          "color": "#405CB0"
-        }
-      }
-    },
-    "arterial": {
-      "labelText": {
-        "fill": {
-          "visibility": "none"
-        }
-      }
-    }
-  },
-  "administrative": {
-    "all": {
-      "section": {
-        "stroke": {
-          "color": "#ffffff"
-        }
+        "fill": { "color": "#405CB0", "saturation": 46.7, "lightness": 47.1 },
+        "stroke": { "color": "#fafafa", "weight": 1.5, "lightness": 98 }
       },
       "labelText": {
-        "fill": {
-          "color": "#405CB0"
-        }
-      }
-    }
-  },
-  "landscape": {
-    "all": {
-      "section": {
-        "fill": {
-          "color": "#405CB0"
-        }
-      }
+        "fill": { "color": "#ffffff", "lightness": 100 },
+        "stroke": { "color": "#405cb0", "saturation": 46.7, "lightness": 47.1 }
+      },
+      "labelIcon": { "visibility": "none" }
     },
-    "building": {
-      "labelText": {
-        "fill": {
-          "visibility": "none"
-        }
-      }
-    }
+    "arterial": { "labelText": { "fill": { "visibility": "none" } } }
   },
   "transit": {
     "all": {
-      "section": {
-        "stroke": {
-          "color": "#ffffff"
-        }
+      "section": { "stroke": { "color": "#ffffff", "lightness": 100 } },
+      "labelText": {
+        "fill": { "color": "#405cb0", "saturation": 46.7, "lightness": 47.1 },
+        "stroke": { "color": "#ffffff", "lightness": 100 }
       }
     },
     "airport": {
       "section": {
-        "fill": {
-          "color": "#405CB0"
-        },
-        "stroke": {
-          "color": "#ffffff"
-        }
+        "fill": { "color": "#405CB0" },
+        "stroke": { "color": "#ffffff" }
       }
     }
   },
-  "water": {
-    "all": {
-      "section": {
-        "fill": {
-          "color": "#405CB0"
-        }
-      }
-    }
-  }
+  "water": { "all": { "section": { "fill": { "color": "#405CB0" } } } }
 }

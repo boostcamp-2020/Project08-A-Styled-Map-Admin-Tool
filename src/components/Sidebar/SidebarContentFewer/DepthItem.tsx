@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
+import useSidebarDepthItem, {
+  DepthItemKeyTypes,
+} from '../../../hooks/sidebar/useSidebarDepthItem';
 import styled from '../../../utils/styles/styled';
 
 const ItemWrapper = styled.li`
@@ -41,15 +44,30 @@ export const Range = styled.input`
 
 interface ItemPresenterProps {
   name: string;
+  itemKey: DepthItemKeyTypes;
 }
 
-function DepthItemPresenter({ name }: ItemPresenterProps): React.ReactElement {
+function DepthItemPresenter({
+  name,
+  itemKey,
+}: ItemPresenterProps): React.ReactElement {
+  const { depth, depthRef, depthRangeHandler } = useSidebarDepthItem(itemKey);
+
   return (
     <ItemWrapper>
       <Label htmlFor={name}>{name}</Label>
-      <Range name={name} type="range" min="1" max="4" step="1" />
+      <Range
+        name={name}
+        type="range"
+        min="1"
+        max="3"
+        step="1"
+        ref={depthRef}
+        value={depth}
+        onChange={depthRangeHandler}
+      />
     </ItemWrapper>
   );
 }
 
-export default DepthItemPresenter;
+export default memo(DepthItemPresenter);
