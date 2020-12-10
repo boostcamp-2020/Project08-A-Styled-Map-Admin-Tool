@@ -6,6 +6,7 @@ import { urlToJson } from '../../utils/urlParsing';
 import {
   WholeStyleActionPayload,
   HistoryPropsType,
+  LocationType,
 } from '../../store/common/type';
 import validateStyle from '../../utils/validateStyle';
 import { RootState } from '../../store/index';
@@ -31,11 +32,18 @@ function useMap(): MapHookType {
   const [flag, setFlag] = useState(false);
   const { search, pathname } = window.location;
 
-  const initializeMap = (): void => {
+  const initializeMap = (map: mapboxgl.Map): void => {
     if (search && pathname === '/show') {
       const states = urlToJson();
-      if (validateStyle(states as WholeStyleActionPayload)) {
-        changeStyle(states as WholeStyleActionPayload);
+
+      // 이부분에 문제가 있는 것 같습니다. 없애면 에러 안나고 잘 되는데 있으면 안되요
+      // if (validateStyle(states.filteredStyle as WholeStyleActionPayload)) {
+      changeStyle(states.filteredStyle as WholeStyleActionPayload);
+      // }
+      const { zoom, lng, lat } = states.mapCoordinate as LocationType;
+      if (zoom && lng && lat) {
+        map.setCenter({ lng, lat });
+        map.setZoom(zoom);
       }
       return;
     }
