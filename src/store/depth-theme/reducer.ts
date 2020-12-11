@@ -1,5 +1,4 @@
 /* eslint-disable no-case-declarations */
-import { DepthItemKeyTypes } from '../../hooks/sidebar/useSidebarDepthItem';
 import {
   DepthThemeActionType,
   ThemDepthState,
@@ -23,7 +22,14 @@ function depthThemeReducer(
 
   switch (type) {
     case SET_SHOW_DEPTH_PROPERTIES:
+      console.log('here');
+
       const { selectedFeature, selectedDepth } = payload as DepthPropsType;
+      console.log(selectedFeature, selectedDepth);
+      console.log({
+        ...state,
+        [selectedFeature]: selectedDepth,
+      });
       return {
         ...state,
         [selectedFeature]: selectedDepth,
