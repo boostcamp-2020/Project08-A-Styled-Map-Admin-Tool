@@ -101,7 +101,7 @@ function useStyleType(): UseStyleHookType {
     sidebar: { feature, subFeature, element, subElement },
     features,
   } = useSelector<RootState>((state) => {
-    const { map, sidebar, history, ...features } = state;
+    const { map, sidebar, history, depthTheme, marker, ...features } = state;
     return {
       map: map.map,
       sidebar,

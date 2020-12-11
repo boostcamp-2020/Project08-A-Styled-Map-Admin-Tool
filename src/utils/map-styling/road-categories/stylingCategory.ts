@@ -159,11 +159,15 @@ function stylingCategory({
           weight: zoomWeight || weight,
         });
       } else if (subElement === SubElementNameType.stroke) {
+        let zoomWeight = 0;
+        if (weightTemplate[subFeature]) {
+          zoomWeight = weightTemplate[subFeature][subElement](weight);
+        }
         applyWeight({
           map,
           layerNames: layerNames.stroke,
           type: WeightType.line,
-          weight,
+          weight: zoomWeight || weight,
         });
       }
     }
@@ -172,15 +176,11 @@ function stylingCategory({
         subElement === SubElementNameType.stroke &&
         visibility === 'visible'
       ) {
-        let zoomWeight = 0;
-        if (weightTemplate[subFeature]) {
-          zoomWeight = weightTemplate[subFeature][subElement](weight);
-        }
         applyWeight({
           map,
           layerNames: layerNames.text.hasStroke,
           type: WeightType.textHalo,
-          weight: zoomWeight || weight,
+          weight,
         });
       }
     }
