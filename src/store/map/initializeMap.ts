@@ -14,7 +14,7 @@ mapboxgl.accessToken = process.env.REACT_APP_ACCESS_TOKEN as string;
 
 interface InitializeMapProps {
   mapRef: RefObject<HTMLDivElement>;
-  initializeMap: () => void;
+  initializeMap: (map: mapboxgl.Map) => void;
 }
 
 function initializeMap({
@@ -39,7 +39,7 @@ function initializeMap({
   );
 
   map.on('load', () => {
-    initializeMap();
+    initializeMap(map);
   });
 
   return map;

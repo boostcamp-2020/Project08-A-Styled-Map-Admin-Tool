@@ -80,7 +80,7 @@ function ExportModal({
         <ModalBody>
           <ExportToJson>
             <SubTitle>JSON 형식으로 내보내기</SubTitle>
-            <Content>{JSON.stringify(style, null, 2)}</Content>
+            <Content>{JSON.stringify(style.filteredStyle, null, 2)}</Content>
           </ExportToJson>
           <ExportToURL>
             <SubTitle>URL로 내보내기</SubTitle>

@@ -67,7 +67,6 @@ const data: DataType[] = [
     ],
   },
   { typeKey: FeatureNameType.water, typeName: '물', subFeatures: [] },
-  { typeKey: FeatureNameType.marker, typeName: '마크', subFeatures: [] },
 ];
 
 export default data;

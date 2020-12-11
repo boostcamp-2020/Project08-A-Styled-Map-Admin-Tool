@@ -19,6 +19,8 @@
     "react/require-default-props": "off",
     "import/order": "off",
     "import/prefer-default-export": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": "off"
   }
 }

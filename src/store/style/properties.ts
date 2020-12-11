@@ -33,14 +33,12 @@ export const getDefaultStyle = ({
       ] as DefaultStyleType)
     : (defaultStyle[feature][subFeature][element] as DefaultStyleType);
 
-  if (defaultState.color === 'transparent')
-    defaultState.color = 'hsl(0, 0%, 0%)';
-
   const hslArr = defaultState.color.match(
     /hsl\((\d+), (\d+)%, (\d+)%\)/
   ) as string[];
-  const s = hslArr[2];
-  const l = hslArr[3];
+
+  const s = hslArr ? hslArr[2] : 0;
+  const l = hslArr ? hslArr[3] : 0;
 
   return {
     ...JSON.parse(JSON.stringify(style)),
