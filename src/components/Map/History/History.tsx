@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '../../../utils/styles/styled';
 import { RootState } from '../../../store/index';
-import { HistoryPropsType, objType } from '../../../store/common/type';
-import featureTypeData from '../../../utils/rendering-data/featureTypeData';
+import { HistoryPropsType } from '../../../store/common/type';
+import { featureName, elementName } from '../../../utils/getTypeName';
 
 const HistoryWapper = styled.div`
   z-index: 30;
@@ -68,39 +68,6 @@ interface HistoryProps {
   comparisonButtonClickHandler: (id: string) => void;
   compareId: string | undefined;
 }
-
-const featureName = featureTypeData.reduce(
-  (pre, cur) => {
-    const name = pre;
-    name.feature[cur.typeKey] = cur.typeName;
-    name.subFeature[cur.typeKey] = { all: '전체' };
-    cur.subFeatures.forEach((sub) => {
-      name.subFeature[cur.typeKey][sub.key] = sub.name;
-    });
-    return name;
-  },
-  { feature: {}, subFeature: {} } as objType
-);
-
-const elementName = {
-  element: {
-    section: '구역',
-    labelText: '라벨 > 텍스트',
-    labelIcon: '라벨 > 아이콘',
-  },
-  subElement: {
-    fill: '채우기',
-    stroke: '테두리',
-  },
-  style: {
-    visibility: '가시성',
-    color: '색상',
-    weight: '굵기',
-    lightness: '채도',
-    saturation: '밝기',
-    isChanged: '',
-  },
-};
 
 function History({
   isHistoryOpen,
