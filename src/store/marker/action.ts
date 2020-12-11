@@ -29,7 +29,6 @@ export interface MarkerUpdateType {
   id: string;
   lng?: number;
   lat?: number;
-  instance?: mapboxgl.Marker;
 }
 
 export interface MarkerState {
