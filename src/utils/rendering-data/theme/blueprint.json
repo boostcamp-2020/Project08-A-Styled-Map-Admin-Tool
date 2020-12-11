@@ -1,8 +1,17 @@
 {
   "poi": { "all": { "labelText": { "fill": { "visibility": "none" } } } },
   "landscape": {
-    "all": { "section": { "fill": { "color": "#405CB0" } } },
-    "building": { "labelText": { "fill": { "visibility": "none" } } }
+    "all": {
+      "section": {
+        "fill": { "color": "#405CB0", "saturation": 47, "lightness": 47 }
+      },
+      "labelText": {
+        "fill": { "color": "#405CB0", "saturation": 40, "lightness": 49 }
+      }
+    },
+    "building": {
+      "labelText": { "fill": { "visibility": "none" } }
+    }
   },
   "administrative": {
     "all": {
@@ -16,16 +25,14 @@
   "road": {
     "all": {
       "section": {
-        "fill": { "color": "#405CB0", "saturation": 46.7, "lightness": 47.1 },
-        "stroke": { "color": "#fafafa", "weight": 1.5, "lightness": 98 }
+        "fill": { "color": "#405CB0", "saturation": 47, "lightness": 47 },
+        "stroke": { "color": "#fafafa", "weight": 0.5, "lightness": 98 }
       },
       "labelText": {
-        "fill": { "color": "#ffffff", "lightness": 100 },
-        "stroke": { "color": "#405cb0", "saturation": 46.7, "lightness": 47.1 }
-      },
-      "labelIcon": { "visibility": "none" }
-    },
-    "arterial": { "labelText": { "fill": { "visibility": "none" } } }
+        "fill": { "color": "#f7f8fd", "saturation": 60, "lightness": 98 },
+        "stroke": { "visibility": "none", "color": "#fafafa", "lightness": 98 }
+      }
+    }
   },
   "transit": {
     "all": {

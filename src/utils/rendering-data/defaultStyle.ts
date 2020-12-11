@@ -98,8 +98,8 @@ const defaultStyle: DefaultWholeStyle = {
     },
     arterial: {
       section: {
-        fill: { color: 'hsl(0, 0%, 100%)', weight: 4 },
-        stroke: { color: 'hsl(230, 24%, 87%)', weight: 1 },
+        fill: { color: 'hsl(0, 0%, 100%)', weight: 1 },
+        stroke: { color: 'hsl(230, 24%, 87%)', weight: 0.5 },
       },
       labelText: {
         fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
@@ -109,7 +109,7 @@ const defaultStyle: DefaultWholeStyle = {
     },
     local: {
       section: {
-        fill: { color: 'hsl(35, 14%, 93%)', weight: 3 },
+        fill: { color: 'hsl(0, 0%, 100%)', weight: 0.75 },
         stroke: { color: 'hsl(230, 24%, 87%)', weight: 1 },
       },
       labelText: {
@@ -120,8 +120,8 @@ const defaultStyle: DefaultWholeStyle = {
     },
     sidewalk: {
       section: {
-        fill: { color: 'hsl(0, 0%, 100%)', weight: 2 },
-        stroke: { color: 'hsl(230, 24%, 87%)', weight: 1 },
+        fill: { color: 'hsl(0, 0%, 100%)', weight: 0.5 },
+        stroke: { color: 'hsl(230, 24%, 87%)', weight: 2 },
       },
       labelText: {
         fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
@@ -285,7 +285,7 @@ const defaultStyle: DefaultWholeStyle = {
   water: {
     all: {
       section: {
-        fill: { color: 'hsl(215, 84%, 69%)', weight: 0 },
+        fill: { color: 'hsl(196, 80%, 70%)', weight: 0 },
         stroke: { color: 'transparent', weight: 0 },
       },
       labelText: {
