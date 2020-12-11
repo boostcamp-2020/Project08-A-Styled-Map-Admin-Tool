@@ -34,7 +34,7 @@ export interface RegisterMarkerType {
 }
 
 export interface MarkerHookType {
-  markerPos: MarkerPosType;
+  markerPosition: MarkerPosType;
   resetMarkerPos: () => void;
   registerMarker: ({ text, lngLat }: RegisterMarkerType) => void;
 }
@@ -46,7 +46,7 @@ function useMarkerFeature(): MarkerHookType {
     marker: state.marker,
   })) as ReduxStateType;
 
-  const [markerPos, setMarkerPos] = useState<MarkerPosType>({
+  const [markerPosition, setMarkerPos] = useState<MarkerPosType>({
     x: null,
     y: null,
   });
@@ -98,6 +98,7 @@ function useMarkerFeature(): MarkerHookType {
 
       newMarker.on('dragend', () => {
         const lnglat = newMarker.getLngLat();
+        // 위도, 경도 이동
         dispatch(
           updateMarker({
             id,
@@ -107,6 +108,7 @@ function useMarkerFeature(): MarkerHookType {
         );
       });
 
+      // 새로운 마커 추가
       dispatch(
         addMarker({
           id,
@@ -116,14 +118,13 @@ function useMarkerFeature(): MarkerHookType {
           instance: newMarker,
         })
       );
+      return;
     }
 
+    // 초기화 된 마커, 생성된 Marker 객체 업데이트
     dispatch(
       updateMarker({
         id,
-        text,
-        lng: lngLat.lng,
-        lat: lngLat.lat,
         instance,
       })
     );
@@ -139,7 +140,7 @@ function useMarkerFeature(): MarkerHookType {
   }, [map]);
 
   return {
-    markerPos,
+    markerPosition,
     resetMarkerPos,
     registerMarker,
   };
