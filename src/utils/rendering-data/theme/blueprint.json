@@ -9,9 +9,7 @@
         "fill": { "color": "#405CB0", "saturation": 40, "lightness": 49 }
       }
     },
-    "building": {
-      "labelText": { "fill": { "visibility": "none" } }
-    }
+    "building": { "labelText": { "fill": { "visibility": "none" } } }
   },
   "administrative": {
     "all": {
@@ -31,7 +29,8 @@
       "labelText": {
         "fill": { "color": "#f7f8fd", "saturation": 60, "lightness": 98 },
         "stroke": { "visibility": "none", "color": "#fafafa", "lightness": 98 }
-      }
+      },
+      "labelIcon": { "visibility": "none" }
     }
   },
   "transit": {
