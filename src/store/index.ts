@@ -11,6 +11,7 @@ import {
 } from './style/reducer';
 import sidebar from './sidebar/reducer';
 import history from './history/reducer';
+import depthTheme from './depth-theme/reducer';
 import marker from './marker/reducer';
 
 const rootReducer = combineReducers({
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   water,
   sidebar,
   history,
+  depthTheme,
   marker,
 });
 

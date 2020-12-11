@@ -13,6 +13,7 @@ import setFeatureStyle from '../../utils/setFeatureStyle';
 
 interface WholeStyleHook {
   flag: boolean;
+  getWholeStyle: () => StyleStoreType;
   changeStyle: (inputStyle: WholeStyleActionPayload) => void;
   replaceStyle: (inputStyle: StyleStoreType) => void;
 }
@@ -53,6 +54,18 @@ function useWholeStyle(): WholeStyleHook {
     setFlag(false);
   }, [flag]);
 
+  const getWholeStyle = () => {
+    return {
+      poi,
+      landscape,
+      administrative,
+      road,
+      transit,
+      water,
+      marker,
+    };
+  };
+
   const changeStyle = (inputStyle: WholeStyleActionPayload): void => {
     dispatch(setWholeStyle(inputStyle));
     setFlag(true);
@@ -65,6 +78,7 @@ function useWholeStyle(): WholeStyleHook {
 
   return {
     flag,
+    getWholeStyle,
     changeStyle,
     replaceStyle,
   };
