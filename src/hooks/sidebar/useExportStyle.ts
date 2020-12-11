@@ -7,6 +7,7 @@ import {
   FeatureNameType,
   StyleKeyType,
   SubElementNameType,
+  LocationType,
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
 
@@ -14,8 +15,13 @@ interface StoreDataType {
   [key: string]: FeatureNameType | mapboxgl.Map | undefined;
 }
 
+interface ExportType {
+  mapCoordinate: LocationType;
+  filteredStyle: StoreDataType;
+}
+
 interface UseExportStyleType {
-  exportStyle: () => StoreDataType;
+  exportStyle: () => ExportType;
 }
 
 interface StyleType {
@@ -160,18 +166,30 @@ function filterStyle(style: StoreDataType): StoreDataType {
 }
 
 function useExportStyle(): UseExportStyleType {
-  const data: StoreDataType = useSelector<RootState>(
+  const { map, sidebar, history, ...style } = useSelector<RootState>(
     (state) => state
-  ) as StoreDataType;
+  ) as any;
 
-  const exportStyle = (): StoreDataType => {
-    if ('map' in data || 'sidebar' in data) {
-      const { map, sidebar, ...style } = data;
+  const exportStyle = (): ExportType => {
+    if (map || sidebar || history) {
       const filteredStyle = filterStyle(style);
-      return filteredStyle;
+
+      const mapCoordinate = {
+        zoom: map.map.getZoom(),
+        lng: map.map.getCenter().lng,
+        lat: map.map.getCenter().lat,
+      };
+
+      return {
+        filteredStyle,
+        mapCoordinate,
+      };
     }
 
-    return {};
+    return {
+      filteredStyle: {},
+      mapCoordinate: {},
+    };
   };
 
   return { exportStyle };

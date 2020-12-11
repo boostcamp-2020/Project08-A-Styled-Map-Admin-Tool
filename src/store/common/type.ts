@@ -3,6 +3,7 @@ import {
   replaceWholeStyle,
   setStyle,
   setWholeStyle,
+  initColors,
 } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 import { INIT_HISTORY, ADD_LOG, SET_CURRENT_INDEX } from '../history/action';
@@ -153,7 +154,8 @@ export type ActionType =
   | ReturnType<typeof init>
   | ReturnType<typeof setStyle>
   | ReturnType<typeof setWholeStyle>
-  | ReturnType<typeof replaceWholeStyle>;
+  | ReturnType<typeof replaceWholeStyle>
+  | ReturnType<typeof initColors>;
 
 /** Style Store Type for Replace */
 export type StyleStoreType = {
@@ -256,6 +258,13 @@ export type PropertyType = {
   [featureName in FeatureNameType]: FeaturePropertyType;
 };
 
+/** export type */
+export interface LocationType {
+  zoom?: number;
+  lng?: number;
+  lat?: number;
+}
+
 /** defatult style Type */
 export type DefaultStyleType = {
   color: string;
@@ -302,6 +311,11 @@ export type URLJsonSubFeatureType = {
   [subFeatureName: string]: URLJsonElementType;
 };
 
-export type URLJsonType = {
+export type URLJsonFeatureType = {
   [featureName in FeatureNameType]?: URLJsonSubFeatureType;
+};
+
+export type URLJsonType = {
+  filteredStyle?: URLJsonFeatureType;
+  mapCoordinate?: LocationType;
 };

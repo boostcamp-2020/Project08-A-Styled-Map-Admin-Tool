@@ -28,6 +28,18 @@ const ColorPalette = styled.input`
   height: 40px;
 `;
 
+const Button = styled.button`
+  width: 90%;
+  margin: 10px 0;
+  background-color: ${(props) => props.theme.WHITE};
+  border: 1px solid ${(props) => props.theme.BLACK};
+  border-radius: 5px;
+  &:hover {
+    background-color: ${(props) => props.theme.GREEN};
+    color: ${(props) => props.theme.WHITE};
+  }
+`;
+
 interface ColorStyleProps {
   color: string;
   onStyleChange: (key: StyleKeyType, value: string | number) => void;
@@ -37,7 +49,12 @@ function ColorStyle({
   color,
   onStyleChange,
 }: ColorStyleProps): React.ReactElement {
-  const { curRange, rangeChangeHandler, rangeMouseUpHandler } = useInputRange({
+  const {
+    curRange,
+    rangeChangeHandler,
+    rangeMouseUpHandler,
+    initStyle,
+  } = useInputRange({
     range: color,
     onStyleChange,
   });
@@ -46,6 +63,7 @@ function ColorStyle({
     <ColorWrapper>
       <ColorTitle htmlFor="styler__color">색상</ColorTitle>
       <ColorCode>{curRange}</ColorCode>
+      <Button onClick={() => initStyle(StyleKeyType.color)}>초기화</Button>
       <ColorPalette
         type="color"
         id="styler__color"
