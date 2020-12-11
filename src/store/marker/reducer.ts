@@ -60,12 +60,13 @@ function markerReducer(
     }
 
     case UPDATE_MARKER: {
-      const { id, text, lng, lat, instance } = action.payload as MarkerType;
+      const { id, lng, lat, instance } = action.payload as MarkerType;
 
       const targetIdx = state.markers.findIndex((item) => item.id === id);
+      const { text } = state.markers[targetIdx];
       const input = {
         id,
-        text: text || state.markers[targetIdx].text,
+        text,
         lng: lng || state.markers[targetIdx].lng,
         lat: lat || state.markers[targetIdx].lat,
         instance: instance || state.markers[targetIdx].instance,
