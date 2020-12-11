@@ -9,8 +9,9 @@ import {
   updateMarker,
   removeMarker,
   ADD_MARKER,
-  UPDATE_MARKER,
 } from '../../store/marker/action';
+
+const PRINT_MARKER_AFTER_INIT = 'printMarkerAfterInit';
 
 interface ReduxStateType {
   map: mapboxgl.Map;
@@ -74,7 +75,7 @@ function useMarkerFeature(): MarkerHookType {
     lngLat = markerLngLat,
     instance,
   }: RegisterMarkerType): void => {
-    const type = lngLat === markerLngLat ? ADD_MARKER : UPDATE_MARKER;
+    const type = lngLat === markerLngLat ? ADD_MARKER : PRINT_MARKER_AFTER_INIT;
     if (!map || !marker) return;
     if (!lngLat.lng || !lngLat.lat) return;
     if (instance) {
@@ -132,16 +133,6 @@ function useMarkerFeature(): MarkerHookType {
         })
       );
     }
-
-    dispatch(
-      updateMarker({
-        id,
-        text,
-        lng: lngLat.lng,
-        lat: lngLat.lat,
-        instance,
-      })
-    );
   };
 
   useEffect(() => {

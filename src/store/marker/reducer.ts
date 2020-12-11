@@ -51,9 +51,9 @@ function markerReducer(
       if (!storedMarker) storedMarker = [];
       storedMarker.push({
         id,
+        text,
         lng,
         lat,
-        text,
       });
 
       localStorage.setItem(MARKER, JSON.stringify(storedMarker));
