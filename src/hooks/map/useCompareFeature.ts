@@ -55,8 +55,9 @@ function useCompareFeature({
       if (!log || !beforeMap) return;
 
       const [item] = log?.filter((val) => val.id === logId) || [];
+      const { wholeStyle } = item;
 
-      for (const feature in item.wholeStyle) {
+      for (const feature in wholeStyle) {
         setFeatureStyle({
           map: beforeMap as mapboxgl.Map,
           feature: feature as FeatureNameType,
