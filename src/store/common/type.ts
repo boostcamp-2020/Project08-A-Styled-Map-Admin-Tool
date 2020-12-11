@@ -175,7 +175,7 @@ export interface HistoryInfoPropsType {
   wholeStyle: StyleStoreType;
 }
 
-export interface HistoryPropsType {
+export interface HistoryState {
   log?: HistoryInfoPropsType[];
   currentIdx: number | null;
 }
@@ -203,7 +203,7 @@ export interface ActionPayload extends ElementPropsType {
   style: StyleType;
 }
 
-export interface PayloadPropsType {
+export interface SidebarState {
   key: 'feature' | 'subFeature' | 'element' | 'subElement';
   feature: FeatureNameType | null;
   subFeature: string | null;
