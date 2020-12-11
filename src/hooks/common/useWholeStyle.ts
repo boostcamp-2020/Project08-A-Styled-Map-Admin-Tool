@@ -62,7 +62,6 @@ function useWholeStyle(): WholeStyleHook {
       road,
       transit,
       water,
-      marker,
     };
   };
 
