@@ -7,6 +7,7 @@ import {
   MarkerState,
   addMarker,
   updateMarker,
+  removeMarker,
   ADD_MARKER,
   UPDATE_MARKER,
 } from '../../store/marker/action';
@@ -77,7 +78,6 @@ function useMarkerFeature(): MarkerHookType {
     if (!map || !marker) return;
     if (!lngLat.lng || !lngLat.lat) return;
     if (instance) {
-      instance.addTo(map);
       instance.on('dragend', () => {
         const lnglat = instance.getLngLat();
         dispatch(
@@ -88,6 +88,14 @@ function useMarkerFeature(): MarkerHookType {
           })
         );
       });
+
+      instance.getElement().addEventListener('contextmenu', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        instance.remove();
+        dispatch(removeMarker(id));
+      });
+      instance.addTo(map);
     }
 
     if (type === ADD_MARKER) {
@@ -105,6 +113,13 @@ function useMarkerFeature(): MarkerHookType {
             lat: lnglat.lat,
           })
         );
+      });
+
+      newMarker.getElement().addEventListener('contextmenu', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        newMarker.remove();
+        dispatch(removeMarker(id));
       });
 
       dispatch(
