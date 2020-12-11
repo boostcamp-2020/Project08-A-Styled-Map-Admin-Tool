@@ -6,7 +6,7 @@ interface MarkerPopUpHookType {
 
 interface MarkerPopUpPropsType {
   inputText: string;
-  registerMarker: ({ id, text, lngLat }: RegisterMarkerType) => void;
+  registerMarker: ({ id, text, lngLat, instance }: RegisterMarkerType) => void;
   resetMarkerPos: () => void;
 }
 

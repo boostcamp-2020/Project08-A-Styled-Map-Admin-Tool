@@ -63,6 +63,7 @@ function useMap(): MapHookType {
         id: item.id,
         text: item.text,
         lngLat: { lng: item.lng, lat: item.lat },
+        instance: item.instance as mapboxgl.Marker,
       });
     });
   };
@@ -73,6 +74,7 @@ function useMap(): MapHookType {
       const { wholeStyle } = log[currentIdx as number];
       if (wholeStyle) replaceStyle(wholeStyle);
     }
+
     if (marker && marker.markers.length) {
       printMarker();
     }
