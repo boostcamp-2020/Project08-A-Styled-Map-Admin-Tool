@@ -16,9 +16,15 @@ export interface MarkerType {
   lng: number;
   lat: number;
   text: string;
-  instance: mapboxgl.Marker;
+  instance?: mapboxgl.Marker;
 }
 
+// export interface LocalStorageMarkerType {
+//   id: string;
+//   lng: number;
+//   lat: number;
+//   text: string;
+// }
 export interface MarkerUpdateType {
   id: string;
   lng?: number;

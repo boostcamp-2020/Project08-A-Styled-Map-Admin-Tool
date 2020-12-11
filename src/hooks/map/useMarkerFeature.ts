@@ -30,6 +30,7 @@ export interface RegisterMarkerType {
   id?: string;
   text: string;
   lngLat?: MarkerLngLatType;
+  instance?: mapboxgl.Marker;
 }
 
 export interface MarkerHookType {
@@ -70,28 +71,42 @@ function useMarkerFeature(): MarkerHookType {
     id = getRandomId(8),
     text,
     lngLat = markerLngLat,
-  }: RegisterMarkerType) => {
+    instance,
+  }: RegisterMarkerType): void => {
     const type = lngLat === markerLngLat ? ADD_MARKER : UPDATE_MARKER;
     if (!map || !marker) return;
     if (!lngLat.lng || !lngLat.lat) return;
-
-    const newMarker = new mapboxgl.Marker({ draggable: true })
-      .setLngLat([lngLat.lng, lngLat.lat])
-      .setPopup(new mapboxgl.Popup().setHTML(`<p>${text}</p>`))
-      .addTo(map);
-
-    newMarker.on('dragend', () => {
-      const lnglat = newMarker.getLngLat();
-      dispatch(
-        updateMarker({
-          id,
-          lng: lnglat.lng,
-          lat: lnglat.lat,
-        })
-      );
-    });
+    if (instance) {
+      instance.addTo(map);
+      instance.on('dragend', () => {
+        const lnglat = instance.getLngLat();
+        dispatch(
+          updateMarker({
+            id,
+            lng: lnglat.lng,
+            lat: lnglat.lat,
+          })
+        );
+      });
+    }
 
     if (type === ADD_MARKER) {
+      const newMarker = new mapboxgl.Marker({ draggable: true })
+        .setLngLat([lngLat.lng, lngLat.lat])
+        .setPopup(new mapboxgl.Popup().setHTML(`<p>${text}</p>`))
+        .addTo(map);
+
+      newMarker.on('dragend', () => {
+        const lnglat = newMarker.getLngLat();
+        dispatch(
+          updateMarker({
+            id,
+            lng: lnglat.lng,
+            lat: lnglat.lat,
+          })
+        );
+      });
+
       dispatch(
         addMarker({
           id,
@@ -101,13 +116,15 @@ function useMarkerFeature(): MarkerHookType {
           instance: newMarker,
         })
       );
-      return;
     }
 
     dispatch(
       updateMarker({
         id,
-        instance: newMarker,
+        text,
+        lng: lngLat.lng,
+        lat: lngLat.lat,
+        instance,
       })
     );
   };
