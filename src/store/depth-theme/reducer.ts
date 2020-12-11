@@ -2,38 +2,35 @@
 import { DepthItemKeyTypes } from '../../hooks/sidebar/useSidebarDepthItem';
 import {
   DepthThemeActionType,
-  DepthThemePropsType,
+  ThemDepthState,
+  DepthPropsType,
+  ThemePropsType,
   SET_SHOW_DEPTH_PROPERTIES,
   SET_THEME_PROPERTIES,
 } from './action';
 
-const initialState: DepthThemePropsType = {
-  selectedFeature: DepthItemKeyTypes.road,
+const initialState: ThemDepthState = {
   roadDepth: 3,
   administrativeDepth: 3,
   themeIdx: 0,
 };
 
 function depthThemeReducer(
-  state: DepthThemePropsType = initialState,
+  state: ThemDepthState = initialState,
   action: DepthThemeActionType
-): DepthThemePropsType {
+): ThemDepthState {
   const { type, payload } = action;
 
   switch (type) {
     case SET_SHOW_DEPTH_PROPERTIES:
-      const { selectedFeature, selectedDepth } = payload;
-      const changedDepth =
-        selectedFeature === DepthItemKeyTypes.road
-          ? { roadDepth: selectedDepth }
-          : { administrativeDepth: selectedDepth };
+      const { selectedFeature, selectedDepth } = payload as DepthPropsType;
       return {
         ...state,
-        ...changedDepth,
+        [selectedFeature]: selectedDepth,
       };
 
     case SET_THEME_PROPERTIES:
-      const { themeIdx } = payload;
+      const { themeIdx } = payload as ThemePropsType;
       return {
         ...state,
         themeIdx,

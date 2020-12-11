@@ -10,7 +10,7 @@ import {
   SubFeatureActionPayload,
 } from '../../store/common/type';
 import {
-  DepthThemePropsType,
+  ThemDepthState,
   setShowDepthProperties,
 } from '../../store/depth-theme/action';
 import { applyVisibility, VisibilityType } from '../../utils/applyStyle';
@@ -122,7 +122,7 @@ function useSidebarDepthItem(
 ): useSidebarDepthItemType {
   const { roadDepth, administrativeDepth } = useSelector<RootState>(
     (state) => state.depthTheme
-  ) as DepthThemePropsType;
+  ) as ThemDepthState;
 
   const [featureLayers, depth] = (itemKey === DepthItemKeyTypes.road
     ? [roadLayerIds, roadDepth]

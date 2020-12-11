@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import {
-  DepthThemePropsType,
+  ThemDepthState,
   setThemeProperties,
 } from '../../store/depth-theme/action';
 
@@ -13,7 +13,7 @@ export interface MapThemeHookType {
 function useMapTheme(): MapThemeHookType {
   const { themeIdx } = useSelector<RootState>(
     (state) => state.depthTheme
-  ) as DepthThemePropsType;
+  ) as ThemDepthState;
 
   const dispatch = useDispatch();
 
