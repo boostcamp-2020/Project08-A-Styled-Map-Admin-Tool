@@ -3263,7 +3263,7 @@ const initLayers = {
       },
     },
     {
-      id: 'administrative-settlement-subdivision-labelText',
+      id: 'administrative-locality-subdivision-labelText',
       type: 'symbol',
       source: 'composite',
       'source-layer': 'place_label',
@@ -3322,7 +3322,7 @@ const initLayers = {
       },
     },
     {
-      id: 'administrative-settlement-labelText',
+      id: 'administrative-locality-labelText',
       type: 'symbol',
       source: 'composite',
       'source-layer': 'place_label',

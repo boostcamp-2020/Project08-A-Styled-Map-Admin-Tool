@@ -1,18 +1,27 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import {
+  DepthThemePropsType,
+  setThemeProperties,
+} from '../../store/depth-theme/action';
 
 export interface MapThemeHookType {
-  checkedThemeIndex: number;
+  themeIdx?: number;
   checkHandler: (index: number) => void;
 }
 
 function useMapTheme(): MapThemeHookType {
-  const [checkedThemeIndex, setCheckedThemeIndex] = useState<number>(0);
+  const { themeIdx } = useSelector<RootState>(
+    (state) => state.depthTheme
+  ) as DepthThemePropsType;
+
+  const dispatch = useDispatch();
 
   const checkHandler = (index: number) => {
-    setCheckedThemeIndex(index);
+    dispatch(setThemeProperties({ themeIdx: index }));
   };
 
-  return { checkedThemeIndex, checkHandler };
+  return { themeIdx, checkHandler };
 }
 
 export default useMapTheme;

@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-case-declarations */
 import { stylingProps } from '.';
-import transitLayers from '../rendering-data/layers/transit.json';
 import {
   StyleKeyType,
   ElementNameType,
@@ -15,6 +14,7 @@ import {
   WeightType,
   StyleTypes,
 } from '../../utils/applyStyle';
+import initLayers from '../rendering-data/layers/init';
 
 enum layerTypes {
   all = 'all',
@@ -36,7 +36,12 @@ interface GetStylePropertyTypeProps {
   subElement: SubElementNameType;
 }
 
-const transitLayerIds = transitLayers.transit.map(({ id }) => id);
+const transitLayerIds = initLayers.layers
+  .map(({ id }) => id)
+  .filter((name) => {
+    const transitIdReg = /^transit-/;
+    return transitIdReg.test(name);
+  });
 
 const getLayerNames = ({
   subFeature,

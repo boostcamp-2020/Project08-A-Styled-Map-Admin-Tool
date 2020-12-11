@@ -20,7 +20,7 @@ const List = styled.ul`
 `;
 
 function SidebarContentTheme(): React.ReactElement {
-  const { checkedThemeIndex, checkHandler }: MapThemeHookType = useMapTheme();
+  const { themeIdx, checkHandler }: MapThemeHookType = useMapTheme();
 
   return (
     <ThemeWrapper>
@@ -29,7 +29,7 @@ function SidebarContentTheme(): React.ReactElement {
         {data.map((d, i) => (
           <ThemeItem
             key={d.name}
-            checked={i === checkedThemeIndex}
+            checked={i === themeIdx}
             clickHandler={() => checkHandler(i)}
             data={d}
           />

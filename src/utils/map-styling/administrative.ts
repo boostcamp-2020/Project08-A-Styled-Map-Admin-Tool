@@ -30,8 +30,8 @@ const layers = {
   locality: {
     line: [],
     symbol: [
-      'administrative-settlement-labelText',
-      'administrative-settlement-subdivision-labelText',
+      'administrative-locality-labelText',
+      'administrative-locality-subdivision-labelText',
     ],
   },
   all: {
@@ -45,8 +45,8 @@ const layers = {
     symbol: [
       'administrative-country-labelText',
       'administrative-state-labelText',
-      'administrative-settlement-labelText',
-      'administrative-settlement-subdivision-labelText',
+      'administrative-locality-labelText',
+      'administrative-locality-subdivision-labelText',
     ],
   },
 };
