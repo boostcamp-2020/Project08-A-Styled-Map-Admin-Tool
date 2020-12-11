@@ -1,3 +1,5 @@
+import blueprint from './theme/blueprint.json';
+
 const data = [
   {
     src:
@@ -27,7 +29,8 @@ const data = [
   {
     src:
       'https://i.pinimg.com/originals/8f/6d/97/8f6d971f3d086edaf6cee773991abb27.jpg',
-    name: '가지색',
+    name: '청사진',
+    theme: blueprint,
   },
 ];
 

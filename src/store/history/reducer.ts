@@ -1,29 +1,17 @@
-import { ADD_LOG, INIT_HISTORY } from './action';
+import { ADD_LOG, INIT_HISTORY, SET_CURRENT_INDEX } from './action';
 import {
   HistoryPropsType,
   HistoryActionType,
   HistoryInfoPropsType,
-  FeatureNameType,
-  ElementNameType,
-  SubElementNameType,
-  StyleType,
+  SetIndexPayload,
 } from '../common/type';
 import getRandomId from '../../utils/getRandomId';
 
-interface localStorageProps {
-  id: string;
-  value: string;
-  display: string;
-  changedKey: string | null;
-  feature: FeatureNameType;
-  subFeature: string | null;
-  element: ElementNameType | null;
-  subElement: SubElementNameType | null;
-  style: StyleType;
-}
+const logKey = 'log' as const;
 
 const initialState: HistoryPropsType = {
   log: [],
+  currentIdx: null,
 };
 
 function historyReducer(
@@ -32,52 +20,42 @@ function historyReducer(
 ): HistoryPropsType {
   switch (action.type) {
     case INIT_HISTORY: {
-      const log = localStorage.getItem('log')
-        ? JSON.parse(localStorage.getItem('log') as string)
+      const localStorageLog = JSON.parse(
+        localStorage.getItem(logKey) as string
+      );
+
+      const log = localStorageLog
+        ? (localStorageLog as HistoryInfoPropsType[])
         : [];
 
+      const currentIdx = log.length ? log.length - 1 : null;
+
       return {
-        ...state,
         log,
+        currentIdx,
       };
     }
     case ADD_LOG: {
-      const {
-        value,
-        changedKey,
-        feature,
-        subFeature,
-        element,
-        subElement,
-        style,
-        wholeStyle,
-      } = action.payload as HistoryInfoPropsType;
-
       const id = getRandomId(8);
       const newState = JSON.parse(JSON.stringify(state));
+      if (newState.log.length !== newState.currentIdx + 1) {
+        newState.log.splice(newState.currentIdx + 1);
+      }
 
-      const display = `${feature} > ${subFeature} > ${element} > ${subElement}의 ${changedKey} 항목을\n ${value}로 변경`;
-      newState.log.push({
-        id,
-        display,
-      });
+      newState.log.push({ id, ...action.payload });
+      newState.currentIdx = newState.log.length - 1;
+
       const storedLog =
-        localStorage.getItem('log') === null
+        localStorage.getItem(logKey) === null
           ? []
-          : JSON.parse(localStorage.getItem('log') as string);
+          : JSON.parse(localStorage.getItem(logKey) as string);
 
+      // TODO: localstorage update before Event(refresh, close..)
+      // localstorage에 업로드 할때 100개만 가져가면 되지 않을까요?
       if (storedLog !== undefined) {
         storedLog.push({
           id,
-          value,
-          display,
-          changedKey,
-          feature,
-          subFeature,
-          element,
-          subElement,
-          style,
-          wholeStyle,
+          ...JSON.parse(JSON.stringify(action.payload)),
         });
         localStorage.setItem('log', JSON.stringify(storedLog));
       }
@@ -85,10 +63,14 @@ function historyReducer(
       return newState;
     }
 
+    case SET_CURRENT_INDEX: {
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.currentIdx = (action.payload as SetIndexPayload).currentIndex;
+      return newState;
+    }
+
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 }
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import useTheme from '../../../hooks/sidebar/useTheme';
+import { objType } from '../../../store/common/type';
 
 interface ImageProp {
   src: string;
@@ -52,6 +54,7 @@ interface ThemeItemProps {
   data: {
     src: string;
     name: string;
+    theme?: objType;
   };
   checked: boolean;
   clickHandler: () => void;
@@ -62,8 +65,12 @@ function ThemeItem({
   checked,
   clickHandler,
 }: ThemeItemProps): React.ReactElement {
+  const { applyTheme } = useTheme({
+    clickHandler,
+  });
+
   return (
-    <Item onClick={clickHandler}>
+    <Item onClick={() => applyTheme(data.theme as objType)}>
       <Image src={data.src} />
       <Name checked={checked}>{data.name}</Name>
       <Checkbox checked={checked}>

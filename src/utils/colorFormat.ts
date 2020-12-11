@@ -35,14 +35,14 @@ export function hexToHSL(color: string): HexToHSLType {
   l = +(l * 100).toFixed(1);
 
   return {
-    h,
-    s,
-    l,
+    h: Math.round(h),
+    s: Math.round(s),
+    l: Math.round(l),
   };
 }
 
 export function hslToHEX(color: string): string {
-  if (color === 'transparent') return '#000000';
+  if (color === 'transparent') return 'transparent';
   const hsl = color.match(/(\d*\.?\d+)/g)?.map((c) => Number(c)) as number[];
 
   const h: number = hsl[0];

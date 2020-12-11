@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import useWholeStyle from '../common/useWholeStyle';
 
 interface SidebarDropdownProps {
   isOpened: boolean;
@@ -16,6 +17,7 @@ function useSidebarDropdown({
   dropdownToggleHandler,
 }: SidebarDropdownProps): useSidebarDropdownType {
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+  const { changeStyle } = useWholeStyle();
 
   const importModalToggleHandler = () => {
     if (isOpened) dropdownToggleHandler();
@@ -23,7 +25,7 @@ function useSidebarDropdown({
   };
 
   const resetClickHandler = () => {
-    // 전역 상태 초기화
+    changeStyle({});
   };
 
   return {

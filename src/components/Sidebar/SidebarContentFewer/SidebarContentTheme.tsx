@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import useMapTheme, { MapThemeHookType } from '../../../hooks/map/useMapTheme';
 import ThemeItem from './ThemeItem';
 import styled from '../../../utils/styles/styled';
@@ -20,7 +20,7 @@ const List = styled.ul`
 `;
 
 function SidebarContentTheme(): React.ReactElement {
-  const { checkedThemeIndex, checkHandler }: MapThemeHookType = useMapTheme();
+  const { themeIdx, checkHandler }: MapThemeHookType = useMapTheme();
 
   return (
     <ThemeWrapper>
@@ -29,7 +29,7 @@ function SidebarContentTheme(): React.ReactElement {
         {data.map((d, i) => (
           <ThemeItem
             key={d.name}
-            checked={i === checkedThemeIndex}
+            checked={i === themeIdx}
             clickHandler={() => checkHandler(i)}
             data={d}
           />
@@ -39,4 +39,4 @@ function SidebarContentTheme(): React.ReactElement {
   );
 }
 
-export default SidebarContentTheme;
+export default memo(SidebarContentTheme);

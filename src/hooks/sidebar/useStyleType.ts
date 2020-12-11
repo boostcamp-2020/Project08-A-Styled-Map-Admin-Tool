@@ -1,19 +1,25 @@
 import mapboxgl from 'mapbox-gl';
 import { useSelector, useDispatch } from 'react-redux';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { RootState } from '../../store';
 import {
+  SubElementType,
   StyleType,
   StyleKeyType,
   ElementNameType,
   SubElementNameType,
   PayloadPropsType,
+  HistoryPropsType,
+  StyleStoreType,
 } from '../../store/common/type';
-import { setStyle } from '../../store/style/action';
+import { setStyle, initColors } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
 
 import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
 import useHistoryFeature from '../map/useHistoryFeature';
+import { VisibilityType } from '../../utils/applyStyle';
+import { getDefaultStyle } from '../../store/style/properties';
+import removeNullFromObject from '../../utils/removeNullFromObject';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
@@ -64,6 +70,7 @@ const getNewColorStyle = (
       newStyleObj.color = value as string;
       newStyleObj.saturation = newSaturation;
       newStyleObj.lightness = newLightness;
+
       break;
 
     default:
@@ -73,23 +80,35 @@ const getNewColorStyle = (
   return newStyleObj;
 };
 
+interface changedObjType {
+  key?: StyleKeyType;
+  value?: string | number;
+}
+
+interface ReduxStateType {
+  map: mapboxgl.Map;
+  sidebar: PayloadPropsType;
+  history: HistoryPropsType;
+  features: StyleStoreType;
+}
+
 function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
-
+  const [changedObj, setChangedObj] = useState<changedObjType>({});
   const { addHistory } = useHistoryFeature();
-  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
   const {
-    poi,
-    landscape,
-    administrative,
-    road,
-    transit,
-    water,
-    marker,
-  } = useSelector<RootState>((state) => state) as any;
-  const { feature, subFeature, element, subElement } = useSelector<RootState>(
-    (state) => state.sidebar
-  ) as PayloadPropsType;
+    map,
+    sidebar: { feature, subFeature, element, subElement },
+    features,
+  } = useSelector<RootState>((state) => {
+    const { map, sidebar, history, depthTheme, marker, ...features } = state;
+    return {
+      map: map.map,
+      sidebar,
+      features,
+    };
+  }) as ReduxStateType;
+
   const styleElement = useSelector<RootState>((state) => {
     if (!feature || !subFeature || !element) {
       return null;
@@ -100,26 +119,92 @@ function useStyleType(): UseStyleHookType {
     return newFeature[element][subElement as SubElementNameType];
   }) as StyleType;
 
-  const onStyleChange = useCallback(
-    (key: StyleKeyType, value: string | number) => {
-      if (!feature || !subFeature || !element) return;
-
-      const newStyleObj = colorRelatedKeysArr.includes(key)
-        ? getNewColorStyle(key, value, styleElement)
-        : { [key]: value };
-
-      mapStyling[feature]({
-        map,
+  useEffect(() => {
+    const { key, value } = changedObj;
+    if (key && value && feature && subFeature && element) {
+      addHistory({
+        changedKey: key,
+        changedValue: value,
+        feature,
         subFeature,
-        key,
         element,
         subElement: subElement as SubElementNameType,
         style: {
           ...styleElement,
-          ...newStyleObj,
+          [key]: value,
         },
+        wholeStyle: removeNullFromObject(JSON.parse(JSON.stringify(features))),
       });
 
+      setChangedObj({});
+    }
+  }, [changedObj]);
+
+  const onStyleChange = useCallback(
+    (key: StyleKeyType, value: string | number) => {
+      if (!feature || !subFeature || !element || !map) return;
+      const initColor = 'init' as const;
+
+      /** 한개의 초기 색상을 바꿀 때 , 가시성 상속 표기 */
+      let initialColor = '';
+      if (value === initColor && subElement) {
+        const style = getDefaultStyle({
+          feature,
+          subFeature,
+          element,
+          subElement,
+        });
+        initialColor = style.color;
+      }
+
+      let parentVisibility = '';
+      if (value === VisibilityType.inherit) {
+        if (subElement) {
+          parentVisibility = (features[feature].all[element] as SubElementType)[
+            subElement
+          ].visibility;
+        } else {
+          parentVisibility = (features[feature].all[element] as StyleType)
+            .visibility;
+        }
+      }
+
+      const newStyleObj = colorRelatedKeysArr.includes(key)
+        ? getNewColorStyle(key, initialColor || value, styleElement)
+        : { [key]: initialColor || value };
+
+      /** all의 색상을 바꿀 때 */
+      if (value === initColor && subFeature === 'all' && subElement) {
+        dispatch(initColors(feature, element, subElement));
+        Object.keys(features[feature]).forEach((subFeatureName) => {
+          const style = getDefaultStyle({
+            feature,
+            subFeature: subFeatureName,
+            element,
+            subElement,
+          });
+
+          mapStyling[feature]({
+            map,
+            subFeature: subFeatureName,
+            key,
+            element,
+            subElement: subElement as SubElementNameType,
+            style: {
+              ...styleElement,
+              ...newStyleObj,
+              color: style.color,
+            },
+          });
+        });
+        setChangedObj({
+          key,
+          value,
+        });
+        return;
+      }
+
+      /** 한개의 색상을 바꿀 때 */
       dispatch(
         setStyle({
           feature,
@@ -133,34 +218,20 @@ function useStyleType(): UseStyleHookType {
         })
       );
 
-      const wholeStyle = {
-        poi,
-        landscape,
-        administrative,
-        road,
-        transit,
-        water,
-        marker,
-      };
-      wholeStyle[feature][subFeature][element][
-        subElement as SubElementNameType
-      ] = {
-        ...styleElement,
-        ...newStyleObj,
-      };
-      addHistory({
-        changedKey: key,
-        value,
-        feature,
+      mapStyling[feature]({
+        map,
         subFeature,
+        key,
         element,
-        subElement,
+        subElement: subElement as SubElementNameType,
         style: {
           ...styleElement,
-          [key]: value,
+          ...newStyleObj,
+          [key]: parentVisibility || initialColor || value,
         },
-        wholeStyle,
       });
+
+      setChangedObj({ key, value: initialColor || parentVisibility || value });
     },
     [feature, subFeature, element, subElement, styleElement]
   );

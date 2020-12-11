@@ -17,33 +17,36 @@ type subFeatureNameType = 'country' | 'state' | 'locality' | 'all';
 const layers = {
   country: {
     line: [
-      'admin-0-boundary',
-      'admin-0-boundary-bg',
-      'admin-0-boundary-disputed',
+      'administrative-country-line',
+      'administrative-country-bg-line',
+      'administrative-country-line-disputed',
     ],
-    symbol: ['country-label'],
+    symbol: ['administrative-country-labelText'],
   },
   state: {
-    line: ['admin-1-boundary-bg', 'admin-1-boundary'],
-    symbol: ['state-label'],
+    line: ['administrative-state-bg-line', 'administrative-state-line'],
+    symbol: ['administrative-state-labelText'],
   },
   locality: {
     line: [],
-    symbol: ['settlement-label', 'settlement-subdivision-label'],
+    symbol: [
+      'administrative-locality-labelText',
+      'administrative-locality-subdivision-labelText',
+    ],
   },
   all: {
     line: [
-      'admin-0-boundary',
-      'admin-0-boundary-bg',
-      'admin-0-boundary-disputed',
-      'admin-1-boundary-bg',
-      'admin-1-boundary',
+      'administrative-country-line',
+      'administrative-country-bg-line',
+      'administrative-country-line-disputed',
+      'administrative-state-bg-line',
+      'administrative-state-line',
     ],
     symbol: [
-      'country-label',
-      'settlement-label',
-      'settlement-subdivision-label',
-      'state-label',
+      'administrative-country-labelText',
+      'administrative-state-labelText',
+      'administrative-locality-labelText',
+      'administrative-locality-subdivision-labelText',
     ],
   },
 };

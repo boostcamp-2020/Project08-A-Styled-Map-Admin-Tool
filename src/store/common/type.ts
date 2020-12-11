@@ -1,8 +1,12 @@
-import { init, setStyle, setWholeStyle } from '../style/action';
+import {
+  init,
+  replaceWholeStyle,
+  setStyle,
+  setWholeStyle,
+  initColors,
+} from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
-import { INIT_HISTORY, ADD_LOG } from '../history/action';
-
-export type hello = 'landmark';
+import { INIT_HISTORY, ADD_LOG, SET_CURRENT_INDEX } from '../history/action';
 
 export enum ElementNameType {
   section = 'section',
@@ -37,7 +41,6 @@ export enum FeatureNameType {
   road = 'road',
   transit = 'transit',
   water = 'water',
-  marker = 'marker',
 }
 
 export enum SidebarProperties {
@@ -76,7 +79,7 @@ export enum AdministrativeNameType {
 
 export enum LandScapeNameType {
   all = 'all',
-  'human-made' = 'human-made',
+  'humanmade' = 'humanmade',
   building = 'building',
   natural = 'natural',
   landcover = 'landcover',
@@ -95,10 +98,6 @@ export enum WaterNameType {
   all = 'all',
 }
 
-export enum MarkerNameType {
-  all = 'all',
-}
-
 export const SubFeatureNameType = {
   ...PoiNameType,
   ...RoadNameType,
@@ -106,7 +105,6 @@ export const SubFeatureNameType = {
   ...TransitNameType,
   ...AdministrativeNameType,
   ...WaterNameType,
-  ...MarkerNameType,
 };
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type SubFeatureNameType = typeof SubFeatureNameType;
@@ -155,32 +153,50 @@ export type SidebarActionType =
 export type ActionType =
   | ReturnType<typeof init>
   | ReturnType<typeof setStyle>
-  | ReturnType<typeof setWholeStyle>;
+  | ReturnType<typeof setWholeStyle>
+  | ReturnType<typeof replaceWholeStyle>
+  | ReturnType<typeof initColors>;
+
+/** Style Store Type for Replace */
+export type StyleStoreType = {
+  [featureName in FeatureNameType]: FeatureState;
+};
+
+/** History Type */
+export interface HistoryInfoPropsType {
+  id?: string;
+  changedValue: string | number;
+  changedKey: StyleKeyType;
+  feature: FeatureNameType;
+  subFeature: string;
+  element: ElementNameType;
+  subElement: SubElementNameType;
+  style: StyleType;
+  wholeStyle: StyleStoreType;
+}
 
 export interface HistoryPropsType {
-  log?: { id: string; display: string }[];
+  log?: HistoryInfoPropsType[];
+  currentIdx: number | null;
 }
 
-export interface HistoryInfoPropsType {
-  value: string | number;
-  changedKey: StyleKeyType;
-  feature: FeatureNameType | null;
-  subFeature: string | null;
-  element: ElementNameType | null;
-  subElement: SubElementNameType | null;
-  style: StyleType;
-  wholeStyle: PropertyType;
+export interface SetIndexPayload {
+  currentIndex: number;
 }
+
 export interface HistoryActionType {
-  type: typeof INIT_HISTORY | typeof ADD_LOG;
-  payload: null | {
-    changedKey: StyleKeyType;
-    feature: FeatureNameType | null;
-    subFeature: string | null;
-    element: ElementNameType | null;
-    subElement: SubElementNameType | null;
-    wholeStyle: PropertyType;
-  };
+  type: typeof INIT_HISTORY | typeof ADD_LOG | typeof SET_CURRENT_INDEX;
+  payload:
+    | null
+    | SetIndexPayload
+    | {
+        changedKey: StyleKeyType;
+        feature: FeatureNameType;
+        subFeature: string;
+        element: ElementNameType;
+        subElement?: SubElementNameType;
+        wholeStyle: StyleStoreType;
+      };
 }
 
 export interface ActionPayload extends ElementPropsType {
@@ -195,6 +211,7 @@ export interface PayloadPropsType {
   subElement: SubElementNameType | null;
 }
 
+/** Whole Style Type for Set */
 export interface StyleActionPayload {
   isChanged?: boolean;
   visibility?: string;
@@ -241,6 +258,36 @@ export type PropertyType = {
   [featureName in FeatureNameType]: FeaturePropertyType;
 };
 
+/** export type */
+export interface LocationType {
+  zoom?: number;
+  lng?: number;
+  lat?: number;
+}
+
+/** defatult style Type */
+export type DefaultStyleType = {
+  color: string;
+  weight: number;
+};
+
+export type DefaultElementType = {
+  fill: DefaultStyleType;
+  stroke: DefaultStyleType;
+};
+
+export type DefaultFeatureType = {
+  [subFeatureName: string]: {
+    [ElementNameType.section]?: DefaultElementType;
+    [ElementNameType.labelText]?: DefaultElementType;
+    [ElementNameType.labelIcon]?: DefaultStyleType;
+  };
+};
+
+export type DefaultWholeStyle = {
+  [featureName in FeatureNameType]: DefaultFeatureType;
+};
+
 /** urlJson Type */
 export interface URLJsonStyleType {
   visibility?: string;
@@ -264,6 +311,11 @@ export type URLJsonSubFeatureType = {
   [subFeatureName: string]: URLJsonElementType;
 };
 
-export type URLJsonType = {
+export type URLJsonFeatureType = {
   [featureName in FeatureNameType]?: URLJsonSubFeatureType;
+};
+
+export type URLJsonType = {
+  filteredStyle?: URLJsonFeatureType;
+  mapCoordinate?: LocationType;
 };

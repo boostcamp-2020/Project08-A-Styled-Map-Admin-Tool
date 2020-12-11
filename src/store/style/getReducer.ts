@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import renderingData from '../../utils/rendering-data/featureTypeData';
 
 import {
@@ -10,7 +11,7 @@ import {
   SubElementType,
 } from '../common/type';
 import { getDefaultFeature, getDefaultStyle } from './properties';
-import { INIT, SET, SET_WHOLE } from './action';
+import { INIT, SET, SET_WHOLE, REPLACE_WHOLE, INIT_COLORS } from './action';
 import { checkStyleIsChanged, checkFeatureIsChanged } from './compareStyle';
 import { combineElement } from './manageCategories';
 
@@ -19,6 +20,7 @@ interface ReducerType {
 }
 
 export default function getReducer(IDX: number): ReducerType {
+  const featureName = renderingData[IDX].typeKey;
   const subFeatures = [
     'all',
     ...(renderingData[IDX].subFeatures?.map((v) => v.key) as string[]),
@@ -26,11 +28,12 @@ export default function getReducer(IDX: number): ReducerType {
 
   const initialState = subFeatures.reduce((acc: FeatureState, cur: string) => {
     acc[cur] = getDefaultFeature({
-      feature: renderingData[IDX].typeKey,
+      feature: featureName,
       subFeature: cur,
     });
     return acc;
   }, {});
+
   return function reducer(
     state: FeatureState = initialState,
     action: ActionType
@@ -38,6 +41,10 @@ export default function getReducer(IDX: number): ReducerType {
     switch (action.type) {
       case INIT:
         return initialState;
+
+      case REPLACE_WHOLE:
+        return action.payload[featureName];
+
       case SET: {
         const {
           feature,
@@ -46,7 +53,8 @@ export default function getReducer(IDX: number): ReducerType {
           subElement,
           style,
         } = action.payload;
-        if (feature !== renderingData[IDX].typeKey) return state;
+
+        if (feature !== featureName) return state;
 
         const defaultStyle = getDefaultStyle(action.payload);
         style.isChanged = checkStyleIsChanged({ defaultStyle, style });
@@ -75,8 +83,9 @@ export default function getReducer(IDX: number): ReducerType {
 
         return newState;
       }
+
       case SET_WHOLE: {
-        const inputStyle = action.payload[renderingData[IDX].typeKey];
+        const inputStyle = action.payload[featureName];
         const updateStyle = JSON.parse(JSON.stringify(initialState));
 
         if (!inputStyle) return updateStyle;
@@ -96,6 +105,30 @@ export default function getReducer(IDX: number): ReducerType {
         return updateStyle;
       }
 
+      case INIT_COLORS: {
+        const { feature, element, subElement } = action.payload;
+        if (feature !== featureName) return state;
+        const newState: FeatureState = JSON.parse(JSON.stringify(state));
+
+        Object.keys(newState).forEach((subFeature) => {
+          const defaultStyle = getDefaultStyle({
+            feature,
+            subElement,
+            element,
+            subFeature,
+          });
+
+          const style = (newState[subFeature][element] as SubElementType)[
+            subElement
+          ];
+          style.color = defaultStyle.color;
+          style.isChanged = checkStyleIsChanged({ defaultStyle, style });
+        });
+        delete (newState.all as objType).isChanged;
+        newState.all.isChanged = checkFeatureIsChanged(newState.all);
+
+        return newState;
+      }
       default:
         return state;
     }

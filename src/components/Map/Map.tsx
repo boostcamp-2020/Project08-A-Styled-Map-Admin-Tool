@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '../../utils/styles/styled';
+import 'mapbox-gl-compare/style.css';
 import useMap, { MapHookType } from '../../hooks/map/useMap';
 import useHistoryFeature from '../../hooks/map/useHistoryFeature';
 import useCompareFeature from '../../hooks/map/useCompareFeature';
@@ -7,24 +8,31 @@ import useCompareFeature from '../../hooks/map/useCompareFeature';
 import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
 import History from './History/History';
+import useMarkerFeature from '../../hooks/map/useMarkerFeature';
+import MarkerPopUp from './Marker/MarkerPopup';
 
 interface CurrentMapWrapperProps {
   isPageShow: boolean;
 }
 
-const MapsWrapper = styled.div`
-  height: 100vh;
-  width: calc(100% - 370px);
-`;
-
-const CurrentMapWrapper = styled.div<CurrentMapWrapperProps>`
+const MapsWrapper = styled.div<CurrentMapWrapperProps>`
   position: absolute;
   top: 0px;
   right: 0px;
   height: 100vh;
-  width: ${(props) => (props.isPageShow ? ' 100%' : 'calc(100% - 370px)')};
+  width: ${(props) => (props.isPageShow ? '100%' : 'calc(100% - 370px)')};
+  overflow: hidden;
+`;
+
+const CurrentMapWrapper = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex: 1 1 auto;
+  user-select: none;
 
   canvas {
     outline: none;
@@ -32,27 +40,35 @@ const CurrentMapWrapper = styled.div<CurrentMapWrapperProps>`
 `;
 
 const CompareMapWrapper = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
-  z-index: 1;
 
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: ${(props) => props.theme.BLACK};
 
-  // animation: show-from-left 0.4s ease-in-out;
+  canvas {
+    outline: none;
+  }
 
-  // @keyframes show-from-left {
-  //   0% {
-  //     transform: translateX(500px);
-  //     opacity: 0;
-  //   }
+  /* 
+  &,
+  .compare-swiper,
+  .compare-swiper-vertical {
+    animation: show-from-left 0.4s ease-in-out;
+  }
 
-  //   100% {
-  //     transform: translateX(0);
-  //     opacity: 1;
-  //   }
-  // }
+  @keyframes show-from-left {
+    0% {
+      transform: translateX(-500px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  } */
 `;
 
 interface MapProps {
@@ -63,25 +79,32 @@ function Map({ pathname }: MapProps): React.ReactElement {
   const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap();
 
   const { isHistoryOpen, historyBtnHandler } = useHistoryFeature();
-  const { isCompareActive, comparisonButtonClickHandler } = useCompareFeature({
+  const { logId, comparisonButtonClickHandler } = useCompareFeature({
     containerRef,
     beforeMapRef,
   });
+  const { markerPos, resetMarkerPos, registerMarker } = useMarkerFeature();
 
   return (
-    <MapsWrapper ref={containerRef}>
-      {isCompareActive ? <CompareMapWrapper ref={beforeMapRef} /> : <></>}
-      <CurrentMapWrapper ref={afterMapRef} isPageShow={pathname === '/show'}>
-        <History
-          isHistoryOpen={isHistoryOpen}
-          comparisonButtonClickHandler={comparisonButtonClickHandler}
+    <MapsWrapper ref={containerRef} isPageShow={pathname === '/show'}>
+      {logId && <CompareMapWrapper ref={beforeMapRef} />}
+      <CurrentMapWrapper ref={afterMapRef} onClick={resetMarkerPos}>
+        <MarkerPopUp
+          markerPos={markerPos}
+          resetMarkerPos={resetMarkerPos}
+          registerMarker={registerMarker}
         />
-        <UpperButtons
-          mapRef={afterMapRef}
-          historyBtnHandler={historyBtnHandler}
-        />
-        <LowerButtons />
       </CurrentMapWrapper>
+      <History
+        isHistoryOpen={isHistoryOpen}
+        comparisonButtonClickHandler={comparisonButtonClickHandler}
+        compareId={logId}
+      />
+      <UpperButtons
+        mapRef={containerRef}
+        historyBtnHandler={historyBtnHandler}
+      />
+      <LowerButtons />
     </MapsWrapper>
   );
 }

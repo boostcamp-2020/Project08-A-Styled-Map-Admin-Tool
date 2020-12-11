@@ -1,63 +1,89 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 import { useState, RefObject, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
+import initLayers from '../../utils/rendering-data/layers/init';
 import getCompareMap from './getCompareMap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import {
+  HistoryPropsType,
+  FeatureNameType,
+  FeatureState,
+} from '../../store/common/type';
+import setFeatureStyle from '../../utils/setFeatureStyle';
 
 export interface mapProps {
   container: string | HTMLElement;
   [key: string]: string | HTMLElement;
 }
 
-export type comparisonButtonClickHandlerType = (
-  afterMapProps?: mapProps,
-  beforeMapProps?: mapProps
-) => void;
-
 export interface useComparisonButtonType {
-  isCompareActive: boolean;
-  comparisonButtonClickHandler: comparisonButtonClickHandlerType;
+  logId: string | undefined;
+  comparisonButtonClickHandler: (id: string) => void;
 }
 
 export interface useCompareFeatureProps {
   containerRef: RefObject<HTMLDivElement>;
   beforeMapRef: RefObject<HTMLDivElement>;
 }
+interface ReduxStateType extends HistoryPropsType {
+  map: mapboxgl.Map;
+}
 
 function useCompareFeature({
   containerRef,
   beforeMapRef,
 }: useCompareFeatureProps): useComparisonButtonType {
-  const [isCompareActive, setIsCompareActive] = useState(false);
-  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
+  const [logId, setLogId] = useState<string>();
+  const { map, log } = useSelector<RootState>((state) => ({
+    map: state.map.map,
+    log: state.history.log,
+  })) as ReduxStateType;
 
   useEffect(() => {
-    if (!isCompareActive) return;
+    if (!map || !logId) return;
 
     const beforeMap = new mapboxgl.Map({
       container: beforeMapRef.current as HTMLDivElement,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: initLayers as mapboxgl.Style,
       center: [map.getCenter().lng, map.getCenter().lat],
       zoom: map.getZoom(),
     });
 
+    beforeMap.on('load', () => {
+      if (!log || !beforeMap) return;
+
+      const [item] = log?.filter((val) => val.id === logId) || [];
+
+      for (const feature in item.wholeStyle) {
+        setFeatureStyle({
+          map: beforeMap as mapboxgl.Map,
+          feature: feature as FeatureNameType,
+          featureState: item.wholeStyle[
+            feature as FeatureNameType
+          ] as FeatureState,
+        });
+      }
+    });
     const compare = getCompareMap(beforeMap, map, containerRef.current);
 
     // eslint-disable-next-line consistent-return
     return () => {
       compare.remove();
     };
-  }, [isCompareActive]);
+  }, [logId]);
 
-  const comparisonButtonClickHandler = (
-    afterMapProps?: mapProps,
-    beforeMapProps?: mapProps
-  ) => {
-    setIsCompareActive(!isCompareActive);
+  const comparisonButtonClickHandler = (newLogId: string) => {
+    if (newLogId === logId) {
+      setLogId(undefined);
+      return;
+    }
+    setLogId(newLogId);
   };
 
   return {
-    isCompareActive,
+    logId,
     comparisonButtonClickHandler,
   };
 }

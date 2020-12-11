@@ -30,6 +30,7 @@ const data: DataType[] = [
     typeKey: FeatureNameType.road,
     typeName: '도로',
     subFeatures: [
+      { key: 'highway', name: '중심도로' },
       { key: 'arterial', name: '주요도로' },
       { key: 'local', name: '일반도로' },
       { key: 'sidewalk', name: '인도' },
@@ -48,7 +49,7 @@ const data: DataType[] = [
     typeKey: FeatureNameType.landscape,
     typeName: '경관',
     subFeatures: [
-      { key: 'human-made', name: '인공물' },
+      { key: 'humanmade', name: '인공물' },
       { key: 'building', name: '건물' },
       { key: 'natural', name: '자연물' },
       { key: 'landcover', name: '평지' },
@@ -66,7 +67,6 @@ const data: DataType[] = [
     ],
   },
   { typeKey: FeatureNameType.water, typeName: '물', subFeatures: [] },
-  { typeKey: FeatureNameType.marker, typeName: '마크', subFeatures: [] },
 ];
 
 export default data;
