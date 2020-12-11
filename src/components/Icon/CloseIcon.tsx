@@ -1,12 +1,19 @@
 import React from 'react';
 
-export default (): React.ReactElement => {
+interface CloseIconProps {
+  className?: string;
+  onClick?: (e: React.MouseEvent) => void;
+}
+
+export default ({ className, onClick }: CloseIconProps): React.ReactElement => {
   return (
     <svg
+      className={className}
       xmlns="http://www.w3.org/2000/svg"
       height="28"
       viewBox="0 0 24 24"
       width="28"
+      onClick={onClick}
     >
       <path
         fill="currentcolor"

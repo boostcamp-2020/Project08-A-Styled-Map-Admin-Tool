@@ -10,6 +10,7 @@ interface InputRangeHookType {
   curRange: string | number;
   rangeChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   rangeMouseUpHandler: (key: StyleKeyType) => void;
+  initStyle: (key: StyleKeyType) => void;
 }
 
 function useInputRange({
@@ -30,13 +31,18 @@ function useInputRange({
   };
 
   const rangeMouseUpHandler = (key: StyleKeyType) => {
-    onStyleChange(key, curRange);
+    onStyleChange(key, curRange === 'transparent' ? '#000000' : curRange);
+  };
+
+  const initStyle = (key: StyleKeyType) => {
+    onStyleChange(key, 'init');
   };
 
   return {
     curRange,
     rangeChangeHandler,
     rangeMouseUpHandler,
+    initStyle,
   };
 }
 

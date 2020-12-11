@@ -8,10 +8,10 @@ import {
   administrativeReducer as administrative,
   roadReducer as road,
   waterReducer as water,
-  markerReducer as marker,
 } from './style/reducer';
 import sidebar from './sidebar/reducer';
 import history from './history/reducer';
+import marker from './marker/reducer';
 
 const rootReducer = combineReducers({
   map,
@@ -21,9 +21,9 @@ const rootReducer = combineReducers({
   road,
   transit,
   water,
-  marker,
   sidebar,
   history,
+  marker,
 });
 
 const store = createStore(rootReducer);

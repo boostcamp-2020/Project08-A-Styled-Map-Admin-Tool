@@ -11,9 +11,11 @@ import {
   ElementNameType,
   SubElementNameType,
   StyleKeyType,
+  /** export */
+  LocationType,
 } from '../store/common/type';
 
-function jsonToURLGetQueryString(
+function jsonToURLGetStyleQueryString(
   json:
     | URLJsonType
     | URLJsonSubElementType
@@ -24,32 +26,44 @@ function jsonToURLGetQueryString(
   return Object.entries(json).reduce((queryString: string, property) => {
     const [key, value] = property;
     if (typeof value === 'object') {
-      return `${queryString}${key}:${jsonToURLGetQueryString(value)}`;
+      return `${queryString}${key}:${jsonToURLGetStyleQueryString(value)}`;
     }
-    return encodeURIComponent(`${queryString}${key}:${value}:`);
+    return `${queryString}${key}:${value}:`;
   }, '');
+}
+
+function jsonToURLGetStyleLocationString(location: LocationType): string {
+  return Object.entries(location).reduce(
+    (queryString: string, [key, value]) => {
+      return `${queryString}${key}:${value}:`;
+    },
+    ''
+  );
 }
 
 export function jsonToURL(json: URLJsonType): string {
   const url = 'http://localhost:3000/show?=';
-  const queryString = `${jsonToURLGetQueryString(json)}end`;
+  const styleQueryString = `style=${encodeURIComponent(
+    jsonToURLGetStyleQueryString(json?.filteredStyle as URLJsonType)
+  )}end`;
+  const locationQueryString = `location=${encodeURIComponent(
+    jsonToURLGetStyleLocationString(json?.mapCoordinate as LocationType)
+  )}`;
 
-  return url + queryString;
+  return url + locationQueryString + styleQueryString;
 }
 
-export function urlToJson(): URLJsonType | null {
-  const queryString = decodeURIComponent(window.location.search);
-
-  const values = queryString?.split('=')[1]?.split(':');
-  const state: any = {};
-  const properties = {
-    feature: '',
-    subFeature: '',
-    element: '',
-    subElement: '',
-  };
-
+function urlToJsonGetStyleJson(queryString: string): URLJsonType | null {
   try {
+    const values = queryString?.split('style=')[1]?.split(':');
+    const state: any = {};
+    const properties = {
+      feature: '',
+      subFeature: '',
+      element: '',
+      subElement: '',
+    };
+
     values?.forEach((value, index) => {
       const { feature, subFeature, element, subElement } = properties;
       if (value in FeatureNameType) {
@@ -73,9 +87,35 @@ export function urlToJson(): URLJsonType | null {
           values[index + 1];
       }
     });
+    return state;
   } catch (error) {
     return null;
   }
+}
+
+function urlToJsonGetLocationJson(queryString: string): any {
+  try {
+    const values = queryString
+      ?.split('location=')[1]
+      .split('style=')[0]
+      ?.split(':');
+
+    const state: any = {};
+    for (let i = 0; i < values.length; i += 2) {
+      state[values[i]] = Number(values[i + 1]);
+    }
+    return state;
+  } catch (error) {
+    return null;
+  }
+}
+
+export function urlToJson(): URLJsonType {
+  const queryString = decodeURIComponent(window.location.search);
+  const state = {
+    filteredStyle: urlToJsonGetStyleJson(queryString) as URLJsonSubFeatureType,
+    mapCoordinate: urlToJsonGetLocationJson(queryString),
+  };
 
   return state;
 }

@@ -2,6 +2,7 @@ export const arterialLayerNames = {
   all: [
     'road-arterial-section-fill-1',
     'road-arterial-section-fill-2',
+    'road-arterial-section-fill-3',
     'road-arterial-section-fill-4',
     'road-arterial-section-fill-6',
     'road-arterial-section-fill-7',
@@ -19,6 +20,7 @@ export const arterialLayerNames = {
   polygon: ['road-arterial-section-fill-1'],
   line: [
     'road-arterial-section-fill-2',
+    'road-arterial-section-fill-3',
     'road-arterial-section-fill-4',
     'road-arterial-section-fill-6',
     'road-arterial-section-fill-7',

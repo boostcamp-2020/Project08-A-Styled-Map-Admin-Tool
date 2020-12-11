@@ -36,7 +36,7 @@
       }
     },
     {
-      "id": "transit-airport-line",
+      "id": "transit-airport-aeroway-line",
       "type": "line",
       "source": "composite",
       "source-layer": "aeroway",
