@@ -7,7 +7,7 @@ import getCompareMap from './getCompareMap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import {
-  HistoryPropsType,
+  HistoryState,
   FeatureNameType,
   FeatureState,
 } from '../../store/common/type';
@@ -27,7 +27,7 @@ export interface useCompareFeatureProps {
   containerRef: RefObject<HTMLDivElement>;
   beforeMapRef: RefObject<HTMLDivElement>;
 }
-interface ReduxStateType extends HistoryPropsType {
+interface ReduxStateType extends HistoryState {
   map: mapboxgl.Map;
 }
 

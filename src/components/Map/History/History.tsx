@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '../../../utils/styles/styled';
 import { RootState } from '../../../store/index';
-import { HistoryPropsType } from '../../../store/common/type';
+import { HistoryState } from '../../../store/common/type';
 import { featureName, elementName } from '../../../utils/getTypeName';
 
 const HistoryWapper = styled.div`
@@ -76,7 +76,7 @@ function History({
 }: HistoryProps): ReactElement {
   const { log, currentIdx } = useSelector<RootState>(
     (state) => state.history
-  ) as HistoryPropsType;
+  ) as HistoryState;
 
   if (!isHistoryOpen) return <></>;
 
