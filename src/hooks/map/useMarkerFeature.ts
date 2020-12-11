@@ -12,7 +12,7 @@ import {
 } from '../../store/marker/action';
 
 const PRINT_MARKER_AFTER_INIT = 'printMarkerAfterInit';
-
+const LIMIT_MARKER_NUMBER = 30;
 interface ReduxStateType {
   map: mapboxgl.Map;
   marker: MarkerState;
@@ -100,6 +100,10 @@ function useMarkerFeature(): MarkerHookType {
     }
 
     if (type === ADD_MARKER) {
+      if (marker.markers.length >= LIMIT_MARKER_NUMBER) {
+        alert(`최대 ${LIMIT_MARKER_NUMBER}개의 marker만 등록할 수 있습니다.`);
+        return;
+      }
       const newMarker = new mapboxgl.Marker({ draggable: true })
         .setLngLat([lngLat.lng, lngLat.lat])
         .setPopup(new mapboxgl.Popup().setHTML(`<p>${text}</p>`))
