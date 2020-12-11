@@ -2,7 +2,6 @@ export const highwayLayerNames = {
   all: [
     'road-highway-section-fill-1',
     'road-highway-section-fill-2',
-    // 'road-highway-section-fill-3',
     'road-highway-section-fill-4',
     'road-highway-section-fill-5',
     'road-highway-section-fill-6',
@@ -12,7 +11,6 @@ export const highwayLayerNames = {
   line: [
     'road-highway-section-fill-1',
     'road-highway-section-fill-2',
-    // 'road-highway-section-fill-3',
     'road-highway-section-fill-4',
     'road-highway-section-fill-5',
     'road-highway-section-fill-6',
