@@ -1,53 +1,108 @@
 import { stylingProps } from '.';
-import {
-  ElementNameType,
-  SubElementNameType,
-  StyleKeyType,
-} from '../../store/common/type';
+import { ElementNameType, StyleKeyType } from '../../store/common/type';
 import {
   ColorType,
   WeightType,
+  VisibilityType,
   applyVisibility,
   applyColor,
   applyWeight,
 } from '../applyStyle';
+import seperatedLayers from './macgyver/seperatedLayers';
+import { getIdsFromLayersArr, INVISIBLE, VISIBLE } from './macgyver/utils';
 
-type subFeatureNameType = 'country' | 'state' | 'locality' | 'all';
-
-const layers = {
-  country: {
-    line: [
-      'administrative-country-line',
-      'administrative-country-bg-line',
-      'administrative-country-line-disputed',
-    ],
-    symbol: ['administrative-country-labelText'],
+const mappingDetailToFunc = {
+  section: {
+    fill: {
+      color: {
+        typeName: null,
+        funcName: null,
+      },
+      saturation: {
+        typeName: null,
+        funcName: null,
+      },
+      lightness: {
+        typeName: null,
+        funcName: null,
+      },
+      weight: {
+        typeName: null,
+        funcName: null,
+      },
+      visibility: {
+        typeName: null,
+        funcName: null,
+      },
+    },
+    stroke: {
+      color: {
+        typeName: ColorType.line,
+        funcName: applyColor,
+      },
+      saturation: {
+        typeName: ColorType.line,
+        funcName: applyColor,
+      },
+      lightness: {
+        typeName: ColorType.line,
+        funcName: applyColor,
+      },
+      weight: {
+        typeName: WeightType.line,
+        funcName: applyWeight,
+      },
+      visibility: {
+        typeName: VisibilityType.visible,
+        funcName: applyVisibility,
+      },
+    },
   },
-  state: {
-    line: ['administrative-state-bg-line', 'administrative-state-line'],
-    symbol: ['administrative-state-labelText'],
-  },
-  locality: {
-    line: [],
-    symbol: [
-      'administrative-locality-labelText',
-      'administrative-locality-subdivision-labelText',
-    ],
-  },
-  all: {
-    line: [
-      'administrative-country-line',
-      'administrative-country-bg-line',
-      'administrative-country-line-disputed',
-      'administrative-state-bg-line',
-      'administrative-state-line',
-    ],
-    symbol: [
-      'administrative-country-labelText',
-      'administrative-state-labelText',
-      'administrative-locality-labelText',
-      'administrative-locality-subdivision-labelText',
-    ],
+  labelText: {
+    fill: {
+      color: {
+        typeName: ColorType.text,
+        funcName: applyColor,
+      },
+      saturation: {
+        typeName: ColorType.text,
+        funcName: applyColor,
+      },
+      lightness: {
+        typeName: ColorType.text,
+        funcName: applyColor,
+      },
+      weight: {
+        typeName: null,
+        funcName: null,
+      },
+      visibility: {
+        typeName: VisibilityType.visible,
+        funcName: applyVisibility,
+      },
+    },
+    stroke: {
+      color: {
+        typeName: ColorType.textHalo,
+        funcName: applyColor,
+      },
+      saturation: {
+        typeName: ColorType.textHalo,
+        funcName: applyColor,
+      },
+      lightness: {
+        typeName: ColorType.textHalo,
+        funcName: applyColor,
+      },
+      weight: {
+        typeName: WeightType.textHalo,
+        funcName: applyWeight,
+      },
+      visibility: {
+        typeName: WeightType.textHalo,
+        funcName: applyWeight,
+      },
+    },
   },
 };
 
@@ -59,77 +114,43 @@ function administrativeStyling({
   key,
   style,
 }: stylingProps): void {
-  const mappingLayers = layers[subFeature as subFeatureNameType];
+  if (key === 'isChanged' || element === ElementNameType.labelIcon) return;
 
-  if (element === ElementNameType.labelIcon) return;
+  const { typeName: type, funcName: func } = mappingDetailToFunc[element][
+    subElement
+  ][key];
+  if (!type || !func) return;
+
+  /** get LayerNames */
+  let layerNames: string[] = [];
   if (element === ElementNameType.labelText) {
-    // labelText - fill
-    if (subElement === SubElementNameType.fill) {
-      if (key === StyleKeyType.weight) return;
-      if (key === StyleKeyType.visibility) {
-        const styleValue = style[key] === 'none' ? 'none' : 'visible';
-        applyVisibility({
-          map,
-          layerNames: mappingLayers.symbol,
-          visibility: styleValue,
-        });
-        return;
-      }
+    layerNames = getIdsFromLayersArr(
+      seperatedLayers.administrative[subFeature].labelText
+    );
+  } else {
+    if (!seperatedLayers.administrative[subFeature][element]) return;
+    layerNames = getIdsFromLayersArr(
+      seperatedLayers.administrative[subFeature][element][subElement]
+    );
+  }
 
-      applyColor({
-        map,
-        layerNames: mappingLayers.symbol,
-        type: ColorType.text,
-        color: style.color,
-        [key]: style[key],
-      });
-      return;
-    }
-
-    // labelText - stroke
-    if (key === StyleKeyType.weight || key === StyleKeyType.visibility) {
-      const styleValue = style.visibility === 'none' ? 0 : Number(style.weight);
-      applyWeight({
-        map,
-        layerNames: mappingLayers.symbol,
-        type: WeightType.textHalo,
-        weight: styleValue,
-      });
-      return;
-    }
-
-    applyColor({
+  /** styling */
+  if (key === 'visibility' && type === WeightType.textHalo) {
+    func({
       map,
-      layerNames: mappingLayers.symbol,
-      type: ColorType.textHalo,
-      color: style.color,
-      [key]: style[key],
+      layerNames,
+      type,
+      weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
     });
     return;
   }
 
-  // section - fill
-  if (subFeature === 'locality' || subElement === SubElementNameType.fill)
-    return;
-
-  // section - stroke
-  if (key === StyleKeyType.weight || key === StyleKeyType.visibility) {
-    const styleValue = style.visibility === 'none' ? 0 : Number(style.weight);
-    applyWeight({
-      map,
-      layerNames: mappingLayers.line,
-      type: WeightType.line,
-      weight: styleValue,
-    });
-    return;
-  }
-
-  applyColor({
+  func({
     map,
-    layerNames: mappingLayers.line,
-    type: ColorType.line,
+    layerNames,
+    type,
     color: style.color,
-    [key]: style[key],
+    [key]: style[key as StyleKeyType],
   });
 }
 
