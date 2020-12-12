@@ -1,4 +1,4 @@
-import initLayers from '../rendering-data/layers/init';
+import initLayers from '../../rendering-data/layers/init';
 
 const seperatedLayers: any = {};
 
