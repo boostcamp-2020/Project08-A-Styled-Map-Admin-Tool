@@ -83,14 +83,14 @@ function Map({ pathname }: MapProps): React.ReactElement {
     containerRef,
     beforeMapRef,
   });
-  const { markerPos, resetMarkerPos, registerMarker } = useMarkerFeature();
+  const { markerPosition, resetMarkerPos, registerMarker } = useMarkerFeature();
 
   return (
     <MapsWrapper ref={containerRef} isPageShow={pathname === '/show'}>
       {logId && <CompareMapWrapper ref={beforeMapRef} />}
       <CurrentMapWrapper ref={afterMapRef} onClick={resetMarkerPos}>
         <MarkerPopUp
-          markerPos={markerPos}
+          markerPosition={markerPosition}
           resetMarkerPos={resetMarkerPos}
           registerMarker={registerMarker}
         />

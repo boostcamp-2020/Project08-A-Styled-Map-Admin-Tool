@@ -3,7 +3,7 @@ import { RootState } from '../../store';
 import {
   FeatureState,
   FeatureNameType,
-  PayloadPropsType,
+  SidebarState,
 } from '../../store/common/type';
 
 interface useFeatureTypeItemType {
@@ -21,7 +21,7 @@ function useFeatureTypeItem({
 }: useFeatureTypeItemProps): useFeatureTypeItemType {
   const { feature, subFeature } = useSelector<RootState>(
     (state) => state.sidebar
-  ) as PayloadPropsType;
+  ) as SidebarState;
   const featureList = useSelector<RootState>(
     (state) => state[featureName]
   ) as FeatureState;

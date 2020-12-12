@@ -60,13 +60,13 @@ const CloseIconTag = styled(CloseIcon)`
 `;
 
 interface MarkerPopUpProps {
-  markerPos: { x: number | null; y: number | null };
+  markerPosition: { x: number | null; y: number | null };
   resetMarkerPos: () => void;
   registerMarker: ({ id, text, lngLat }: RegisterMarkerType) => void;
 }
 
 function MarkerPopUp({
-  markerPos,
+  markerPosition,
   resetMarkerPos,
   registerMarker,
 }: MarkerPopUpProps): React.ReactElement {
@@ -76,10 +76,10 @@ function MarkerPopUp({
     resetMarkerPos,
     registerMarker,
   });
-  if (markerPos.x && markerPos.y)
+  if (markerPosition.x && markerPosition.y)
     return (
       <Wrapper
-        pos={{ x: markerPos.x, y: markerPos.y }}
+        pos={{ x: markerPosition.x, y: markerPosition.y }}
         className="popup"
         onClick={(e) => e.stopPropagation()}
       >

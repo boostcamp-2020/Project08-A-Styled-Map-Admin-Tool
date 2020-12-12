@@ -8,8 +8,8 @@ import {
   StyleKeyType,
   ElementNameType,
   SubElementNameType,
-  PayloadPropsType,
-  HistoryPropsType,
+  SidebarState,
+  HistoryState,
   StyleStoreType,
 } from '../../store/common/type';
 import { setStyle, initColors } from '../../store/style/action';
@@ -87,8 +87,8 @@ interface changedObjType {
 
 interface ReduxStateType {
   map: mapboxgl.Map;
-  sidebar: PayloadPropsType;
-  history: HistoryPropsType;
+  sidebar: SidebarState;
+  history: HistoryState;
   features: StyleStoreType;
 }
 
