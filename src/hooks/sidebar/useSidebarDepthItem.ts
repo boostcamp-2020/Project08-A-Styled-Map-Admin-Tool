@@ -3,6 +3,7 @@ import { RootState } from '../../store';
 import {
   AdministrativeNameType,
   ElementNameType,
+  ReplaceType,
   RoadNameType,
   StyleStoreType,
   SubElementNameType,
@@ -152,7 +153,10 @@ function useSidebarDepthItem(
         visibility,
         currentStyleState
       );
-      replaceStyle(changedStyle);
+      replaceStyle(changedStyle, {
+        changedKey: ReplaceType.depth,
+        changedValue: changedDepth,
+      });
     });
 
     dispatch(
