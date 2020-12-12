@@ -3,14 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import {
   HistoryState,
+  HistorySetLogType,
+  ReplaceType,
   SubElementNameType,
   StyleType,
   SubElementType,
-  WholeStyleActionPayload,
+  StyleStoreType,
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
 import { setCurrentIndex } from '../../store/history/action';
 import { setStyle } from '../../store/style/action';
+import { initDepthTheme } from '../../store/depth-theme/action';
 import * as mapStyling from '../../utils/map-styling';
 import useWholeStyle from '../common/useWholeStyle';
 
@@ -25,32 +28,30 @@ interface ReduxStateType extends HistoryState {
 
 function useUndoRedo(): UseUndoRedoType {
   const dispatch = useDispatch();
-  const { changeStyle } = useWholeStyle();
+  const { changeStyle, replaceStyle } = useWholeStyle();
   const { map, log, currentIdx } = useSelector<RootState>((state) => ({
     map: state.map.map,
     log: state.history.log,
     currentIdx: state.history.currentIdx,
   })) as ReduxStateType;
-  const initColor = 'init' as const;
 
   const undoHandler = () => {
     if (!map || !log || currentIdx === null || currentIdx < 0) return;
     const undoIdx = currentIdx - 1;
-    const { feature, subFeature, element, subElement, style, changedKey } = log[
-      currentIdx
-    ];
-    if (!feature || !subFeature || !element) return;
-
     dispatch(setCurrentIndex(undoIdx));
+
     /** 전체를 다시 한번 그리는 경우 */
-    const isChangeWholeStyle =
-      undoIdx >= 0 &&
-      log[undoIdx].subFeature === 'all' &&
-      log[undoIdx].changedValue === initColor;
-    if (isChangeWholeStyle) {
-      changeStyle(log[undoIdx].wholeStyle as WholeStyleActionPayload);
-      return;
+    if (log[currentIdx].changedKey in ReplaceType) {
+      dispatch(initDepthTheme());
+      if (currentIdx === 0) changeStyle({});
+      else replaceStyle(log[undoIdx].wholeStyle as StyleStoreType);
     }
+
+    const { feature, subFeature, element, subElement, changedKey } = log[
+      currentIdx
+    ] as HistorySetLogType;
+
+    if (!feature || !subFeature || !element) return;
 
     let beforeStyle;
     if (currentIdx === 0) {
@@ -72,58 +73,41 @@ function useUndoRedo(): UseUndoRedoType {
           : wholeStyle[feature][subFeature][element];
     }
 
-    /** 변경된 사항에만 그리는 경우 */
+    /** 변경된 사항만 그리는 경우 */
     mapStyling[feature]({
       map,
       subFeature,
       key: changedKey,
       element,
-      subElement,
-      style: {
-        ...style,
-        [changedKey]: (beforeStyle as StyleType)[changedKey],
-      },
+      subElement: subElement as SubElementNameType,
+      style: beforeStyle as StyleType,
     });
-
     dispatch(
       setStyle({
         feature,
         subFeature,
         element,
         subElement: subElement as SubElementNameType,
-        style: {
-          ...style,
-          [changedKey]: (beforeStyle as StyleType)[changedKey],
-        },
+        style: beforeStyle as StyleType,
       })
     );
   };
 
   const redoHandler = () => {
-    if (!log || (log && currentIdx === log.length - 1)) return;
+    if (!log || currentIdx === null || currentIdx === log.length - 1) return;
     const redoIdx = (currentIdx as number) + 1;
-
-    const {
-      feature,
-      subFeature,
-      element,
-      subElement,
-      style,
-      changedKey,
-      changedValue,
-      wholeStyle,
-    } = log[redoIdx as number];
-    if (!feature || !subFeature || !element) return;
-
-    dispatch(setCurrentIndex(redoIdx));
-
     /** 전체를 다시 한번 그리는 경우 */
-    const isChangeWholeStyle =
-      subFeature === 'all' && changedValue === initColor;
-    if (isChangeWholeStyle) {
-      changeStyle(wholeStyle as WholeStyleActionPayload);
+    if (log[redoIdx].changedKey in ReplaceType) {
+      dispatch(initDepthTheme());
+      replaceStyle(log[redoIdx].wholeStyle as StyleStoreType);
       return;
     }
+
+    const { feature, subFeature, element, subElement, style, changedKey } = log[
+      redoIdx as number
+    ] as HistorySetLogType;
+    if (!feature || !subFeature || !element) return;
+    dispatch(setCurrentIndex(redoIdx));
 
     /** 변경된 사항에만 그리는 경우 */
     mapStyling[feature]({
@@ -131,7 +115,7 @@ function useUndoRedo(): UseUndoRedoType {
       subFeature,
       key: changedKey,
       element,
-      subElement,
+      subElement: subElement as SubElementNameType,
       style,
     });
 
