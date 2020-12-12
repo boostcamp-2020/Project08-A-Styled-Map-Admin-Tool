@@ -267,8 +267,8 @@ const defaultStyle: DefaultWholeStyle = {
     },
     rail: {
       section: {
-        fill: { color: 'hsl(234, 20%, 30%)', weight: 0 },
-        stroke: { color: 'transparent', weight: 1 },
+        fill: { color: 'transparent', weight: 0 },
+        stroke: { color: 'hsl(234, 20%, 30%)', weight: 1 },
       },
       labelText: {
         fill: { color: 'transparent', weight: 0 },
@@ -277,8 +277,8 @@ const defaultStyle: DefaultWholeStyle = {
     },
     subway: {
       section: {
-        fill: { color: 'hsl(192, 70%, 43%)', weight: 0 },
-        stroke: { color: 'transparent', weight: 0 },
+        fill: { color: 'transparent', weight: 0 },
+        stroke: { color: 'hsl(192, 70%, 43%)', weight: 0 },
       },
       labelText: {
         fill: { color: 'transparent', weight: 0 },

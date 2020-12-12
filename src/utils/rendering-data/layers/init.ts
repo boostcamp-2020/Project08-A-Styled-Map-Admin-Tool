@@ -2181,7 +2181,7 @@ const initLayers = {
         'text-max-width': 9,
       },
       paint: {
-        'text-color': 'hsl(0, 69%, 50%)',
+        'text-color': 'hsl(230, 48%, 44%)',
         'text-halo-color': 'hsl(0, 0%, 100%)',
         'text-halo-width': 1,
       },
