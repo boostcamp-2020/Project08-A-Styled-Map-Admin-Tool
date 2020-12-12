@@ -1,28 +1,114 @@
 import { stylingProps } from '.';
-import {
-  ElementNameType,
-  SubElementNameType,
-  StyleKeyType,
-} from '../../store/common/type';
+import { ElementNameType, StyleKeyType } from '../../store/common/type';
 import {
   ColorType,
   WeightType,
+  VisibilityType,
   applyVisibility,
   applyColor,
   applyWeight,
+  StyleTypes,
 } from '../applyStyle';
+import seperatedLayers from './macgyver/seperatedLayers';
+import {
+  getIdsFromSeperatedLayers,
+  INVISIBLE,
+  VISIBLE,
+} from './macgyver/utils';
 
-const layers = {
-  polygon: [
-    'water-all-section-fill-1',
-    'water-all-section-fill-2',
-    'water-all-section-fill-3',
-  ],
-  symbol: [
-    'water-all-labelText-1',
-    'water-all-labelText-2',
-    'water-all-labelText-3',
-  ],
+const mappingDetailToFunc = {
+  section: {
+    fill: {
+      color: {
+        typeName: ColorType.fill,
+        funcName: applyColor,
+      },
+      saturation: {
+        typeName: ColorType.fill,
+        funcName: applyColor,
+      },
+      lightness: {
+        typeName: ColorType.fill,
+        funcName: applyColor,
+      },
+      weight: {
+        typeName: null,
+        funcName: null,
+      },
+      visibility: {
+        typeName: VisibilityType.visible,
+        funcName: applyVisibility,
+      },
+    },
+    stroke: {
+      color: {
+        typeName: null,
+        funcName: null,
+      },
+      saturation: {
+        typeName: null,
+        funcName: null,
+      },
+      lightness: {
+        typeName: null,
+        funcName: null,
+      },
+      weight: {
+        typeName: null,
+        funcName: null,
+      },
+      visibility: {
+        typeName: null,
+        funcName: null,
+      },
+    },
+  },
+  labelText: {
+    fill: {
+      color: {
+        typeName: ColorType.text,
+        funcName: applyColor,
+      },
+      saturation: {
+        typeName: ColorType.text,
+        funcName: applyColor,
+      },
+      lightness: {
+        typeName: ColorType.text,
+        funcName: applyColor,
+      },
+      weight: {
+        typeName: null,
+        funcName: null,
+      },
+      visibility: {
+        typeName: VisibilityType.visible,
+        funcName: applyVisibility,
+      },
+    },
+    stroke: {
+      color: {
+        typeName: ColorType.textHalo,
+        funcName: applyColor,
+      },
+      saturation: {
+        typeName: ColorType.textHalo,
+        funcName: applyColor,
+      },
+      lightness: {
+        typeName: ColorType.textHalo,
+        funcName: applyColor,
+      },
+      weight: {
+        typeName: WeightType.textHalo,
+        funcName: applyWeight,
+      },
+      visibility: {
+        typeName: WeightType.textHalo,
+        funcName: applyWeight,
+      },
+    },
+  },
 };
 
 function waterStyling({
@@ -32,75 +118,40 @@ function waterStyling({
   key,
   style,
 }: stylingProps): void {
-  if (element === ElementNameType.labelIcon) return;
+  if (key === 'isChanged' || element === ElementNameType.labelIcon) return;
 
+  const { typeName: type, funcName: func } = mappingDetailToFunc[element][
+    subElement
+  ][key];
+  if (!type || !func) return;
+
+  /** get LayerNames */
+  let layerNames = null;
   if (element === ElementNameType.labelText) {
-    // labelText - fill
-    if (subElement === SubElementNameType.fill) {
-      if (key === StyleKeyType.weight) return;
-      if (key === StyleKeyType.visibility) {
-        const styleValue = style[key] === 'none' ? 'none' : 'visible';
-        applyVisibility({
-          map,
-          layerNames: layers.symbol,
-          visibility: styleValue,
-        });
-        return;
-      }
+    layerNames = getIdsFromSeperatedLayers(seperatedLayers.water.all.labelText);
+  } else {
+    layerNames = getIdsFromSeperatedLayers(
+      seperatedLayers.water.all[element][subElement]
+    );
+  }
 
-      applyColor({
-        map,
-        layerNames: layers.symbol,
-        type: ColorType.text,
-        color: style.color,
-        [key]: style[key],
-      });
-      return;
-    }
-
-    // labelText - stroke
-    if (key === StyleKeyType.weight || key === StyleKeyType.visibility) {
-      const styleValue = style.visibility === 'none' ? 0 : Number(style.weight);
-      applyWeight({
-        map,
-        layerNames: layers.symbol,
-        type: WeightType.textHalo,
-        weight: styleValue,
-      });
-      return;
-    }
-
-    applyColor({
+  /** styling */
+  if (key === 'visibility' && type === WeightType.textHalo) {
+    func({
       map,
-      layerNames: layers.symbol,
-      type: ColorType.textHalo,
-      color: style.color,
-      [key]: style[key],
+      layerNames,
+      type,
+      weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
     });
     return;
   }
 
-  // section - stroke
-  if (subElement === SubElementNameType.stroke || key === StyleKeyType.weight)
-    return;
-
-  // section - fill
-  if (key === StyleKeyType.visibility) {
-    const styleValue = style[key] === 'none' ? 'none' : 'visible';
-    applyVisibility({
-      map,
-      layerNames: layers.polygon,
-      visibility: styleValue,
-    });
-    return;
-  }
-
-  applyColor({
+  func({
     map,
-    layerNames: layers.polygon,
-    type: ColorType.fill,
+    layerNames,
+    type: type as StyleTypes,
     color: style.color,
-    [key]: style[key],
+    [key]: style[key as StyleKeyType],
   });
 }
 

@@ -14,10 +14,13 @@ import {
   ElementNameType,
   PoiNameType,
 } from '../../store/common/type';
-import seperatedLayers from './seperatedLayers';
+import seperatedLayers from './macgyver/seperatedLayers';
+import {
+  getIdsFromSeperatedLayers,
+  INVISIBLE,
+  VISIBLE,
+} from './macgyver/utils';
 
-const VISIBLE = 1;
-const INVISIBLE = 0;
 const mappingDetailToFunc = {
   labelText: {
     fill: {
@@ -97,11 +100,13 @@ function poiStyling({
     func = funcName;
   }
 
+  /** get LayerNames */
   if (!type || !func) return;
-  const layerNames = seperatedLayers.poi[
-    subFeature as PoiNameType
-  ].labelText.map((layer: { id: string; symbol: string }) => layer.id);
+  const layerNames = getIdsFromSeperatedLayers(
+    seperatedLayers.poi[subFeature as PoiNameType].labelText
+  );
 
+  /** styling */
   if (
     key === 'visibility' &&
     (type === ColorType.icon || type === WeightType.textHalo)
