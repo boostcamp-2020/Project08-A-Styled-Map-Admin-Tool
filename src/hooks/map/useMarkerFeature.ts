@@ -7,10 +7,12 @@ import {
   MarkerState,
   addMarker,
   updateMarker,
+  removeMarker,
   ADD_MARKER,
-  UPDATE_MARKER,
 } from '../../store/marker/action';
 
+const PRINT_MARKER_AFTER_INIT = 'printMarkerAfterInit';
+const LIMIT_MARKER_NUMBER = 30;
 interface ReduxStateType {
   map: mapboxgl.Map;
   marker: MarkerState;
@@ -78,7 +80,6 @@ function useMarkerFeature(): MarkerHookType {
 
     // 초기화 된 마커, 생성된 Marker 객체 이벤트 핸들러 연결
     if (instance) {
-      instance.addTo(map);
       instance.on('dragend', () => {
         const lnglat = instance.getLngLat();
         dispatch(
@@ -89,9 +90,21 @@ function useMarkerFeature(): MarkerHookType {
           })
         );
       });
+
+      instance.getElement().addEventListener('contextmenu', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        instance.remove();
+        dispatch(removeMarker(id));
+      });
+      instance.addTo(map);
       return;
     }
 
+   if (marker.markers.length >= LIMIT_MARKER_NUMBER) {
+      alert(`최대 ${LIMIT_MARKER_NUMBER}개의 marker만 등록할 수 있습니다.`);
+      return;
+    }
     const newMarker = new mapboxgl.Marker({ draggable: true })
       .setLngLat([lngLat.lng, lngLat.lat])
       .setPopup(new mapboxgl.Popup().setHTML(`<p>${text}</p>`))
@@ -106,6 +119,13 @@ function useMarkerFeature(): MarkerHookType {
           lat: lnglat.lat,
         })
       );
+    });
+
+    newMarker.getElement().addEventListener('contextmenu', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      newMarker.remove();
+      dispatch(removeMarker(id));
     });
 
     // 새로운 마커 추가
