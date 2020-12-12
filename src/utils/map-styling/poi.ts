@@ -7,74 +7,17 @@ import {
   WeightType,
   ColorType,
   StyleTypes,
+  VisibilityType,
 } from '../applyStyle';
-import { StyleKeyType, ElementNameType } from '../../store/common/type';
-
-type PoiSubFeature =
-  | 'all'
-  | 'landmark'
-  | 'business'
-  | 'government'
-  | 'medical'
-  | 'park'
-  | 'worship'
-  | 'school'
-  | 'sports'
-  | 'etc';
-
-type POI_LAYERS_TYPE = {
-  [name in PoiSubFeature]: string[];
-};
+import {
+  StyleKeyType,
+  ElementNameType,
+  PoiNameType,
+} from '../../store/common/type';
+import seperatedLayers from './seperatedLayers';
 
 const VISIBLE = 1;
 const INVISIBLE = 0;
-const POI_LAYERS: POI_LAYERS_TYPE = {
-  all: [
-    'poi-landmark-labelText-1',
-    'poi-landmark-labelText-2',
-    'poi-landmark-labelText-3',
-    'poi-business-labelText-1',
-    'poi-business-labelText-2',
-    'poi-business-labelText-3',
-    'poi-government-labelText-1',
-    'poi-government-labelText-2',
-    'poi-government-labelText-3',
-    'poi-medical-labelText-1',
-    'poi-medical-labelText-2',
-    'poi-park-labelText-1',
-    'poi-park-labelText-2',
-    'poi-worship-labelText-1',
-    'poi-worship-labelText-2',
-    'poi-school-labelText-1',
-    'poi-school-labelText-2',
-    'poi-sport-labelText',
-    'poi-etc-labelText-1',
-    'poi-etc-labelText-2',
-    'poi-etc-labelText-3',
-  ],
-  landmark: [
-    'poi-landmark-labelText-1',
-    'poi-landmark-labelText-2',
-    'poi-landmark-labelText-3',
-  ],
-  business: [
-    'poi-business-labelText-1',
-    'poi-business-labelText-2',
-    'poi-business-labelText-3',
-  ],
-  government: [
-    'poi-government-labelText-1',
-    'poi-government-labelText-2',
-    'poi-government-labelText-3',
-  ],
-  medical: ['poi-medical-labelText-1', 'poi-medical-labelText-2'],
-  park: ['poi-park-labelText-1', 'poi-park-labelText-2'],
-  worship: ['poi-worship-labelText-1', 'poi-worship-labelText-2'],
-  school: ['poi-school-labelText-1', 'poi-school-labelText-2'],
-  sports: ['poi-sport-labelText'],
-  etc: ['poi-etc-labelText-1', 'poi-etc-labelText-2', 'poi-etc-labelText-3'],
-};
-
 const mappingDetailToFunc = {
   labelText: {
     fill: {
@@ -95,7 +38,7 @@ const mappingDetailToFunc = {
         funcName: null,
       },
       visibility: {
-        typeName: 'what is my name?',
+        typeName: VisibilityType.visible,
         funcName: applyVisibility,
       },
     },
@@ -155,13 +98,17 @@ function poiStyling({
   }
 
   if (!type || !func) return;
+  const layerNames = seperatedLayers.poi[
+    subFeature as PoiNameType
+  ].labelText.map((layer: { id: string; symbol: string }) => layer.id);
+
   if (
     key === 'visibility' &&
     (type === ColorType.icon || type === WeightType.textHalo)
   ) {
     func({
       map,
-      layerNames: POI_LAYERS[subFeature as PoiSubFeature],
+      layerNames,
       type,
       weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
     });
@@ -170,7 +117,7 @@ function poiStyling({
 
   func({
     map,
-    layerNames: POI_LAYERS[subFeature as PoiSubFeature],
+    layerNames,
     type: type as StyleTypes,
     color: style.color,
     [key]: style[key as StyleKeyType],

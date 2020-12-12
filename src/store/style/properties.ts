@@ -33,7 +33,7 @@ export const getDefaultStyle = ({
       ] as DefaultStyleType)
     : (defaultStyle[feature][subFeature][element] as DefaultStyleType);
 
-  const hslArr = defaultState.color.match(
+  const hslArr = defaultState?.color.match(
     /hsl\((\d+), (\d+)%, (\d+)%\)/
   ) as string[];
 
@@ -42,8 +42,8 @@ export const getDefaultStyle = ({
 
   return {
     ...JSON.parse(JSON.stringify(style)),
-    color: hslToHEX(defaultState.color as string),
-    weight: defaultState.weight,
+    color: hslToHEX(defaultState?.color as string),
+    weight: defaultState?.weight || 0,
     saturation: Number(s),
     lightness: Number(l),
   };
