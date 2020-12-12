@@ -2,6 +2,7 @@
 /* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
 import { hexToHSL } from './colorFormat';
+import { WeightTemplateProperty } from './rendering-data/layers/weightTemplate';
 
 export enum ColorType {
   fill = 'fill-color',
@@ -24,7 +25,7 @@ interface ApplyProps {
   type?: StyleTypes;
   saturation?: number;
   lightness?: number;
-  weight?: number;
+  weight?: number | WeightTemplateProperty[];
   visibility?: string;
 }
 

@@ -148,10 +148,7 @@ function stylingCategory({
   } else if (key === StyleKeyType.weight) {
     if (element === ElementNameType.section) {
       if (subElement === SubElementNameType.fill) {
-        let zoomWeight = 0;
-        if (weightTemplate[subFeature]) {
-          zoomWeight = weightTemplate[subFeature][subElement](weight);
-        }
+        const zoomWeight = weightTemplate[subFeature][subElement](weight);
         applyWeight({
           map,
           layerNames: layerNames.line,
@@ -159,10 +156,7 @@ function stylingCategory({
           weight: zoomWeight || weight,
         });
       } else if (subElement === SubElementNameType.stroke) {
-        let zoomWeight = 0;
-        if (weightTemplate[subFeature]) {
-          zoomWeight = weightTemplate[subFeature][subElement](weight);
-        }
+        const zoomWeight = weightTemplate[subFeature][subElement](weight);
         applyWeight({
           map,
           layerNames: layerNames.stroke,
