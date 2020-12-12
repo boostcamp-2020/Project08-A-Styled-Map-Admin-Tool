@@ -15,11 +15,7 @@ import {
   PoiNameType,
 } from '../../store/common/type';
 import seperatedLayers from './macgyver/seperatedLayers';
-import {
-  getIdsFromSeperatedLayers,
-  INVISIBLE,
-  VISIBLE,
-} from './macgyver/utils';
+import { getIdsFromLayersArr, INVISIBLE, VISIBLE } from './macgyver/utils';
 
 const mappingDetailToFunc = {
   labelText: {
@@ -102,7 +98,7 @@ function poiStyling({
 
   /** get LayerNames */
   if (!type || !func) return;
-  const layerNames = getIdsFromSeperatedLayers(
+  const layerNames = getIdsFromLayersArr(
     seperatedLayers.poi[subFeature as PoiNameType].labelText
   );
 

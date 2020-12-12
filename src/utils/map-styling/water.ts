@@ -10,11 +10,7 @@ import {
   StyleTypes,
 } from '../applyStyle';
 import seperatedLayers from './macgyver/seperatedLayers';
-import {
-  getIdsFromSeperatedLayers,
-  INVISIBLE,
-  VISIBLE,
-} from './macgyver/utils';
+import { getIdsFromLayersArr, INVISIBLE, VISIBLE } from './macgyver/utils';
 
 const mappingDetailToFunc = {
   section: {
@@ -128,9 +124,9 @@ function waterStyling({
   /** get LayerNames */
   let layerNames = null;
   if (element === ElementNameType.labelText) {
-    layerNames = getIdsFromSeperatedLayers(seperatedLayers.water.all.labelText);
+    layerNames = getIdsFromLayersArr(seperatedLayers.water.all.labelText);
   } else {
-    layerNames = getIdsFromSeperatedLayers(
+    layerNames = getIdsFromLayersArr(
       seperatedLayers.water.all[element][subElement]
     );
   }
@@ -149,7 +145,7 @@ function waterStyling({
   func({
     map,
     layerNames,
-    type: type as StyleTypes,
+    type,
     color: style.color,
     [key]: style[key as StyleKeyType],
   });
