@@ -5,6 +5,7 @@ import useMarkerPopUp from '../../../hooks/map/useMarkerPopUp';
 import { RegisterMarkerType } from '../../../hooks/map/useMarkerFeature';
 import CloseIcon from '../../Icon/CloseIcon';
 
+const LIMIT_LENGTH = 10;
 interface WrapperProps {
   pos: {
     x: number | null;
@@ -88,7 +89,7 @@ function MarkerPopUp({
             <CloseIconTag onClick={resetMarkerPos} />
           </PopUpHeader>
           <MarkerInput onChange={onInputChange} />
-          {inputText.length > 10 ? (
+          {inputText.length > LIMIT_LENGTH ? (
             <div>10자 이하의 텍스트 입력만 가능합니다.</div>
           ) : (
             <OkButton type="button" onClick={onClickButton}>
