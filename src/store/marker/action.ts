@@ -29,7 +29,6 @@ export interface MarkerUpdateType {
   id: string;
   lng?: number;
   lat?: number;
-  text?: string;
   instance?: mapboxgl.Marker;
 }
 
@@ -51,26 +50,16 @@ export const initMarker = (): MarkerActionType => ({
   payload: null,
 });
 
-export const addMarker = ({
-  id,
-  lng,
-  lat,
-  text,
-  instance,
-}: MarkerType): MarkerActionType => ({
+export const addMarker = (inputPayload: MarkerType): MarkerActionType => ({
   type: ADD_MARKER,
-  payload: { id, lng, lat, text, instance },
+  payload: inputPayload,
 });
 
-export const updateMarker = ({
-  id,
-  lng,
-  lat,
-  text,
-  instance,
-}: MarkerUpdateType): MarkerActionType => ({
+export const updateMarker = (
+  inputPayload: MarkerUpdateType
+): MarkerActionType => ({
   type: UPDATE_MARKER,
-  payload: { id, lng, lat, text, instance },
+  payload: inputPayload,
 });
 
 export const removeMarker = (id: string): MarkerActionType => ({

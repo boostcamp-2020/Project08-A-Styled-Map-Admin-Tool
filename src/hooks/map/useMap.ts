@@ -6,7 +6,7 @@ import useMarkerFeature from '../../hooks/map/useMarkerFeature';
 import { urlToJson } from '../../utils/urlParsing';
 import {
   WholeStyleActionPayload,
-  HistoryPropsType,
+  HistoryState,
   LocationType,
 } from '../../store/common/type';
 import validateStyle from '../../utils/validateStyle';
@@ -21,7 +21,7 @@ export interface MapHookType {
 }
 
 interface ReduxStateType {
-  history: HistoryPropsType;
+  history: HistoryState;
   marker: MarkerState;
 }
 

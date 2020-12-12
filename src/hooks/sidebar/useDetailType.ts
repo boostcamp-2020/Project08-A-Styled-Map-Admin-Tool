@@ -5,7 +5,7 @@ import {
   ElementNameType,
   SubElementNameType,
   FeatureType,
-  PayloadPropsType,
+  SidebarState,
 } from '../../store/common/type';
 
 interface UseDetailTypeProps {
@@ -36,7 +36,7 @@ function useDetailType({
 }: UseDetailTypeProps): UseDetailHookType {
   const { feature, subFeature, element, subElement } = useSelector<RootState>(
     (state) => state.sidebar
-  ) as PayloadPropsType;
+  ) as SidebarState;
 
   const detail = useSelector<RootState>((state) => {
     if (!feature || !subFeature) {

@@ -1,4 +1,3 @@
-import { RefObject, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import {
@@ -9,25 +8,21 @@ import {
   SubElementNameType,
   SubFeatureActionPayload,
 } from '../../store/common/type';
-import {
-  DepthThemePropsType,
-  setShowDepthProperties,
-} from '../../store/depth-theme/action';
+import { setShowDepthProperties } from '../../store/depth-theme/action';
 import { applyVisibility, VisibilityType } from '../../utils/applyStyle';
 import initLayers from '../../utils/rendering-data/layers/init';
 import useWholeStyle from '../common/useWholeStyle';
 
 export enum DepthItemKeyTypes {
-  administrative = 'administrative',
-  road = 'road',
+  administrative = 'administrativeDepth',
+  road = 'roadDepth',
 }
 
 type IdFilterNames = RoadNameType | AdministrativeNameType;
 
 interface useSidebarDepthItemType {
-  depth: number;
-  depthRef: RefObject<HTMLInputElement>;
-  depthRangeHandler: () => void;
+  itemDepth: number;
+  depthRangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 type changeableLayersByDepthType = {
@@ -117,26 +112,32 @@ const getChangeStyleProps = (
   return featurePayload;
 };
 
+interface ReduxStateType {
+  map: mapboxgl.Map;
+  itemDepth: number;
+}
+
 function useSidebarDepthItem(
   itemKey: DepthItemKeyTypes
 ): useSidebarDepthItemType {
-  const { roadDepth, administrativeDepth } = useSelector<RootState>(
-    (state) => state.depthTheme
-  ) as DepthThemePropsType;
-
-  const [featureLayers, depth] = (itemKey === DepthItemKeyTypes.road
-    ? [roadLayerIds, roadDepth]
-    : [administrativeLayerIds, administrativeDepth]) as [string[], number];
-
   const dispatch = useDispatch();
-  const depthRef = useRef<HTMLInputElement>(null);
-  const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
+  const { map, itemDepth } = useSelector<RootState>((state) => ({
+    map: state.map.map,
+    itemDepth:
+      itemKey === DepthItemKeyTypes.road
+        ? state.depthTheme.roadDepth
+        : state.depthTheme.administrativeDepth,
+  })) as ReduxStateType;
+
+  const featureLayers =
+    itemKey === DepthItemKeyTypes.road ? roadLayerIds : administrativeLayerIds;
+
   const { getWholeStyle, replaceStyle } = useWholeStyle();
 
-  const depthRangeHandler = () => {
-    const changedDepth = Number(depthRef.current?.value);
+  const depthRangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const changedDepth = Number(e.target.value);
     const [visibility, depthRange] = getVisibilityAndDepthRange(
-      depth,
+      itemDepth,
       changedDepth
     );
     const currentStyleState = getWholeStyle();
@@ -163,8 +164,7 @@ function useSidebarDepthItem(
   };
 
   return {
-    depth,
-    depthRef,
+    itemDepth,
     depthRangeHandler,
   };
 }
