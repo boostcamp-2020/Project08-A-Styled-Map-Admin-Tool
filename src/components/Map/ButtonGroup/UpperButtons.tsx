@@ -7,7 +7,6 @@ import useUpperButtons, {
 import Button from './Button';
 import FullScreenIcon from '../../Icon/FullScreen';
 import SmallScreenIcon from '../../Icon/SmallScreen';
-import SearchInput from '../SearchInput/SearchInput';
 
 interface UpperButtonsProps {
   mapRef: RefObject<HTMLDivElement>;
@@ -24,7 +23,15 @@ const UpperButtonsWrapper = styled.div`
   right: 15px;
   z-index: 10;
 
-  width: 300px;
+  width: 240px;
+`;
+
+const SearchInput = styled.div`
+  width: 100%;
+  input[type='text'] {
+    outline: none;
+    box-shadow: 0 0 5px 1px ${(props) => props.theme.LIGHTGREY};
+  }
 `;
 
 const ButtonsWrapper = styled.div`
@@ -46,7 +53,7 @@ function UpperButtons({
 
   return (
     <UpperButtonsWrapper>
-      <SearchInput />
+      <SearchInput id="search-bar" />
       <ButtonsWrapper>
         <Button
           fontSize="12px"
