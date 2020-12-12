@@ -101,7 +101,7 @@ function useMarkerFeature(): MarkerHookType {
       return;
     }
 
-   if (marker.markers.length >= LIMIT_MARKER_NUMBER) {
+    if (marker.markers.length >= LIMIT_MARKER_NUMBER) {
       alert(`최대 ${LIMIT_MARKER_NUMBER}개의 marker만 등록할 수 있습니다.`);
       return;
     }
