@@ -20,7 +20,9 @@ initLayers.layers.forEach((layer) => {
   if (element && seperatedLayers[feature][subFeature][element] === undefined) {
     if (subElement && !isNumber(subElement) && subElement !== undefined) {
       seperatedLayers[feature][subFeature][element] = {};
-      seperatedLayers[feature].all[element] = {};
+      seperatedLayers[feature].all[element] = {
+        ...seperatedLayers[feature].all[element],
+      };
     } else {
       seperatedLayers[feature][subFeature][element] = [];
       seperatedLayers[feature].all[element] = [].concat(
