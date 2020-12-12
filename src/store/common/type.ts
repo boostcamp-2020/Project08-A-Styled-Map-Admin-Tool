@@ -114,6 +114,7 @@ export interface objType {
   [name: string]: any;
 }
 
+/** Style Feature Type for Redux */
 export interface StyleType {
   isChanged: boolean;
   visibility: string;
@@ -146,9 +147,9 @@ export interface ElementPropsType extends FeaturePropsType {
   subElement?: SubElementNameType;
 }
 
-export type SidebarActionType =
-  | ReturnType<typeof setSidebarProperties>
-  | ReturnType<typeof initSidebarProperties>;
+export interface ActionPayload extends ElementPropsType {
+  style: StyleType;
+}
 
 export type ActionType =
   | ReturnType<typeof init>
@@ -157,23 +158,38 @@ export type ActionType =
   | ReturnType<typeof replaceWholeStyle>
   | ReturnType<typeof initColors>;
 
-/** Style Store Type for Replace */
+/** Style Stores Type for Replace */
 export type StyleStoreType = {
   [featureName in FeatureNameType]: FeatureState;
 };
 
-/** History Type */
-export interface HistoryInfoPropsType {
+/** History Type for Redux */
+export interface HistorySetLogType {
   id?: string;
   changedValue: string | number;
   changedKey: StyleKeyType;
   feature: FeatureNameType;
   subFeature: string;
   element: ElementNameType;
-  subElement: SubElementNameType;
+  subElement?: SubElementNameType;
   style: StyleType;
   wholeStyle: StyleStoreType;
 }
+
+export enum ReplaceType {
+  init = 'init',
+  import = 'import',
+  theme = 'theme',
+  depth = 'depth',
+}
+export interface HistoryReplaceLogType {
+  id?: string;
+  changedValue?: string | number;
+  changedKey: ReplaceType;
+  wholeStyle: StyleStoreType;
+}
+
+export type HistoryInfoPropsType = HistorySetLogType | HistoryReplaceLogType;
 
 export interface HistoryState {
   log?: HistoryInfoPropsType[];
@@ -186,22 +202,13 @@ export interface SetIndexPayload {
 
 export interface HistoryActionType {
   type: typeof INIT_HISTORY | typeof ADD_LOG | typeof SET_CURRENT_INDEX;
-  payload:
-    | null
-    | SetIndexPayload
-    | {
-        changedKey: StyleKeyType;
-        feature: FeatureNameType;
-        subFeature: string;
-        element: ElementNameType;
-        subElement?: SubElementNameType;
-        wholeStyle: StyleStoreType;
-      };
+  payload: null | SetIndexPayload | HistorySetLogType | HistoryReplaceLogType;
 }
 
-export interface ActionPayload extends ElementPropsType {
-  style: StyleType;
-}
+/** Sidebar Type for Redux */
+export type SidebarActionType =
+  | ReturnType<typeof setSidebarProperties>
+  | ReturnType<typeof initSidebarProperties>;
 
 export interface SidebarState {
   key: 'feature' | 'subFeature' | 'element' | 'subElement';
