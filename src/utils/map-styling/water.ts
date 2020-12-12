@@ -7,7 +7,6 @@ import {
   applyVisibility,
   applyColor,
   applyWeight,
-  StyleTypes,
 } from '../applyStyle';
 import seperatedLayers from './macgyver/seperatedLayers';
 import { getIdsFromLayersArr, INVISIBLE, VISIBLE } from './macgyver/utils';
