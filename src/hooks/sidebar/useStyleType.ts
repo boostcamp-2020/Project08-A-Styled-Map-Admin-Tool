@@ -68,9 +68,10 @@ const getNewColorStyle = (
       // eslint-disable-next-line no-case-declarations
       const { s: newSaturation, l: newLightness } = hexToHSL(value as string);
       newStyleObj.color = value as string;
-      newStyleObj.saturation = newSaturation;
-      newStyleObj.lightness = newLightness;
-
+      newStyleObj.saturation =
+        newStyleObj.color === 'transparent' ? 0 : newSaturation;
+      newStyleObj.lightness =
+        newStyleObj.color === 'transparent' ? 0 : newLightness;
       break;
 
     default:
