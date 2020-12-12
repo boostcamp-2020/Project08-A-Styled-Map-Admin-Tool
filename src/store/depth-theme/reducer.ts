@@ -1,35 +1,30 @@
 /* eslint-disable no-case-declarations */
 import {
   DepthThemeActionType,
-  ThemDepthState,
+  DepthThemeState,
   DepthPropsType,
   ThemePropsType,
   SET_SHOW_DEPTH_PROPERTIES,
   SET_THEME_PROPERTIES,
+  INIT_DEPTH_THEME,
 } from './action';
 
-const initialState: ThemDepthState = {
+const initialState: DepthThemeState = {
   roadDepth: 3,
   administrativeDepth: 3,
   themeIdx: 0,
 };
 
 function depthThemeReducer(
-  state: ThemDepthState = initialState,
+  state: DepthThemeState = initialState,
   action: DepthThemeActionType
-): ThemDepthState {
+): DepthThemeState {
   const { type, payload } = action;
 
   switch (type) {
     case SET_SHOW_DEPTH_PROPERTIES:
-      console.log('here');
-
       const { selectedFeature, selectedDepth } = payload as DepthPropsType;
-      console.log(selectedFeature, selectedDepth);
-      console.log({
-        ...state,
-        [selectedFeature]: selectedDepth,
-      });
+
       return {
         ...state,
         [selectedFeature]: selectedDepth,
@@ -42,6 +37,8 @@ function depthThemeReducer(
         themeIdx,
       };
 
+    case INIT_DEPTH_THEME:
+      return initialState;
     default:
       return state;
   }

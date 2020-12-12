@@ -12,7 +12,7 @@ export interface ThemePropsType {
   themeIdx: number;
 }
 
-export interface ThemDepthState extends ThemePropsType {
+export interface DepthThemeState extends ThemePropsType {
   roadDepth: number;
   administrativeDepth: number;
 }
