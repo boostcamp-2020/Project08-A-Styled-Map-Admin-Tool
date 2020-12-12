@@ -39,6 +39,7 @@ function depthThemeReducer(
 
     case INIT_DEPTH_THEME:
       return initialState;
+
     default:
       return state;
   }
