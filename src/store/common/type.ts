@@ -29,7 +29,7 @@ export enum StyleKeyType {
 }
 
 export enum VisibilityValueType {
-  visiable = 'visiable',
+  visible = 'visible',
   none = 'none',
   inherit = 'inherit',
 }
@@ -182,9 +182,14 @@ export enum ReplaceType {
   theme = 'theme',
   depth = 'depth',
 }
+
+export interface DepthLogChangedValueType {
+  feature: FeatureNameType;
+  depth: number;
+}
 export interface HistoryReplaceLogType {
   id?: string;
-  changedValue?: string | number;
+  changedValue?: string | DepthLogChangedValueType;
   changedKey: ReplaceType;
   wholeStyle: StyleStoreType;
 }
