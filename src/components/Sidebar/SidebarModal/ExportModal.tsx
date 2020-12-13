@@ -8,8 +8,11 @@ import {
 } from './common';
 import CloseIcon from '../../Icon/CloseIcon';
 import Overlay from '../../common/Overlay';
-import { jsonToURL } from '../../../utils/urlParsing';
-import { ExportType } from '../../../hooks/sidebar/useExportStyle';
+import {
+  ExportType,
+  getStringifyStyleObject,
+  geturlParsedStyle,
+} from '../../../hooks/sidebar/useExportStyle';
 
 const ExportModalWrapper = styled(ModalWrapper)``;
 
@@ -52,20 +55,6 @@ const SubTitle = styled.h2`
   font-size: 1.6rem;
   color: ${(props) => props.theme.GREEN};
 `;
-
-const getStringifyStyleObject = ({
-  filteredStyle,
-  markers,
-}: ExportType): string => {
-  const data =
-    markers === [] ? { ...filteredStyle } : { ...filteredStyle, markers };
-  const stringifyStyleMarkers = JSON.stringify(data, null, 2);
-  return stringifyStyleMarkers;
-};
-
-const geturlParsedStyle = (style: ExportType) => {
-  return jsonToURL(style);
-};
 
 function ExportModal({
   isOpen,

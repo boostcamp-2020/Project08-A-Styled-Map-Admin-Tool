@@ -11,6 +11,7 @@ import {
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
 import { MarkerInstanceType, MarkerType } from '../../store/marker/action';
+import { jsonToURL } from '../../utils/urlParsing';
 
 export interface StoreDataType {
   [key: string]: FeatureNameType | undefined;
@@ -54,6 +55,23 @@ interface ElementType {
   labelText?: SubElementType | null;
   labelIcon?: StyleType | null;
 }
+
+export const getStringifyStyleObject = ({
+  filteredStyle,
+  markers,
+}: ExportType): string => {
+  const storedMarkers = markers ?? [];
+  const data =
+    storedMarkers.length > 0
+      ? { ...filteredStyle, markers }
+      : { ...filteredStyle };
+  const stringifyStyleMarkers = JSON.stringify(data, null, 2);
+  return stringifyStyleMarkers;
+};
+
+export const geturlParsedStyle = (style: ExportType): string => {
+  return jsonToURL(style);
+};
 
 function compareChange(
   defaultStyle: StyleType,
