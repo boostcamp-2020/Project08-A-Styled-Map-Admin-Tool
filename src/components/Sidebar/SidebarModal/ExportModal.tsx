@@ -10,6 +10,7 @@ import CloseIcon from '../../Icon/CloseIcon';
 import Overlay from '../../common/Overlay';
 import { FeatureNameType } from '../../../store/common/type';
 import { jsonToURL } from '../../../utils/urlParsing';
+import useClipboard from '../../../hooks/common/useClipboard';
 
 const ExportModalWrapper = styled(ModalWrapper)``;
 
@@ -53,6 +54,8 @@ const SubTitle = styled.h2`
   color: ${(props) => props.theme.GREEN};
 `;
 
+const CopyButton = styled.button``;
+
 interface StoreDataType {
   [key: string]: FeatureNameType | undefined;
 }
@@ -66,6 +69,8 @@ function ExportModal({
   onClose: () => void;
   style: StoreDataType;
 }): React.ReactElement {
+  const { copyToClipboard } = useClipboard();
+
   if (!isOpen) return <></>;
   return (
     <>
@@ -81,10 +86,20 @@ function ExportModal({
           <ExportToJson>
             <SubTitle>JSON 형식으로 내보내기</SubTitle>
             <Content>{JSON.stringify(style.filteredStyle, null, 2)}</Content>
+            <CopyButton
+              onClick={() => {
+                copyToClipboard(JSON.stringify(style.filteredStyle, null, 2));
+              }}
+            >
+              복사하기
+            </CopyButton>
           </ExportToJson>
           <ExportToURL>
             <SubTitle>URL로 내보내기</SubTitle>
             <Content>{jsonToURL(style)}</Content>
+            <CopyButton onClick={() => copyToClipboard(jsonToURL(style))}>
+              복사하기
+            </CopyButton>
           </ExportToURL>
         </ModalBody>
       </ExportModalWrapper>
