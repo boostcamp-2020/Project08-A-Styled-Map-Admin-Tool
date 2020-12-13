@@ -1,12 +1,5 @@
 import { stylingProps } from '.';
-import {
-  applyColor,
-  applyWeight,
-  applyVisibility,
-  WeightType,
-  ColorType,
-  VisibilityType,
-} from '../applyStyle';
+import { ColorType } from '../applyStyle';
 import { StyleKeyType, ElementNameType } from '../../store/common/type';
 import seperatedLayers from './macgyver/seperatedLayers';
 import {
@@ -15,107 +8,7 @@ import {
   getIdsFromLayersArrWithoutType,
 } from './macgyver/utils';
 import weightTemplate from './macgyver/weightTemplate';
-
-const mappingDetailToFunc = {
-  section: {
-    fill: {
-      color: {
-        typeName: ColorType.line,
-        funcName: applyColor,
-      },
-      saturation: {
-        typeName: ColorType.line,
-        funcName: applyColor,
-      },
-      lightness: {
-        typeName: ColorType.line,
-        funcName: applyColor,
-      },
-      weight: {
-        typeName: WeightType.line,
-        funcName: applyWeight,
-      },
-      visibility: {
-        typeName: VisibilityType.visible,
-        funcName: applyVisibility,
-      },
-    },
-    stroke: {
-      color: {
-        typeName: ColorType.line,
-        funcName: applyColor,
-      },
-      saturation: {
-        typeName: ColorType.line,
-        funcName: applyColor,
-      },
-      lightness: {
-        typeName: ColorType.line,
-        funcName: applyColor,
-      },
-      weight: {
-        typeName: WeightType.line,
-        funcName: applyWeight,
-      },
-      visibility: {
-        typeName: VisibilityType.visible,
-        funcName: applyVisibility,
-      },
-    },
-  },
-  labelText: {
-    fill: {
-      color: {
-        typeName: ColorType.text,
-        funcName: applyColor,
-      },
-      saturation: {
-        typeName: ColorType.text,
-        funcName: applyColor,
-      },
-      lightness: {
-        typeName: ColorType.text,
-        funcName: applyColor,
-      },
-      weight: {
-        typeName: null,
-        funcName: null,
-      },
-      visibility: {
-        typeName: VisibilityType.visible,
-        funcName: applyVisibility,
-      },
-    },
-    stroke: {
-      color: {
-        typeName: ColorType.textHalo,
-        funcName: applyColor,
-      },
-      saturation: {
-        typeName: ColorType.textHalo,
-        funcName: applyColor,
-      },
-      lightness: {
-        typeName: ColorType.textHalo,
-        funcName: applyColor,
-      },
-      weight: {
-        typeName: WeightType.textHalo,
-        funcName: applyWeight,
-      },
-      visibility: {
-        typeName: WeightType.textHalo,
-        funcName: applyWeight,
-      },
-    },
-  },
-  labelIcon: {
-    visibility: {
-      typeName: ColorType.icon,
-      funcName: applyVisibility,
-    },
-  },
-};
+import { roadMappingToFunc } from './macgyver/mappingDetailToFunc';
 
 function roadStyling({
   map,
@@ -131,13 +24,11 @@ function roadStyling({
 
   if (element === ElementNameType.labelIcon) {
     if (key !== 'visibility') return;
-    const { typeName, funcName } = mappingDetailToFunc[element][key];
+    const { typeName, funcName } = roadMappingToFunc[element][key];
     type = typeName;
     func = funcName;
   } else {
-    const { typeName, funcName } = mappingDetailToFunc[element][subElement][
-      key
-    ];
+    const { typeName, funcName } = roadMappingToFunc[element][subElement][key];
     type = typeName;
     func = funcName;
   }
