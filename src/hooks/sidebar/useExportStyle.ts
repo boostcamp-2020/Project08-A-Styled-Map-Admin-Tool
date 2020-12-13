@@ -22,7 +22,7 @@ export interface ExportStyleMarkersType {
 }
 
 export interface ExportType extends ExportStyleMarkersType {
-  mapCoordinate: LocationType;
+  mapCoordinate?: LocationType;
 }
 
 interface UseExportStyleType {
@@ -197,7 +197,6 @@ function useExportStyle(): UseExportStyleType {
     if (map || sidebar || history) {
       const markers = getExportMarkersArray(marker.markers);
       const filteredStyle = filterStyle(style);
-
       const mapCoordinate = getMapCoordinate(map.map);
 
       return {
@@ -207,11 +206,7 @@ function useExportStyle(): UseExportStyleType {
       };
     }
 
-    return {
-      filteredStyle: {},
-      mapCoordinate: {},
-      markers: [],
-    };
+    return {};
   };
 
   return { exportStyle };

@@ -9,7 +9,7 @@ import {
 import CloseIcon from '../../Icon/CloseIcon';
 import Overlay from '../../common/Overlay';
 import { jsonToURL } from '../../../utils/urlParsing';
-import { ExportStyleMarkersType } from '../../../hooks/sidebar/useExportStyle';
+import { ExportType } from '../../../hooks/sidebar/useExportStyle';
 
 const ExportModalWrapper = styled(ModalWrapper)``;
 
@@ -53,14 +53,18 @@ const SubTitle = styled.h2`
   color: ${(props) => props.theme.GREEN};
 `;
 
-const getStringifyJSON = ({
+const getStringifyStyleObject = ({
   filteredStyle,
   markers,
-}: ExportStyleMarkersType) => {
+}: ExportType): string => {
   const data =
-    markers === [] ? { ...filteredStyle, markers } : { ...filteredStyle };
+    markers === [] ? { ...filteredStyle } : { ...filteredStyle, markers };
   const stringifyStyleMarkers = JSON.stringify(data, null, 2);
   return stringifyStyleMarkers;
+};
+
+const geturlParsedStyle = (style: ExportType) => {
+  return jsonToURL(style);
 };
 
 function ExportModal({
@@ -70,9 +74,13 @@ function ExportModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  style: ExportStyleMarkersType;
+  style: ExportType;
 }): React.ReactElement {
   if (!isOpen) return <></>;
+
+  const stringifiedStyleObject = getStringifyStyleObject(style);
+  const urlParsedStyle = geturlParsedStyle(style);
+
   return (
     <>
       <Overlay toggleHandler={onClose} color="black" />
@@ -86,11 +94,11 @@ function ExportModal({
         <ModalBody>
           <ExportToJson>
             <SubTitle>JSON 형식으로 내보내기</SubTitle>
-            <Content>{getStringifyJSON(style)}</Content>
+            <Content>{stringifiedStyleObject}</Content>
           </ExportToJson>
           <ExportToURL>
             <SubTitle>URL로 내보내기</SubTitle>
-            <Content>{jsonToURL(style)}</Content>
+            <Content>{urlParsedStyle}</Content>
           </ExportToURL>
         </ModalBody>
       </ExportModalWrapper>

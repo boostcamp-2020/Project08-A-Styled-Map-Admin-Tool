@@ -1,3 +1,4 @@
+import { ExportType, StoreDataType } from '../hooks/sidebar/useExportStyle';
 import {
   /** JSONURL */
   URLJsonType,
@@ -14,6 +15,7 @@ import {
   /** export */
   LocationType,
 } from '../store/common/type';
+import { MarkerType } from '../store/marker/action';
 
 function jsonToURLGetStyleQueryString(
   json:
@@ -35,22 +37,46 @@ function jsonToURLGetStyleQueryString(
 function jsonToURLGetStyleLocationString(location: LocationType): string {
   return Object.entries(location).reduce(
     (queryString: string, [key, value]) => {
-      return `${queryString}${key}:${value ?? ''}:`;
+      return `${queryString}${key}:${value}:`;
     },
     ''
   );
 }
 
-export function jsonToURL(json: URLJsonType): string {
-  const url = 'http://map-styler.kro.kr/show?=';
-  const styleQueryString = `style=${encodeURIComponent(
-    jsonToURLGetStyleQueryString(json?.filteredStyle as URLJsonType)
-  )}end`;
-  const locationQueryString = `location=${encodeURIComponent(
-    jsonToURLGetStyleLocationString(json?.mapCoordinate as LocationType)
-  )}`;
+function jsonToURLGetMarkersString(markers: MarkerType[]): string {
+  const markersArrayToString = markers
+    .map(({ lng, lat, text }) => `${lng}:${lat}:${text}:`)
+    .join('-');
+  return markersArrayToString;
+}
 
-  return url + locationQueryString + styleQueryString;
+function isNotEmptyObject(object?: StoreDataType | MarkerType[]): boolean {
+  return object !== undefined && Object.keys(object).length > 0;
+}
+
+export function jsonToURL({
+  filteredStyle,
+  mapCoordinate,
+  markers,
+}: ExportType): string {
+  const url = 'http://map-styler.kro.kr/show?=';
+  const styleQueryString = isNotEmptyObject(filteredStyle)
+    ? `style=${encodeURIComponent(
+        jsonToURLGetStyleQueryString(filteredStyle as URLJsonType)
+      )}`
+    : '';
+  const locationQueryString = `location=${encodeURIComponent(
+    jsonToURLGetStyleLocationString(mapCoordinate as LocationType)
+  )}`;
+  const markerQueryString = isNotEmptyObject(markers)
+    ? `markers=${encodeURIComponent(
+        jsonToURLGetMarkersString(markers as MarkerType[])
+      )}`
+    : ``;
+  const qsEnd = 'end';
+  return (
+    url + locationQueryString + styleQueryString + markerQueryString + qsEnd
+  );
 }
 
 function urlToJsonGetStyleJson(queryString: string): URLJsonType | null {

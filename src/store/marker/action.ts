@@ -12,19 +12,16 @@ export enum MarkerKeyType {
 }
 
 export interface MarkerType {
-  id: string;
   lng: number;
   lat: number;
   text: string;
+}
+
+export interface MarkerInstanceType extends MarkerType {
+  id: string;
   instance?: mapboxgl.Marker;
 }
 
-// export interface LocalStorageMarkerType {
-//   id: string;
-//   lng: number;
-//   lat: number;
-//   text: string;
-// }
 export interface MarkerUpdateType {
   id: string;
   lng?: number;
@@ -33,7 +30,7 @@ export interface MarkerUpdateType {
 }
 
 export interface MarkerState {
-  markers: MarkerType[];
+  markers: MarkerInstanceType[];
 }
 
 export interface MarkerActionType {
@@ -42,7 +39,7 @@ export interface MarkerActionType {
     | typeof ADD_MARKER
     | typeof UPDATE_MARKER
     | typeof REMOVE_MARKER;
-  payload: null | MarkerType | MarkerUpdateType | string;
+  payload: null | MarkerInstanceType | MarkerUpdateType | string;
 }
 
 export const initMarker = (): MarkerActionType => ({
@@ -50,16 +47,18 @@ export const initMarker = (): MarkerActionType => ({
   payload: null,
 });
 
-export const addMarker = (inputPayload: MarkerType): MarkerActionType => ({
+export const addMarker = (
+  inputPayload: MarkerInstanceType
+): MarkerActionType => ({
   type: ADD_MARKER,
-  payload: inputPayload,
+  payload: { ...inputPayload },
 });
 
 export const updateMarker = (
   inputPayload: MarkerUpdateType
 ): MarkerActionType => ({
   type: UPDATE_MARKER,
-  payload: inputPayload,
+  payload: { ...inputPayload },
 });
 
 export const removeMarker = (id: string): MarkerActionType => ({

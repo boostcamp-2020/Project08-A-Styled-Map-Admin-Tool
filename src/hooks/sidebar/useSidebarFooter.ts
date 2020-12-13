@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import useExportStyle, { ExportStyleMarkersType } from './useExportStyle';
+import useExportStyle, { ExportType } from './useExportStyle';
 
 interface SidebarFooterHook {
   isOpen: boolean;
   onClickExport: () => void;
   onCloseModal: () => void;
-  style: ExportStyleMarkersType;
+  style: ExportType;
 }
 
 function useSidebarFooter(): SidebarFooterHook {

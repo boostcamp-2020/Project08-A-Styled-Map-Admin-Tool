@@ -1,5 +1,5 @@
 import {
-  MarkerType,
+  MarkerInstanceType,
   MarkerActionType,
   MarkerState,
   INIT_MARKER,
@@ -25,7 +25,7 @@ function markerReducer(
       if (!storedMarker) return initialState;
 
       const newState = storedMarker.reduce(
-        (acc: MarkerType[], marker: MarkerType) => {
+        (acc: MarkerInstanceType[], marker: MarkerInstanceType) => {
           const newMarker = new mapboxgl.Marker({
             draggable: true,
           })
@@ -42,27 +42,34 @@ function markerReducer(
     }
 
     case ADD_MARKER: {
-      const { id, lng, lat, text, instance } = action.payload as MarkerType;
+      const {
+        id,
+        lng,
+        lat,
+        text,
+        instance,
+      } = action.payload as MarkerInstanceType;
       const nextState = produce(state, (draftState) => {
         draftState.markers.push({ id, lng, lat, text, instance });
       });
 
-      let storedMarker = JSON.parse(localStorage.getItem(MARKER) as string);
-      if (!storedMarker) storedMarker = [];
-      storedMarker.push({
+      const storedMarker = JSON.parse(localStorage.getItem(MARKER) as string);
+      const markerArray = storedMarker ?? [];
+
+      markerArray.push({
         id,
         text,
         lng,
         lat,
       });
 
-      localStorage.setItem(MARKER, JSON.stringify(storedMarker));
+      localStorage.setItem(MARKER, JSON.stringify(markerArray));
 
       return nextState;
     }
 
     case UPDATE_MARKER: {
-      const { id, lng, lat } = action.payload as MarkerType;
+      const { id, lng, lat } = action.payload as MarkerInstanceType;
 
       const targetIdx = state.markers.findIndex((item) => item.id === id);
       const { text } = state.markers[targetIdx];
