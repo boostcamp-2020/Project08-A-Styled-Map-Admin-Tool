@@ -6,10 +6,24 @@
         "fill": { "color": "#405CB0", "saturation": 47, "lightness": 47 }
       },
       "labelText": {
-        "fill": { "color": "#405CB0", "saturation": 40, "lightness": 49 }
+        "fill": {
+          "visibility": "none",
+          "color": "#405CB0",
+          "saturation": 40,
+          "lightness": 49
+        }
       }
     },
-    "building": { "labelText": { "fill": { "visibility": "none" } } }
+    "building": {
+      "section": {
+        "stroke": {
+          "color": "#ffffff",
+          "weight": 2.5,
+          "saturation": 0,
+          "lightness": 100
+        }
+      }
+    }
   },
   "administrative": {
     "all": {
@@ -24,13 +38,23 @@
     "all": {
       "section": {
         "fill": { "color": "#405CB0", "saturation": 47, "lightness": 47 },
-        "stroke": { "color": "#fafafa", "weight": 0.5, "lightness": 98 }
+        "stroke": { "color": "#fafafa", "weight": 1.5, "lightness": 98 }
       },
       "labelText": {
-        "fill": { "color": "#f7f8fd", "saturation": 60, "lightness": 98 },
+        "fill": { "color": "#405cb0", "saturation": 47, "lightness": 47 },
         "stroke": { "visibility": "none", "color": "#fafafa", "lightness": 98 }
       },
       "labelIcon": { "visibility": "none" }
+    },
+    "local": {
+      "section": {
+        "stroke": {
+          "color": "#ffffff",
+          "weight": 3.5,
+          "saturation": 0,
+          "lightness": 100
+        }
+      }
     }
   },
   "transit": {
@@ -48,5 +72,13 @@
       }
     }
   },
-  "water": { "all": { "section": { "fill": { "color": "#405CB0" } } } }
+  "water": {
+    "all": {
+      "section": { "fill": { "color": "#405CB0" } },
+      "labelText": {
+        "fill": { "color": "#405cb0", "saturation": 47, "lightness": 47 },
+        "stroke": { "color": "#ffffff", "lightness": 100 }
+      }
+    }
+  }
 }
