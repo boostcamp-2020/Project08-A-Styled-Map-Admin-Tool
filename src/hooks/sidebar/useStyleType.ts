@@ -25,6 +25,7 @@ export interface UseStyleHookType {
   styleElement: StyleType;
   onStyleChange: (key: StyleKeyType, value: string | number) => void;
   element: ElementNameType | null;
+  subFeature: string | null;
 }
 
 const colorRelatedKeysArr: StyleKeyType[] = [
@@ -240,6 +241,7 @@ function useStyleType(): UseStyleHookType {
   return {
     styleElement,
     onStyleChange,
+    subFeature,
     element,
   };
 }
