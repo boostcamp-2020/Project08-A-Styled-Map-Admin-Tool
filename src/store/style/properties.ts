@@ -42,6 +42,7 @@ export const getDefaultStyle = ({
 
   return {
     ...JSON.parse(JSON.stringify(style)),
+    visibility: subFeature === 'all' ? 'visible' : 'inherit',
     color: hslToHEX(defaultState?.color as string),
     weight: defaultState?.weight || 0,
     saturation: Number(s),
