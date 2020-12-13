@@ -278,7 +278,7 @@ const defaultStyle: DefaultWholeStyle = {
     subway: {
       section: {
         fill: { color: 'transparent', weight: 0 },
-        stroke: { color: 'hsl(192, 70%, 43%)', weight: 0 },
+        stroke: { color: 'hsl(192, 70%, 43%)', weight: 2 },
       },
       labelText: {
         fill: { color: 'transparent', weight: 0 },
