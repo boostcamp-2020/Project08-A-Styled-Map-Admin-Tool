@@ -54,7 +54,18 @@ const SubTitle = styled.h2`
   color: ${(props) => props.theme.GREEN};
 `;
 
-const CopyButton = styled.button``;
+const CopyButton = styled.button`
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  font-size: 1.6rem;
+
+  color: ${(props) => props.theme.GREEN};
+
+  &:hover {
+    color: ${(props) => props.theme.BLACK};
+  }
+`;
 
 interface StoreDataType {
   [key: string]: FeatureNameType | undefined;
