@@ -2,7 +2,7 @@
 /* eslint-disable no-case-declarations */
 import mapboxgl from 'mapbox-gl';
 import { hexToHSL } from './colorFormat';
-import { WeightTemplateProperty } from './rendering-data/layers/weightTemplate';
+import { WeightTemplateProperty } from './map-styling/macgyver/weightTemplate';
 
 export enum ColorType {
   fill = 'fill-color',
@@ -84,7 +84,6 @@ export function applyWeight({
   weight = 1,
 }: ApplyProps): void {
   if (!type) return;
-
   const weightValue = weight === 0 ? 0 : weight;
   layerNames.forEach((layerName) => {
     map.setPaintProperty(layerName, type, weightValue);
