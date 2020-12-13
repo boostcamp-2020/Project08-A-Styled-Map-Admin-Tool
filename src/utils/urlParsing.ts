@@ -17,6 +17,12 @@ import {
 } from '../store/common/type';
 import { MarkerType } from '../store/marker/action';
 
+enum QueryParameterTypes {
+  location = 'location',
+  markers = 'markers',
+  style = 'style',
+}
+
 function jsonToURLGetStyleQueryString(
   json:
     | URLJsonType
@@ -45,7 +51,7 @@ function jsonToURLGetStyleLocationString(location: LocationType): string {
 
 function jsonToURLGetMarkersString(markers: MarkerType[]): string {
   const markersArrayToString = markers
-    .map(({ lng, lat, text }) => `${lng}:${lat}:${text}:`)
+    .map(({ lng, lat, text }) => `${lng}:${lat}:${text}`)
     .join('-');
   return markersArrayToString;
 }
@@ -59,24 +65,22 @@ export function jsonToURL({
   mapCoordinate,
   markers,
 }: ExportType): string {
-  const url = 'http://map-styler.kro.kr/show?=';
+  const url = 'http://map-styler.kro.kr/show?';
   const styleQueryString = isNotEmptyObject(filteredStyle)
     ? `style=${encodeURIComponent(
         jsonToURLGetStyleQueryString(filteredStyle as URLJsonType)
-      )}`
+      )}&`
     : '';
   const locationQueryString = `location=${encodeURIComponent(
     jsonToURLGetStyleLocationString(mapCoordinate as LocationType)
-  )}`;
+  )}&`;
   const markerQueryString = isNotEmptyObject(markers)
     ? `markers=${encodeURIComponent(
         jsonToURLGetMarkersString(markers as MarkerType[])
       )}`
     : ``;
-  const qsEnd = 'end';
-  return (
-    url + locationQueryString + styleQueryString + markerQueryString + qsEnd
-  );
+
+  return url + locationQueryString + styleQueryString + markerQueryString;
 }
 
 function urlToJsonGetStyleJson(queryString: string): URLJsonType | null {
@@ -136,11 +140,39 @@ function urlToJsonGetLocationJson(queryString: string): any {
   }
 }
 
+// "126.97480611135364:37.56420487114832::-126.9780986231574:37.565479731300016::"
+function urlToJsonGetMarkerJson(markers: string) {
+  const markerArray = markers
+    .split('-')
+    .map((marker) => marker.split(':'))
+    .map(([lng, lat, text]) => ({
+      lng: +lng,
+      lat: +lat,
+      text,
+    }));
+
+  return markerArray;
+}
+
+function parseQueryString(query: string) {
+  const params = query.slice(1).split('&');
+  const findParam = (key: QueryParameterTypes) =>
+    params.find((param) => param.startsWith(key))?.replace(`${key}=`, '');
+
+  const location = findParam(QueryParameterTypes.location) ?? '';
+  const markers = findParam(QueryParameterTypes.markers) ?? '';
+  const style = findParam(QueryParameterTypes.style) ?? '';
+
+  return { location, markers, style };
+}
+
 export function urlToJson(): URLJsonType {
   const queryString = decodeURIComponent(window.location.search);
+  const { location, markers, style } = parseQueryString(queryString);
   const state = {
     filteredStyle: urlToJsonGetStyleJson(queryString) as URLJsonSubFeatureType,
     mapCoordinate: urlToJsonGetLocationJson(queryString),
+    markers: urlToJsonGetMarkerJson(markers),
   };
 
   return state;

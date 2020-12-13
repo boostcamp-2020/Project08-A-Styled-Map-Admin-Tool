@@ -1,6 +1,6 @@
 import { InitActionType, INIT_MAP } from './action';
 import mapboxgl from 'mapbox-gl';
-import initializeMap from './initializeMap';
+import initializingMap from './initializeMap';
 
 export interface MapState {
   map: mapboxgl.Map | null;
@@ -16,7 +16,7 @@ function mapReducer(
 ): MapState {
   switch (action.type) {
     case INIT_MAP: {
-      const map = initializeMap({
+      const map = initializingMap({
         mapRef: action.payload.mapRef,
         initializeMap: action.payload.initializeMap,
       });

@@ -61,7 +61,6 @@ function useMarkerFeature(): MarkerHookType {
   const [markerPosition, setMarkerPos] = useState<MarkerPosType>({
     ...initMarkerStateXY,
   });
-
   const [markerLngLat, setMarkerLngLat] = useState<MarkerLngLatType>({
     ...initMarkerStateLngLat,
   });
@@ -77,8 +76,9 @@ function useMarkerFeature(): MarkerHookType {
     lngLat = markerLngLat,
     instance,
   }: RegisterMarkerType): void => {
-    if (!map || !marker) return;
+    if (!map) return;
     if (!lngLat.lng || !lngLat.lat) return;
+    const { lng, lat } = lngLat;
 
     // 초기화 된 마커, 생성된 Marker 객체 이벤트 핸들러 연결
     if (instance) {
@@ -102,7 +102,7 @@ function useMarkerFeature(): MarkerHookType {
       return;
     }
     const newMarker = new mapboxgl.Marker({ draggable: true })
-      .setLngLat([lngLat.lng, lngLat.lat])
+      .setLngLat([lng, lat])
       .setPopup(new mapboxgl.Popup().setHTML(`<p>${text}</p>`))
       .addTo(map);
 
@@ -129,8 +129,8 @@ function useMarkerFeature(): MarkerHookType {
       addMarker({
         id,
         text,
-        lng: lngLat.lng,
-        lat: lngLat.lat,
+        lng,
+        lat,
         instance: newMarker,
       })
     );

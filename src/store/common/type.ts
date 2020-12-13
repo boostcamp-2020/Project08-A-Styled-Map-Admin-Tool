@@ -7,6 +7,7 @@ import {
 } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 import { INIT_HISTORY, ADD_LOG, SET_CURRENT_INDEX } from '../history/action';
+import { MarkerType } from '../marker/action';
 
 export enum ElementNameType {
   section = 'section',
@@ -318,4 +319,5 @@ export type URLJsonFeatureType = {
 export type URLJsonType = {
   filteredStyle?: URLJsonFeatureType;
   mapCoordinate?: LocationType;
+  markers?: MarkerType[];
 };

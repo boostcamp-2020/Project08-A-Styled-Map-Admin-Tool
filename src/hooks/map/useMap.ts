@@ -56,6 +56,11 @@ function useMap(): MapHookType {
         map.setCenter({ lng, lat });
         map.setZoom(zoom);
       }
+
+      states.markers?.forEach(({ lng, lat, text }) =>
+        registerMarker({ lngLat: { lng, lat }, text })
+      );
+
       return;
     }
     dispatch(initHistory());

@@ -17,7 +17,7 @@ interface InitializeMapProps {
   initializeMap: (map: mapboxgl.Map) => void;
 }
 
-function initializeMap({
+function initializingMap({
   mapRef,
   initializeMap,
 }: InitializeMapProps): mapboxgl.Map {
@@ -45,4 +45,4 @@ function initializeMap({
   return map;
 }
 
-export default initializeMap;
+export default initializingMap;
