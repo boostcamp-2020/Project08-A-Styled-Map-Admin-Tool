@@ -92,6 +92,7 @@ function setElementStyle({
   if (!style.isChanged && !isInit) return;
   const keys = Object.keys(style) as StyleKeyType[];
   keys.forEach((key) => {
+    if (key === 'lightness' || key === 'saturation') return;
     mapStyling[feature]({
       map,
       subFeature,
