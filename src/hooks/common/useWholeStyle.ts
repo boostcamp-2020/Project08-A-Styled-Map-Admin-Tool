@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from 'react';
 import setFeatureStyle from '../../utils/setFeatureStyle';
 
-type LogInfoType = { changedKey: ReplaceType; changedValue?: string | number };
+type LogInfoType = { changedKey: ReplaceType; changedValue?: string };
 type FlagType = LogInfoType | boolean;
 interface WholeStyleHook {
   flag: LogInfoType | boolean;
@@ -79,12 +79,9 @@ function useWholeStyle(): WholeStyleHook {
     setFlag(logInfo || true);
   };
 
-  const replaceStyle = (
-    inputStyle: StyleStoreType,
-    logInfo?: LogInfoType
-  ): void => {
+  const replaceStyle = (inputStyle: StyleStoreType): void => {
     dispatch(replaceWholeStyle(inputStyle));
-    setFlag(logInfo || true);
+    setFlag(true);
   };
 
   return {
