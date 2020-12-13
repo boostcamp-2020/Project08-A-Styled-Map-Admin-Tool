@@ -135,7 +135,9 @@ function useStyleType(): UseStyleHookType {
           ...styleElement,
           [key]: value,
         },
-        wholeStyle: removeNullFromObject(JSON.parse(JSON.stringify(features))),
+        wholeStyle: removeNullFromObject(
+          JSON.parse(JSON.stringify(features))
+        ) as StyleStoreType,
       });
 
       setChangedObj({});

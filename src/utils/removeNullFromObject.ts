@@ -1,6 +1,6 @@
 import { objType } from '../store/common/type';
 
-function removeNullFromObject(object: objType): any {
+function removeNullFromObject(object: objType): objType | undefined {
   if (typeof object !== 'object') return;
 
   Object.keys(object).forEach((key) => {
