@@ -28,6 +28,10 @@ function setFeatureStyle({
     if (featureState[x].isChanged || !featureState[y].isChanged) return 1;
     return -1;
   });
+  const isInit =
+    subFeatures.findIndex(
+      (subFeature) => featureState[subFeature].isChanged
+    ) === -1;
 
   for (const subFeature of sortedFeatures) {
     const elements = Object.keys(featureState[subFeature]) as ElementNameType[];
@@ -42,6 +46,7 @@ function setFeatureStyle({
               subFeature,
               element,
               style: elementStyle as StyleType,
+              isInit,
             });
             break;
           case ElementNameType.labelText:
@@ -58,6 +63,7 @@ function setFeatureStyle({
                 style: (elementStyle as SubElementType)[
                   subElement
                 ] as StyleType,
+                isInit,
               });
             });
             break;
@@ -71,6 +77,7 @@ function setFeatureStyle({
 
 interface setElementStyleProps extends ActionPayload {
   map: mapboxgl.Map;
+  isInit: boolean;
 }
 
 function setElementStyle({
@@ -80,7 +87,9 @@ function setElementStyle({
   element,
   subElement,
   style,
+  isInit,
 }: setElementStyleProps): void {
+  if (!style.isChanged && !isInit) return;
   const keys = Object.keys(style) as StyleKeyType[];
   keys.forEach((key) => {
     mapStyling[feature]({
