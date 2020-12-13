@@ -260,10 +260,16 @@ export type PropertyType = {
 };
 
 /** export type */
+export enum LocationTypeName {
+  zoom = 'zoom',
+  lng = 'lng',
+  lat = 'lat',
+}
+
 export interface LocationType {
-  zoom?: number;
-  lng?: number;
-  lat?: number;
+  [LocationTypeName.zoom]?: number;
+  [LocationTypeName.lng]?: number;
+  [LocationTypeName.lat]?: number;
 }
 
 /** defatult style Type */
@@ -317,7 +323,7 @@ export type URLJsonFeatureType = {
 };
 
 export type URLJsonType = {
-  filteredStyle?: URLJsonFeatureType;
-  mapCoordinate?: LocationType;
-  markers?: MarkerType[];
+  filteredStyle?: URLJsonFeatureType | null;
+  mapCoordinate?: LocationType | null;
+  markers?: MarkerType[] | null;
 };

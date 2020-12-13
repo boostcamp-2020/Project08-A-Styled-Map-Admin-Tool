@@ -14,6 +14,8 @@ import {
   StyleKeyType,
   /** export */
   LocationType,
+  LocationTypeName,
+  URLJsonFeatureType,
 } from '../store/common/type';
 import { MarkerType } from '../store/marker/action';
 
@@ -83,66 +85,64 @@ export function jsonToURL({
   return url + locationQueryString + styleQueryString + markerQueryString;
 }
 
-function urlToJsonGetStyleJson(queryString: string): URLJsonType | null {
-  try {
-    const values = queryString?.split('style=')[1]?.split(':');
-    const state: any = {};
-    const properties = {
-      feature: '',
-      subFeature: '',
-      element: '',
-      subElement: '',
-    };
+function urlToJsonGetStyleJson(styleParams: string): URLJsonFeatureType | null {
+  if (!styleParams) return null;
 
-    values?.forEach((value, index) => {
-      const { feature, subFeature, element, subElement } = properties;
-      if (value in FeatureNameType) {
-        state[value] = {};
-        properties.feature = value;
-      } else if (value in SubFeatureNameType) {
-        state[feature][value] = {};
-        properties.subFeature = value;
-      } else if (value in ElementNameType) {
-        state[feature][subFeature][value] = {};
-        properties.element = value;
-      } else if (value in SubElementNameType) {
-        state[feature][subFeature][element][value] = {};
-        properties.subElement = value;
-      } else if (value in StyleKeyType) {
-        if (element === ElementNameType.labelIcon) {
-          state[feature][subFeature][element][value] = values[index + 1];
-          return;
-        }
-        state[feature][subFeature][element][subElement][value] =
-          values[index + 1];
+  const values = styleParams?.split(':');
+  const state: any = {};
+  const properties = {
+    feature: '',
+    subFeature: '',
+    element: '',
+    subElement: '',
+  };
+
+  values?.forEach((value, index) => {
+    const { feature, subFeature, element, subElement } = properties;
+    if (value in FeatureNameType) {
+      state[value] = {};
+      properties.feature = value;
+    } else if (value in SubFeatureNameType) {
+      state[feature][value] = {};
+      properties.subFeature = value;
+    } else if (value in ElementNameType) {
+      state[feature][subFeature][value] = {};
+      properties.element = value;
+    } else if (value in SubElementNameType) {
+      state[feature][subFeature][element][value] = {};
+      properties.subElement = value;
+    } else if (value in StyleKeyType) {
+      if (element === ElementNameType.labelIcon) {
+        state[feature][subFeature][element][value] = values[index + 1];
+        return;
       }
-    });
-    return state;
-  } catch (error) {
-    return null;
-  }
-}
-
-function urlToJsonGetLocationJson(queryString: string): any {
-  try {
-    const values = queryString
-      ?.split('location=')[1]
-      .split('style=')[0]
-      ?.split(':');
-
-    const state: any = {};
-    for (let i = 0; i < values.length; i += 2) {
-      state[values[i]] = Number(values[i + 1]);
+      state[feature][subFeature][element][subElement][value] =
+        values[index + 1];
     }
-    return state;
-  } catch (error) {
-    return null;
-  }
+  });
+  return state as URLJsonFeatureType;
 }
 
-// "126.97480611135364:37.56420487114832::-126.9780986231574:37.565479731300016::"
-function urlToJsonGetMarkerJson(markers: string) {
-  const markerArray = markers
+function urlToJsonGetLocationJson(locationParams: string): LocationType | null {
+  if (!locationParams) return null;
+
+  const locationKeyReg = /(zoom|lng|lat):[\d.]+/g;
+  const values = locationParams
+    .match(locationKeyReg)
+    ?.map((location) => location.split(':'));
+
+  const state: LocationType = {};
+  values?.forEach(([key, value]) => {
+    state[key as LocationTypeName] = +value;
+  });
+
+  return state;
+}
+
+function urlToJsonGetMarkerJson(markersParams: string): MarkerType[] | null {
+  if (!markersParams) return null;
+
+  const markerArray = markersParams
     .split('-')
     .map((marker) => marker.split(':'))
     .map(([lng, lat, text]) => ({
@@ -169,11 +169,11 @@ function parseQueryString(query: string) {
 export function urlToJson(): URLJsonType {
   const queryString = decodeURIComponent(window.location.search);
   const { location, markers, style } = parseQueryString(queryString);
-  const state = {
-    filteredStyle: urlToJsonGetStyleJson(queryString) as URLJsonSubFeatureType,
-    mapCoordinate: urlToJsonGetLocationJson(queryString),
+  const statesFromUrl = {
+    filteredStyle: urlToJsonGetStyleJson(style) as URLJsonSubFeatureType,
+    mapCoordinate: urlToJsonGetLocationJson(location),
     markers: urlToJsonGetMarkerJson(markers),
   };
 
-  return state;
+  return statesFromUrl;
 }
