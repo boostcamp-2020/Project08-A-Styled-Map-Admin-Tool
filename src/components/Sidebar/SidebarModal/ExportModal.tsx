@@ -24,7 +24,7 @@ const ModalBody = styled.div`
 const Content = styled.article`
   font-size: 1.3rem;
   overflow-y: scroll;
-  height: 70%;
+  height: 55%;
   word-break: break-all;
   white-space: normal;
   color: ${(props) => props.theme.GREY};
