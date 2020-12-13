@@ -1,6 +1,6 @@
 import { stylingProps } from '.';
 import { ElementNameType, StyleKeyType } from '../../store/common/type';
-import { WeightType } from '../applyStyle';
+import { VisibilityType, WeightType } from '../applyStyle';
 import seperatedLayers from './macgyver/seperatedLayers';
 import { getIdsFromLayersArr, INVISIBLE, VISIBLE } from './macgyver/utils';
 import { waterMappingToFunc } from './macgyver/mappingDetailToFunc';
@@ -20,7 +20,7 @@ function waterStyling({
   if (!type || !func) return;
 
   /** get LayerNames */
-  let layerNames = null;
+  let layerNames: string[] = [];
   if (element === ElementNameType.labelText) {
     layerNames = getIdsFromLayersArr(seperatedLayers.water.all.labelText);
   } else {
@@ -30,12 +30,12 @@ function waterStyling({
   }
 
   /** styling */
-  if (key === 'visibility' && type === WeightType.textHalo) {
+  if (key === StyleKeyType.visibility && type === WeightType.textHalo) {
     func({
       map,
       layerNames,
       type,
-      weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
+      weight: style.visibility === VisibilityType.none ? INVISIBLE : VISIBLE,
     });
     return;
   }

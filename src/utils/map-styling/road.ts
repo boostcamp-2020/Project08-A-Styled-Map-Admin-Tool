@@ -1,6 +1,10 @@
 import { stylingProps } from '.';
 import { ColorType } from '../applyStyle';
-import { StyleKeyType, ElementNameType } from '../../store/common/type';
+import {
+  StyleKeyType,
+  ElementNameType,
+  SubElementNameType,
+} from '../../store/common/type';
 import seperatedLayers from './macgyver/seperatedLayers';
 import {
   getIdsFromLayersArr,
@@ -45,23 +49,23 @@ function roadStyling({
   } else {
     layerNames = getIdsFromLayersArrWithoutType(
       seperatedLayers.road[subFeature][element][subElement],
-      'fill'
+      SubElementNameType.fill
     );
     outsideLayerNames = getIdsFromLayersArrWithType(
       seperatedLayers.road[subFeature][element][subElement],
-      'fill'
+      SubElementNameType.fill
     );
   }
 
   /** set weight with weightTemplate */
   let zoomWeight = null;
-  if (key === 'weight') {
+  if (key === StyleKeyType.weight) {
     zoomWeight = weightTemplate[subFeature][subElement](style.weight);
   }
 
   /** styling */
   // fill일 때만 조건문 추가
-  if (outsideLayerNames.length && key !== 'weight') {
+  if (outsideLayerNames.length && key !== StyleKeyType.weight) {
     func({
       map,
       layerNames: outsideLayerNames,

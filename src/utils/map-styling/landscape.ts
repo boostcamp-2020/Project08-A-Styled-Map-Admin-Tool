@@ -1,5 +1,5 @@
 import { stylingProps } from './index';
-import { WeightType, ColorType } from '../applyStyle';
+import { WeightType, ColorType, VisibilityType } from '../applyStyle';
 import { StyleKeyType, ElementNameType } from '../../store/common/type';
 import seperatedLayers from './macgyver/seperatedLayers';
 import {
@@ -10,6 +10,8 @@ import {
   VISIBLE,
 } from './macgyver/utils';
 import { landscapeMappingToFunc } from './macgyver/mappingDetailToFunc';
+
+const BACKGROUND_TYPE = 'background';
 
 function landscapeStyling({
   map,
@@ -36,21 +38,21 @@ function landscapeStyling({
   } else {
     layerNames = getIdsFromLayersArrWithoutType(
       seperatedLayers.landscape[subFeature][element][subElement],
-      'background'
+      BACKGROUND_TYPE
     );
     outsideLayerNames = getIdsFromLayersArrWithType(
       seperatedLayers.landscape[subFeature][element][subElement],
-      'background'
+      BACKGROUND_TYPE
     );
   }
 
   /** styling */
-  if (key === 'visibility' && type === WeightType.textHalo) {
+  if (key === StyleKeyType.visibility && type === WeightType.textHalo) {
     func({
       map,
       layerNames,
       type,
-      weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
+      weight: style.visibility === VisibilityType.none ? INVISIBLE : VISIBLE,
     });
     return;
   }

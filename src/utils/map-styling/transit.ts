@@ -2,7 +2,7 @@
 /* eslint-disable no-case-declarations */
 import { stylingProps } from '.';
 import { StyleKeyType, ElementNameType } from '../../store/common/type';
-import { WeightType } from '../../utils/applyStyle';
+import { VisibilityType, WeightType } from '../../utils/applyStyle';
 import seperatedLayers from './macgyver/seperatedLayers';
 import { getIdsFromLayersArr, INVISIBLE, VISIBLE } from './macgyver/utils';
 import { transitMappingToFunc } from './macgyver/mappingDetailToFunc';
@@ -36,12 +36,12 @@ function transitStyling({
   }
 
   /** styling */
-  if (key === 'visibility' && type === WeightType.textHalo) {
+  if (key === StyleKeyType.visibility && type === WeightType.textHalo) {
     func({
       map,
       layerNames,
       type,
-      weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
+      weight: style.visibility === VisibilityType.none ? INVISIBLE : VISIBLE,
     });
     return;
   }

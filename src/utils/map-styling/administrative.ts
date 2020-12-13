@@ -1,6 +1,6 @@
 import { stylingProps } from '.';
 import { ElementNameType, StyleKeyType } from '../../store/common/type';
-import { WeightType } from '../applyStyle';
+import { VisibilityType, WeightType } from '../applyStyle';
 import seperatedLayers from './macgyver/seperatedLayers';
 import { getIdsFromLayersArr, INVISIBLE, VISIBLE } from './macgyver/utils';
 import { administrativeMappingToFunc } from './macgyver/mappingDetailToFunc';
@@ -34,12 +34,12 @@ function administrativeStyling({
   }
 
   /** styling */
-  if (key === 'visibility' && type === WeightType.textHalo) {
+  if (key === StyleKeyType.visibility && type === WeightType.textHalo) {
     func({
       map,
       layerNames,
       type,
-      weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
+      weight: style.visibility === VisibilityType.none ? INVISIBLE : VISIBLE,
     });
     return;
   }

@@ -1,6 +1,11 @@
 /* eslint-disable consistent-return */
 import { stylingProps } from './index';
-import { WeightType, ColorType, StyleTypes } from '../applyStyle';
+import {
+  WeightType,
+  ColorType,
+  StyleTypes,
+  VisibilityType,
+} from '../applyStyle';
 import {
   StyleKeyType,
   ElementNameType,
@@ -40,14 +45,14 @@ function poiStyling({
 
   /** styling */
   if (
-    key === 'visibility' &&
+    key === StyleKeyType.visibility &&
     (type === ColorType.icon || type === WeightType.textHalo)
   ) {
     func({
       map,
       layerNames,
       type,
-      weight: style.visibility === 'none' ? INVISIBLE : VISIBLE,
+      weight: style.visibility === VisibilityType.none ? INVISIBLE : VISIBLE,
     });
     return;
   }
