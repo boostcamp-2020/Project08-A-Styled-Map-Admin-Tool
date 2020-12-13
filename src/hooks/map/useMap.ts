@@ -45,21 +45,17 @@ function useMap(): MapHookType {
 
   const initializeMap = (map: mapboxgl.Map): void => {
     if (search && pathname === '/show') {
-      const states = urlToJson();
+      const { filteredStyle, mapCoordinate } = urlToJson();
 
       // 이부분에 문제가 있는 것 같습니다. 없애면 에러 안나고 잘 되는데 있으면 안되요
       // if (validateStyle(states.filteredStyle as WholeStyleActionPayload)) {
-      changeStyle(states.filteredStyle as WholeStyleActionPayload);
+      changeStyle(filteredStyle as WholeStyleActionPayload);
       // }
-      const { zoom, lng, lat } = states.mapCoordinate as LocationType;
+      const { zoom, lng, lat } = mapCoordinate as LocationType;
       if (zoom && lng && lat) {
         map.setCenter({ lng, lat });
         map.setZoom(zoom);
       }
-
-      states.markers?.forEach(({ lng, lat, text }) =>
-        registerMarker({ lngLat: { lng, lat }, text })
-      );
 
       return;
     }

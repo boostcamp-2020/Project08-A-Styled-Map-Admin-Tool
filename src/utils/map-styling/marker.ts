@@ -7,7 +7,7 @@ function markerStyling({
   subElement,
   style,
 }: stylingProps): void {
-  console.log(1);
+  // console.log(1);
 }
 
 export default markerStyling;

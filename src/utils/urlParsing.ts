@@ -85,8 +85,8 @@ export function jsonToURL({
   return url + locationQueryString + styleQueryString + markerQueryString;
 }
 
-function urlToJsonGetStyleJson(styleParams: string): URLJsonFeatureType | null {
-  if (!styleParams) return null;
+function urlToJsonGetStyleJson(styleParams: string): URLJsonFeatureType {
+  if (!styleParams) return {};
 
   const values = styleParams?.split(':');
   const state: any = {};

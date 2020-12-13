@@ -50,25 +50,6 @@ const CompareMapWrapper = styled.div`
   canvas {
     outline: none;
   }
-
-  /* 
-  &,
-  .compare-swiper,
-  .compare-swiper-vertical {
-    animation: show-from-left 0.4s ease-in-out;
-  }
-
-  @keyframes show-from-left {
-    0% {
-      transform: translateX(-500px);
-      opacity: 0;
-    }
-
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  } */
 `;
 
 interface MapProps {

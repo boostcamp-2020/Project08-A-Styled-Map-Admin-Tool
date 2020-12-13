@@ -8,10 +8,10 @@ import {
   addMarker,
   updateMarker,
   removeMarker,
-  ADD_MARKER,
 } from '../../store/marker/action';
+import { urlToJson } from '../../utils/urlParsing';
 
-const PRINT_MARKER_AFTER_INIT = 'printMarkerAfterInit';
+// const PRINT_MARKER_AFTER_INIT = 'printMarkerAfterInit';
 const LIMIT_MARKER_NUMBER = 30;
 interface ReduxStateType {
   map: mapboxgl.Map;
@@ -143,6 +143,14 @@ function useMarkerFeature(): MarkerHookType {
       setMarkerPos({ ...e.point });
       setMarkerLngLat({ ...e.lngLat });
     });
+
+    const { search, pathname } = window.location;
+    if (search && pathname === '/show') {
+      const { markers } = urlToJson();
+      markers?.forEach(({ lng, lat, text }) =>
+        registerMarker({ lngLat: { lng, lat }, text })
+      );
+    }
   }, [map]);
 
   return {

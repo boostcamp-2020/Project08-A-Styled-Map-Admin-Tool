@@ -323,7 +323,7 @@ export type URLJsonFeatureType = {
 };
 
 export type URLJsonType = {
-  filteredStyle?: URLJsonFeatureType | null;
+  filteredStyle?: URLJsonFeatureType;
   mapCoordinate?: LocationType | null;
   markers?: MarkerType[] | null;
 };
