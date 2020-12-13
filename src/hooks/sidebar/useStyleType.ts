@@ -8,8 +8,7 @@ import {
   StyleKeyType,
   ElementNameType,
   SubElementNameType,
-  SidebarState,
-  HistoryState,
+  ReduxStateType,
   StyleStoreType,
 } from '../../store/common/type';
 import { setStyle, initColors } from '../../store/style/action';
@@ -85,13 +84,6 @@ const getNewColorStyle = (
 interface changedObjType {
   key?: StyleKeyType;
   value?: string | number;
-}
-
-interface ReduxStateType {
-  map: mapboxgl.Map;
-  sidebar: SidebarState;
-  history: HistoryState;
-  features: StyleStoreType;
 }
 
 function useStyleType(): UseStyleHookType {

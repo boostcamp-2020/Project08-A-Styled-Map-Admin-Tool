@@ -1,3 +1,4 @@
+import mapboxgl from 'mapbox-gl';
 import {
   init,
   replaceWholeStyle,
@@ -326,3 +327,11 @@ export type URLJsonType = {
   filteredStyle?: URLJsonFeatureType;
   mapCoordinate?: LocationType;
 };
+
+/** ReduxStateType */
+export interface ReduxStateType {
+  map: mapboxgl.Map;
+  sidebar: SidebarState;
+  history: HistoryState;
+  features: StyleStoreType;
+}
