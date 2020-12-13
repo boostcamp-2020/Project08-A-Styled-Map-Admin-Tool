@@ -35,14 +35,14 @@ function jsonToURLGetStyleQueryString(
 function jsonToURLGetStyleLocationString(location: LocationType): string {
   return Object.entries(location).reduce(
     (queryString: string, [key, value]) => {
-      return `${queryString}${key}:${value}:`;
+      return `${queryString}${key}:${value ?? ''}:`;
     },
     ''
   );
 }
 
 export function jsonToURL(json: URLJsonType): string {
-  const url = 'http://localhost:3000/show?=';
+  const url = 'http://map-styler.kro.kr/show?=';
   const styleQueryString = `style=${encodeURIComponent(
     jsonToURLGetStyleQueryString(json?.filteredStyle as URLJsonType)
   )}end`;

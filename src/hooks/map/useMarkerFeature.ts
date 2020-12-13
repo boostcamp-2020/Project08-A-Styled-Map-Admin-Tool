@@ -41,6 +41,16 @@ export interface MarkerHookType {
   registerMarker: ({ text, lngLat }: RegisterMarkerType) => void;
 }
 
+const initMarkerStateXY = {
+  x: null,
+  y: null,
+};
+
+const initMarkerStateLngLat = {
+  lng: null,
+  lat: null,
+};
+
 function useMarkerFeature(): MarkerHookType {
   const dispatch = useDispatch();
   const { map, marker } = useSelector<RootState>((state) => ({
@@ -49,24 +59,16 @@ function useMarkerFeature(): MarkerHookType {
   })) as ReduxStateType;
 
   const [markerPosition, setMarkerPos] = useState<MarkerPosType>({
-    x: null,
-    y: null,
+    ...initMarkerStateXY,
   });
 
   const [markerLngLat, setMarkerLngLat] = useState<MarkerLngLatType>({
-    lng: null,
-    lat: null,
+    ...initMarkerStateLngLat,
   });
 
   const resetMarkerPos = () => {
-    setMarkerPos({
-      x: null,
-      y: null,
-    });
-    setMarkerLngLat({
-      lng: null,
-      lat: null,
-    });
+    setMarkerPos({ ...initMarkerStateXY });
+    setMarkerLngLat({ ...initMarkerStateLngLat });
   };
 
   const registerMarker = ({
@@ -82,13 +84,7 @@ function useMarkerFeature(): MarkerHookType {
     if (instance) {
       instance.on('dragend', () => {
         const lnglat = instance.getLngLat();
-        dispatch(
-          updateMarker({
-            id,
-            lng: lnglat.lng,
-            lat: lnglat.lat,
-          })
-        );
+        dispatch(updateMarker({ id, lng: lnglat.lng, lat: lnglat.lat }));
       });
 
       instance.getElement().addEventListener('contextmenu', (e) => {
@@ -101,7 +97,7 @@ function useMarkerFeature(): MarkerHookType {
       return;
     }
 
-   if (marker.markers.length >= LIMIT_MARKER_NUMBER) {
+    if (marker.markers.length >= LIMIT_MARKER_NUMBER) {
       alert(`최대 ${LIMIT_MARKER_NUMBER}개의 marker만 등록할 수 있습니다.`);
       return;
     }

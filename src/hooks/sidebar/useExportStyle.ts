@@ -10,14 +10,19 @@ import {
   LocationType,
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
+import { MarkerInstanceType, MarkerType } from '../../store/marker/action';
 
-interface StoreDataType {
-  [key: string]: FeatureNameType | mapboxgl.Map | undefined;
+export interface StoreDataType {
+  [key: string]: FeatureNameType | undefined;
 }
 
-interface ExportType {
+export interface ExportStyleMarkersType {
+  filteredStyle?: StoreDataType;
+  markers?: MarkerType[];
+}
+
+export interface ExportType extends ExportStyleMarkersType {
   mapCoordinate: LocationType;
-  filteredStyle: StoreDataType;
 }
 
 interface UseExportStyleType {
@@ -165,30 +170,47 @@ function filterStyle(style: StoreDataType): StoreDataType {
   return ret;
 }
 
+function getMapCoordinate(map: mapboxgl.Map) {
+  return {
+    zoom: map.getZoom(),
+    lng: map.getCenter().lng,
+    lat: map.getCenter().lat,
+  };
+}
+
+function getExportMarkersArray(markers: MarkerInstanceType[]): MarkerType[] {
+  const exportMarkersArray = markers.map(({ lng, lat, text }) => ({
+    lng,
+    lat,
+    text,
+  }));
+
+  return exportMarkersArray;
+}
+
 function useExportStyle(): UseExportStyleType {
-  const { map, sidebar, history, ...style } = useSelector<RootState>(
-    (state) => state
-  ) as any;
+  const { map, sidebar, history, depthTheme, marker, ...style } = useSelector<
+    RootState
+  >((state) => state) as any;
 
   const exportStyle = (): ExportType => {
     if (map || sidebar || history) {
+      const markers = getExportMarkersArray(marker.markers);
       const filteredStyle = filterStyle(style);
 
-      const mapCoordinate = {
-        zoom: map.map.getZoom(),
-        lng: map.map.getCenter().lng,
-        lat: map.map.getCenter().lat,
-      };
+      const mapCoordinate = getMapCoordinate(map.map);
 
       return {
         filteredStyle,
         mapCoordinate,
+        markers,
       };
     }
 
     return {
       filteredStyle: {},
       mapCoordinate: {},
+      markers: [],
     };
   };
 

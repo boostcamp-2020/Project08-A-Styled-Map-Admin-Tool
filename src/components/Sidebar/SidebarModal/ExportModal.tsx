@@ -8,8 +8,8 @@ import {
 } from './common';
 import CloseIcon from '../../Icon/CloseIcon';
 import Overlay from '../../common/Overlay';
-import { FeatureNameType } from '../../../store/common/type';
 import { jsonToURL } from '../../../utils/urlParsing';
+import { ExportStyleMarkersType } from '../../../hooks/sidebar/useExportStyle';
 
 const ExportModalWrapper = styled(ModalWrapper)``;
 
@@ -53,9 +53,15 @@ const SubTitle = styled.h2`
   color: ${(props) => props.theme.GREEN};
 `;
 
-interface StoreDataType {
-  [key: string]: FeatureNameType | undefined;
-}
+const getStringifyJSON = ({
+  filteredStyle,
+  markers,
+}: ExportStyleMarkersType) => {
+  const data =
+    markers === [] ? { ...filteredStyle, markers } : { ...filteredStyle };
+  const stringifyStyleMarkers = JSON.stringify(data, null, 2);
+  return stringifyStyleMarkers;
+};
 
 function ExportModal({
   isOpen,
@@ -64,7 +70,7 @@ function ExportModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  style: StoreDataType;
+  style: ExportStyleMarkersType;
 }): React.ReactElement {
   if (!isOpen) return <></>;
   return (
@@ -80,7 +86,7 @@ function ExportModal({
         <ModalBody>
           <ExportToJson>
             <SubTitle>JSON 형식으로 내보내기</SubTitle>
-            <Content>{JSON.stringify(style.filteredStyle, null, 2)}</Content>
+            <Content>{getStringifyJSON(style)}</Content>
           </ExportToJson>
           <ExportToURL>
             <SubTitle>URL로 내보내기</SubTitle>
