@@ -1,6 +1,7 @@
 import {
   init,
   replaceWholeStyle,
+  replaceFeatureStyle,
   setStyle,
   setWholeStyle,
   initColors,
@@ -155,6 +156,7 @@ export type ActionType =
   | ReturnType<typeof init>
   | ReturnType<typeof setStyle>
   | ReturnType<typeof setWholeStyle>
+  | ReturnType<typeof replaceFeatureStyle>
   | ReturnType<typeof replaceWholeStyle>
   | ReturnType<typeof initColors>;
 

@@ -12,7 +12,7 @@ import {
 } from '../../store/common/type';
 import { setShowDepthProperties } from '../../store/depth-theme/action';
 import useWholeStyle from '../common/useWholeStyle';
-import { setWholeStyle } from '../../store/style/action';
+import { replaceFeatureStyle } from '../../store/style/action';
 import setFeatureStyle from '../../utils/setFeatureStyle';
 import { addLog } from '../../store/history/action';
 
@@ -142,7 +142,7 @@ function useSidebarDepthItem(
       currentStyleState
     );
 
-    dispatch(setWholeStyle(changeStyleState));
+    dispatch(replaceFeatureStyle(changeStyleState));
 
     dispatch(
       setShowDepthProperties({

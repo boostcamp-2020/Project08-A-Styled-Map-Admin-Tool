@@ -10,6 +10,7 @@ import {
 export const INIT = 'INIT' as const;
 export const SET = 'SET' as const;
 export const SET_WHOLE = 'SET_WHOLE' as const;
+export const REPLACE_FEATURE = 'REPLACE_FEATURE' as const;
 export const REPLACE_WHOLE = 'REPLACE_WHOLE' as const;
 export const INIT_COLORS = 'INIT_COLORS' as const;
 
@@ -20,6 +21,11 @@ export interface SetType {
 
 export interface SetWholeType {
   type: typeof SET_WHOLE;
+  payload: WholeStyleActionPayload;
+}
+
+export interface ReplaceFeatureType {
+  type: typeof REPLACE_FEATURE;
   payload: WholeStyleActionPayload;
 }
 
@@ -56,6 +62,13 @@ export const setWholeStyle = (
   wholeStyle: WholeStyleActionPayload
 ): SetWholeType => ({
   type: SET_WHOLE,
+  payload: wholeStyle,
+});
+
+export const replaceFeatureStyle = (
+  wholeStyle: WholeStyleActionPayload
+): ReplaceFeatureType => ({
+  type: REPLACE_FEATURE,
   payload: wholeStyle,
 });
 
