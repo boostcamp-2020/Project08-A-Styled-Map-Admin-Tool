@@ -49,6 +49,4 @@ initLayers.layers.forEach((layer) => {
   }
 });
 
-console.log(seperatedLayers);
-
 export default seperatedLayers;

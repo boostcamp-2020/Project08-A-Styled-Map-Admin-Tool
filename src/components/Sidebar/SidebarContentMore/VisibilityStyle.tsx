@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import { StyleKeyType } from '../../../store/common/type';
+import { StyleKeyType, VisibilityValueType } from '../../../store/common/type';
 
 interface CheckedProp {
   checked: boolean;
@@ -66,7 +66,8 @@ function VisibilityStyle({
     <VisibilityWrapper>
       <VisibilityTitle>가시성</VisibilityTitle>
       {list.map((item) => {
-        if (subFeature === 'all' && item.value === 'inherit') return <></>;
+        if (subFeature === 'all' && item.value === VisibilityValueType.inherit)
+          return null;
         return (
           <VisibilityItem
             key={item.value}
