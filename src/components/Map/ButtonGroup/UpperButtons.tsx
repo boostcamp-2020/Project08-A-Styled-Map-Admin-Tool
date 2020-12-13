@@ -32,6 +32,9 @@ const SearchInput = styled.div`
     outline: none;
     box-shadow: 0 0 5px 1px ${(props) => props.theme.LIGHTGREY};
   }
+  * {
+    z-index: 20;
+  }
 `;
 
 const ButtonsWrapper = styled.div`
