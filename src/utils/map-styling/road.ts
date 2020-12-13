@@ -70,7 +70,7 @@ function roadStyling({
       map,
       layerNames: outsideLayerNames,
       type: ColorType.fill,
-      color: '#ffffff',
+      color: style.color,
       [key]: style[key as StyleKeyType],
     });
   }
