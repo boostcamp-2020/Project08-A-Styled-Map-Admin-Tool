@@ -8,10 +8,8 @@ import {
   addMarker,
   updateMarker,
   removeMarker,
-  ADD_MARKER,
 } from '../../store/marker/action';
 
-const PRINT_MARKER_AFTER_INIT = 'printMarkerAfterInit';
 const LIMIT_MARKER_NUMBER = 30;
 interface ReduxStateType {
   map: mapboxgl.Map;
