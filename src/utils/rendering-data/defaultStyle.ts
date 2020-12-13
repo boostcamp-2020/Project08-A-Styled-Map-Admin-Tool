@@ -162,6 +162,10 @@ const defaultStyle: DefaultWholeStyle = {
       },
     },
     locality: {
+      section: {
+        fill: { color: 'transparent', weight: 0 },
+        stroke: { color: 'transparent', weight: 0 },
+      },
       labelText: {
         fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
         stroke: { color: 'hsl(0, 0%, 100%)', weight: 0.5 },
