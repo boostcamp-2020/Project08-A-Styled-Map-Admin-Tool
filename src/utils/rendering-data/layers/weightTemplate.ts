@@ -5,6 +5,28 @@ interface WeightTemplate {
 }
 
 const weightTemplate: WeightTemplate = {
+  all: {
+    fill: (weight: number) => [
+      'interpolate',
+      ['exponential', 1.5],
+      ['zoom'],
+      12,
+      weight,
+      14,
+      weight * 2 + 2,
+      18,
+      weight * 10 + 5,
+    ],
+    stroke: (weight: number) => [
+      'interpolate',
+      ['exponential', 1.5],
+      ['zoom'],
+      12,
+      weight,
+      20,
+      weight * 1.5 + 1,
+    ],
+  },
   highway: {
     fill: (weight: number) => [
       'interpolate',

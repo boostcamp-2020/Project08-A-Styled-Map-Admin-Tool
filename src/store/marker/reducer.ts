@@ -26,7 +26,9 @@ function markerReducer(
 
       const newState = storedMarker.reduce(
         (acc: MarkerType[], marker: MarkerType) => {
-          const newMarker = new mapboxgl.Marker({ draggable: true })
+          const newMarker = new mapboxgl.Marker({
+            draggable: true,
+          })
             .setLngLat([marker.lng, marker.lat])
             .setPopup(new mapboxgl.Popup().setHTML(`<p>${marker.text}</p>`));
           acc.push({ ...marker, instance: newMarker });
@@ -49,9 +51,9 @@ function markerReducer(
       if (!storedMarker) storedMarker = [];
       storedMarker.push({
         id,
+        text,
         lng,
         lat,
-        text,
       });
 
       localStorage.setItem(MARKER, JSON.stringify(storedMarker));
@@ -60,15 +62,16 @@ function markerReducer(
     }
 
     case UPDATE_MARKER: {
-      const { id, text, lng, lat, instance } = action.payload as MarkerType;
+      const { id, lng, lat } = action.payload as MarkerType;
 
       const targetIdx = state.markers.findIndex((item) => item.id === id);
+      const { text } = state.markers[targetIdx];
       const input = {
         id,
-        text: text || state.markers[targetIdx].text,
+        text,
         lng: lng || state.markers[targetIdx].lng,
         lat: lat || state.markers[targetIdx].lat,
-        instance: instance || state.markers[targetIdx].instance,
+        instance: state.markers[targetIdx].instance,
       };
 
       const newState = state.markers.map((marker, idx) => {
@@ -76,7 +79,12 @@ function markerReducer(
       });
 
       const storedMarker = JSON.parse(localStorage.getItem(MARKER) as string);
-      storedMarker[targetIdx] = { id, text, lng, lat };
+      storedMarker[targetIdx] = {
+        id: input.id,
+        text: input.text,
+        lng: input.lng,
+        lat: input.lat,
+      };
       localStorage.setItem(MARKER, JSON.stringify(storedMarker));
 
       return { markers: newState };
@@ -86,12 +94,16 @@ function markerReducer(
       const newMarkers = state.markers.filter(
         (item) => item.id !== action.payload
       );
-      localStorage.setItem(
-        MARKER,
-        JSON.stringify({
-          markers: newMarkers,
-        })
+      const markerForRemove = state.markers.filter(
+        (item) => item.id === action.payload
       );
+      markerForRemove[0].instance?.remove();
+
+      const markerForLocalStorage = newMarkers.map((item) => {
+        return { id: item.id, text: item.text, lng: item.lng, lat: item.lat };
+      });
+
+      localStorage.setItem(MARKER, JSON.stringify(markerForLocalStorage));
       return {
         markers: newMarkers,
       };

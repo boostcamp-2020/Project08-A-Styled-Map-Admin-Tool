@@ -1,7 +1,7 @@
-import { PayloadPropsType, SidebarActionType } from '../common/type';
+import { SidebarState, SidebarActionType } from '../common/type';
 import { SET_SIDEBAR_PROPERTIES, INIT_SIDEBAR_PROPERTIES } from './action';
 
-const initialState: PayloadPropsType = {
+const initialState: SidebarState = {
   key: 'feature',
   feature: null,
   subFeature: null,
@@ -10,9 +10,9 @@ const initialState: PayloadPropsType = {
 };
 
 function sidebarReducer(
-  state: PayloadPropsType = initialState,
+  state: SidebarState = initialState,
   action: SidebarActionType
-): PayloadPropsType {
+): SidebarState {
   switch (action.type) {
     case SET_SIDEBAR_PROPERTIES: {
       return {

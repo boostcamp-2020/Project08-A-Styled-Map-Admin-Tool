@@ -2,7 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import {
-  HistoryPropsType,
+  HistoryState,
   SubElementNameType,
   StyleType,
   SubElementType,
@@ -19,7 +19,7 @@ interface UseUndoRedoType {
   redoHandler: () => void;
 }
 
-interface ReduxStateType extends HistoryPropsType {
+interface ReduxStateType extends HistoryState {
   map: mapboxgl.Map;
 }
 

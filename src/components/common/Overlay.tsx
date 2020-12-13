@@ -19,6 +19,7 @@ const OverlayDiv = styled.div<OverlayDivProps>`
 
   background-color: ${(props) => (props.color ? props.color : 'transparent')};
   opacity: 0.6;
+  z-index: 10;
 `;
 
 function Overlay({ color, toggleHandler }: OverlayProps): React.ReactElement {
