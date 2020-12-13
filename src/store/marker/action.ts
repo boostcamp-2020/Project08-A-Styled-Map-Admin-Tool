@@ -3,6 +3,8 @@ export const ADD_MARKER = 'ADD_MARKER' as const;
 export const UPDATE_MARKER = 'UPDATE_MARKER' as const;
 export const REMOVE_MARKER = 'REMOVE_MARKER' as const;
 
+export const MARKER = 'marker' as const;
+
 export enum MarkerKeyType {
   id = 'id',
   lng = 'lng',
@@ -39,12 +41,18 @@ export interface MarkerActionType {
     | typeof ADD_MARKER
     | typeof UPDATE_MARKER
     | typeof REMOVE_MARKER;
-  payload: null | MarkerInstanceType | MarkerUpdateType | string;
+  payload:
+    | MarkerInstanceType[]
+    | MarkerInstanceType
+    | MarkerUpdateType
+    | string;
 }
 
-export const initMarker = (): MarkerActionType => ({
+export const initMarker = (
+  inputPayload: MarkerInstanceType[]
+): MarkerActionType => ({
   type: INIT_MARKER,
-  payload: null,
+  payload: [...inputPayload],
 });
 
 export const addMarker = (

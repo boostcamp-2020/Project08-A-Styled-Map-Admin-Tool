@@ -212,7 +212,7 @@ function useExportStyle(): UseExportStyleType {
   >((state) => state) as any;
 
   const exportStyle = (): ExportType => {
-    if (map || sidebar || history) {
+    if (map || history || marker) {
       const markers = getExportMarkersArray(marker.markers);
       const filteredStyle = filterStyle(style);
       const mapCoordinate = getMapCoordinate(map.map);

@@ -10,6 +10,7 @@ import UpperButtons from './ButtonGroup/UpperButtons';
 import History from './History/History';
 import useMarkerFeature from '../../hooks/map/useMarkerFeature';
 import MarkerPopUp from './Marker/MarkerPopup';
+import { URLPathNameType } from '../../store/common/type';
 
 interface CurrentMapWrapperProps {
   isPageShow: boolean;
@@ -67,7 +68,10 @@ function Map({ pathname }: MapProps): React.ReactElement {
   const { markerPosition, resetMarkerPos, registerMarker } = useMarkerFeature();
 
   return (
-    <MapsWrapper ref={containerRef} isPageShow={pathname === '/show'}>
+    <MapsWrapper
+      ref={containerRef}
+      isPageShow={pathname === URLPathNameType.show}
+    >
       {logId && <CompareMapWrapper ref={beforeMapRef} />}
       <CurrentMapWrapper ref={afterMapRef} onClick={resetMarkerPos}>
         <MarkerPopUp

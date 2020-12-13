@@ -2,12 +2,15 @@ import { RefObject, useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initMap } from '../../store/map/action';
 import useWholeStyle from '../../hooks/common/useWholeStyle';
-import useMarkerFeature from '../../hooks/map/useMarkerFeature';
+import useMarkerFeature, {
+  getInitialMarkersFromLocalStorage,
+} from '../../hooks/map/useMarkerFeature';
 import { urlToJson } from '../../utils/urlParsing';
 import {
   WholeStyleActionPayload,
   HistoryState,
   LocationType,
+  URLPathNameType,
 } from '../../store/common/type';
 import validateStyle from '../../utils/validateStyle';
 import { RootState } from '../../store/index';
@@ -44,7 +47,7 @@ function useMap(): MapHookType {
   const { registerMarker } = useMarkerFeature();
 
   const initializeMap = (map: mapboxgl.Map): void => {
-    if (search && pathname === '/show') {
+    if (search && pathname === URLPathNameType.show) {
       const { filteredStyle, mapCoordinate } = urlToJson();
 
       // 이부분에 문제가 있는 것 같습니다. 없애면 에러 안나고 잘 되는데 있으면 안되요
@@ -59,8 +62,12 @@ function useMap(): MapHookType {
 
       return;
     }
+
     dispatch(initHistory());
-    dispatch(initMarker());
+
+    const storedMarkers = getInitialMarkersFromLocalStorage();
+    dispatch(initMarker(storedMarkers));
+
     setFlag(true);
   };
 

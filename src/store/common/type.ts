@@ -327,3 +327,9 @@ export type URLJsonType = {
   mapCoordinate?: LocationType | null;
   markers?: MarkerType[] | null;
 };
+
+export enum URLPathNameType {
+  root = '/',
+  map = '/map',
+  show = '/show',
+}
