@@ -67,7 +67,10 @@ export function jsonToURL({
   mapCoordinate,
   markers,
 }: ExportType): string {
-  const url = 'http://map-styler.kro.kr/show?';
+  const url =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000/show?='
+      : process.env.REACT_APP_DEPLOY_URL;
   const styleQueryString = isNotEmptyObject(filteredStyle)
     ? `style=${encodeURIComponent(
         jsonToURLGetStyleQueryString(filteredStyle as URLJsonType)
