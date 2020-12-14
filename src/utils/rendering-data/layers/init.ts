@@ -1,3 +1,5 @@
+import defaultStyle from '../defaultStyle';
+
 const initLayers = {
   version: 8,
   name: 'Mapbox Streets',
@@ -36,16 +38,17 @@ const initLayers = {
   glyphs: 'mapbox://fonts/mapbox/{fontstack}/{range}.pbf',
   layers: [
     {
-      id: 'landcover-section-fill',
+      id: 'landscape-landcover-section-fill',
       type: 'background',
       metadata: {},
       layout: {},
       paint: {
-        'background-color': 'hsl(35, 32%, 91%)',
+        'background-color':
+          defaultStyle.landscape.landcover.section?.fill.color,
       },
     },
     {
-      id: 'landcover-section-fill-2',
+      id: 'landscape-landcover-section-fill-2',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -53,7 +56,7 @@ const initLayers = {
       maxzoom: 7,
       layout: {},
       paint: {
-        'fill-color': 'hsl(35, 32%, 91%)',
+        'fill-color': defaultStyle.landscape.landcover.section?.fill.color,
         'fill-opacity': [
           'interpolate',
           ['exponential', 1.5],
@@ -67,7 +70,7 @@ const initLayers = {
       },
     },
     {
-      id: 'landcover-section-fill-4',
+      id: 'landscape-landcover-section-fill-4',
       type: 'fill',
       source: 'polygon_source',
       'source-layer': 'polygon',
@@ -75,7 +78,7 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'fill-color': 'hsl(35, 32%, 91%)',
+        'fill-color': defaultStyle.landscape.landcover.section?.fill.color,
         'fill-opacity': 0.5,
       },
       filter: [
@@ -87,7 +90,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'landcover-section-fill-5',
+      id: 'landscape-landcover-section-fill-5',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -100,11 +103,11 @@ const initLayers = {
       ],
       layout: {},
       paint: {
-        'fill-color': 'hsl(35, 32%, 91%)',
+        'fill-color': defaultStyle.landscape.landcover.section?.fill.color,
       },
     },
     {
-      id: 'landcover-section-stroke',
+      id: 'landscape-landcover-section-stroke',
       type: 'line',
       metadata: {},
       source: 'composite',
@@ -117,12 +120,12 @@ const initLayers = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-width': 1,
-        'line-color': 'hsl(35, 12%, 89%)',
+        'line-width': defaultStyle.landscape.landcover.section?.stroke.weight,
+        'line-color': defaultStyle.landscape.landcover.section?.stroke.color,
       },
     },
     {
-      id: 'mountain-section-fill',
+      id: 'landscape-mountain-section-fill',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -130,7 +133,7 @@ const initLayers = {
       maxzoom: 16,
       layout: {},
       paint: {
-        'fill-color': 'hsl(56, 59%, 22%)',
+        'fill-color': defaultStyle.landscape.mountain.section?.fill.color,
         'fill-opacity': [
           'interpolate',
           ['linear'],
@@ -144,7 +147,7 @@ const initLayers = {
       },
     },
     {
-      id: 'natural-section-fill',
+      id: 'landscape-natural-section-fill',
       type: 'fill',
       source: 'polygon_source',
       'source-layer': 'polygon',
@@ -152,7 +155,7 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'fill-color': 'hsl(100, 58%, 76%)',
+        'fill-color': defaultStyle.landscape.natural.section?.fill.color,
         'fill-opacity': 0.5,
       },
       filter: [
@@ -164,7 +167,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'natural-section-fill-2',
+      id: 'landscape-natural-section-fill-2',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -173,7 +176,7 @@ const initLayers = {
       filter: ['==', ['get', 'class'], 'national_park'],
       layout: {},
       paint: {
-        'fill-color': 'hsl(100, 58%, 76%)',
+        'fill-color': defaultStyle.landscape.natural.section?.fill.color,
         'fill-opacity': [
           'interpolate',
           ['linear'],
@@ -188,7 +191,7 @@ const initLayers = {
       },
     },
     {
-      id: 'humanmade-section-fill',
+      id: 'landscape-humanmade-section-fill',
       type: 'fill',
       source: 'polygon_source',
       'source-layer': 'polygon',
@@ -196,7 +199,7 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'fill-color': 'hsl(35, 11%, 86%)',
+        'fill-color': defaultStyle.landscape.humanmade.section?.fill.color,
         'fill-opacity': 0.7,
       },
       filter: [
@@ -231,7 +234,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'humanmade-section-stroke',
+      id: 'landscape-humanmade-section-stroke',
       type: 'line',
       metadata: {},
       source: 'composite',
@@ -240,11 +243,11 @@ const initLayers = {
       filter: ['==', ['get', 'class'], 'pitch'],
       layout: {},
       paint: {
-        'line-color': 'hsl(75, 57%, 84%)',
+        'line-color': defaultStyle.landscape.humanmade.section?.stroke.color,
       },
     },
     {
-      id: 'building-section-stroke',
+      id: 'landscape-building-section-stroke',
       type: 'line',
       metadata: {},
       source: 'composite',
@@ -257,13 +260,13 @@ const initLayers = {
       ],
       layout: {},
       paint: {
-        'line-color': 'hsl(35, 6%, 79%)',
-        'line-width': 1,
+        'line-color': defaultStyle.landscape.building.section?.stroke.color,
+        'line-width': defaultStyle.landscape.building.section?.stroke.weight,
         'line-opacity': ['interpolate', ['linear'], ['zoom'], 15, 0, 16, 1],
       },
     },
     {
-      id: 'building-section-fill',
+      id: 'landscape-building-section-fill',
       type: 'fill',
       source: 'polygon_source',
       'source-layer': 'polygon',
@@ -271,7 +274,7 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'fill-color': 'hsl(35, 11%, 86%)',
+        'fill-color': defaultStyle.landscape.building.section?.fill.color,
         'fill-opacity': ['interpolate', ['linear'], ['zoom'], 15, 0, 16, 1],
         'fill-outline-color': 'hsl(35, 8%, 80%)',
       },
@@ -332,7 +335,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'building-section-fill-2',
+      id: 'landscape-building-section-fill-2',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -345,13 +348,13 @@ const initLayers = {
       ],
       layout: {},
       paint: {
-        'fill-color': 'hsl(35, 11%, 86%)',
+        'fill-color': defaultStyle.landscape.building.section?.fill.color,
         'fill-opacity': ['interpolate', ['linear'], ['zoom'], 15, 0, 16, 1],
         'fill-outline-color': 'hsl(35, 6%, 79%)',
       },
     },
     {
-      id: 'natural-section-fill-3',
+      id: 'landscape-natural-section-fill-3',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -375,7 +378,7 @@ const initLayers = {
       ],
       layout: {},
       paint: {
-        'fill-color': 'hsl(100, 58%, 76%)',
+        'fill-color': defaultStyle.landscape.natural.section?.fill.color,
         'fill-opacity': [
           'interpolate',
           ['linear'],
@@ -394,7 +397,7 @@ const initLayers = {
       'source-layer': 'water',
       layout: {},
       paint: {
-        'fill-color': 'hsl(196, 80%, 70%)',
+        'fill-color': defaultStyle.water.all.section?.fill.color,
         'fill-translate': [
           'interpolate',
           ['exponential', 1.2],
@@ -416,7 +419,7 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'fill-color': 'hsl(196, 80%, 70%)',
+        'fill-color': defaultStyle.water.all.section?.fill.color,
         'fill-opacity': 1,
         'fill-translate': [
           'interpolate',
@@ -436,7 +439,7 @@ const initLayers = {
       source: 'composite',
       'source-layer': 'water',
       layout: {},
-      paint: { 'fill-color': 'hsl(196, 80%, 70%)' },
+      paint: { 'fill-color': defaultStyle.water.all.section?.fill.color },
     },
     {
       id: 'road-arterial-section-stroke-1',
@@ -461,7 +464,7 @@ const initLayers = {
           18,
           2,
         ],
-        'line-color': 'hsl(230, 24%, 87%)',
+        'line-color': defaultStyle.road.arterial.section?.stroke.color,
         'line-gap-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -497,7 +500,7 @@ const initLayers = {
           18,
           2,
         ],
-        'line-color': 'hsl(230, 24%, 87%)',
+        'line-color': defaultStyle.road.arterial.section?.stroke.color,
         'line-gap-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -535,7 +538,7 @@ const initLayers = {
           18,
           18,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.highway.section?.stroke.color,
         'line-gap-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -590,7 +593,7 @@ const initLayers = {
           20,
           2,
         ],
-        'line-color': 'hsl(230, 24%, 87%)',
+        'line-color': defaultStyle.road.local.section?.stroke.color,
         'line-gap-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -636,7 +639,7 @@ const initLayers = {
           18,
           2,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.highway.section?.stroke.color,
         'line-gap-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -678,7 +681,7 @@ const initLayers = {
           18,
           2,
         ],
-        'line-color': 'hsl(35, 10%, 83%)',
+        'line-color': defaultStyle.road.arterial.section?.stroke.color,
         'line-gap-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -721,7 +724,7 @@ const initLayers = {
           20,
           2,
         ],
-        'line-color': 'hsl(230, 24%, 87%)',
+        'line-color': defaultStyle.road.local.section?.stroke.color,
         'line-gap-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -760,7 +763,7 @@ const initLayers = {
           18,
           14.5,
         ],
-        'line-color': 'hsl(230, 24%, 87%)',
+        'line-color': defaultStyle.road.sidewalk.section?.stroke.color,
         'line-opacity': ['step', ['zoom'], 0, 14, 1],
       },
     },
@@ -791,7 +794,7 @@ const initLayers = {
         ['match', ['get', 'structure'], ['none', 'ford'], true, false],
       ],
       paint: {
-        'fill-color': 'hsl(0, 0%, 100%)',
+        'fill-color': defaultStyle.road.arterial.section?.fill.color,
         'fill-outline-color': '#d6d9e6',
       },
     },
@@ -804,7 +807,7 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.arterial.section?.fill.color,
         'line-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -846,7 +849,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.arterial.section?.fill.color,
       },
     },
     {
@@ -872,7 +875,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.arterial.section?.fill.color,
       },
     },
     {
@@ -898,7 +901,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(26, 87%, 62%)',
+        'line-color': defaultStyle.road.highway.section?.fill.color,
       },
     },
     {
@@ -937,7 +940,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.arterial.section?.fill.color,
         'line-opacity': ['step', ['zoom'], 1, 14, 0],
       },
     },
@@ -971,7 +974,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(26, 87%, 62%)',
+        'line-color': defaultStyle.road.highway.section?.fill.color,
       },
     },
     {
@@ -999,7 +1002,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(26, 87%, 62%)',
+        'line-color': defaultStyle.road.highway.section?.fill.color,
       },
     },
     {
@@ -1027,7 +1030,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(26, 87%, 62%)',
+        'line-color': defaultStyle.road.highway.section?.fill.color,
       },
     },
     {
@@ -1061,7 +1064,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(26, 87%, 62%)',
+        'line-color': defaultStyle.road.highway.section?.fill.color,
       },
     },
     {
@@ -1095,7 +1098,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(26, 87%, 62%)',
+        'line-color': defaultStyle.road.highway.section?.fill.color,
       },
     },
     {
@@ -1123,7 +1126,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(35, 10%, 83%)',
+        'line-color': defaultStyle.road.arterial.section?.fill.color,
         'line-dasharray': [
           'step',
           ['zoom'],
@@ -1162,7 +1165,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(35, 10%, 83%)',
+        'line-color': defaultStyle.road.arterial.section?.fill.color,
         'line-opacity': ['step', ['zoom'], 0, 14, 1],
       },
     },
@@ -1196,7 +1199,7 @@ const initLayers = {
           18,
           32,
         ],
-        'line-color': 'hsl(35, 10%, 83%)',
+        'line-color': defaultStyle.road.arterial.section?.fill.color,
       },
     },
     {
@@ -1212,7 +1215,7 @@ const initLayers = {
         ['match', ['get', 'class'], ['street'], true, false],
       ],
       paint: {
-        'fill-color': 'hsl(0, 0%, 100%)',
+        'fill-color': defaultStyle.road.local.section?.fill.color,
         'fill-outline-color': '#d6d9e6',
       },
     },
@@ -1237,7 +1240,7 @@ const initLayers = {
           18,
           18,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.local.section?.fill.color,
         'line-dasharray': [
           'step',
           ['zoom'],
@@ -1256,7 +1259,7 @@ const initLayers = {
       filter: ['==', ['get', 'type'], 'ferry_auto'],
       layout: { 'line-join': 'round' },
       paint: {
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.local.section?.fill.color,
         'line-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -1290,7 +1293,7 @@ const initLayers = {
           18,
           18,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.local.section?.fill.color,
       },
       filter: [
         'match',
@@ -1332,7 +1335,7 @@ const initLayers = {
           18,
           18,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.local.section?.fill.color,
         'line-opacity': ['step', ['zoom'], 0, 14, 1],
       },
     },
@@ -1374,7 +1377,7 @@ const initLayers = {
           18,
           18,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.local.section?.fill.color,
         'line-opacity': ['step', ['zoom'], 0, 14, 1],
       },
     },
@@ -1392,7 +1395,7 @@ const initLayers = {
         ['match', ['get', 'structure'], ['none', 'ford'], true, false],
       ],
       paint: {
-        'fill-color': 'hsl(0, 0%, 100%)',
+        'fill-color': defaultStyle.road.sidewalk.section?.fill.color,
         'fill-outline-color': 'hsl(230, 26%, 88%)',
       },
     },
@@ -1410,7 +1413,7 @@ const initLayers = {
         ['match', ['get', 'structure'], ['none', 'ford'], true, false],
       ],
       paint: {
-        'fill-color': 'hsl(0, 0%, 100%)',
+        'fill-color': defaultStyle.road.sidewalk.section?.fill.color,
         'fill-outline-color': 'hsl(35, 10%, 83%)',
         'fill-pattern': 'pedestrian-polygon',
         'fill-opacity': ['interpolate', ['linear'], ['zoom'], 16, 0, 16.25, 1],
@@ -1429,7 +1432,7 @@ const initLayers = {
         ['match', ['get', 'class'], ['street_limited'], true, false],
       ],
       paint: {
-        'fill-color': 'hsl(0, 0%, 100%)',
+        'fill-color': defaultStyle.road.sidewalk.section?.fill.color,
         'fill-outline-color': '#d6d9e6',
       },
     },
@@ -1442,7 +1445,7 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.sidewalk.section?.fill.color,
         'line-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -1485,7 +1488,7 @@ const initLayers = {
           18,
           12,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.sidewalk.section?.fill.color,
         'line-dasharray': [
           'step',
           ['zoom'],
@@ -1521,7 +1524,7 @@ const initLayers = {
           18,
           12,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.sidewalk.section?.fill.color,
         'line-dasharray': [
           'step',
           ['zoom'],
@@ -1575,7 +1578,7 @@ const initLayers = {
           18,
           12,
         ],
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.sidewalk.section?.fill.color,
         'line-dasharray': [
           'step',
           ['zoom'],
@@ -1598,7 +1601,7 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'line-color': 'hsl(0, 0%, 100%)',
+        'line-color': defaultStyle.road.sidewalk.section?.fill.color,
         'line-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -1620,7 +1623,7 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'fill-color': 'hsl(230, 23%, 82%)',
+        'fill-color': defaultStyle.transit.airport.section?.fill.color,
       },
       filter: ['==', ['get', 'class'], 'airport'],
     },
@@ -1643,11 +1646,11 @@ const initLayers = {
       ],
       layout: {},
       paint: {
-        'fill-color': 'hsl(230, 23%, 82%)',
+        'fill-color': defaultStyle.transit.airport.section?.fill.color,
       },
     },
     {
-      id: 'transit-airport-aeroway-line',
+      id: 'transit-airport-section-stroke',
       type: 'line',
       source: 'composite',
       'source-layer': 'aeroway',
@@ -1655,7 +1658,7 @@ const initLayers = {
       filter: ['==', ['geometry-type'], 'LineString'],
       layout: {},
       paint: {
-        'line-color': 'hsl(230, 23%, 82%)',
+        'line-color': defaultStyle.transit.airport.section?.stroke.color,
         'line-width': [
           'interpolate',
           ['exponential', 1.5],
@@ -1668,7 +1671,7 @@ const initLayers = {
       },
     },
     {
-      id: 'transit-rail-line',
+      id: 'transit-rail-section-stroke',
       type: 'line',
       source: 'line_source',
       'source-layer': 'line',
@@ -1676,13 +1679,13 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'line-color': 'hsl(201, 100%, 14%)',
-        'line-width': 1,
+        'line-color': defaultStyle.transit.rail.section?.stroke.color,
+        'line-width': defaultStyle.transit.rail.section?.stroke.weight,
       },
       filter: ['match', ['get', 'type'], 'rail', true, false],
     },
     {
-      id: 'transit-rail-line-2',
+      id: 'transit-rail-section-stroke-2',
       type: 'line',
       source: 'composite',
       'source-layer': 'road',
@@ -1693,8 +1696,8 @@ const initLayers = {
       minzoom: 13,
 
       paint: {
-        'line-color': 'hsl(234, 20%, 30%)',
-        'line-width': 1,
+        'line-color': defaultStyle.transit.rail.section?.stroke.color,
+        'line-width': defaultStyle.transit.rail.section?.stroke.weight,
       },
       filter: [
         'all',
@@ -1703,7 +1706,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'transit-subway-line',
+      id: 'transit-subway-section-stroke',
       type: 'line',
       source: 'line_source',
       'source-layer': 'line',
@@ -1711,13 +1714,13 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'line-color': 'hsl(192, 70%, 43%)',
-        'line-width': 2,
+        'line-color': defaultStyle.transit.subway.section?.stroke.color,
+        'line-width': defaultStyle.transit.subway.section?.stroke.weight,
       },
       filter: ['==', ['get', 'type'], 'subway'],
     },
     {
-      id: 'administrative-country-bg-line',
+      id: 'administrative-country-section-stroke',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1732,22 +1735,14 @@ const initLayers = {
       layout: {},
       paint: {
         'line-width': ['interpolate', ['linear'], ['zoom'], 3, 3.5, 10, 8],
-        'line-color': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          6,
-          'hsl(35, 12%, 89%)',
-          8,
-          'hsl(230, 49%, 90%)',
-        ],
+        'line-color': defaultStyle.administrative.country.section?.stroke.color,
         'line-opacity': ['interpolate', ['linear'], ['zoom'], 3, 0, 4, 0.5],
         'line-translate': [0, 0],
         'line-blur': ['interpolate', ['linear'], ['zoom'], 3, 0, 10, 2],
       },
     },
     {
-      id: 'administrative-state-bg-line',
+      id: 'administrative-state-section-stroke',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1760,15 +1755,7 @@ const initLayers = {
       ],
       layout: { 'line-join': 'bevel' },
       paint: {
-        'line-color': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          8,
-          'hsl(35, 12%, 89%)',
-          16,
-          'hsl(230, 49%, 90%)',
-        ],
+        'line-color': defaultStyle.administrative.state.section?.fill.color,
         'line-width': ['interpolate', ['linear'], ['zoom'], 7, 3.75, 12, 5.5],
         'line-opacity': ['interpolate', ['linear'], ['zoom'], 7, 0, 8, 0.75],
         'line-dasharray': [1, 0],
@@ -1777,7 +1764,7 @@ const initLayers = {
       },
     },
     {
-      id: 'administrative-country-line',
+      id: 'administrative-country-section-stroke-2',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1792,12 +1779,12 @@ const initLayers = {
       ],
       layout: { 'line-join': 'round', 'line-cap': 'round' },
       paint: {
-        'line-color': 'hsl(230, 8%, 51%)',
+        'line-color': defaultStyle.administrative.country.section?.stroke.color,
         'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.5, 10, 2],
       },
     },
     {
-      id: 'administrative-state-line',
+      id: 'administrative-state-section-stroke-2',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1819,20 +1806,12 @@ const initLayers = {
         ],
         'line-width': ['interpolate', ['linear'], ['zoom'], 7, 0.75, 12, 1.5],
         'line-opacity': ['interpolate', ['linear'], ['zoom'], 2, 0, 3, 1],
-        'line-color': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          3,
-          'hsl(230, 14%, 77%)',
-          7,
-          'hsl(230, 8%, 62%)',
-        ],
+        'line-color': defaultStyle.administrative.state.section?.fill.color,
       },
     },
 
     {
-      id: 'administrative-country-line-disputed',
+      id: 'administrative-country-section-stroke-3',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1848,12 +1827,12 @@ const initLayers = {
       layout: { 'line-join': 'round' },
       paint: {
         'line-dasharray': [1.5, 1.5],
-        'line-color': 'hsl(230, 8%, 51%)',
+        'line-color': defaultStyle.administrative.country.section?.stroke.color,
         'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.5, 10, 2],
       },
     },
     {
-      id: 'building-labelText',
+      id: 'landscape-building-labelText',
       type: 'symbol',
       metadata: {},
       source: 'composite',
@@ -1867,13 +1846,15 @@ const initLayers = {
         'text-size': 9.5,
       },
       paint: {
-        'text-color': 'hsl(35, 2%, 69%)',
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
+        'text-color': defaultStyle.landscape.building.labelText?.fill.color,
+        'text-halo-color':
+          defaultStyle.landscape.building.labelText?.stroke.color,
+        'text-halo-width':
+          defaultStyle.landscape.building.labelText?.stroke.weight,
       },
     },
     {
-      id: 'building-labelText-2',
+      id: 'landscape-building-labelText-2',
       type: 'symbol',
       source: 'composite',
       'source-layer': 'poi_label',
@@ -1913,14 +1894,16 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(35, 2%, 69%)',
+        'text-color': defaultStyle.landscape.building.labelText?.fill.color,
+        'text-halo-color':
+          defaultStyle.landscape.building.labelText?.stroke.color,
+        'text-halo-width':
+          defaultStyle.landscape.building.labelText?.stroke.weight,
       },
     },
     {
-      id: 'natural-labelText',
+      id: 'landscape-natural-labelText',
       type: 'symbol',
       metadata: {},
       source: 'composite',
@@ -1990,10 +1973,12 @@ const initLayers = {
           17,
           ['step', ['get', 'sizerank'], 0, 13, 1],
         ],
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-color': defaultStyle.landscape.natural.labelText?.fill.color,
+        'text-halo-color':
+          defaultStyle.landscape.natural.labelText?.stroke.color,
+        'text-halo-width':
+          defaultStyle.landscape.natural.labelText?.stroke.weight,
       },
     },
     {
@@ -2023,7 +2008,7 @@ const initLayers = {
         'text-pitch-alignment': 'viewport',
         'text-field': ['coalesce', ['get', 'name_ko'], ['get', 'name']],
       },
-      paint: { 'text-color': 'hsl(230, 48%, 44%)' },
+      paint: { 'text-color': defaultStyle.water.all.labelText?.fill.color },
     },
     {
       id: 'water-all-labelText-2',
@@ -2068,13 +2053,7 @@ const initLayers = {
         'text-field': ['coalesce', ['get', 'name_ko'], ['get', 'name']],
       },
       paint: {
-        'text-color': [
-          'match',
-          ['get', 'class'],
-          ['bay', 'ocean', 'sea'],
-          'hsl(205, 84%, 88%)',
-          'hsl(230, 48%, 44%)',
-        ],
+        'text-color': defaultStyle.water.all.labelText?.fill.color,
       },
     },
     {
@@ -2127,13 +2106,7 @@ const initLayers = {
         ],
       },
       paint: {
-        'text-color': [
-          'match',
-          ['get', 'class'],
-          ['bay', 'ocean', 'sea'],
-          'hsl(205, 84%, 88%)',
-          'hsl(230, 48%, 44%)',
-        ],
+        'text-color': defaultStyle.water.all.labelText?.fill.color,
       },
     },
     {
@@ -2147,9 +2120,9 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 1,
-        'text-color': 'hsl(13, 68%, 63%)',
+        'text-color': defaultStyle.transit.bus.labelText?.fill.color,
+        'text-halo-color': defaultStyle.transit.bus.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.transit.bus.labelText?.stroke.weight,
       },
       filter: ['==', ['get', 'type'], 'bus_stop'],
     },
@@ -2181,9 +2154,10 @@ const initLayers = {
         'text-max-width': 9,
       },
       paint: {
-        'text-color': 'hsl(0, 69%, 50%)',
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 1,
+        'text-color': defaultStyle.transit.airport.labelText?.fill.color,
+        'text-halo-color': defaultStyle.transit.airport.labelText?.stroke.color,
+        'text-halo-width':
+          defaultStyle.transit.airport.labelText?.stroke.weight,
       },
     },
     {
@@ -2308,9 +2282,9 @@ const initLayers = {
         'text-letter-spacing': 0.01,
       },
       paint: {
-        'text-color': 'hsl(0, 0%, 0%)',
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 1,
+        'text-color': defaultStyle.road.sidewalk.labelText?.fill.color,
+        'text-halo-color': defaultStyle.road.sidewalk.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.road.sidewalk.labelText?.stroke.weight,
         'text-halo-blur': 0.5,
       },
     },
@@ -2342,9 +2316,9 @@ const initLayers = {
         'text-letter-spacing': 0.01,
       },
       paint: {
-        'text-color': 'hsl(0, 0%, 0%)',
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 1,
+        'text-color': defaultStyle.road.local.labelText?.fill.color,
+        'text-halo-color': defaultStyle.road.local.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.road.local.labelText?.stroke.weight,
         'text-halo-blur': 0.5,
       },
     },
@@ -2422,9 +2396,9 @@ const initLayers = {
         'text-letter-spacing': 0.01,
       },
       paint: {
-        'text-color': 'hsl(0, 0%, 0%)',
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 1,
+        'text-color': defaultStyle.road.arterial.labelText?.fill.color,
+        'text-halo-color': defaultStyle.road.arterial.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.road.arterial.labelText?.stroke.weight,
         'text-halo-blur': 0.5,
       },
     },
@@ -2438,10 +2412,10 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
+        'text-halo-color': defaultStyle.poi.landmark.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.landmark.labelText?.stroke.weight,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-color': defaultStyle.poi.landmark.labelText?.fill.color,
       },
       filter: [
         'match',
@@ -2462,10 +2436,10 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(22, 55%, 55%)',
+        'text-halo-color': defaultStyle.poi.business.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.business.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.business.labelText?.fill.color,
       },
       filter: [
         'match',
@@ -2507,10 +2481,10 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-halo-color': defaultStyle.poi.government.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.government.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.government.labelText?.fill.color,
       },
       filter: [
         'match',
@@ -2538,10 +2512,10 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(340, 39%, 42%)',
+        'text-halo-color': defaultStyle.poi.medical.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.medical.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.medical.labelText?.fill.color,
       },
       filter: [
         'match',
@@ -2562,10 +2536,10 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(100, 45%, 37%)',
+        'text-halo-color': defaultStyle.poi.park.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.park.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.park.labelText?.fill.color,
       },
       filter: [
         'match',
@@ -2586,10 +2560,10 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-halo-color': defaultStyle.poi.worship.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.worship.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.worship.labelText?.fill.color,
       },
       filter: ['match', ['get', 'type'], ['place_of_worship'], true, false],
       id: 'poi-worship-labelText-1',
@@ -2604,10 +2578,10 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(51, 40%, 40%)',
+        'text-halo-color': defaultStyle.poi.school.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.school.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.school.labelText?.fill.color,
       },
       filter: [
         'match',
@@ -2628,10 +2602,10 @@ const initLayers = {
         visibility: 'visible',
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-halo-color': defaultStyle.poi.etc.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.etc.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.etc.labelText?.fill.color,
       },
       filter: [
         'in',
@@ -2696,10 +2670,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
+        'text-halo-color': defaultStyle.poi.business.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.business.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.business.labelText?.fill.color,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(22, 55%, 55%)',
       },
     },
     {
@@ -2743,10 +2717,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(100, 45%, 37%)',
+        'text-halo-color': defaultStyle.poi.park.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.park.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.park.labelText?.fill.color,
       },
     },
     {
@@ -2790,10 +2764,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(51, 40%, 40%)',
+        'text-halo-color': defaultStyle.poi.school.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.school.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.school.labelText?.fill.color,
       },
     },
     {
@@ -2837,10 +2811,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(340, 39%, 42%)',
+        'text-halo-color': defaultStyle.poi.medical.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.medical.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.medical.labelText?.fill.color,
       },
     },
     {
@@ -2884,10 +2858,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
+        'text-halo-color': defaultStyle.poi.landmark.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.landmark.labelText?.stroke.weight,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-color': defaultStyle.poi.landmark.labelText?.fill.color,
       },
     },
     {
@@ -2931,10 +2905,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
+        'text-halo-color': defaultStyle.poi.landmark.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.landmark.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.landmark.labelText?.fill.color,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
       },
     },
     {
@@ -2978,10 +2952,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-halo-color': defaultStyle.poi.government.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.government.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.government.labelText?.fill.color,
       },
     },
     {
@@ -3025,10 +2999,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-halo-color': defaultStyle.poi.etc.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.etc.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.etc.labelText?.fill.color,
       },
     },
     {
@@ -3072,10 +3046,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-halo-color': defaultStyle.poi.etc.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.etc.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.etc.labelText?.fill.color,
       },
     },
     {
@@ -3119,10 +3093,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-halo-color': defaultStyle.poi.government.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.government.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.government.labelText?.fill.color,
       },
     },
     {
@@ -3166,10 +3140,10 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-halo-color': defaultStyle.poi.worship.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.worship.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.worship.labelText?.fill.color,
       },
     },
     {
@@ -3213,14 +3187,14 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
+        'text-halo-color': defaultStyle.poi.business.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.business.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.business.labelText?.fill.color,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(22, 55%, 55%)',
       },
     },
     {
-      id: 'poi-sport-labelText',
+      id: 'poi-sports-labelText',
       type: 'symbol',
       source: 'composite',
       'source-layer': 'poi_label',
@@ -3260,14 +3234,14 @@ const initLayers = {
       },
       paint: {
         'icon-opacity': 1,
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 0.5,
         'text-halo-blur': 0.5,
-        'text-color': 'hsl(26, 25%, 32%)',
+        'text-halo-color': defaultStyle.poi.sports.labelText?.stroke.color,
+        'text-halo-width': defaultStyle.poi.sports.labelText?.stroke.weight,
+        'text-color': defaultStyle.poi.sports.labelText?.fill.color,
       },
     },
     {
-      id: 'administrative-locality-subdivision-labelText',
+      id: 'administrative-locality-labelText-2',
       type: 'symbol',
       source: 'composite',
       'source-layer': 'place_label',
@@ -3319,9 +3293,12 @@ const initLayers = {
         ],
       },
       paint: {
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 1,
-        'text-color': 'hsl(230, 29%, 35%)',
+        'text-halo-color':
+          defaultStyle.administrative.locality.labelText?.stroke.color,
+        'text-halo-width':
+          defaultStyle.administrative.locality.labelText?.stroke.weight,
+        'text-color':
+          defaultStyle.administrative.locality.labelText?.fill.color,
         'text-halo-blur': 0.5,
       },
     },
@@ -3508,11 +3485,14 @@ const initLayers = {
         ],
       },
       paint: {
-        'text-color': 'hsl(0, 0%, 0%)',
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 1,
         'icon-opacity': ['step', ['zoom'], 1, 8, 0],
         'text-halo-blur': 1,
+        'text-halo-color':
+          defaultStyle.administrative.locality.labelText?.stroke.color,
+        'text-halo-width':
+          defaultStyle.administrative.locality.labelText?.stroke.weight,
+        'text-color':
+          defaultStyle.administrative.locality.labelText?.fill.color,
       },
     },
     {
@@ -3551,9 +3531,11 @@ const initLayers = {
         'text-max-width': 6,
       },
       paint: {
-        'text-color': 'hsl(0, 0%, 0%)',
-        'text-halo-color': 'hsl(0, 0%, 100%)',
-        'text-halo-width': 1,
+        'text-color': defaultStyle.administrative.state.labelText?.fill.color,
+        'text-halo-color':
+          defaultStyle.administrative.state.labelText?.stroke.color,
+        'text-halo-width':
+          defaultStyle.administrative.state.labelText?.stroke.weight,
       },
     },
 
@@ -3639,17 +3621,11 @@ const initLayers = {
           7,
           0,
         ],
-        'text-color': 'hsl(0, 0%, 0%)',
-        'text-halo-color': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          2,
-          'rgba(255,255,255,0.75)',
-          3,
-          'hsl(0, 0%, 100%)',
-        ],
-        'text-halo-width': 1.25,
+        'text-color': defaultStyle.administrative.country.labelText?.fill.color,
+        'text-halo-color':
+          defaultStyle.administrative.country.labelText?.stroke.color,
+        'text-halo-width':
+          defaultStyle.administrative.country.labelText?.stroke.weight,
       },
     },
   ],

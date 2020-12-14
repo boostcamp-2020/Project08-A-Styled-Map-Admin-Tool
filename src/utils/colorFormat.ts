@@ -42,7 +42,7 @@ export function hexToHSL(color: string): HexToHSLType {
 }
 
 export function hslToHEX(color: string): string {
-  if (color === 'transparent') return 'transparent';
+  if (color === 'transparent' || !color) return 'transparent';
   const hsl = color.match(/(\d*\.?\d+)/g)?.map((c) => Number(c)) as number[];
 
   const h: number = hsl[0];

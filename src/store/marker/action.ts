@@ -3,6 +3,8 @@ export const ADD_MARKER = 'ADD_MARKER' as const;
 export const UPDATE_MARKER = 'UPDATE_MARKER' as const;
 export const REMOVE_MARKER = 'REMOVE_MARKER' as const;
 
+export const MARKER = 'marker' as const;
+
 export enum MarkerKeyType {
   id = 'id',
   lng = 'lng',
@@ -12,29 +14,24 @@ export enum MarkerKeyType {
 }
 
 export interface MarkerType {
-  id: string;
   lng: number;
   lat: number;
   text: string;
+}
+
+export interface MarkerInstanceType extends MarkerType {
+  id: string;
   instance?: mapboxgl.Marker;
 }
 
-// export interface LocalStorageMarkerType {
-//   id: string;
-//   lng: number;
-//   lat: number;
-//   text: string;
-// }
 export interface MarkerUpdateType {
   id: string;
   lng?: number;
   lat?: number;
-  text?: string;
-  instance?: mapboxgl.Marker;
 }
 
 export interface MarkerState {
-  markers: MarkerType[];
+  markers: MarkerInstanceType[];
 }
 
 export interface MarkerActionType {
@@ -43,34 +40,32 @@ export interface MarkerActionType {
     | typeof ADD_MARKER
     | typeof UPDATE_MARKER
     | typeof REMOVE_MARKER;
-  payload: null | MarkerType | MarkerUpdateType | string;
+  payload:
+    | MarkerInstanceType[]
+    | MarkerInstanceType
+    | MarkerUpdateType
+    | string;
 }
 
-export const initMarker = (): MarkerActionType => ({
+export const initMarker = (
+  inputPayload: MarkerInstanceType[]
+): MarkerActionType => ({
   type: INIT_MARKER,
-  payload: null,
+  payload: [...inputPayload],
 });
 
-export const addMarker = ({
-  id,
-  lng,
-  lat,
-  text,
-  instance,
-}: MarkerType): MarkerActionType => ({
+export const addMarker = (
+  inputPayload: MarkerInstanceType
+): MarkerActionType => ({
   type: ADD_MARKER,
-  payload: { id, lng, lat, text, instance },
+  payload: { ...inputPayload },
 });
 
-export const updateMarker = ({
-  id,
-  lng,
-  lat,
-  text,
-  instance,
-}: MarkerUpdateType): MarkerActionType => ({
+export const updateMarker = (
+  inputPayload: MarkerUpdateType
+): MarkerActionType => ({
   type: UPDATE_MARKER,
-  payload: { id, lng, lat, text, instance },
+  payload: { ...inputPayload },
 });
 
 export const removeMarker = (id: string): MarkerActionType => ({

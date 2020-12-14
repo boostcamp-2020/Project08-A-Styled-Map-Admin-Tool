@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ReplaceType } from '../../store/common/type';
 import useWholeStyle from '../common/useWholeStyle';
 
 interface SidebarDropdownProps {
@@ -25,7 +26,7 @@ function useSidebarDropdown({
   };
 
   const resetClickHandler = () => {
-    changeStyle({});
+    changeStyle({}, { changedKey: ReplaceType.init });
   };
 
   return {

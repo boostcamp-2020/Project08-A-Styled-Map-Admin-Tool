@@ -1,43 +1,44 @@
 /* eslint-disable no-case-declarations */
-import { DepthItemKeyTypes } from '../../hooks/sidebar/useSidebarDepthItem';
 import {
   DepthThemeActionType,
-  DepthThemePropsType,
+  DepthThemeState,
+  DepthPropsType,
+  ThemePropsType,
   SET_SHOW_DEPTH_PROPERTIES,
   SET_THEME_PROPERTIES,
+  INIT_DEPTH_THEME,
 } from './action';
 
-const initialState: DepthThemePropsType = {
-  selectedFeature: DepthItemKeyTypes.road,
+const initialState: DepthThemeState = {
   roadDepth: 3,
   administrativeDepth: 3,
   themeIdx: 0,
 };
 
 function depthThemeReducer(
-  state: DepthThemePropsType = initialState,
+  state: DepthThemeState = initialState,
   action: DepthThemeActionType
-): DepthThemePropsType {
+): DepthThemeState {
   const { type, payload } = action;
 
   switch (type) {
     case SET_SHOW_DEPTH_PROPERTIES:
-      const { selectedFeature, selectedDepth } = payload;
-      const changedDepth =
-        selectedFeature === DepthItemKeyTypes.road
-          ? { roadDepth: selectedDepth }
-          : { administrativeDepth: selectedDepth };
+      const { selectedFeature, selectedDepth } = payload as DepthPropsType;
+
       return {
         ...state,
-        ...changedDepth,
+        [selectedFeature]: selectedDepth,
       };
 
     case SET_THEME_PROPERTIES:
-      const { themeIdx } = payload;
+      const { themeIdx } = payload as ThemePropsType;
       return {
         ...state,
         themeIdx,
       };
+
+    case INIT_DEPTH_THEME:
+      return initialState;
 
     default:
       return state;

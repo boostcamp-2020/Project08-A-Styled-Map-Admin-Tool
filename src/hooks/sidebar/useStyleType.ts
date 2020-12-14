@@ -8,8 +8,7 @@ import {
   StyleKeyType,
   ElementNameType,
   SubElementNameType,
-  PayloadPropsType,
-  HistoryPropsType,
+  ReduxStateType,
   StyleStoreType,
 } from '../../store/common/type';
 import { setStyle, initColors } from '../../store/style/action';
@@ -25,6 +24,7 @@ export interface UseStyleHookType {
   styleElement: StyleType;
   onStyleChange: (key: StyleKeyType, value: string | number) => void;
   element: ElementNameType | null;
+  subFeature: string | null;
 }
 
 const colorRelatedKeysArr: StyleKeyType[] = [
@@ -68,9 +68,10 @@ const getNewColorStyle = (
       // eslint-disable-next-line no-case-declarations
       const { s: newSaturation, l: newLightness } = hexToHSL(value as string);
       newStyleObj.color = value as string;
-      newStyleObj.saturation = newSaturation;
-      newStyleObj.lightness = newLightness;
-
+      newStyleObj.saturation =
+        newStyleObj.color === 'transparent' ? 0 : newSaturation;
+      newStyleObj.lightness =
+        newStyleObj.color === 'transparent' ? 0 : newLightness;
       break;
 
     default:
@@ -83,13 +84,6 @@ const getNewColorStyle = (
 interface changedObjType {
   key?: StyleKeyType;
   value?: string | number;
-}
-
-interface ReduxStateType {
-  map: mapboxgl.Map;
-  sidebar: PayloadPropsType;
-  history: HistoryPropsType;
-  features: StyleStoreType;
 }
 
 function useStyleType(): UseStyleHookType {
@@ -133,7 +127,9 @@ function useStyleType(): UseStyleHookType {
           ...styleElement,
           [key]: value,
         },
-        wholeStyle: removeNullFromObject(JSON.parse(JSON.stringify(features))),
+        wholeStyle: removeNullFromObject(
+          JSON.parse(JSON.stringify(features))
+        ) as StyleStoreType,
       });
 
       setChangedObj({});
@@ -239,6 +235,7 @@ function useStyleType(): UseStyleHookType {
   return {
     styleElement,
     onStyleChange,
+    subFeature,
     element,
   };
 }

@@ -10,6 +10,7 @@ import UpperButtons from './ButtonGroup/UpperButtons';
 import History from './History/History';
 import useMarkerFeature from '../../hooks/map/useMarkerFeature';
 import MarkerPopUp from './Marker/MarkerPopup';
+import { URLPathNameType } from '../../store/common/type';
 
 interface CurrentMapWrapperProps {
   isPageShow: boolean;
@@ -50,25 +51,6 @@ const CompareMapWrapper = styled.div`
   canvas {
     outline: none;
   }
-
-  /* 
-  &,
-  .compare-swiper,
-  .compare-swiper-vertical {
-    animation: show-from-left 0.4s ease-in-out;
-  }
-
-  @keyframes show-from-left {
-    0% {
-      transform: translateX(-500px);
-      opacity: 0;
-    }
-
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  } */
 `;
 
 interface MapProps {
@@ -83,14 +65,17 @@ function Map({ pathname }: MapProps): React.ReactElement {
     containerRef,
     beforeMapRef,
   });
-  const { markerPos, resetMarkerPos, registerMarker } = useMarkerFeature();
+  const { markerPosition, resetMarkerPos, registerMarker } = useMarkerFeature();
 
   return (
-    <MapsWrapper ref={containerRef} isPageShow={pathname === '/show'}>
+    <MapsWrapper
+      ref={containerRef}
+      isPageShow={pathname === URLPathNameType.show}
+    >
       {logId && <CompareMapWrapper ref={beforeMapRef} />}
       <CurrentMapWrapper ref={afterMapRef} onClick={resetMarkerPos}>
         <MarkerPopUp
-          markerPos={markerPos}
+          markerPosition={markerPosition}
           resetMarkerPos={resetMarkerPos}
           registerMarker={registerMarker}
         />

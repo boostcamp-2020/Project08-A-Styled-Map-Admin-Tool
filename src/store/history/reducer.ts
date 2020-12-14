@@ -1,6 +1,11 @@
-import { ADD_LOG, INIT_HISTORY, SET_CURRENT_INDEX } from './action';
 import {
-  HistoryPropsType,
+  ADD_LOG,
+  INIT_HISTORY,
+  SET_CURRENT_INDEX,
+  RESET_HISTORY,
+} from './action';
+import {
+  HistoryState,
   HistoryActionType,
   HistoryInfoPropsType,
   SetIndexPayload,
@@ -9,15 +14,15 @@ import getRandomId from '../../utils/getRandomId';
 
 const logKey = 'log' as const;
 
-const initialState: HistoryPropsType = {
+const initialState: HistoryState = {
   log: [],
   currentIdx: null,
 };
 
 function historyReducer(
-  state: HistoryPropsType = initialState,
+  state: HistoryState = initialState,
   action: HistoryActionType
-): HistoryPropsType {
+): HistoryState {
   switch (action.type) {
     case INIT_HISTORY: {
       const localStorageLog = JSON.parse(
@@ -69,6 +74,11 @@ function historyReducer(
       return newState;
     }
 
+    case RESET_HISTORY: {
+      localStorage.setItem('log', JSON.stringify([]));
+
+      return { ...state, log: [], currentIdx: null };
+    }
     default:
       return state;
   }

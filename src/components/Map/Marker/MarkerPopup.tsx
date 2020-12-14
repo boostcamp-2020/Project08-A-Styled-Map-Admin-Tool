@@ -5,6 +5,7 @@ import useMarkerPopUp from '../../../hooks/map/useMarkerPopUp';
 import { RegisterMarkerType } from '../../../hooks/map/useMarkerFeature';
 import CloseIcon from '../../Icon/CloseIcon';
 
+const LIMIT_LENGTH = 10;
 interface WrapperProps {
   pos: {
     x: number | null;
@@ -59,13 +60,13 @@ const CloseIconTag = styled(CloseIcon)`
 `;
 
 interface MarkerPopUpProps {
-  markerPos: { x: number | null; y: number | null };
+  markerPosition: { x: number | null; y: number | null };
   resetMarkerPos: () => void;
   registerMarker: ({ id, text, lngLat }: RegisterMarkerType) => void;
 }
 
 function MarkerPopUp({
-  markerPos,
+  markerPosition,
   resetMarkerPos,
   registerMarker,
 }: MarkerPopUpProps): React.ReactElement {
@@ -75,10 +76,10 @@ function MarkerPopUp({
     resetMarkerPos,
     registerMarker,
   });
-  if (markerPos.x && markerPos.y)
+  if (markerPosition.x && markerPosition.y)
     return (
       <Wrapper
-        pos={{ x: markerPos.x, y: markerPos.y }}
+        pos={{ x: markerPosition.x, y: markerPosition.y }}
         className="popup"
         onClick={(e) => e.stopPropagation()}
       >
@@ -88,7 +89,7 @@ function MarkerPopUp({
             <CloseIconTag onClick={resetMarkerPos} />
           </PopUpHeader>
           <MarkerInput onChange={onInputChange} />
-          {inputText.length > 10 ? (
+          {inputText.length > LIMIT_LENGTH ? (
             <div>10자 이하의 텍스트 입력만 가능합니다.</div>
           ) : (
             <OkButton type="button" onClick={onClickButton}>
