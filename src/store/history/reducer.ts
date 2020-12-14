@@ -77,7 +77,7 @@ function historyReducer(
     case RESET_HISTORY: {
       localStorage.setItem('log', JSON.stringify([]));
 
-      return { ...state, log: [] };
+      return { ...state, log: [], currentIdx: null };
     }
     default:
       return state;
