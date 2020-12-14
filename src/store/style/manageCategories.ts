@@ -24,12 +24,13 @@ export const combineElement = ({
   elements.forEach((element) => {
     if (update[element]) {
       switch (element) {
-        case ElementNameType.labelIcon:
-          combineStyle({
-            style: update[element] as StyleActionPayload,
-            defaultStyle: elementStyle[element] as StyleType,
+        case ElementNameType.labelIcon: {
+          update[element] = combineStyle({
+            style: elementStyle[element] as StyleActionPayload,
+            defaultStyle: update[element] as StyleType,
           });
           break;
+        }
         case ElementNameType.section:
         case ElementNameType.labelText:
           update[element] = combineSubElement({
