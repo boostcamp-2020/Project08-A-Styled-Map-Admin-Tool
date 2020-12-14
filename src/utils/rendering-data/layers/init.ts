@@ -36,7 +36,7 @@ const initLayers = {
   glyphs: 'mapbox://fonts/mapbox/{fontstack}/{range}.pbf',
   layers: [
     {
-      id: 'landcover-section-fill',
+      id: 'landscape-landcover-section-fill',
       type: 'background',
       metadata: {},
       layout: {},
@@ -45,7 +45,7 @@ const initLayers = {
       },
     },
     {
-      id: 'landcover-section-fill-2',
+      id: 'landscape-landcover-section-fill-2',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -67,7 +67,7 @@ const initLayers = {
       },
     },
     {
-      id: 'landcover-section-fill-4',
+      id: 'landscape-landcover-section-fill-4',
       type: 'fill',
       source: 'polygon_source',
       'source-layer': 'polygon',
@@ -87,7 +87,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'landcover-section-fill-5',
+      id: 'landscape-landcover-section-fill-5',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -104,7 +104,7 @@ const initLayers = {
       },
     },
     {
-      id: 'landcover-section-stroke',
+      id: 'landscape-landcover-section-stroke',
       type: 'line',
       metadata: {},
       source: 'composite',
@@ -122,7 +122,7 @@ const initLayers = {
       },
     },
     {
-      id: 'mountain-section-fill',
+      id: 'landscape-mountain-section-fill',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -144,7 +144,7 @@ const initLayers = {
       },
     },
     {
-      id: 'natural-section-fill',
+      id: 'landscape-natural-section-fill',
       type: 'fill',
       source: 'polygon_source',
       'source-layer': 'polygon',
@@ -164,7 +164,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'natural-section-fill-2',
+      id: 'landscape-natural-section-fill-2',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -188,7 +188,7 @@ const initLayers = {
       },
     },
     {
-      id: 'humanmade-section-fill',
+      id: 'landscape-humanmade-section-fill',
       type: 'fill',
       source: 'polygon_source',
       'source-layer': 'polygon',
@@ -231,7 +231,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'humanmade-section-stroke',
+      id: 'landscape-humanmade-section-stroke',
       type: 'line',
       metadata: {},
       source: 'composite',
@@ -244,7 +244,7 @@ const initLayers = {
       },
     },
     {
-      id: 'building-section-stroke',
+      id: 'landscape-building-section-stroke',
       type: 'line',
       metadata: {},
       source: 'composite',
@@ -263,7 +263,7 @@ const initLayers = {
       },
     },
     {
-      id: 'building-section-fill',
+      id: 'landscape-building-section-fill',
       type: 'fill',
       source: 'polygon_source',
       'source-layer': 'polygon',
@@ -332,7 +332,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'building-section-fill-2',
+      id: 'landscape-building-section-fill-2',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -351,7 +351,7 @@ const initLayers = {
       },
     },
     {
-      id: 'natural-section-fill-3',
+      id: 'landscape-natural-section-fill-3',
       type: 'fill',
       metadata: {},
       source: 'composite',
@@ -1647,7 +1647,7 @@ const initLayers = {
       },
     },
     {
-      id: 'transit-airport-aeroway-line',
+      id: 'transit-airport-section-stroke',
       type: 'line',
       source: 'composite',
       'source-layer': 'aeroway',
@@ -1668,7 +1668,7 @@ const initLayers = {
       },
     },
     {
-      id: 'transit-rail-line',
+      id: 'transit-rail-section-stroke',
       type: 'line',
       source: 'line_source',
       'source-layer': 'line',
@@ -1682,7 +1682,7 @@ const initLayers = {
       filter: ['match', ['get', 'type'], 'rail', true, false],
     },
     {
-      id: 'transit-rail-line-2',
+      id: 'transit-rail-section-stroke-2',
       type: 'line',
       source: 'composite',
       'source-layer': 'road',
@@ -1703,7 +1703,7 @@ const initLayers = {
       ],
     },
     {
-      id: 'transit-subway-line',
+      id: 'transit-subway-section-stroke',
       type: 'line',
       source: 'line_source',
       'source-layer': 'line',
@@ -1717,7 +1717,7 @@ const initLayers = {
       filter: ['==', ['get', 'type'], 'subway'],
     },
     {
-      id: 'administrative-country-bg-line',
+      id: 'administrative-country-section-stroke',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1747,7 +1747,7 @@ const initLayers = {
       },
     },
     {
-      id: 'administrative-state-bg-line',
+      id: 'administrative-state-section-stroke',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1777,7 +1777,7 @@ const initLayers = {
       },
     },
     {
-      id: 'administrative-country-line',
+      id: 'administrative-country-section-stroke-2',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1797,7 +1797,7 @@ const initLayers = {
       },
     },
     {
-      id: 'administrative-state-line',
+      id: 'administrative-state-section-stroke-2',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1832,7 +1832,7 @@ const initLayers = {
     },
 
     {
-      id: 'administrative-country-line-disputed',
+      id: 'administrative-country-section-stroke-3',
       type: 'line',
       metadata: { 'mapbox:group': '1444934295202.7542' },
       source: 'composite',
@@ -1853,7 +1853,7 @@ const initLayers = {
       },
     },
     {
-      id: 'building-labelText',
+      id: 'landscape-building-labelText',
       type: 'symbol',
       metadata: {},
       source: 'composite',
@@ -1873,7 +1873,7 @@ const initLayers = {
       },
     },
     {
-      id: 'building-labelText-2',
+      id: 'landscape-building-labelText-2',
       type: 'symbol',
       source: 'composite',
       'source-layer': 'poi_label',
@@ -1920,7 +1920,7 @@ const initLayers = {
       },
     },
     {
-      id: 'natural-labelText',
+      id: 'landscape-natural-labelText',
       type: 'symbol',
       metadata: {},
       source: 'composite',
@@ -2181,7 +2181,7 @@ const initLayers = {
         'text-max-width': 9,
       },
       paint: {
-        'text-color': 'hsl(0, 69%, 50%)',
+        'text-color': 'hsl(230, 48%, 44%)',
         'text-halo-color': 'hsl(0, 0%, 100%)',
         'text-halo-width': 1,
       },
@@ -3220,7 +3220,7 @@ const initLayers = {
       },
     },
     {
-      id: 'poi-sport-labelText',
+      id: 'poi-sports-labelText',
       type: 'symbol',
       source: 'composite',
       'source-layer': 'poi_label',
@@ -3267,7 +3267,7 @@ const initLayers = {
       },
     },
     {
-      id: 'administrative-locality-subdivision-labelText',
+      id: 'administrative-locality-labelText-2',
       type: 'symbol',
       source: 'composite',
       'source-layer': 'place_label',

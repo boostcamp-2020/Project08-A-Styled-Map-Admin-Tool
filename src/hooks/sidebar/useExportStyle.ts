@@ -8,6 +8,7 @@ import {
   StyleKeyType,
   SubElementNameType,
   LocationType,
+  ReduxStateType,
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
 
@@ -166,18 +167,27 @@ function filterStyle(style: StoreDataType): StoreDataType {
 }
 
 function useExportStyle(): UseExportStyleType {
-  const { map, sidebar, history, ...style } = useSelector<RootState>(
-    (state) => state
-  ) as any;
+  const { map, sidebar, history, ...features } = useSelector<RootState>(
+    (state) => {
+      const { map, sidebar, history, depthTheme, marker, ...features } = state;
+      return {
+        map: map.map,
+        sidebar,
+        features,
+      };
+    }
+  ) as ReduxStateType;
 
   const exportStyle = (): ExportType => {
     if (map || sidebar || history) {
-      const filteredStyle = filterStyle(style);
+      const filteredStyle = filterStyle(
+        (features.features as unknown) as StoreDataType
+      );
 
       const mapCoordinate = {
-        zoom: map.map.getZoom(),
-        lng: map.map.getCenter().lng,
-        lat: map.map.getCenter().lat,
+        zoom: map.getZoom(),
+        lng: map.getCenter().lng,
+        lat: map.getCenter().lat,
       };
 
       return {
