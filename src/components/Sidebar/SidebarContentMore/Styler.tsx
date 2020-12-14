@@ -42,6 +42,7 @@ function Styler(): React.ReactElement {
   const {
     styleElement: { visibility, color, weight, saturation, lightness },
     onStyleChange,
+    subFeature,
     element,
   }: UseStyleHookType = useStyleType();
 
@@ -52,7 +53,11 @@ function Styler(): React.ReactElement {
   return (
     <StylerWrapper>
       <StylerTitle>스타일</StylerTitle>
-      <VisibilityStyle visibility={visibility} onStyleChange={onStyleChange} />
+      <VisibilityStyle
+        subFeature={subFeature}
+        visibility={visibility}
+        onStyleChange={onStyleChange}
+      />
       <Hr />
       <ColorStyle color={color} onStyleChange={onStyleChange} />
 

@@ -1,5 +1,6 @@
 import christmas from './theme/christmas.json';
 import blueprint from './theme/blueprint.json';
+import dark from './theme/dark.json';
 
 const data = [
   {

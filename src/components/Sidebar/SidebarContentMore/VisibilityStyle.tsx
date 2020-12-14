@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import { StyleKeyType } from '../../../store/common/type';
+import { StyleKeyType, VisibilityValueType } from '../../../store/common/type';
 
 interface CheckedProp {
   checked: boolean;
@@ -47,12 +47,14 @@ const Circle = styled.div<CheckedProp>`
 
 interface VisibilityStyleProps {
   visibility: string;
+  subFeature: string | null;
   onStyleChange: (key: StyleKeyType, value: string | number) => void;
 }
 
 function VisibilityStyle({
   visibility,
   onStyleChange,
+  subFeature,
 }: VisibilityStyleProps): React.ReactElement {
   const list = [
     { title: '상위요소 상속', value: 'inherit' },
@@ -63,17 +65,21 @@ function VisibilityStyle({
   return (
     <VisibilityWrapper>
       <VisibilityTitle>가시성</VisibilityTitle>
-      {list.map((item) => (
-        <VisibilityItem
-          key={item.value}
-          onClick={() => onStyleChange(StyleKeyType.visibility, item.value)}
-        >
-          <Checkbox checked={visibility === item.value}>
-            <Circle checked={visibility === item.value} />
-          </Checkbox>
-          {item.title}
-        </VisibilityItem>
-      ))}
+      {list.map((item) => {
+        if (subFeature === 'all' && item.value === VisibilityValueType.inherit)
+          return null;
+        return (
+          <VisibilityItem
+            key={item.value}
+            onClick={() => onStyleChange(StyleKeyType.visibility, item.value)}
+          >
+            <Checkbox checked={visibility === item.value}>
+              <Circle checked={visibility === item.value} />
+            </Checkbox>
+            {item.title}
+          </VisibilityItem>
+        );
+      })}
     </VisibilityWrapper>
   );
 }

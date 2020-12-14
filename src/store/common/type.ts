@@ -1,3 +1,4 @@
+import mapboxgl from 'mapbox-gl';
 import {
   init,
   replaceWholeStyle,
@@ -279,6 +280,12 @@ export interface LocationType {
   lat?: number;
 }
 
+export enum locationTypeName {
+  zoom = 'zoom',
+  lng = 'lng',
+  lat = 'lat',
+}
+
 /** defatult style Type */
 export type DefaultStyleType = {
   color: string;
@@ -304,6 +311,7 @@ export type DefaultWholeStyle = {
 
 /** urlJson Type */
 export interface URLJsonStyleType {
+  isChanged?: boolean;
   visibility?: string;
   color?: string;
   weight?: number;
@@ -333,3 +341,11 @@ export type URLJsonType = {
   filteredStyle?: URLJsonFeatureType;
   mapCoordinate?: LocationType;
 };
+
+/** ReduxStateType */
+export interface ReduxStateType {
+  map: mapboxgl.Map;
+  sidebar: SidebarState;
+  history: HistoryState;
+  features: StyleStoreType;
+}

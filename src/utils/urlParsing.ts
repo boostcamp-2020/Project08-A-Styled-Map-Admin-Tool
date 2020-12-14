@@ -1,6 +1,7 @@
 import {
   /** JSONURL */
   URLJsonType,
+  URLJsonFeatureType,
   URLJsonSubElementType,
   URLJsonStyleType,
   URLJsonElementType,
@@ -13,6 +14,7 @@ import {
   StyleKeyType,
   /** export */
   LocationType,
+  locationTypeName,
 } from '../store/common/type';
 
 function jsonToURLGetStyleQueryString(
@@ -53,11 +55,17 @@ export function jsonToURL(json: URLJsonType): string {
   return url + locationQueryString + styleQueryString;
 }
 
-function urlToJsonGetStyleJson(queryString: string): URLJsonType | null {
+function urlToJsonGetStyleJson(queryString: string): URLJsonFeatureType | null {
   try {
     const values = queryString?.split('style=')[1]?.split(':');
-    const state: any = {};
-    const properties = {
+    const state: URLJsonFeatureType = {};
+    type propertiesType = {
+      feature: FeatureNameType | '';
+      subFeature: string | '';
+      element: ElementNameType | '';
+      subElement: SubElementNameType | '';
+    };
+    const properties: propertiesType = {
       feature: '',
       subFeature: '',
       element: '',
@@ -67,24 +75,35 @@ function urlToJsonGetStyleJson(queryString: string): URLJsonType | null {
     values?.forEach((value, index) => {
       const { feature, subFeature, element, subElement } = properties;
       if (value in FeatureNameType) {
-        state[value] = {};
-        properties.feature = value;
-      } else if (value in SubFeatureNameType) {
-        state[feature][value] = {};
+        state[value as FeatureNameType] = {};
+        properties.feature = value as FeatureNameType;
+      } else if (value in SubFeatureNameType && feature) {
+        (state[feature] as URLJsonSubFeatureType)[value] = {};
         properties.subFeature = value;
-      } else if (value in ElementNameType) {
-        state[feature][subFeature][value] = {};
-        properties.element = value;
-      } else if (value in SubElementNameType) {
-        state[feature][subFeature][element][value] = {};
-        properties.subElement = value;
-      } else if (value in StyleKeyType) {
+      } else if (value in ElementNameType && feature) {
+        (state[feature] as URLJsonSubFeatureType)[subFeature][
+          value as ElementNameType
+        ] = {};
+        properties.element = value as ElementNameType;
+      } else if (value in SubElementNameType && feature && element) {
+        ((state[feature] as URLJsonSubFeatureType)[subFeature][
+          element
+        ] as URLJsonSubFeatureType)[value] = {};
+        properties.subElement = value as SubElementNameType;
+      } else if (value in StyleKeyType && feature && element && subElement) {
         if (element === ElementNameType.labelIcon) {
-          state[feature][subFeature][element][value] = values[index + 1];
+          (((state[feature] as URLJsonSubFeatureType)[subFeature][
+            element
+          ] as URLJsonSubFeatureType)[
+            value as StyleKeyType
+          ] as URLJsonStyleType) = values[index + 1] as URLJsonStyleType;
           return;
         }
-        state[feature][subFeature][element][subElement][value] =
-          values[index + 1];
+        ((((state[feature] as URLJsonSubFeatureType)[subFeature][
+          element
+        ] as URLJsonSubFeatureType)[subElement] as URLJsonStyleType)[
+          value as StyleKeyType
+        ] as URLJsonStyleType) = values[index + 1] as URLJsonStyleType;
       }
     });
     return state;
@@ -93,20 +112,20 @@ function urlToJsonGetStyleJson(queryString: string): URLJsonType | null {
   }
 }
 
-function urlToJsonGetLocationJson(queryString: string): any {
+function urlToJsonGetLocationJson(queryString: string): LocationType {
   try {
     const values = queryString
       ?.split('location=')[1]
       .split('style=')[0]
       ?.split(':');
 
-    const state: any = {};
+    const state: LocationType = {};
     for (let i = 0; i < values.length; i += 2) {
-      state[values[i]] = Number(values[i + 1]);
+      state[values[i] as locationTypeName] = Number(values[i + 1]);
     }
     return state;
   } catch (error) {
-    return null;
+    return {};
   }
 }
 
