@@ -20,24 +20,26 @@ export const combineElement = ({
   initialElementStyle,
 }: combineElementProps): FeatureType => {
   const update = initialElementStyle;
-  const elements = Object.keys(elementStyle);
+  const elements = Object.keys(elementStyle) as ElementNameType[];
   elements.forEach((element) => {
-    switch (element) {
-      case ElementNameType.labelIcon:
-        combineStyle({
-          style: update[element] as StyleActionPayload,
-          defaultStyle: elementStyle[element] as StyleType,
-        });
-        break;
-      case ElementNameType.section:
-      case ElementNameType.labelText:
-        update[element] = combineSubElement({
-          subElementStyle: elementStyle[element] as SubElementActionPayload,
-          initialSubElementStyle: update[element] as SubElementType,
-        });
-        break;
-      default:
-        break;
+    if (update[element]) {
+      switch (element) {
+        case ElementNameType.labelIcon:
+          combineStyle({
+            style: update[element] as StyleActionPayload,
+            defaultStyle: elementStyle[element] as StyleType,
+          });
+          break;
+        case ElementNameType.section:
+        case ElementNameType.labelText:
+          update[element] = combineSubElement({
+            subElementStyle: elementStyle[element] as SubElementActionPayload,
+            initialSubElementStyle: update[element] as SubElementType,
+          });
+          break;
+        default:
+          break;
+      }
     }
   });
   return update;
