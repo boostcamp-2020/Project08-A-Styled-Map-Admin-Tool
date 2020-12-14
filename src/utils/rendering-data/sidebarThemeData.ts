@@ -16,7 +16,7 @@ const data = [
   },
   {
     src:
-      'https://i.pinimg.com/originals/8f/6d/97/8f6d971f3d086edaf6cee773991abb27.jpg',
+      'https://user-images.githubusercontent.com/57997672/102054738-2b8c5680-3e2d-11eb-901b-a9347502e16b.png',
     name: '스케치',
     theme: sketch,
   },
