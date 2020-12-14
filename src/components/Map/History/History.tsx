@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from '../../../utils/styles/styled';
 import { RootState } from '../../../store/index';
 import {
@@ -10,11 +10,12 @@ import {
 } from '../../../store/common/type';
 import SetHistoryContent from './SetHistoryContent';
 import ReplaceHistoryContent from './ReplaceHistoryContent';
+import { resetHistory } from '../../../store/history/action';
 
 const HistoryWapper = styled.div`
   z-index: 30;
   width: 250px;
-  height: 250px;
+  height: 270px;
   background-color: white;
   padding: 15px 10px;
   position: fixed;
@@ -24,11 +25,12 @@ const HistoryWapper = styled.div`
   box-shadow: 0 0 10px ${(props) => props.theme.GREY};
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
 `;
 
 const HistoryList = styled.ul`
   margin-top: 10px;
+  margin-bottom: 20px;
+  overflow-y: scroll;
 `;
 
 interface HistoryItemProps {
@@ -65,6 +67,19 @@ const Explain = styled.p`
   color: ${(props) => props.theme.DARKGREY};
 `;
 
+interface ResetProps {
+  onClick: () => void;
+}
+
+const ResetHistory = styled.button<ResetProps>`
+  position: absolute;
+  top: 240px;
+  align-self: center;
+  &:hover {
+    color: ${(props) => props.theme.GREEN};
+    outline: none;
+  }
+`;
 interface HistoryProps {
   isHistoryOpen: boolean;
   comparisonButtonClickHandler: (id: string) => void;
@@ -79,6 +94,7 @@ function History({
   const { log, currentIdx } = useSelector<RootState>(
     (state) => state.history
   ) as HistoryState;
+  const dispatch = useDispatch();
 
   if (!isHistoryOpen) return <></>;
 
@@ -106,6 +122,9 @@ function History({
           ))
           .reverse()}
       </HistoryList>
+      <ResetHistory onClick={() => dispatch(resetHistory())}>
+        Reset
+      </ResetHistory>
     </HistoryWapper>
   );
 }
