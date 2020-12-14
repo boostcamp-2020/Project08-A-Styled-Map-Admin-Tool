@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from '../../../utils/styles/styled';
 import { RootState } from '../../../store/index';
 import {
@@ -10,7 +10,7 @@ import {
 } from '../../../store/common/type';
 import SetHistoryContent from './SetHistoryContent';
 import ReplaceHistoryContent from './ReplaceHistoryContent';
-import { resetHistory } from '../../../store/history/action';
+import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
 
 const HistoryWapper = styled.div`
   z-index: 30;
@@ -81,18 +81,19 @@ interface HistoryProps {
   isHistoryOpen: boolean;
   comparisonButtonClickHandler: (id: string) => void;
   compareId: string | undefined;
+  setLogId: (id: string | undefined) => void;
 }
 
 function History({
   isHistoryOpen,
   comparisonButtonClickHandler,
   compareId,
+  setLogId,
 }: HistoryProps): ReactElement {
   const { log, currentIdx } = useSelector<RootState>(
     (state) => state.history
   ) as HistoryState;
-  const dispatch = useDispatch();
-
+  const { resetHistoryAndStyle } = useHistoryFeature();
   if (!isHistoryOpen) return <></>;
 
   return (
@@ -119,7 +120,12 @@ function History({
           ))
           .reverse()}
       </HistoryList>
-      <ResetHistory onClick={() => dispatch(resetHistory())}>
+      <ResetHistory
+        onClick={() => {
+          setLogId(undefined);
+          resetHistoryAndStyle();
+        }}
+      >
         History Reset
       </ResetHistory>
     </HistoryWapper>

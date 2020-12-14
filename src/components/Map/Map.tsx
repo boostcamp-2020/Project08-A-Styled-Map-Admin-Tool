@@ -61,7 +61,7 @@ function Map({ pathname }: MapProps): React.ReactElement {
   const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap();
 
   const { isHistoryOpen, historyBtnHandler } = useHistoryFeature();
-  const { logId, comparisonButtonClickHandler } = useCompareFeature({
+  const { logId, setLogId, comparisonButtonClickHandler } = useCompareFeature({
     containerRef,
     beforeMapRef,
   });
@@ -84,6 +84,7 @@ function Map({ pathname }: MapProps): React.ReactElement {
         isHistoryOpen={isHistoryOpen}
         comparisonButtonClickHandler={comparisonButtonClickHandler}
         compareId={logId}
+        setLogId={setLogId}
       />
       <UpperButtons
         mapRef={containerRef}

@@ -20,6 +20,7 @@ export interface mapProps {
 
 export interface useComparisonButtonType {
   logId: string | undefined;
+  setLogId: (id: string | undefined) => void;
   comparisonButtonClickHandler: (id: string) => void;
 }
 
@@ -85,6 +86,7 @@ function useCompareFeature({
 
   return {
     logId,
+    setLogId,
     comparisonButtonClickHandler,
   };
 }
