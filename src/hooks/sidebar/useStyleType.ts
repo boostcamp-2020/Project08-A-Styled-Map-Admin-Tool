@@ -1,4 +1,3 @@
-import mapboxgl from 'mapbox-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
 import { RootState } from '../../store';
