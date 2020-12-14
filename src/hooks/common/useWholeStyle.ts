@@ -2,38 +2,41 @@ import mapboxgl from 'mapbox-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { setWholeStyle, replaceWholeStyle } from '../../store/style/action';
+import { addLog } from '../../store/history/action';
 import {
   WholeStyleActionPayload,
   FeatureState,
   FeatureNameType,
   StyleStoreType,
+  ReplaceType,
 } from '../../store/common/type';
 import { useEffect, useState } from 'react';
 import setFeatureStyle from '../../utils/setFeatureStyle';
 
+type LogInfoType = { changedKey: ReplaceType; changedValue?: string };
+type FlagType = LogInfoType | boolean;
 interface WholeStyleHook {
-  flag: boolean;
+  flag: LogInfoType | boolean;
   getWholeStyle: () => StyleStoreType;
-  changeStyle: (inputStyle: WholeStyleActionPayload) => void;
-  replaceStyle: (inputStyle: StyleStoreType) => void;
+  changeStyle: (
+    inputStyle: WholeStyleActionPayload,
+    logInfo?: LogInfoType
+  ) => void;
+  replaceStyle: (inputStyle: StyleStoreType, logInfo?: LogInfoType) => void;
 }
 
-export type WholeStyleStoreType = {
-  [featureName in FeatureNameType]: FeatureState;
-};
-
 function useWholeStyle(): WholeStyleHook {
-  const [flag, setFlag] = useState(false);
+  const [flag, setFlag] = useState<FlagType>(false);
   const dispatch = useDispatch();
 
   const map = useSelector<RootState>((state) => state.map.map) as mapboxgl.Map;
   const { poi, landscape, administrative, road, transit, water } = useSelector<
     RootState
-  >((state) => state) as WholeStyleStoreType;
+  >((state) => state) as StyleStoreType;
 
   useEffect(() => {
     if (!flag || !map) return;
-    const stores: WholeStyleStoreType = {
+    const stores: StyleStoreType = {
       poi,
       landscape,
       administrative,
@@ -51,6 +54,9 @@ function useWholeStyle(): WholeStyleHook {
         featureState: stores[feature] as FeatureState,
       });
     }
+    if (flag !== true) {
+      dispatch(addLog({ ...flag, wholeStyle: stores }));
+    }
     setFlag(false);
   }, [flag]);
 
@@ -65,9 +71,12 @@ function useWholeStyle(): WholeStyleHook {
     };
   };
 
-  const changeStyle = (inputStyle: WholeStyleActionPayload): void => {
+  const changeStyle = (
+    inputStyle: WholeStyleActionPayload,
+    logInfo?: LogInfoType
+  ): void => {
     dispatch(setWholeStyle(inputStyle));
-    setFlag(true);
+    setFlag(logInfo || true);
   };
 
   const replaceStyle = (inputStyle: StyleStoreType): void => {

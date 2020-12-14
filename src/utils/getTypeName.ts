@@ -2,6 +2,7 @@ import {
   ElementNameType,
   SubElementNameType,
   StyleKeyType,
+  ReplaceType,
   objType,
 } from '../store/common/type';
 import featureTypeData from './rendering-data/featureTypeData';
@@ -39,4 +40,13 @@ const elementName = {
   },
 };
 
-export { featureName, elementName };
+const replaceName = {
+  [ReplaceType.init]: '초기화',
+  [ReplaceType.import]: '가져오기',
+  [ReplaceType.theme]: '테마',
+  [ReplaceType.depth]: '표기 단계 조절',
+};
+
+const depthName = ['하', '중', '상'];
+
+export { featureName, elementName, replaceName, depthName };

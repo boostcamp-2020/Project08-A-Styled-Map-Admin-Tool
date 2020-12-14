@@ -1,12 +1,13 @@
+export type WeightTemplateProperty = string | number | (string | number)[];
 interface WeightTemplate {
   [subFeature: string]: {
-    [element: string]: any;
+    [element: string]: (weight: number) => WeightTemplateProperty[];
   };
 }
 
 const weightTemplate: WeightTemplate = {
   all: {
-    fill: (weight: number) => [
+    fill: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],
@@ -17,7 +18,7 @@ const weightTemplate: WeightTemplate = {
       18,
       weight * 10 + 5,
     ],
-    stroke: (weight: number) => [
+    stroke: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],
@@ -28,7 +29,7 @@ const weightTemplate: WeightTemplate = {
     ],
   },
   highway: {
-    fill: (weight: number) => [
+    fill: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],
@@ -37,7 +38,7 @@ const weightTemplate: WeightTemplate = {
       18,
       weight * 5 + 25,
     ],
-    stroke: (weight: number) => [
+    stroke: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],
@@ -50,7 +51,7 @@ const weightTemplate: WeightTemplate = {
     ],
   },
   arterial: {
-    fill: (weight: number) => [
+    fill: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],
@@ -59,7 +60,7 @@ const weightTemplate: WeightTemplate = {
       18,
       weight * 5 + 25,
     ],
-    stroke: (weight: number) => [
+    stroke: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],
@@ -70,7 +71,7 @@ const weightTemplate: WeightTemplate = {
     ],
   },
   local: {
-    fill: (weight: number) => [
+    fill: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],
@@ -81,7 +82,7 @@ const weightTemplate: WeightTemplate = {
       18,
       weight * 20 + 5,
     ],
-    stroke: (weight: number) => [
+    stroke: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],
@@ -92,7 +93,7 @@ const weightTemplate: WeightTemplate = {
     ],
   },
   sidewalk: {
-    fill: (weight: number) => [
+    fill: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],
@@ -101,7 +102,7 @@ const weightTemplate: WeightTemplate = {
       18,
       weight * 15 + 5,
     ],
-    stroke: (weight: number) => [
+    stroke: (weight: number): WeightTemplateProperty[] => [
       'interpolate',
       ['exponential', 1.5],
       ['zoom'],

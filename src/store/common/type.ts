@@ -1,12 +1,20 @@
+import mapboxgl from 'mapbox-gl';
 import {
   init,
   replaceWholeStyle,
+  replaceFeatureStyle,
   setStyle,
   setWholeStyle,
   initColors,
 } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
-import { INIT_HISTORY, ADD_LOG, SET_CURRENT_INDEX } from '../history/action';
+import {
+  INIT_HISTORY,
+  ADD_LOG,
+  SET_CURRENT_INDEX,
+  RESET_HISTORY,
+} from '../history/action';
+import { MarkerType, MarkerInstanceType } from '../marker/action';
 
 export enum ElementNameType {
   section = 'section',
@@ -29,7 +37,7 @@ export enum StyleKeyType {
 }
 
 export enum VisibilityValueType {
-  visiable = 'visiable',
+  visible = 'visible',
   none = 'none',
   inherit = 'inherit',
 }
@@ -114,6 +122,7 @@ export interface objType {
   [name: string]: any;
 }
 
+/** Style Feature Type for Redux */
 export interface StyleType {
   isChanged: boolean;
   visibility: string;
@@ -146,34 +155,55 @@ export interface ElementPropsType extends FeaturePropsType {
   subElement?: SubElementNameType;
 }
 
-export type SidebarActionType =
-  | ReturnType<typeof setSidebarProperties>
-  | ReturnType<typeof initSidebarProperties>;
+export interface ActionPayload extends ElementPropsType {
+  style: StyleType;
+}
 
 export type ActionType =
   | ReturnType<typeof init>
   | ReturnType<typeof setStyle>
   | ReturnType<typeof setWholeStyle>
+  | ReturnType<typeof replaceFeatureStyle>
   | ReturnType<typeof replaceWholeStyle>
   | ReturnType<typeof initColors>;
 
-/** Style Store Type for Replace */
+/** Style Stores Type for Replace */
 export type StyleStoreType = {
   [featureName in FeatureNameType]: FeatureState;
 };
 
-/** History Type */
-export interface HistoryInfoPropsType {
+/** History Type for Redux */
+export interface HistorySetLogType {
   id?: string;
   changedValue: string | number;
   changedKey: StyleKeyType;
   feature: FeatureNameType;
   subFeature: string;
   element: ElementNameType;
-  subElement: SubElementNameType;
+  subElement?: SubElementNameType;
   style: StyleType;
   wholeStyle: StyleStoreType;
 }
+
+export enum ReplaceType {
+  init = 'init',
+  import = 'import',
+  theme = 'theme',
+  depth = 'depth',
+}
+
+export interface DepthLogChangedValueType {
+  feature: FeatureNameType;
+  depth: number;
+}
+export interface HistoryReplaceLogType {
+  id?: string;
+  changedValue?: string | DepthLogChangedValueType;
+  changedKey: ReplaceType;
+  wholeStyle: StyleStoreType;
+}
+
+export type HistoryInfoPropsType = HistorySetLogType | HistoryReplaceLogType;
 
 export interface HistoryState {
   log?: HistoryInfoPropsType[];
@@ -185,23 +215,18 @@ export interface SetIndexPayload {
 }
 
 export interface HistoryActionType {
-  type: typeof INIT_HISTORY | typeof ADD_LOG | typeof SET_CURRENT_INDEX;
-  payload:
-    | null
-    | SetIndexPayload
-    | {
-        changedKey: StyleKeyType;
-        feature: FeatureNameType;
-        subFeature: string;
-        element: ElementNameType;
-        subElement?: SubElementNameType;
-        wholeStyle: StyleStoreType;
-      };
+  type:
+    | typeof INIT_HISTORY
+    | typeof ADD_LOG
+    | typeof SET_CURRENT_INDEX
+    | typeof RESET_HISTORY;
+  payload: null | SetIndexPayload | HistorySetLogType | HistoryReplaceLogType;
 }
 
-export interface ActionPayload extends ElementPropsType {
-  style: StyleType;
-}
+/** Sidebar Type for Redux */
+export type SidebarActionType =
+  | ReturnType<typeof setSidebarProperties>
+  | ReturnType<typeof initSidebarProperties>;
 
 export interface SidebarState {
   key: 'feature' | 'subFeature' | 'element' | 'subElement';
@@ -259,10 +284,22 @@ export type PropertyType = {
 };
 
 /** export type */
+export enum LocationTypeName {
+  zoom = 'zoom',
+  lng = 'lng',
+  lat = 'lat',
+}
+
 export interface LocationType {
-  zoom?: number;
-  lng?: number;
-  lat?: number;
+  [LocationTypeName.zoom]?: number;
+  [LocationTypeName.lng]?: number;
+  [LocationTypeName.lat]?: number;
+}
+
+export enum locationTypeName {
+  zoom = 'zoom',
+  lng = 'lng',
+  lat = 'lat',
 }
 
 /** defatult style Type */
@@ -290,6 +327,7 @@ export type DefaultWholeStyle = {
 
 /** urlJson Type */
 export interface URLJsonStyleType {
+  isChanged?: boolean;
   visibility?: string;
   color?: string;
   weight?: number;
@@ -317,5 +355,21 @@ export type URLJsonFeatureType = {
 
 export type URLJsonType = {
   filteredStyle?: URLJsonFeatureType;
-  mapCoordinate?: LocationType;
+  mapCoordinate?: LocationType | null;
+  markers?: MarkerType[] | null;
 };
+
+export enum URLPathNameType {
+  root = '/',
+  map = '/map',
+  show = '/show',
+}
+
+/** ReduxStateType */
+export interface ReduxStateType {
+  map: mapboxgl.Map;
+  sidebar: SidebarState;
+  history: HistoryState;
+  features: StyleStoreType;
+  marker: MarkerInstanceType[];
+}

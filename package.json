@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "@mapbox/mapbox-gl-geocoder": "^4.7.0",
     "dotenv": "^8.2.0",
     "emotion-reset": "^2.0.7",
     "emotion-theming": "^10.0.27",
@@ -22,7 +23,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "NODE_ENV=development react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

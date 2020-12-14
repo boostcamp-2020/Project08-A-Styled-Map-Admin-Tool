@@ -92,7 +92,7 @@ const defaultStyle: DefaultWholeStyle = {
       },
       labelText: {
         fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
-        stroke: { color: 'hsl(0, 0%, 100%)', weight: 1 },
+        stroke: { color: 'hsl(0, 0%, 100%)', weight: 1 }, // 없음
       },
       labelIcon: { color: 'transparent', weight: 0 },
     },
@@ -144,7 +144,7 @@ const defaultStyle: DefaultWholeStyle = {
     country: {
       section: {
         fill: { color: 'transparent', weight: 0 },
-        stroke: { color: 'hsl(230, 8%, 51%)', weight: 0 },
+        stroke: { color: 'hsl(230, 8%, 51%)', weight: 7 },
       },
       labelText: {
         fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
@@ -154,7 +154,7 @@ const defaultStyle: DefaultWholeStyle = {
     state: {
       section: {
         fill: { color: 'transparent', weight: 0 },
-        stroke: { color: 'hsl(230, 14%, 77%)', weight: 0 },
+        stroke: { color: 'hsl(230, 14%, 77%)', weight: 7 },
       },
       labelText: {
         fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
@@ -162,6 +162,10 @@ const defaultStyle: DefaultWholeStyle = {
       },
     },
     locality: {
+      section: {
+        fill: { color: 'transparent', weight: 0 },
+        stroke: { color: 'transparent', weight: 0 },
+      },
       labelText: {
         fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
         stroke: { color: 'hsl(0, 0%, 100%)', weight: 0.5 },
@@ -263,18 +267,18 @@ const defaultStyle: DefaultWholeStyle = {
     },
     rail: {
       section: {
-        fill: { color: 'hsl(234, 20%, 30%)', weight: 0 },
-        stroke: { color: 'transparent', weight: 1 },
+        fill: { color: 'transparent', weight: 0 },
+        stroke: { color: 'hsl(234, 56%, 83%)', weight: 2 },
       },
       labelText: {
         fill: { color: 'transparent', weight: 0 },
-        stroke: { color: 'transparent', weight: 0.5 },
+        stroke: { color: 'transparent', weight: 0 },
       },
     },
     subway: {
       section: {
-        fill: { color: 'hsl(192, 70%, 43%)', weight: 0 },
-        stroke: { color: 'transparent', weight: 0 },
+        fill: { color: 'transparent', weight: 0 },
+        stroke: { color: 'hsl(192, 70%, 43%)', weight: 2 },
       },
       labelText: {
         fill: { color: 'transparent', weight: 0 },

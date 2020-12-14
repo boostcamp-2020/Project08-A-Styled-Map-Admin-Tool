@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useWholeStyle from '../common/useWholeStyle';
 import validateStyle from '../../utils/validateStyle';
+import { ReplaceType } from '../../store/common/type';
 
 export interface useModalStatusProps {
   importModalToggleHandler: () => void;
@@ -46,7 +47,7 @@ function useModalStatus({
       if (!inputStatus) return;
       const input = JSON.parse(inputText);
       if (!validateStyle(input)) throw new Error('InvalidStyle');
-      changeStyle(input);
+      changeStyle(input, { changedKey: ReplaceType.import });
     } catch {
       setInputStatus(false);
     }

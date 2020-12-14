@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import useExportStyle from './useExportStyle';
-import { FeatureNameType } from '../../store/common/type';
+import useExportStyle, { ExportType } from './useExportStyle';
 
 interface SidebarFooterHook {
   isOpen: boolean;
   onClickExport: () => void;
   onCloseModal: () => void;
-  style: {
-    [key: string]: FeatureNameType | undefined;
-  };
+  style: ExportType;
 }
 
 function useSidebarFooter(): SidebarFooterHook {
