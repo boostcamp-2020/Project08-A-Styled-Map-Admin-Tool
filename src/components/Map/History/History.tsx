@@ -71,6 +71,7 @@ const ResetHistory = styled.button`
   position: absolute;
   top: 240px;
   align-self: center;
+  width: 60%;
   &:hover {
     color: ${(props) => props.theme.GREEN};
     outline: none;
@@ -119,7 +120,7 @@ function History({
           .reverse()}
       </HistoryList>
       <ResetHistory onClick={() => dispatch(resetHistory())}>
-        Reset
+        History Reset
       </ResetHistory>
     </HistoryWapper>
   );
