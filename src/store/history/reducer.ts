@@ -1,4 +1,9 @@
-import { ADD_LOG, INIT_HISTORY, SET_CURRENT_INDEX } from './action';
+import {
+  ADD_LOG,
+  INIT_HISTORY,
+  SET_CURRENT_INDEX,
+  RESET_HISTORY,
+} from './action';
 import {
   HistoryState,
   HistoryActionType,
@@ -69,6 +74,11 @@ function historyReducer(
       return newState;
     }
 
+    case RESET_HISTORY: {
+      localStorage.setItem('log', JSON.stringify([]));
+
+      return { ...state, log: [] };
+    }
     default:
       return state;
   }

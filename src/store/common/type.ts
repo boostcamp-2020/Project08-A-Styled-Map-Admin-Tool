@@ -8,7 +8,12 @@ import {
   initColors,
 } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
-import { INIT_HISTORY, ADD_LOG, SET_CURRENT_INDEX } from '../history/action';
+import {
+  INIT_HISTORY,
+  ADD_LOG,
+  SET_CURRENT_INDEX,
+  RESET_HISTORY,
+} from '../history/action';
 import { MarkerType, MarkerInstanceType } from '../marker/action';
 
 export enum ElementNameType {
@@ -210,7 +215,11 @@ export interface SetIndexPayload {
 }
 
 export interface HistoryActionType {
-  type: typeof INIT_HISTORY | typeof ADD_LOG | typeof SET_CURRENT_INDEX;
+  type:
+    | typeof INIT_HISTORY
+    | typeof ADD_LOG
+    | typeof SET_CURRENT_INDEX
+    | typeof RESET_HISTORY;
   payload: null | SetIndexPayload | HistorySetLogType | HistoryReplaceLogType;
 }
 
