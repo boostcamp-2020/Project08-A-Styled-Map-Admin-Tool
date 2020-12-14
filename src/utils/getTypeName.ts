@@ -47,4 +47,6 @@ const replaceName = {
   [ReplaceType.depth]: '표기 단계 조절',
 };
 
-export { featureName, elementName, replaceName };
+const depthName = ['하', '중', '상'];
+
+export { featureName, elementName, replaceName, depthName };
