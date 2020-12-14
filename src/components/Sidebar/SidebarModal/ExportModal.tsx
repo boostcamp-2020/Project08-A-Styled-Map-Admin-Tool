@@ -9,8 +9,12 @@ import {
 import CloseIcon from '../../Icon/CloseIcon';
 import Copy from '../../Icon/Copy';
 import Overlay from '../../common/Overlay';
+import {
+  ExportType,
+  getStringifyStyleObject,
+  geturlParsedStyle,
+} from '../../../hooks/sidebar/useExportStyle';
 import { FeatureNameType } from '../../../store/common/type';
-import { jsonToURL } from '../../../utils/urlParsing';
 import useCopyToClipboard from '../../../hooks/sidebar/useCopyToClipboard';
 
 const ExportModalWrapper = styled(ModalWrapper)``;
@@ -56,11 +60,7 @@ const SubTitle = styled.h2`
   display: flex;
 `;
 
-const JsonCopyBtn = styled(Copy)`
-  margin: 0 10px;
-`;
-
-const UrlCopyBtn = styled(Copy)`
+const CopyBtn = styled(Copy)`
   margin: 0 10px;
 `;
 
@@ -78,7 +78,7 @@ function ExportModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  style: StoreDataType;
+  style: ExportType;
 }): React.ReactElement {
   const {
     completeUrlCopy,
@@ -94,8 +94,9 @@ function ExportModal({
   }, [style]);
 
   if (!isOpen) return <></>;
-  const newJson = JSON.stringify(style.filteredStyle, null, 2);
-  const newUrl = jsonToURL(style);
+
+  const stringifiedStyleObject = getStringifyStyleObject(style);
+  const urlParsedStyle = geturlParsedStyle(style);
 
   return (
     <>
@@ -111,23 +112,25 @@ function ExportModal({
           <ExportToJson>
             <SubTitle>
               JSON 형식으로 내보내기
-              <JsonCopyBtn onClick={() => copyToClipboard({ newJson })}>
-                copy
-              </JsonCopyBtn>
+              <CopyBtn
+                onClick={() => {
+                  copyToClipboard({ newJson: stringifiedStyleObject });
+                }}
+              />
               <CopyStatus>{completeJsonCopy ? '복사완료' : ''}</CopyStatus>
             </SubTitle>
 
-            <Content>{JSON.stringify(style.filteredStyle, null, 2)}</Content>
+            <Content>{stringifiedStyleObject}</Content>
           </ExportToJson>
           <ExportToURL>
             <SubTitle>
               URL로 내보내기
-              <UrlCopyBtn onClick={() => copyToClipboard({ newUrl })}>
-                copy
-              </UrlCopyBtn>
+              <CopyBtn
+                onClick={() => copyToClipboard({ newUrl: urlParsedStyle })}
+              />
               <CopyStatus>{completeUrlCopy ? '복사완료' : ''}</CopyStatus>
             </SubTitle>
-            <Content>{jsonToURL(style)}</Content>
+            <Content>{urlParsedStyle}</Content>
           </ExportToURL>
         </ModalBody>
       </ExportModalWrapper>

@@ -9,6 +9,7 @@ import {
 } from '../style/action';
 import { setSidebarProperties, initSidebarProperties } from '../sidebar/action';
 import { INIT_HISTORY, ADD_LOG, SET_CURRENT_INDEX } from '../history/action';
+import { MarkerType, MarkerInstanceType } from '../marker/action';
 
 export enum ElementNameType {
   section = 'section',
@@ -274,10 +275,16 @@ export type PropertyType = {
 };
 
 /** export type */
+export enum LocationTypeName {
+  zoom = 'zoom',
+  lng = 'lng',
+  lat = 'lat',
+}
+
 export interface LocationType {
-  zoom?: number;
-  lng?: number;
-  lat?: number;
+  [LocationTypeName.zoom]?: number;
+  [LocationTypeName.lng]?: number;
+  [LocationTypeName.lat]?: number;
 }
 
 export enum locationTypeName {
@@ -339,8 +346,15 @@ export type URLJsonFeatureType = {
 
 export type URLJsonType = {
   filteredStyle?: URLJsonFeatureType;
-  mapCoordinate?: LocationType;
+  mapCoordinate?: LocationType | null;
+  markers?: MarkerType[] | null;
 };
+
+export enum URLPathNameType {
+  root = '/',
+  map = '/map',
+  show = '/show',
+}
 
 /** ReduxStateType */
 export interface ReduxStateType {
@@ -348,4 +362,5 @@ export interface ReduxStateType {
   sidebar: SidebarState;
   history: HistoryState;
   features: StyleStoreType;
+  marker: MarkerInstanceType[];
 }

@@ -11,14 +11,20 @@ import {
   ReduxStateType,
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
+import { MarkerInstanceType, MarkerType } from '../../store/marker/action';
+import { jsonToURL } from '../../utils/urlParsing';
 
-interface StoreDataType {
-  [key: string]: FeatureNameType | mapboxgl.Map | undefined;
+export interface StoreDataType {
+  [key: string]: FeatureNameType | undefined;
 }
 
-interface ExportType {
-  mapCoordinate: LocationType;
-  filteredStyle: StoreDataType;
+export interface ExportStyleMarkersType {
+  filteredStyle?: StoreDataType;
+  markers?: MarkerType[];
+}
+
+export interface ExportType extends ExportStyleMarkersType {
+  mapCoordinate?: LocationType;
 }
 
 interface UseExportStyleType {
@@ -50,6 +56,23 @@ interface ElementType {
   labelText?: SubElementType | null;
   labelIcon?: StyleType | null;
 }
+
+export const getStringifyStyleObject = ({
+  filteredStyle,
+  markers,
+}: ExportType): string => {
+  const storedMarkers = markers ?? [];
+  const data =
+    storedMarkers.length > 0
+      ? { ...filteredStyle, markers }
+      : { ...filteredStyle };
+  const stringifyStyleMarkers = JSON.stringify(data, null, 2);
+  return stringifyStyleMarkers;
+};
+
+export const geturlParsedStyle = (style: ExportType): string => {
+  return jsonToURL(style);
+};
 
 function compareChange(
   defaultStyle: StyleType,
@@ -166,40 +189,52 @@ function filterStyle(style: StoreDataType): StoreDataType {
   return ret;
 }
 
+function getMapCoordinate(map: mapboxgl.Map) {
+  return {
+    zoom: map.getZoom(),
+    lng: map.getCenter().lng,
+    lat: map.getCenter().lat,
+  };
+}
+
+function getExportMarkersArray(markers: MarkerInstanceType[]): MarkerType[] {
+  const exportMarkersArray = markers.map(({ lng, lat, text }) => ({
+    lng,
+    lat,
+    text,
+  }));
+
+  return exportMarkersArray;
+}
+
 function useExportStyle(): UseExportStyleType {
-  const { map, sidebar, history, ...features } = useSelector<RootState>(
+  const { map, sidebar, history, marker, ...features } = useSelector<RootState>(
     (state) => {
       const { map, sidebar, history, depthTheme, marker, ...features } = state;
       return {
         map: map.map,
         sidebar,
+        marker: marker.markers,
+        history,
         features,
       };
     }
   ) as ReduxStateType;
 
   const exportStyle = (): ExportType => {
-    if (map || sidebar || history) {
-      const filteredStyle = filterStyle(
-        (features.features as unknown) as StoreDataType
-      );
-
-      const mapCoordinate = {
-        zoom: map.getZoom(),
-        lng: map.getCenter().lng,
-        lat: map.getCenter().lat,
-      };
+    if (map || history || marker) {
+      const markers = getExportMarkersArray(marker);
+      const filteredStyle = filterStyle((features as unknown) as StoreDataType);
+      const mapCoordinate = getMapCoordinate(map);
 
       return {
         filteredStyle,
         mapCoordinate,
+        markers,
       };
     }
 
-    return {
-      filteredStyle: {},
-      mapCoordinate: {},
-    };
+    return {};
   };
 
   return { exportStyle };
