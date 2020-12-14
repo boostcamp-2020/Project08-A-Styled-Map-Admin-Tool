@@ -2,17 +2,19 @@ import christmas from './theme/christmas.json';
 import blueprint from './theme/blueprint.json';
 import dark from './theme/dark.json';
 import sketch from './theme/sketch.json';
+import monochrome from './theme/monochrome.json';
 
 const data = [
   {
     src:
-      'https://i.pinimg.com/originals/8f/6d/97/8f6d971f3d086edaf6cee773991abb27.jpg',
+      'https://user-images.githubusercontent.com/26402298/102054588-fa138b00-3e2c-11eb-9fc9-d06b4262a669.png',
     name: '표준',
   },
   {
     src:
-      'https://i.pinimg.com/originals/8f/6d/97/8f6d971f3d086edaf6cee773991abb27.jpg',
-    name: '실버',
+      'https://user-images.githubusercontent.com/40742180/102055094-a8b7cb80-3e2d-11eb-93dd-ff32799a351e.png',
+    name: '모노크롬',
+    theme: monochrome,
   },
   {
     src:
@@ -22,13 +24,13 @@ const data = [
   },
   {
     src:
-      'https://i.pinimg.com/originals/8f/6d/97/8f6d971f3d086edaf6cee773991abb27.jpg',
+      'https://user-images.githubusercontent.com/40742180/102055087-a6ee0800-3e2d-11eb-9442-bb64c2ba430a.png',
     name: '밤',
     theme: dark,
   },
   {
     src:
-      'https://i.pinimg.com/originals/8f/6d/97/8f6d971f3d086edaf6cee773991abb27.jpg',
+      'https://user-images.githubusercontent.com/41146374/102054872-6098a900-3e2d-11eb-9151-048012b4f74d.png',
     name: '크리스마스',
     theme: christmas,
   },
