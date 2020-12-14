@@ -67,11 +67,7 @@ const Explain = styled.p`
   color: ${(props) => props.theme.DARKGREY};
 `;
 
-interface ResetProps {
-  onClick: () => void;
-}
-
-const ResetHistory = styled.button<ResetProps>`
+const ResetHistory = styled.button`
   position: absolute;
   top: 240px;
   align-self: center;
