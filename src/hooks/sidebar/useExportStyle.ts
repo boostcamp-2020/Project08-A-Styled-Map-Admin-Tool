@@ -9,6 +9,7 @@ import {
   SubElementNameType,
   LocationType,
   ReduxStateType,
+  StyleStoreType,
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
 import { MarkerInstanceType, MarkerType } from '../../store/marker/action';
@@ -97,7 +98,7 @@ function filterSubElement(
   currentLocation: ElementPropsType,
   subElement: SubElementType
 ): SubElementType {
-  if (subElement.isChanged) {
+  if (subElement?.isChanged) {
     return compareChange(getDefaultStyle(currentLocation), subElement);
   }
 
@@ -126,7 +127,7 @@ function filterElement(
   currentLocation: ElementPropsType,
   element: ElementType
 ): ElementType {
-  if (!element.isChanged) {
+  if (!element?.isChanged) {
     return {};
   }
 
@@ -169,7 +170,7 @@ function filterSubFeature(
   return ret;
 }
 
-function filterStyle(style: StoreDataType): StoreDataType {
+function filterStyle(style: StyleStoreType): StoreDataType {
   const ret = Object.entries(style).reduce((accu, [key, subFeature]) => {
     const currentLocation: ElementPropsType = {
       feature: key as FeatureNameType,
@@ -208,23 +209,20 @@ function getExportMarkersArray(markers: MarkerInstanceType[]): MarkerType[] {
 }
 
 function useExportStyle(): UseExportStyleType {
-  const { map, sidebar, history, marker, ...features } = useSelector<RootState>(
-    (state) => {
-      const { map, sidebar, history, depthTheme, marker, ...features } = state;
-      return {
-        map: map.map,
-        sidebar,
-        marker: marker.markers,
-        history,
-        features,
-      };
-    }
-  ) as ReduxStateType;
+  const { map, history, marker, features } = useSelector<RootState>((state) => {
+    const { map, history, depthTheme, marker, sidebar, ...features } = state;
+    return {
+      map: map.map,
+      marker: marker.markers,
+      history,
+      features,
+    };
+  }) as ReduxStateType;
 
   const exportStyle = (): ExportType => {
     if (map || history || marker) {
       const markers = getExportMarkersArray(marker);
-      const filteredStyle = filterStyle((features as unknown) as StoreDataType);
+      const filteredStyle = filterStyle(features);
       const mapCoordinate = getMapCoordinate(map);
 
       return {
