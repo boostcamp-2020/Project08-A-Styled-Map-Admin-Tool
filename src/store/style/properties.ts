@@ -11,6 +11,7 @@ import {
 import { hslToHEX } from '../../utils/colorFormat';
 
 import defaultStyle from '../../utils/rendering-data/defaultStyle';
+import deepCopy from '../../utils/deepCopy';
 
 const style: StyleType = {
   isChanged: false,
@@ -41,7 +42,7 @@ export const getDefaultStyle = ({
   const l = hslArr ? hslArr[3] : 0;
 
   return {
-    ...JSON.parse(JSON.stringify(style)),
+    ...(deepCopy(style) as StyleType),
     visibility: subFeature === 'all' ? 'visible' : 'inherit',
     color: hslToHEX(defaultState?.color as string),
     weight: defaultState?.weight || 0,
