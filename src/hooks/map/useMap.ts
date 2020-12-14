@@ -12,7 +12,6 @@ import {
   LocationType,
   URLPathNameType,
 } from '../../store/common/type';
-import validateStyle from '../../utils/validateStyle';
 import { RootState } from '../../store/index';
 import { initMarker, MarkerState } from '../../store/marker/action';
 import { initHistory } from '../../store/history/action';

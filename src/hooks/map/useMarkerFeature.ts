@@ -14,7 +14,6 @@ import {
 import { urlToJson } from '../../utils/urlParsing';
 import { URLPathNameType } from '../../store/common/type';
 
-// const PRINT_MARKER_AFTER_INIT = 'printMarkerAfterInit';
 const LIMIT_MARKER_NUMBER = 30;
 interface ReduxStateType {
   map: mapboxgl.Map;
@@ -161,7 +160,6 @@ function useMarkerFeature(): MarkerHookType {
     if (!lngLat.lng || !lngLat.lat) return;
     const { lng, lat } = lngLat;
 
-    // 초기화 된 마커, 생성된 Marker 객체 이벤트 핸들러 연결
     if (instance) {
       instance.on('dragend', () => {
         const lnglat = instance.getLngLat();

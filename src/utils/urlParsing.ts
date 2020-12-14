@@ -2,6 +2,7 @@ import { ExportType, StoreDataType } from '../hooks/sidebar/useExportStyle';
 import {
   /** JSONURL */
   URLJsonType,
+  URLJsonFeatureType,
   URLJsonSubElementType,
   URLJsonStyleType,
   URLJsonElementType,
@@ -15,7 +16,6 @@ import {
   /** export */
   LocationType,
   LocationTypeName,
-  URLJsonFeatureType,
 } from '../store/common/type';
 import { MarkerType } from '../store/marker/action';
 
@@ -89,8 +89,14 @@ function urlToJsonGetStyleJson(styleParams: string): URLJsonFeatureType {
   if (!styleParams) return {};
 
   const values = styleParams?.split(':');
-  const state: any = {};
-  const properties = {
+  const state: URLJsonFeatureType = {};
+  type propertiesType = {
+    feature: FeatureNameType | '';
+    subFeature: string | '';
+    element: ElementNameType | '';
+    subElement: SubElementNameType | '';
+  };
+  const properties: propertiesType = {
     feature: '',
     subFeature: '',
     element: '',
@@ -100,24 +106,35 @@ function urlToJsonGetStyleJson(styleParams: string): URLJsonFeatureType {
   values?.forEach((value, index) => {
     const { feature, subFeature, element, subElement } = properties;
     if (value in FeatureNameType) {
-      state[value] = {};
-      properties.feature = value;
-    } else if (value in SubFeatureNameType) {
-      state[feature][value] = {};
+      state[value as FeatureNameType] = {};
+      properties.feature = value as FeatureNameType;
+    } else if (value in SubFeatureNameType && feature) {
+      (state[feature] as URLJsonSubFeatureType)[value] = {};
       properties.subFeature = value;
-    } else if (value in ElementNameType) {
-      state[feature][subFeature][value] = {};
-      properties.element = value;
-    } else if (value in SubElementNameType) {
-      state[feature][subFeature][element][value] = {};
-      properties.subElement = value;
-    } else if (value in StyleKeyType) {
+    } else if (value in ElementNameType && feature) {
+      (state[feature] as URLJsonSubFeatureType)[subFeature][
+        value as ElementNameType
+      ] = {};
+      properties.element = value as ElementNameType;
+    } else if (value in SubElementNameType && feature && element) {
+      ((state[feature] as URLJsonSubFeatureType)[subFeature][
+        element
+      ] as URLJsonSubFeatureType)[value] = {};
+      properties.subElement = value as SubElementNameType;
+    } else if (value in StyleKeyType && feature && element && subElement) {
       if (element === ElementNameType.labelIcon) {
-        state[feature][subFeature][element][value] = values[index + 1];
+        (((state[feature] as URLJsonSubFeatureType)[subFeature][
+          element
+        ] as URLJsonSubFeatureType)[
+          value as StyleKeyType
+        ] as URLJsonStyleType) = values[index + 1] as URLJsonStyleType;
         return;
       }
-      state[feature][subFeature][element][subElement][value] =
-        values[index + 1];
+      ((((state[feature] as URLJsonSubFeatureType)[subFeature][
+        element
+      ] as URLJsonSubFeatureType)[subElement] as URLJsonStyleType)[
+        value as StyleKeyType
+      ] as URLJsonStyleType) = values[index + 1] as URLJsonStyleType;
     }
   });
   return state as URLJsonFeatureType;

@@ -70,7 +70,7 @@ function ThemeItem({
   });
 
   return (
-    <Item onClick={() => applyTheme(data.theme as objType)}>
+    <Item onClick={() => applyTheme(data as objType)}>
       <Image src={data.src} />
       <Name checked={checked}>{data.name}</Name>
       <Checkbox checked={checked}>

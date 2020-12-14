@@ -1,4 +1,6 @@
+import christmas from './theme/christmas.json';
 import blueprint from './theme/blueprint.json';
+import dark from './theme/dark.json';
 
 const data = [
   {
@@ -24,7 +26,8 @@ const data = [
   {
     src:
       'https://i.pinimg.com/originals/8f/6d/97/8f6d971f3d086edaf6cee773991abb27.jpg',
-    name: '밤',
+    name: '크리스마스',
+    theme: christmas,
   },
   {
     src:

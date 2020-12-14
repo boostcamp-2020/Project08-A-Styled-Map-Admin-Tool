@@ -8,6 +8,7 @@ import {
   StyleKeyType,
   SubElementNameType,
   LocationType,
+  ReduxStateType,
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
 import { MarkerInstanceType, MarkerType } from '../../store/marker/action';
@@ -207,15 +208,24 @@ function getExportMarkersArray(markers: MarkerInstanceType[]): MarkerType[] {
 }
 
 function useExportStyle(): UseExportStyleType {
-  const { map, sidebar, history, depthTheme, marker, ...style } = useSelector<
-    RootState
-  >((state) => state) as any;
+  const { map, sidebar, history, marker, ...features } = useSelector<RootState>(
+    (state) => {
+      const { map, sidebar, history, depthTheme, marker, ...features } = state;
+      return {
+        map: map.map,
+        sidebar,
+        marker: marker.markers,
+        history,
+        features,
+      };
+    }
+  ) as ReduxStateType;
 
   const exportStyle = (): ExportType => {
     if (map || history || marker) {
-      const markers = getExportMarkersArray(marker.markers);
-      const filteredStyle = filterStyle(style);
-      const mapCoordinate = getMapCoordinate(map.map);
+      const markers = getExportMarkersArray(marker);
+      const filteredStyle = filterStyle((features as unknown) as StoreDataType);
+      const mapCoordinate = getMapCoordinate(map);
 
       return {
         filteredStyle,

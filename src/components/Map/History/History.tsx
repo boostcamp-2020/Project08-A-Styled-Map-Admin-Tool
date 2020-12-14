@@ -2,8 +2,14 @@ import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '../../../utils/styles/styled';
 import { RootState } from '../../../store/index';
-import { HistoryState } from '../../../store/common/type';
-import { featureName, elementName } from '../../../utils/getTypeName';
+import {
+  HistoryState,
+  HistorySetLogType,
+  HistoryReplaceLogType,
+  ReplaceType,
+} from '../../../store/common/type';
+import SetHistoryContent from './SetHistoryContent';
+import ReplaceHistoryContent from './ReplaceHistoryContent';
 
 const HistoryWapper = styled.div`
   z-index: 30;
@@ -58,10 +64,6 @@ const Explain = styled.p`
   font-size: 1.3rem;
   color: ${(props) => props.theme.DARKGREY};
 `;
-const Content = styled.div`
-  padding: 2px;
-  position: relative;
-`;
 
 interface HistoryProps {
   isHistoryOpen: boolean;
@@ -95,15 +97,11 @@ function History({
               isCompared={item.id === compareId}
               onClick={() => comparisonButtonClickHandler(item.id as string)}
             >
-              <Content>
-                {`${featureName.feature[item.feature]} > ${
-                  featureName.subFeature[item.feature][item.subFeature]
-                } > ${elementName.element[item.element]} > ${
-                  elementName.subElement[item.subElement]
-                }`}
-                {`> ${elementName.style[item.changedKey]} 
-                ${item.changedValue}로 변경`}
-              </Content>
+              {item.changedKey in ReplaceType ? (
+                <ReplaceHistoryContent item={item as HistoryReplaceLogType} />
+              ) : (
+                <SetHistoryContent item={item as HistorySetLogType} />
+              )}
             </HistoryItem>
           ))
           .reverse()}
