@@ -1,6 +1,7 @@
 import christmas from './theme/christmas.json';
 import blueprint from './theme/blueprint.json';
 import dark from './theme/dark.json';
+import sketch from './theme/sketch.json';
 
 const data = [
   {
@@ -16,7 +17,8 @@ const data = [
   {
     src:
       'https://i.pinimg.com/originals/8f/6d/97/8f6d971f3d086edaf6cee773991abb27.jpg',
-    name: '레트로',
+    name: '스케치',
+    theme: sketch,
   },
   {
     src:
