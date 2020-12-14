@@ -1,0 +1,72 @@
+{
+  "poi": {
+    "all": {
+      "labelText": {
+        "fill": { "color": "#1A1A1A", "weight": 0 },
+        "stroke": { "color": "#E6E6E6", "weight": 2 }
+      },
+      "labelIcon": { "visibility": "none" }
+    }
+  },
+  "road": {
+    "all": {
+      "section": {
+        "fill": { "color": "#E6E6E6", "weight": 2 },
+        "stroke": { "color": "#1A1A1A", "weight": 1 }
+      },
+      "labelText": {
+        "fill": { "color": "#1A1A1A", "weight": 0 },
+        "stroke": { "color": "#E6E6E6", "weight": 2 }
+      },
+      "labelIcon": { "visibility": "none" }
+    }
+  },
+  "administrative": {
+    "all": {
+      "section": {
+        "fill": { "color": "#E6E6E6", "weight": 0 },
+        "stroke": { "color": "#1A1A1A", "weight": 1 }
+      },
+      "labelText": {
+        "fill": { "color": "#1A1A1A", "weight": 0 },
+        "stroke": { "color": "#E6E6E6", "weight": 2 }
+      }
+    }
+  },
+  "landscape": {
+    "all": {
+      "section": {
+        "fill": { "color": "#E6E6E6", "weight": 0 },
+        "stroke": { "color": "#1A1A1A", "weight": 1 }
+      },
+      "labelText": {
+        "fill": { "color": "#1A1A1A", "weight": 0 },
+        "stroke": { "color": "#E6E6E6", "weight": 2 }
+      }
+    }
+  },
+  "transit": {
+    "all": {
+      "section": {
+        "fill": { "color": "#E6E6E6", "weight": 0 },
+        "stroke": { "color": "#1A1A1A", "weight": 1 }
+      },
+      "labelText": {
+        "fill": { "color": "#1A1A1A", "weight": 0 },
+        "stroke": { "color": "#E6E6E6", "weight": 2 }
+      }
+    }
+  },
+  "water": {
+    "all": {
+      "section": {
+        "fill": { "color": "#E6E6E6", "weight": 0 },
+        "stroke": { "color": "#1A1A1A", "weight": 1 }
+      },
+      "labelText": {
+        "fill": { "color": "#1A1A1A", "weight": 0 },
+        "stroke": { "color": "#E6E6E6", "weight": 2 }
+      }
+    }
+  }
+}
