@@ -69,7 +69,7 @@ export function jsonToURL({
 }: ExportType): string {
   const url =
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/show?='
+      ? 'http://localhost:3000/show?'
       : process.env.REACT_APP_DEPLOY_URL;
   const styleQueryString = isNotEmptyObject(filteredStyle)
     ? `style=${encodeURIComponent(
