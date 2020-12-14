@@ -24,6 +24,7 @@
     "building": {
       "labelText": { "fill": { "visibility": "none" } }
     },
+    "humanmade": { "section": { "fill": { "visibility": "none" } } },
     "natural": {
       "fill": { "color": "#122623" }
     }
@@ -40,9 +41,9 @@
   "road": {
     "all": {
       "section": {
-        "fill": { "color": "#556577" },
+        "fill": { "visibility": "none" },
         "stroke": {
-          "color": "#ffffff",
+          "color": "#556577",
           "weight": 0.5
         }
       },
@@ -51,12 +52,6 @@
         "stroke": { "color": "#000000" }
       },
       "labelIcon": { "visibility": "none" }
-    },
-    "local": {
-      "labelText": {
-        "fill": { "color": "#d9d86d" },
-        "stroke": { "color": "black", "weight": 0.5 }
-      }
     }
   },
   "transit": {
