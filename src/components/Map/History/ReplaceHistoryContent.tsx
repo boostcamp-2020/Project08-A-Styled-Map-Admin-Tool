@@ -5,7 +5,11 @@ import {
   ReplaceType,
   DepthLogChangedValueType,
 } from '../../../store/common/type';
-import { featureName, replaceName } from '../../../utils/getTypeName';
+import {
+  featureName,
+  replaceName,
+  depthName,
+} from '../../../utils/getTypeName';
 
 const Content = styled.div`
   padding: 2px;
@@ -24,7 +28,9 @@ function ReplaceHistoryContent({
   if (item.changedValue) {
     if (item.changedKey === ReplaceType.depth) {
       const { feature, depth } = item.changedValue as DepthLogChangedValueType;
-      description += `> ${featureName.feature[feature]} > ${depth}`;
+      description += `> ${featureName.feature[feature]} > ${
+        depthName[depth - 1]
+      }`;
     } else description += `> ${item.changedValue}`;
   }
   return <Content>{`${description} 실행`}</Content>;

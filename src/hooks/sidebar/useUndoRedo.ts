@@ -45,6 +45,7 @@ function useUndoRedo(): UseUndoRedoType {
       dispatch(initDepthTheme());
       if (currentIdx === 0) changeStyle({});
       else replaceStyle(log[undoIdx].wholeStyle as StyleStoreType);
+      return;
     }
 
     const { feature, subFeature, element, subElement, changedKey } = log[
@@ -96,6 +97,8 @@ function useUndoRedo(): UseUndoRedoType {
   const redoHandler = () => {
     if (!log || currentIdx === null || currentIdx === log.length - 1) return;
     const redoIdx = (currentIdx as number) + 1;
+    dispatch(setCurrentIndex(redoIdx));
+
     /** 전체를 다시 한번 그리는 경우 */
     if (log[redoIdx].changedKey in ReplaceType) {
       dispatch(initDepthTheme());
@@ -107,7 +110,6 @@ function useUndoRedo(): UseUndoRedoType {
       redoIdx as number
     ] as HistorySetLogType;
     if (!feature || !subFeature || !element) return;
-    dispatch(setCurrentIndex(redoIdx));
 
     /** 변경된 사항에만 그리는 경우 */
     mapStyling[feature]({
