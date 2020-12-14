@@ -1,5 +1,4 @@
 import { combineReducers, createStore } from 'redux';
-
 import map from './map/reducer';
 import {
   poiReducer as poi,

@@ -51,7 +51,7 @@ function DepthItemPresenter({
   name,
   itemKey,
 }: ItemPresenterProps): React.ReactElement {
-  const { depth, depthRef, depthRangeHandler } = useSidebarDepthItem(itemKey);
+  const { itemDepth, depthRangeHandler } = useSidebarDepthItem(itemKey);
 
   return (
     <ItemWrapper>
@@ -62,8 +62,7 @@ function DepthItemPresenter({
         min="1"
         max="3"
         step="1"
-        ref={depthRef}
-        value={depth}
+        value={itemDepth}
         onChange={depthRangeHandler}
       />
     </ItemWrapper>

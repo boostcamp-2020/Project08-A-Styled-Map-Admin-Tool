@@ -8,7 +8,7 @@ import {
   FeatureNameType,
   ElementNameType,
   SubElementNameType,
-  PayloadPropsType,
+  SidebarState,
   SidebarProperties,
 } from '../../store/common/type';
 
@@ -25,7 +25,7 @@ function useSidebarType(): SidebarHookType {
   const dispatch = useDispatch();
   const sidebarStates = useSelector<RootState>(
     (state) => state.sidebar
-  ) as PayloadPropsType;
+  ) as SidebarState;
   const { feature, subFeature, element, subElement } = sidebarStates;
 
   const sidebarTypeClickHandler = (name: FeatureNameType | ElementNameType) => {

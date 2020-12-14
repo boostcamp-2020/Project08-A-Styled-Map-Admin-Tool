@@ -1,0 +1,88 @@
+{
+  "poi": {
+    "all": {
+      "labelText": {
+        "fill": { "visibility": "none" }
+      },
+      "labelIcon": { "visibility": "none" }
+    }
+  },
+  "landscape": {
+    "all": {
+      "section": {
+        "fill": { "color": "#162131" }
+      },
+      "labelText": {
+        "fill": { "color": "#162131" },
+        "stroke": {
+          "color": "#081217",
+
+          "lightness": 6
+        }
+      }
+    },
+    "building": {
+      "labelText": { "fill": { "visibility": "none" } }
+    },
+    "humanmade": { "section": { "fill": { "visibility": "none" } } },
+    "natural": {
+      "fill": { "color": "#122623" }
+    }
+  },
+  "administrative": {
+    "all": {
+      "section": { "stroke": { "color": "#ffffff" } },
+      "labelText": {
+        "fill": { "color": "#ef8521" },
+        "stroke": { "color": "#000000" }
+      }
+    }
+  },
+  "road": {
+    "all": {
+      "section": {
+        "fill": { "visibility": "none" },
+        "stroke": {
+          "color": "#556577",
+          "weight": 0.5
+        }
+      },
+      "labelText": {
+        "fill": { "color": "#d9d86d" },
+        "stroke": { "color": "#000000" }
+      },
+      "labelIcon": { "visibility": "none" }
+    }
+  },
+  "transit": {
+    "all": {
+      "section": { "stroke": { "color": "#ffffff", "lightness": 100 } },
+      "labelText": {
+        "fill": { "color": "#162131", "saturation": 38, "lightness": 14 },
+        "stroke": { "color": "#ffffff", "lightness": 100 }
+      }
+    },
+    "airport": {
+      "section": {
+        "fill": { "color": "#ffffff" },
+        "stroke": { "color": "#000000" }
+      },
+      "labelText": {
+        "fill": { "color": "#ffffff" },
+        "stroke": { "color": "#000000" }
+      }
+    }
+  },
+  "water": {
+    "all": {
+      "section": {
+        "fill": { "color": "#081217", "saturation": 48, "lightness": 6 }
+      },
+      "labelText": {
+        "fill": {
+          "visibility": "none"
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
-import { PayloadPropsType } from '../common/type';
+import { SidebarState } from '../common/type';
 
 export const SET_SIDEBAR_PROPERTIES = 'SET_SIDEBAR_PROPERTIES' as const;
 export const INIT_SIDEBAR_PROPERTIES = 'INIT_SIDEBAR_PROPERTIES' as const;
 
 export interface SidebarActionType {
   type: typeof SET_SIDEBAR_PROPERTIES | typeof INIT_SIDEBAR_PROPERTIES;
-  payload: PayloadPropsType;
+  payload: SidebarState;
 }
 
 export const setSidebarProperties = ({
@@ -14,7 +14,7 @@ export const setSidebarProperties = ({
   subFeature,
   element,
   subElement,
-}: PayloadPropsType): SidebarActionType => ({
+}: SidebarState): SidebarActionType => ({
   type: SET_SIDEBAR_PROPERTIES,
   payload: { key, feature, subFeature, element, subElement },
 });
@@ -25,7 +25,7 @@ export const initSidebarProperties = ({
   subFeature,
   element,
   subElement,
-}: PayloadPropsType): SidebarActionType => ({
+}: SidebarState): SidebarActionType => ({
   type: INIT_SIDEBAR_PROPERTIES,
   payload: { key, feature, subFeature, element, subElement },
 });
