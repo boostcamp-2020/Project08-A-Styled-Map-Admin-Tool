@@ -76,7 +76,6 @@ function useMarkerFeature(): MarkerHookType {
     if (!map || !marker) return;
     if (!lngLat.lng || !lngLat.lat) return;
 
-    // 초기화 된 마커, 생성된 Marker 객체 이벤트 핸들러 연결
     if (instance) {
       instance.on('dragend', () => {
         const lnglat = instance.getLngLat();
