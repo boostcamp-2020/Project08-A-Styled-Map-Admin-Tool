@@ -11,7 +11,6 @@ import {
   MarkerInstanceType,
   MARKER,
 } from '../../store/marker/action';
-import { urlToJson } from '../../utils/urlParsing';
 import { URLPathNameType } from '../../store/common/type';
 
 const LIMIT_MARKER_NUMBER = 30;
@@ -131,6 +130,8 @@ function deleteMarkerOfLocalStorage(id: string) {
   setMarkersToLocalStorage(changedMarkers);
 }
 
+const { pathname } = window.location;
+
 function useMarkerFeature(): MarkerHookType {
   const dispatch = useDispatch();
   const { map, marker } = useSelector<RootState>((state) => ({
@@ -160,14 +161,8 @@ function useMarkerFeature(): MarkerHookType {
     if (!lngLat.lng || !lngLat.lat) return;
     const { lng, lat } = lngLat;
 
+    /** 새로고침 할 때 */
     if (instance) {
-      instance.on('dragend', () => {
-        const lnglat = instance.getLngLat();
-        const changedData = { id, text, lng: lnglat.lng, lat: lnglat.lat };
-        dispatch(updateMarker(changedData));
-        updateMarkerOfLocalStorage(changedData);
-      });
-
       instance.getElement().addEventListener('contextmenu', (e) => {
         e.stopPropagation();
         e.preventDefault();
@@ -176,6 +171,13 @@ function useMarkerFeature(): MarkerHookType {
         deleteMarkerOfLocalStorage(id);
       });
       instance.addTo(map);
+      instance.on('dragend', () => {
+        if (pathname === URLPathNameType.show) return;
+        const lnglat = instance.getLngLat();
+        const changedData = { id, text, lng: lnglat.lng, lat: lnglat.lat };
+        dispatch(updateMarker(changedData));
+        updateMarkerOfLocalStorage(changedData);
+      });
       return;
     }
 
@@ -189,6 +191,7 @@ function useMarkerFeature(): MarkerHookType {
       .addTo(map);
 
     newMarker.on('dragend', () => {
+      if (pathname === URLPathNameType.show) return;
       const lnglat = newMarker.getLngLat();
       const updateInfo = {
         id,
@@ -201,9 +204,11 @@ function useMarkerFeature(): MarkerHookType {
     });
 
     newMarker.getElement().addEventListener('contextmenu', (e) => {
+      if (pathname === URLPathNameType.show) return;
       e.stopPropagation();
       e.preventDefault();
       newMarker.remove();
+
       dispatch(removeMarker(id));
       deleteMarkerOfLocalStorage(id);
     });
@@ -217,23 +222,18 @@ function useMarkerFeature(): MarkerHookType {
       instance: newMarker,
     };
     dispatch(addMarker(newMarkerInstance));
-    setNewMarkerToLocalStorage(newMarkerInstance);
+    if (pathname !== URLPathNameType.show)
+      setNewMarkerToLocalStorage(newMarkerInstance);
   };
 
   useEffect(() => {
     if (!map) return;
-    map.on('contextmenu', (e) => {
-      e.preventDefault();
-      setMarkerPos({ ...e.point });
-      setMarkerLngLat({ ...e.lngLat });
-    });
-
-    const { search, pathname } = window.location;
-    if (search && pathname === URLPathNameType.show) {
-      const { markers } = urlToJson();
-      markers?.forEach(({ lng, lat, text }) =>
-        registerMarker({ lngLat: { lng, lat }, text })
-      );
+    if (pathname !== URLPathNameType.show) {
+      map.on('contextmenu', (e) => {
+        e.preventDefault();
+        setMarkerPos({ ...e.point });
+        setMarkerLngLat({ ...e.lngLat });
+      });
     }
   }, [map]);
 
