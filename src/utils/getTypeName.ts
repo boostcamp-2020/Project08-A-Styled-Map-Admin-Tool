@@ -2,6 +2,7 @@ import {
   ElementNameType,
   SubElementNameType,
   StyleKeyType,
+  ColorSubStyleType,
   ReplaceType,
   objType,
 } from '../store/common/type';
@@ -34,8 +35,8 @@ const elementName = {
     [StyleKeyType.visibility]: '가시성',
     [StyleKeyType.color]: '색상',
     [StyleKeyType.weight]: '굵기',
-    [StyleKeyType.saturation]: '채도',
-    [StyleKeyType.lightness]: '밝기',
+    [ColorSubStyleType.saturation]: '채도',
+    [ColorSubStyleType.lightness]: '밝기',
     [StyleKeyType.isChanged]: '',
   },
 };

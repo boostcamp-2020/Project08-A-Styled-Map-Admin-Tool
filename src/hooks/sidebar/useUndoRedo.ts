@@ -9,6 +9,8 @@ import {
   StyleType,
   SubElementType,
   StyleStoreType,
+  ColorSubStyleType,
+  StyleKeyType,
 } from '../../store/common/type';
 import { getDefaultStyle } from '../../store/style/properties';
 import { setCurrentIndex } from '../../store/history/action';
@@ -54,6 +56,12 @@ function useUndoRedo(): UseUndoRedoType {
 
     if (!feature || !subFeature || !element) return;
 
+    const key =
+      changedKey === ColorSubStyleType.saturation ||
+      changedKey === ColorSubStyleType.lightness
+        ? StyleKeyType.color
+        : changedKey;
+
     let beforeStyle;
     if (currentIdx === 0) {
       beforeStyle = subElement
@@ -78,7 +86,7 @@ function useUndoRedo(): UseUndoRedoType {
     mapStyling[feature]({
       map,
       subFeature,
-      key: changedKey,
+      key,
       element,
       subElement: subElement as SubElementNameType,
       style: beforeStyle as StyleType,
@@ -111,11 +119,17 @@ function useUndoRedo(): UseUndoRedoType {
     ] as HistorySetLogType;
     if (!feature || !subFeature || !element) return;
 
+    const key =
+      changedKey === ColorSubStyleType.saturation ||
+      changedKey === ColorSubStyleType.lightness
+        ? StyleKeyType.color
+        : changedKey;
+
     /** 변경된 사항에만 그리는 경우 */
     mapStyling[feature]({
       map,
       subFeature,
-      key: changedKey,
+      key,
       element,
       subElement: subElement as SubElementNameType,
       style,

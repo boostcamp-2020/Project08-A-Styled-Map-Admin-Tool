@@ -15,10 +15,8 @@ import defaultStyle from '../../utils/rendering-data/defaultStyle';
 const style: StyleType = {
   isChanged: false,
   visibility: 'inherit',
-  color: '#55bf40',
+  color: '#000000',
   weight: 0,
-  saturation: 0,
-  lightness: 0,
 };
 
 export const getDefaultStyle = ({
@@ -33,20 +31,11 @@ export const getDefaultStyle = ({
       ] as DefaultStyleType)
     : (defaultStyle[feature][subFeature][element] as DefaultStyleType);
 
-  const hslArr = defaultState?.color.match(
-    /hsl\((\d+), (\d+)%, (\d+)%\)/
-  ) as string[];
-
-  const s = hslArr ? hslArr[2] : 0;
-  const l = hslArr ? hslArr[3] : 0;
-
   return {
     ...JSON.parse(JSON.stringify(style)),
     visibility: subFeature === 'all' ? 'visible' : 'inherit',
     color: hslToHEX(defaultState?.color as string),
     weight: defaultState?.weight || 0,
-    saturation: Number(s),
-    lightness: Number(l),
   };
 };
 

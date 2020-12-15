@@ -5,6 +5,8 @@ import {
   SubElementType,
   StyleType,
   StyleKeyType,
+  ColorSubStyleType,
+  StyleDefaultKeyType,
   ElementNameType,
   SubElementNameType,
   ReduxStateType,
@@ -21,67 +23,40 @@ import removeNullFromObject from '../../utils/removeNullFromObject';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
-  onStyleChange: (key: StyleKeyType, value: string | number) => void;
+  onStyleChange: (key: StyleDefaultKeyType, value: string | number) => void;
   element: ElementNameType | null;
   subFeature: string | null;
 }
 
-const colorRelatedKeysArr: StyleKeyType[] = [
-  StyleKeyType.color,
-  StyleKeyType.lightness,
-  StyleKeyType.saturation,
-];
-
 const getNewColorStyle = (
-  key: StyleKeyType,
+  key: StyleDefaultKeyType,
   value: string | number,
   styleElement: StyleType
 ) => {
-  const { color, saturation, lightness } = styleElement;
-  const newStyleObj = {
-    color,
-    saturation,
-    lightness,
-  };
-
+  let { color } = styleElement;
+  if (color === 'transparent') color = '#000000';
   const { h: beforeColor, s: beforeSaturation, l: beforeLight } = hexToHSL(
     color
   );
 
   switch (key) {
-    case StyleKeyType.saturation:
-      newStyleObj.saturation = value as number;
-      newStyleObj.color = hslToHEX(
-        `hsl(${beforeColor}, ${value}%, ${beforeLight}%)`
-      );
+    case ColorSubStyleType.saturation:
+      color = hslToHEX(`hsl(${beforeColor}, ${value}%, ${beforeLight}%)`);
       break;
 
-    case StyleKeyType.lightness:
-      newStyleObj.lightness = value as number;
-      newStyleObj.color = hslToHEX(
-        `hsl(${beforeColor}, ${beforeSaturation}%, ${value}%)`
-      );
-      break;
-
-    case StyleKeyType.color:
-      // eslint-disable-next-line no-case-declarations
-      const { s: newSaturation, l: newLightness } = hexToHSL(value as string);
-      newStyleObj.color = value as string;
-      newStyleObj.saturation =
-        newStyleObj.color === 'transparent' ? 0 : newSaturation;
-      newStyleObj.lightness =
-        newStyleObj.color === 'transparent' ? 0 : newLightness;
+    case ColorSubStyleType.lightness:
+      color = hslToHEX(`hsl(${beforeColor}, ${beforeSaturation}%, ${value}%)`);
       break;
 
     default:
       break;
   }
 
-  return newStyleObj;
+  return color;
 };
 
 interface changedObjType {
-  key?: StyleKeyType;
+  key?: StyleDefaultKeyType;
   value?: string | number;
 }
 
@@ -136,7 +111,7 @@ function useStyleType(): UseStyleHookType {
   }, [changedObj]);
 
   const onStyleChange = useCallback(
-    (key: StyleKeyType, value: string | number) => {
+    (key: StyleDefaultKeyType, value: string | number) => {
       if (!feature || !subFeature || !element || !map) return;
       const initColor = 'init' as const;
 
@@ -164,9 +139,22 @@ function useStyleType(): UseStyleHookType {
         }
       }
 
-      const newStyleObj = colorRelatedKeysArr.includes(key)
-        ? getNewColorStyle(key, initialColor || value, styleElement)
-        : { [key]: initialColor || value };
+      let newStyleKey: StyleKeyType;
+      let newStyleValue = initialColor || value;
+
+      if (
+        key === ColorSubStyleType.saturation ||
+        key === ColorSubStyleType.lightness
+      ) {
+        newStyleKey = StyleKeyType.color;
+        newStyleValue = getNewColorStyle(
+          key,
+          initialColor || value,
+          styleElement
+        );
+      } else newStyleKey = key;
+
+      const newStyleObj = { [newStyleKey]: newStyleValue };
 
       /** all의 색상을 바꿀 때 */
       if (value === initColor && subFeature === 'all' && subElement) {
@@ -182,7 +170,7 @@ function useStyleType(): UseStyleHookType {
           mapStyling[feature]({
             map,
             subFeature: subFeatureName,
-            key,
+            key: newStyleKey,
             element,
             subElement: subElement as SubElementNameType,
             style: {
@@ -216,17 +204,19 @@ function useStyleType(): UseStyleHookType {
       mapStyling[feature]({
         map,
         subFeature,
-        key,
+        key: newStyleKey,
         element,
         subElement: subElement as SubElementNameType,
         style: {
           ...styleElement,
           ...newStyleObj,
-          [key]: parentVisibility || initialColor || value,
+          [newStyleKey]: parentVisibility || initialColor || newStyleValue,
         },
       });
-
-      setChangedObj({ key, value: initialColor || parentVisibility || value });
+      setChangedObj({
+        key,
+        value: initialColor || parentVisibility || value,
+      });
     },
     [feature, subFeature, element, subElement, styleElement]
   );

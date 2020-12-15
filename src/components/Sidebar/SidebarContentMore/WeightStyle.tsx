@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '../../../utils/styles/styled';
 import { Range } from '../SidebarContentFewer/DepthItem';
 import useInputRange from '../../../hooks/common/useInputRange';
-import { StyleKeyType } from '../../../store/common/type';
+import { StyleDefaultKeyType, StyleKeyType } from '../../../store/common/type';
 
 const WeightWrapper = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const WeightControlBar = styled(Range)`
 
 interface WeightStyleProps {
   weight: number;
-  onStyleChange: (key: StyleKeyType, value: string | number) => void;
+  onStyleChange: (key: StyleDefaultKeyType, value: string | number) => void;
 }
 
 function WeightStyle({
