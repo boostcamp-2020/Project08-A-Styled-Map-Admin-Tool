@@ -103,19 +103,14 @@ function checkSubElement(input: SubElementActionPayload): boolean {
 }
 
 function checkStyle(input: StyleActionPayload): boolean {
-  const keys = Object.keys(input) as StyleDefaultKeyType[];
-
+  const keys = Object.keys(input) as StyleKeyType[];
   for (const key of keys) {
-    if (!(key in StyleKeyType) || !(key in ColorSubStyleType)) return false;
+    if (!(key in StyleKeyType)) return false;
 
     const style = input[key];
     switch (key) {
       case StyleKeyType.color:
         if (!checkColor(style)) return false;
-        break;
-      case ColorSubStyleType.saturation:
-      case ColorSubStyleType.lightness:
-        if (!checkRange(style, -100, 100)) return false;
         break;
       case StyleKeyType.weight:
         if (!checkRange(style, 0, 8)) return false;
