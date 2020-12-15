@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from '../../../utils/styles/styled';
 // import useInputRange from '../../../hooks/common/useInputRange';
 import { StyleKeyType } from '../../../store/common/type';
-import useStyleType from '../../../hooks/sidebar/useStyleType';
+// import useStyleType from '../../../hooks/sidebar/useStyleType';
 import SaturationStyle from './SaturationStyle';
 import LightnessStyle from './LightnessStyle';
 
