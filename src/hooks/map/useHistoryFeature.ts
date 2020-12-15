@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addLog, resetHistory } from '../../store/history/action';
-import { HistoryInfoPropsType } from '../../store/common/type';
-import { useState } from 'react';
+import { HistoryInfoPropsType, HistoryState } from '../../store/common/type';
+import { useState, useEffect } from 'react';
 import useWholeStyle from '../../hooks/common/useWholeStyle';
+import { RootState } from '../../store/index';
 
 export interface useHistoryFeatureType {
   isHistoryOpen: boolean;
@@ -15,6 +16,9 @@ function useHistoryFeature(): useHistoryFeatureType {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { changeStyle } = useWholeStyle();
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const { log } = useSelector<RootState>(
+    (state) => state.history
+  ) as HistoryState;
 
   const dispatch = useDispatch();
 
@@ -30,6 +34,18 @@ function useHistoryFeature(): useHistoryFeatureType {
     dispatch(resetHistory());
     changeStyle({});
   };
+
+  useEffect(() => {
+    window.onbeforeunload = function setLog(): void {
+      if (log !== undefined) {
+        localStorage.setItem('log', JSON.stringify(log || []));
+      }
+    };
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, [log]);
 
   return {
     isHistoryOpen,
