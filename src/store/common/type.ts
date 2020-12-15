@@ -27,15 +27,6 @@ export enum SubElementNameType {
   stroke = 'stroke',
 }
 
-export enum StyleKeyType {
-  visibility = 'visibility',
-  color = 'color',
-  weight = 'weight',
-  saturation = 'saturation',
-  lightness = 'lightness',
-  isChanged = 'isChanged',
-}
-
 export enum VisibilityValueType {
   visible = 'visible',
   none = 'none',
@@ -122,15 +113,32 @@ export interface objType {
   [name: string]: any;
 }
 
+export enum StyleKeyType {
+  isChanged = 'isChanged',
+  visibility = 'visibility',
+  color = 'color',
+  weight = 'weight',
+}
+
+export enum ColorSubStyleType {
+  saturation = 'saturation',
+  lightness = 'lightness',
+}
+
+export type StyleDefaultKeyType = StyleKeyType | ColorSubStyleType;
+
 /** Style Feature Type for Redux */
 export interface StyleType {
   isChanged: boolean;
   visibility: string;
   color: string;
   weight: number;
+}
+export interface StyleDefaultType extends StyleType {
   saturation: number;
   lightness: number;
 }
+
 export interface SubElementType {
   fill: StyleType;
   stroke: StyleType;
@@ -176,7 +184,7 @@ export type StyleStoreType = {
 export interface HistorySetLogType {
   id?: string;
   changedValue: string | number;
-  changedKey: StyleKeyType;
+  changedKey: StyleDefaultKeyType;
   feature: FeatureNameType;
   subFeature: string;
   element: ElementNameType;

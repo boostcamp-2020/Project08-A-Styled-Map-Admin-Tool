@@ -3,12 +3,9 @@ import styled from '../../../utils/styles/styled';
 import useStyleType, {
   UseStyleHookType,
 } from '../../../hooks/sidebar/useStyleType';
+import { hexToHSL } from '../../../utils/colorFormat';
 
-/**
- * FIXME: custom color picker 테스트 중
- */
 import ColorStyle from './ColorStyle';
-// import ColorStyle from './ColorStyle2';
 import SaturationStyle from './SaturationStyle';
 import LightnessStyle from './LightnessStyle';
 import WeightStyle from './WeightStyle';
@@ -40,7 +37,7 @@ const Hr = styled.hr`
 
 function Styler(): React.ReactElement {
   const {
-    styleElement: { visibility, color, weight, saturation, lightness },
+    styleElement: { visibility, color, weight },
     onStyleChange,
     subFeature,
     element,
@@ -49,6 +46,8 @@ function Styler(): React.ReactElement {
   if (!element) {
     return <></>;
   }
+
+  const { s: saturation, l: lightness } = hexToHSL(color);
 
   return (
     <StylerWrapper>
@@ -60,16 +59,6 @@ function Styler(): React.ReactElement {
       />
       <Hr />
       <ColorStyle color={color} onStyleChange={onStyleChange} />
-
-      {/* 
-        * FIXME: custom color picker 테스트 중
-        
-      <ColorStyle
-        color2={color}
-        saturation={saturation}
-        lightness={lightness}
-        onStyleChange={onStyleChange}
-      /> */}
       <Hr />
       <WeightStyle weight={weight} onStyleChange={onStyleChange} />
       <SaturationStyle saturation={saturation} onStyleChange={onStyleChange} />

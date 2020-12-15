@@ -8,8 +8,10 @@ import {
   FeatureNameType,
   ElementNameType,
   SubElementNameType,
-  StyleKeyType,
+  StyleDefaultKeyType,
   VisibilityValueType,
+  ColorSubStyleType,
+  StyleKeyType,
 } from '../store/common/type';
 import initialLayers from './rendering-data/defaultStyle';
 
@@ -101,18 +103,18 @@ function checkSubElement(input: SubElementActionPayload): boolean {
 }
 
 function checkStyle(input: StyleActionPayload): boolean {
-  const keys = Object.keys(input) as StyleKeyType[];
+  const keys = Object.keys(input) as StyleDefaultKeyType[];
 
   for (const key of keys) {
-    if (!(key in StyleKeyType)) return false;
+    if (!(key in StyleKeyType) || !(key in ColorSubStyleType)) return false;
 
     const style = input[key];
     switch (key) {
       case StyleKeyType.color:
         if (!checkColor(style)) return false;
         break;
-      case StyleKeyType.saturation:
-      case StyleKeyType.lightness:
+      case ColorSubStyleType.saturation:
+      case ColorSubStyleType.lightness:
         if (!checkRange(style, -100, 100)) return false;
         break;
       case StyleKeyType.weight:

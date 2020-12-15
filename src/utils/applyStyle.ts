@@ -42,23 +42,23 @@ export function applyColor({
   layerNames,
   color,
   type,
-  saturation,
-  lightness,
-}: ApplyProps): void {
+}: // saturation,
+// lightness,
+ApplyProps): void {
   if (!type || !color) return;
   const { h, s, l } = hexToHSL(color);
 
-  if (saturation) {
-    return layerNames.forEach((layerName) => {
-      map.setPaintProperty(layerName, type, `hsl(${h}, ${saturation}%, ${l}%)`);
-    });
-  }
+  // if (saturation) {
+  //   return layerNames.forEach((layerName) => {
+  //     map.setPaintProperty(layerName, type, `hsl(${h}, ${saturation}%, ${l}%)`);
+  //   });
+  // }
 
-  if (lightness) {
-    return layerNames.forEach((layerName) => {
-      map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${lightness}%)`);
-    });
-  }
+  // if (lightness) {
+  //   return layerNames.forEach((layerName) => {
+  //     map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${lightness}%)`);
+  //   });
+  // }
 
   return layerNames.forEach((layerName) => {
     map.setPaintProperty(layerName, type, `hsl(${h}, ${s}%, ${l}%)`);

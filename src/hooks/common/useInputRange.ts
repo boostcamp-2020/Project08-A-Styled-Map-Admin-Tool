@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StyleKeyType } from '../../store/common/type';
+import { StyleDefaultKeyType } from '../../store/common/type';
 
 interface UseInputRangeProps {
   range: string | number;
-  onStyleChange: (key: StyleKeyType, value: string | number) => void;
+  onStyleChange: (key: StyleDefaultKeyType, value: string | number) => void;
 }
 
 interface InputRangeHookType {
   curRange: string | number;
   rangeChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  rangeMouseUpHandler: (key: StyleKeyType) => void;
-  initStyle: (key: StyleKeyType) => void;
+  rangeMouseUpHandler: (key: StyleDefaultKeyType) => void;
+  initStyle: (key: StyleDefaultKeyType) => void;
 }
 
 function useInputRange({
@@ -30,11 +30,11 @@ function useInputRange({
     setCurRange(value);
   };
 
-  const rangeMouseUpHandler = (key: StyleKeyType) => {
+  const rangeMouseUpHandler = (key: StyleDefaultKeyType) => {
     onStyleChange(key, curRange === 'transparent' ? '#000000' : curRange);
   };
 
-  const initStyle = (key: StyleKeyType) => {
+  const initStyle = (key: StyleDefaultKeyType) => {
     onStyleChange(key, 'init');
   };
 
