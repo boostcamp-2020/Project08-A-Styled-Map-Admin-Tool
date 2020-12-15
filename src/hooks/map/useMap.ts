@@ -6,6 +6,7 @@ import useMarkerFeature, {
   getInitialMarkersFromLocalStorage,
 } from '../../hooks/map/useMarkerFeature';
 import { urlToJson } from '../../utils/urlParsing';
+import validateStyle from '../../utils/validateStyle';
 import {
   WholeStyleActionPayload,
   HistoryState,
@@ -49,10 +50,12 @@ function useMap(): MapHookType {
     if (search && pathname === URLPathNameType.show) {
       const { filteredStyle, mapCoordinate } = urlToJson();
 
-      // 이부분에 문제가 있는 것 같습니다. 없애면 에러 안나고 잘 되는데 있으면 안되요
-      // if (validateStyle(states.filteredStyle as WholeStyleActionPayload)) {
-      changeStyle(filteredStyle as WholeStyleActionPayload);
-      // }
+      if (validateStyle(filteredStyle as WholeStyleActionPayload)) {
+        changeStyle(filteredStyle as WholeStyleActionPayload);
+      } else {
+        alert('URL에 잘못된 속성이 포함되어 있습니다.');
+      }
+
       const { zoom, lng, lat } = mapCoordinate as LocationType;
       if (zoom && lng && lat) {
         map.setCenter({ lng, lat });
