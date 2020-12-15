@@ -33,9 +33,8 @@ function initializingMap({
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     placeholder: '검색할 장소를 입력하세요',
+    mapboxgl,
   });
-
-  document.getElementById('search-bar')?.appendChild(geocoder.onAdd(map));
 
   map.addControl(
     new mapboxgl.GeolocateControl({
@@ -49,6 +48,7 @@ function initializingMap({
 
   map.on('load', () => {
     initializeMap(map);
+    document.getElementById('search-bar')?.appendChild(geocoder.onAdd(map));
   });
 
   return map;
