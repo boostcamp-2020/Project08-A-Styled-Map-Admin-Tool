@@ -21,6 +21,7 @@ import {
 } from './action';
 import { checkStyleIsChanged, checkFeatureIsChanged } from './compareStyle';
 import { combineElement } from './manageCategories';
+import deepCopy from '../../utils/deepCopy';
 
 interface ReducerType {
   (state: FeatureState, action: ActionType): FeatureState;
@@ -66,7 +67,7 @@ export default function getReducer(IDX: number): ReducerType {
         const defaultStyle = getDefaultStyle(action.payload);
         style.isChanged = checkStyleIsChanged({ defaultStyle, style });
 
-        const newState: FeatureState = JSON.parse(JSON.stringify(state));
+        const newState: FeatureState = deepCopy(state);
         const newFeature: FeatureType = newState[subFeature as string];
 
         let prevIsChanged;
@@ -96,7 +97,7 @@ export default function getReducer(IDX: number): ReducerType {
           return state;
 
         const inputStyle = action.payload[featureName];
-        const updateStyle = JSON.parse(JSON.stringify(initialState));
+        const updateStyle = deepCopy(initialState);
 
         if (!inputStyle) return updateStyle;
 
@@ -118,7 +119,7 @@ export default function getReducer(IDX: number): ReducerType {
       case INIT_COLORS: {
         const { feature, element, subElement } = action.payload;
         if (feature !== featureName) return state;
-        const newState: FeatureState = JSON.parse(JSON.stringify(state));
+        const newState: FeatureState = deepCopy(state);
 
         Object.keys(newState).forEach((subFeature) => {
           const defaultStyle = getDefaultStyle({

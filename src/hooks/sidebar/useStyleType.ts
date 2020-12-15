@@ -19,6 +19,7 @@ import useHistoryFeature from '../map/useHistoryFeature';
 import { VisibilityType } from '../../utils/applyStyle';
 import { getDefaultStyle } from '../../store/style/properties';
 import removeNullFromObject from '../../utils/removeNullFromObject';
+import deepCopy from '../../utils/deepCopy';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
@@ -127,9 +128,7 @@ function useStyleType(): UseStyleHookType {
           ...styleElement,
           [key]: value,
         },
-        wholeStyle: removeNullFromObject(
-          JSON.parse(JSON.stringify(features))
-        ) as StyleStoreType,
+        wholeStyle: removeNullFromObject(deepCopy(features)) as StyleStoreType,
       });
 
       setChangedObj({});
