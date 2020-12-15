@@ -16,11 +16,11 @@ import { setStyle, initColors } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
 
 import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
-import useHistoryFeature from '../map/useHistoryFeature';
 import { VisibilityType } from '../../utils/applyStyle';
 import { getDefaultStyle } from '../../store/style/properties';
 import removeNullFromObject from '../../utils/removeNullFromObject';
 import deepCopy from '../../utils/deepCopy';
+import { addLog } from '../../store/history/action';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
@@ -64,7 +64,6 @@ interface changedObjType {
 function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
   const [changedObj, setChangedObj] = useState<changedObjType>({});
-  const { addHistory } = useHistoryFeature();
   const {
     map,
     sidebar: { feature, subFeature, element, subElement },
@@ -91,7 +90,7 @@ function useStyleType(): UseStyleHookType {
   useEffect(() => {
     const { key, value } = changedObj;
     if (key && value && feature && subFeature && element) {
-      addHistory({
+      const info = {
         changedKey: key,
         changedValue: value,
         feature,
@@ -103,8 +102,8 @@ function useStyleType(): UseStyleHookType {
           [key]: value,
         },
         wholeStyle: removeNullFromObject(deepCopy(features)) as StyleStoreType,
-      });
-
+      };
+      dispatch(addLog(info));
       setChangedObj({});
     }
   }, [changedObj]);

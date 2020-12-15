@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '../../utils/styles/styled';
 import 'mapbox-gl-compare/style.css';
 import useMap, { MapHookType } from '../../hooks/map/useMap';
-import useHistoryFeature from '../../hooks/map/useHistoryFeature';
+import useHistoryMap from '../../hooks/map/useHistoryMap';
 import useCompareFeature from '../../hooks/map/useCompareFeature';
 
 import LowerButtons from './ButtonGroup/LowerButtons';
@@ -14,6 +14,10 @@ import { URLPathNameType } from '../../store/common/type';
 
 interface CurrentMapWrapperProps {
   isPageShow: boolean;
+}
+
+interface CompareMapWrapperProps {
+  isOpened: boolean;
 }
 
 const MapsWrapper = styled.div<CurrentMapWrapperProps>`
@@ -40,13 +44,14 @@ const CurrentMapWrapper = styled.div`
   }
 `;
 
-const CompareMapWrapper = styled.div`
+const CompareMapWrapper = styled.div<CompareMapWrapperProps>`
   position: absolute;
   top: 0;
 
   width: 100%;
   height: 100vh;
   background-color: ${(props) => props.theme.BLACK};
+  display: ${(props) => (props.isOpened ? 'block' : 'hidden')};
 
   canvas {
     outline: none;
@@ -58,21 +63,23 @@ interface MapProps {
 }
 
 function Map({ pathname }: MapProps): React.ReactElement {
-  const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap();
+  const { markerPosition, resetMarkerPos, registerMarker } = useMarkerFeature();
+  const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap({
+    registerMarker,
+  });
 
-  const { isHistoryOpen, historyBtnHandler } = useHistoryFeature();
+  const { isHistoryOpen, historyBtnHandler } = useHistoryMap();
   const { logId, setLogId, comparisonButtonClickHandler } = useCompareFeature({
     containerRef,
     beforeMapRef,
   });
-  const { markerPosition, resetMarkerPos, registerMarker } = useMarkerFeature();
 
   return (
     <MapsWrapper
       ref={containerRef}
       isPageShow={pathname === URLPathNameType.show}
     >
-      {logId && <CompareMapWrapper ref={beforeMapRef} />}
+      <CompareMapWrapper ref={beforeMapRef} isOpened={!logId} />
       <CurrentMapWrapper ref={afterMapRef} onClick={resetMarkerPos}>
         <MarkerPopUp
           markerPosition={markerPosition}

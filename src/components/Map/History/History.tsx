@@ -1,9 +1,6 @@
 import React, { ReactElement } from 'react';
-import { useSelector } from 'react-redux';
 import styled from '../../../utils/styles/styled';
-import { RootState } from '../../../store/index';
 import {
-  HistoryState,
   HistorySetLogType,
   HistoryReplaceLogType,
   ReplaceType,
@@ -90,10 +87,7 @@ function History({
   compareId,
   setLogId,
 }: HistoryProps): ReactElement {
-  const { log, currentIdx } = useSelector<RootState>(
-    (state) => state.history
-  ) as HistoryState;
-  const { resetHistoryAndStyle } = useHistoryFeature();
+  const { log, currentIdx, resetHistoryAndStyle } = useHistoryFeature();
   if (!isHistoryOpen) return <></>;
 
   return (
@@ -103,8 +97,8 @@ function History({
         <Explain>클릭 시 현재 화면과 비교 가능</Explain>
       </HistoryTitle>
       <HistoryList>
-        {(log || [])
-          .map((item, idx) => (
+        {log
+          ?.map((item, idx) => (
             <HistoryItem
               key={item.id}
               isCurrent={currentIdx === idx}

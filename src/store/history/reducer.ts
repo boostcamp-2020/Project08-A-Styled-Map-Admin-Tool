@@ -9,7 +9,6 @@ import {
   HistoryActionType,
   HistoryInfoPropsType,
   SetIndexPayload,
-  objType,
 } from '../common/type';
 import getRandomId from '../../utils/getRandomId';
 import deepCopy from '../../utils/deepCopy';
