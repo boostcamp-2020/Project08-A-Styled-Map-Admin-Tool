@@ -9,10 +9,8 @@ import {
   HistoryActionType,
   HistoryInfoPropsType,
   SetIndexPayload,
-  objType,
 } from '../common/type';
 import getRandomId from '../../utils/getRandomId';
-import deepCopy from '../../utils/deepCopy';
 
 const logKey = 'log' as const;
 
@@ -44,7 +42,7 @@ function historyReducer(
     }
     case ADD_LOG: {
       const id = getRandomId(8);
-      const newState = deepCopy(state);
+      const newState = JSON.parse(JSON.stringify(state));
       if (newState.log.length !== newState.currentIdx + 1) {
         newState.log.splice(newState.currentIdx + 1);
       }
@@ -62,16 +60,16 @@ function historyReducer(
       if (storedLog !== undefined) {
         storedLog.push({
           id,
-          ...deepCopy(action.payload as objType),
+          ...JSON.parse(JSON.stringify(action.payload)),
         });
         localStorage.setItem('log', JSON.stringify(storedLog));
       }
 
-      return newState as HistoryState;
+      return newState;
     }
 
     case SET_CURRENT_INDEX: {
-      const newState = deepCopy(state) as HistoryState;
+      const newState = JSON.parse(JSON.stringify(state));
       newState.currentIdx = (action.payload as SetIndexPayload).currentIndex;
       return newState;
     }
