@@ -3,40 +3,34 @@ import blueprint from './theme/blueprint.json';
 import dark from './theme/dark.json';
 import sketch from './theme/sketch.json';
 import monochrome from './theme/monochrome.json';
-import defaultPng from '../../public/image/default.png';
-import monochromePng from '../../public/image/monochrome.png';
-import sketchPng from '../../public/image/sketch.png';
-import darkPng from '../../public/image/dark.png';
-import christamasPng from '../../public/image/christamas.png';
-import blueprintPng from '../../public/image/blueprint.png';
 
 const data = [
   {
-    src: defaultPng,
+    src: '/images/default.png',
     name: '표준',
   },
   {
-    src: monochromePng,
+    src: '/images/monochrome.png',
     name: '모노크롬',
     theme: monochrome,
   },
   {
-    src: sketchPng,
+    src: '/images/sketch.png',
     name: '스케치',
     theme: sketch,
   },
   {
-    src: darkPng,
+    src: '/images/dark.png',
     name: '밤',
     theme: dark,
   },
   {
-    src: christamasPng,
+    src: '/images/christamas.png',
     name: '크리스마스',
     theme: christmas,
   },
   {
-    src: blueprintPng,
+    src: '/images/blueprint.png',
     name: '청사진',
     theme: blueprint,
   },
