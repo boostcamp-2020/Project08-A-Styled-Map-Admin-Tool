@@ -1,58 +1,29 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addLog, resetHistory } from '../../store/history/action';
-import { HistoryInfoPropsType, HistoryState } from '../../store/common/type';
-import { useState, useEffect } from 'react';
-import useWholeStyle from '../../hooks/common/useWholeStyle';
 import { RootState } from '../../store/index';
+import { HistoryState, HistoryInfoPropsType } from '../../store/common/type';
+import { resetHistory } from '../../store/history/action';
+import useWholeStyle from '../common/useWholeStyle';
 
 export interface useHistoryFeatureType {
-  isHistoryOpen: boolean;
-  historyBtnHandler: () => void;
-  addHistory: (info: HistoryInfoPropsType) => void;
+  log?: HistoryInfoPropsType[];
+  currentIdx: number | null;
   resetHistoryAndStyle: () => void;
 }
 
 function useHistoryFeature(): useHistoryFeatureType {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { changeStyle } = useWholeStyle();
-  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-  const { log } = useSelector<RootState>(
+  const { log, currentIdx } = useSelector<RootState>(
     (state) => state.history
   ) as HistoryState;
+  const { changeStyle } = useWholeStyle();
 
   const dispatch = useDispatch();
-
-  const historyBtnHandler = () => {
-    setIsHistoryOpen(!isHistoryOpen);
-  };
-
-  const addHistory = (info: HistoryInfoPropsType) => {
-    dispatch(addLog(info));
-  };
 
   const resetHistoryAndStyle = () => {
     dispatch(resetHistory());
     changeStyle({});
   };
 
-  useEffect(() => {
-    window.onbeforeunload = function setLog(): void {
-      if (log !== undefined) {
-        localStorage.setItem('log', JSON.stringify(log || []));
-      }
-    };
-
-    return () => {
-      window.onbeforeunload = null;
-    };
-  }, [log]);
-
-  return {
-    isHistoryOpen,
-    historyBtnHandler,
-    addHistory,
-    resetHistoryAndStyle,
-  };
+  return { log, currentIdx, resetHistoryAndStyle };
 }
 
 export default useHistoryFeature;
