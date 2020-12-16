@@ -2,9 +2,7 @@ import { RefObject, useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initMap } from '../../store/map/action';
 import useWholeStyle from '../../hooks/common/useWholeStyle';
-import useMarkerFeature, {
-  getInitialMarkersFromLocalStorage,
-} from '../../hooks/map/useMarkerFeature';
+import { RegisterMarkerType } from '../../hooks/map/useMarkerFeature';
 import { urlToJson } from '../../utils/urlParsing';
 import validateStyle from '../../utils/validateStyle';
 import {
@@ -16,6 +14,7 @@ import {
 import { RootState } from '../../store/index';
 import { initMarker, MarkerState } from '../../store/marker/action';
 import { initHistory } from '../../store/history/action';
+import { getInitialMarkersFromLocalStorage } from '../../utils/updateMarkerStorage';
 
 export interface MapHookType {
   containerRef: RefObject<HTMLDivElement>;
@@ -28,7 +27,11 @@ interface ReduxStateType {
   marker: MarkerState;
 }
 
-function useMap(): MapHookType {
+interface UseMapProps {
+  registerMarker: ({ id, text, lngLat, instance }: RegisterMarkerType) => void;
+}
+
+function useMap({ registerMarker }: UseMapProps): MapHookType {
   const dispatch = useDispatch();
   const containerRef = useRef<HTMLDivElement>(null);
   const afterMapRef = useRef<HTMLDivElement>(null);
@@ -43,8 +46,7 @@ function useMap(): MapHookType {
 
   const { changeStyle, replaceStyle } = useWholeStyle();
   const [flag, setFlag] = useState(false);
-  const { search, pathname } = window.location;
-  const { registerMarker } = useMarkerFeature();
+  const { pathname } = window.location;
 
   const initializeMap = (map: mapboxgl.Map): void => {
     const { filteredStyle, mapCoordinate } = urlToJson();
@@ -52,6 +54,7 @@ function useMap(): MapHookType {
     if (validateStyle(filteredStyle as WholeStyleActionPayload)) {
       changeStyle(filteredStyle as WholeStyleActionPayload);
     } else {
+      // eslint-disable-next-line no-alert
       alert('URL에 잘못된 속성이 포함되어 있습니다.');
     }
 
@@ -99,7 +102,6 @@ function useMap(): MapHookType {
   }, [flag]);
 
   useEffect(() => {
-    console.log('called');
     dispatch(initMap(afterMapRef, initializeMap));
   }, []);
 

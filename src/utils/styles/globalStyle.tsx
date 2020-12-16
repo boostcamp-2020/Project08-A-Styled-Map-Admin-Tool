@@ -8,14 +8,6 @@ function GlobalStyle(): React.ReactElement {
       styles={css`
         ${emotionReset}
 
-        @font-face {
-          font-family: 'Noto Sans KR';
-          font-weight: 500;
-          src: local('NotoSans-Medium'), local('NotoSans'),
-            url('/fonts/NotoSans-Medium.woff2') format('woff2'),
-            url('/fonts/NotoSans-Medium.woff') format('woff');
-        }
-
         html {
           font-size: 62.5%;
         }

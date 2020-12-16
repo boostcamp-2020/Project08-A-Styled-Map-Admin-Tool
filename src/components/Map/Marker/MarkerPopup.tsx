@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '../../../utils/styles/styled';
 import useInputText from '../../../hooks/common/useInputText';
 import useMarkerPopUp from '../../../hooks/map/useMarkerPopUp';
-import { RegisterMarkerType } from '../../../hooks/map/useMarkerFeature';
 import CloseIcon from '../../Icon/CloseIcon';
 
 const LIMIT_LENGTH = 10;
@@ -11,6 +10,16 @@ interface WrapperProps {
     x: number | null;
     y: number | null;
   };
+}
+interface MarkerLngLatType {
+  lng: number | null;
+  lat: number | null;
+}
+export interface RegisterMarkerType {
+  id?: string;
+  text: string;
+  lngLat?: MarkerLngLatType;
+  instance?: mapboxgl.Marker;
 }
 
 const Wrapper = styled.div<WrapperProps>`

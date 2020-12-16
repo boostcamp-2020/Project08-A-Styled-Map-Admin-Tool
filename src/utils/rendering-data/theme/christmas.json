@@ -1,160 +1,165 @@
 {
-	"poi":{
-		 "all":{
-				"labelText":{
-					 "fill":{
-							"visibility":"none",
-							"color":"#d96459",
-							"saturation":63,
-							"lightness":60
-					 }
-				}
-		 }
-	},
-	"landscape":{
-		 "all":{
-				"section":{
-					 "fill":{
-							"color":"#588c73",
-							"saturation":23,
-							"lightness":45
-					 }
-				},
-				"labelText":{
-					 "fill":{
-							"color":"#eea36e",
-							"saturation":79,
-							"lightness":68
-					 }
-				}
-		 },
-		 "humanmade":{
-				"section":{
-					 "fill":{
-							"color":"#d96459",
-							"saturation":63,
-							"lightness":60
-					 }
-				}
-		 },
-		 "building":{
-				"section":{
-					 "fill":{
-							"color":"#d96459",
-							"saturation":63,
-							"lightness":60
-					 }
-				},
-				"labelText":{
-					 "fill":{
-							"visibility":"none"
-					 }
-				}
-		 }
-	},
-	"administrative":{
-		 "all":{
-				"section":{
-					 "stroke":{
-							"color":"#d96459",
-							"weight":2,
-							"saturation":63,
-							"lightness":60
-					 }
-				},
-				"labelText":{
-					 "fill":{
-							"color":"#d96459",
-							"saturation":63,
-							"lightness":60
-					 },
-					 "stroke":{
-							"color":"#eea36e",
-							"saturation":79,
-							"lightness":68
-					 }
-				}
-		 }
-	},
-	"road":{
-		 "all":{
-				"section":{
-					 "fill":{
-							"visibility":"none",
-							"saturation":47,
-							"lightness":47
-					 },
-					 "stroke":{
-							"visibility":"visible",
-							"color":"#fafafa",
-							"weight":0.5,
-							"lightness":98
-					 }
-				},
-				"labelText":{
-					 "fill":{
-							"color":"#f7f8fd",
-							"saturation":60,
-							"lightness":98
-					 },
-					 "stroke":{
-							"visibility":"none",
-							"color":"#fafafa",
-							"lightness":98
-					 }
-				},
-				"labelIcon":{
-					 "visibility":"none"
-				}
-		 }
-	},
-	"transit":{
-		 "all":{
-				"section":{
-					 "stroke":{
-							"color":"#ffffff",
-							"lightness":100
-					 }
-				},
-				"labelText":{
-					 "fill":{
-							"color":"#eea36e",
-							"saturation":79,
-							"lightness":68
-					 },
-					 "stroke":{
-							"color":"#ffffff",
-							"lightness":100
-					 }
-				}
-		 },
-		 "airport":{
-				"section":{
-					 "fill":{
-							"color":"#ffffff"
-					 },
-					 "stroke":{
-							"color":"#ffffff"
-					 }
-				},
-				"labelText":{
-					 "fill":{
-							"color":"#eea36e",
-							"saturation":79,
-							"lightness":68
-					 }
-				}
-		 }
-	},
-	"water":{
-		 "all":{
-				"section":{
-					 "fill":{
-							"color":"#fafafa",
-							"saturation":0,
-							"lightness":98
-					 }
-				}
-		 }
-	}
+  "poi": {
+    "all": {
+      "labelText": {
+        "fill": {
+          "visibility": "none",
+          "color": "#d96459",
+          "saturation": 63,
+          "lightness": 60
+        }
+      }
+    }
+  },
+  "landscape": {
+    "all": {
+      "section": {
+        "fill": {
+          "color": "#588c73",
+          "saturation": 23,
+          "lightness": 45
+        }
+      },
+      "labelText": {
+        "fill": {
+          "color": "#eea36e",
+          "saturation": 79,
+          "lightness": 68
+        }
+      }
+    },
+    "humanmade": {
+      "section": {
+        "fill": {
+          "color": "#d96459",
+          "saturation": 63,
+          "lightness": 60
+        }
+      }
+    },
+    "building": {
+      "section": {
+        "fill": {
+          "color": "#d96459",
+          "saturation": 63,
+          "lightness": 60
+        }
+      },
+      "labelText": {
+        "fill": {
+          "visibility": "none"
+        }
+      }
+    }
+  },
+  "administrative": {
+    "all": {
+      "section": {
+        "stroke": {
+          "color": "#d96459",
+          "weight": 2,
+          "saturation": 63,
+          "lightness": 60
+        }
+      },
+      "labelText": {
+        "fill": {
+          "color": "#d96459",
+          "saturation": 63,
+          "lightness": 60
+        },
+        "stroke": {
+          "color": "#eea36e",
+          "saturation": 79,
+          "lightness": 68
+        }
+      }
+    }
+  },
+  "road": {
+    "all": {
+      "section": {
+        "fill": {
+          "visibility": "none",
+          "saturation": 47,
+          "lightness": 47
+        },
+        "stroke": {
+          "visibility": "visible",
+          "color": "#fafafa",
+          "weight": 0.5,
+          "lightness": 98
+        }
+      },
+      "labelText": {
+        "fill": {
+          "color": "#f7f8fd",
+          "saturation": 60,
+          "lightness": 98
+        },
+        "stroke": {
+          "visibility": "none",
+          "color": "#fafafa",
+          "lightness": 98
+        }
+      },
+      "labelIcon": {
+        "visibility": "none"
+      }
+    }
+  },
+  "transit": {
+    "all": {
+      "section": {
+        "stroke": {
+          "color": "#ffffff",
+          "lightness": 100
+        }
+      },
+      "labelText": {
+        "fill": {
+          "color": "#eea36e",
+          "saturation": 79,
+          "lightness": 68
+        },
+        "stroke": {
+          "color": "#ffffff",
+          "lightness": 100
+        }
+      }
+    },
+    "airport": {
+      "section": {
+        "fill": {
+          "color": "#ffffff"
+        },
+        "stroke": {
+          "color": "#ffffff"
+        }
+      },
+      "labelText": {
+        "fill": {
+          "color": "#eea36e",
+          "saturation": 79,
+          "lightness": 68
+        }
+      }
+    }
+  },
+  "water": {
+    "all": {
+      "section": {
+        "fill": {
+          "color": "#fafafa",
+          "saturation": 0,
+          "lightness": 98
+        }
+      },
+      "labelText": {
+        "fill": {
+          "visibility": "none"
+        }
+      }
+    }
+  }
 }

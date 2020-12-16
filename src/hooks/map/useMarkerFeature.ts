@@ -9,9 +9,13 @@ import {
   updateMarker,
   removeMarker,
   MarkerInstanceType,
-  MARKER,
 } from '../../store/marker/action';
 import { URLPathNameType } from '../../store/common/type';
+import {
+  deleteMarkerOfLocalStorage,
+  updateMarkerOfLocalStorage,
+  setNewMarkerToLocalStorage,
+} from '../../utils/updateMarkerStorage';
 
 const LIMIT_MARKER_NUMBER = 30;
 interface ReduxStateType {
@@ -46,90 +50,10 @@ const initMarkerStateXY = {
   x: null,
   y: null,
 };
-
 const initMarkerStateLngLat = {
   lng: null,
   lat: null,
 };
-
-const initialLocalStorageMarkers: MarkerInstanceType[] = [];
-
-const getMarkersFromLocalStorage = (): MarkerInstanceType[] => {
-  return JSON.parse(localStorage.getItem(MARKER) as string);
-};
-
-const setMarkersToLocalStorage = (markers: MarkerInstanceType[]): void => {
-  localStorage.setItem(MARKER, JSON.stringify(markers));
-};
-
-export function getInitialMarkersFromLocalStorage(): MarkerInstanceType[] {
-  const storedMarkers = getMarkersFromLocalStorage();
-
-  if (!storedMarkers) return initialLocalStorageMarkers;
-
-  const newState = storedMarkers.reduce(
-    (
-      acc: MarkerInstanceType[],
-      marker: MarkerInstanceType
-    ): MarkerInstanceType[] => {
-      const newMarker = new mapboxgl.Marker({
-        draggable: true,
-      })
-        .setLngLat([marker.lng, marker.lat])
-        .setPopup(new mapboxgl.Popup().setHTML(`<p>${marker.text}</p>`));
-      acc.push({ ...marker, instance: newMarker });
-      return acc;
-    },
-    []
-  );
-
-  return newState;
-}
-
-export function setNewMarkerToLocalStorage({
-  id,
-  text,
-  lng,
-  lat,
-}: MarkerInstanceType): void {
-  const storedMarker = getMarkersFromLocalStorage();
-  const markerArray = storedMarker ?? [];
-
-  markerArray.push({
-    id,
-    text,
-    lng,
-    lat,
-  });
-
-  setMarkersToLocalStorage(markerArray);
-}
-
-function updateMarkerOfLocalStorage({
-  id,
-  lng,
-  lat,
-}: MarkerInstanceType): void {
-  const storedMarkers = getMarkersFromLocalStorage();
-  const changedMarkers = storedMarkers.map((marker) => {
-    const targetMarker =
-      marker.id === id
-        ? { ...marker, lng: lng ?? marker.lng, lat: lat ?? marker.lat }
-        : marker;
-    return targetMarker;
-  });
-
-  setMarkersToLocalStorage(changedMarkers);
-}
-
-function deleteMarkerOfLocalStorage(id: string) {
-  const storedMarkers = getMarkersFromLocalStorage();
-  const targetMarker = storedMarkers.find((marker) => marker.id === id);
-  targetMarker?.instance?.remove();
-  const changedMarkers = storedMarkers.filter((marker) => marker.id !== id);
-  setMarkersToLocalStorage(changedMarkers);
-}
-
 const { pathname } = window.location;
 
 function useMarkerFeature(): MarkerHookType {
@@ -182,6 +106,7 @@ function useMarkerFeature(): MarkerHookType {
     }
 
     if (marker.markers.length >= LIMIT_MARKER_NUMBER) {
+      // eslint-disable-next-line no-alert
       alert(`최대 ${LIMIT_MARKER_NUMBER}개의 marker만 등록할 수 있습니다.`);
       return;
     }
@@ -221,6 +146,7 @@ function useMarkerFeature(): MarkerHookType {
       lat,
       instance: newMarker,
     };
+
     dispatch(addMarker(newMarkerInstance));
     if (pathname !== URLPathNameType.show)
       setNewMarkerToLocalStorage(newMarkerInstance);
