@@ -8,6 +8,8 @@ export interface useHistoryMapType {
   historyBtnHandler: () => void;
 }
 
+const LOCALSTORAGE_MAX_LOG_COUNT = 50;
+
 function useHistoryMap(): useHistoryMapType {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const { log } = useSelector<RootState>(
@@ -21,7 +23,11 @@ function useHistoryMap(): useHistoryMapType {
   useEffect(() => {
     window.onbeforeunload = function setLog(): void {
       if (log !== undefined) {
-        localStorage.setItem('log', JSON.stringify(log || []));
+        const fiftyLog =
+          log.length <= LOCALSTORAGE_MAX_LOG_COUNT
+            ? log
+            : log.splice(log.length - LOCALSTORAGE_MAX_LOG_COUNT);
+        localStorage.setItem('log', JSON.stringify(fiftyLog));
       }
     };
 
