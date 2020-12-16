@@ -8,9 +8,7 @@ import {
   FeatureNameType,
   ElementNameType,
   SubElementNameType,
-  StyleDefaultKeyType,
   VisibilityValueType,
-  ColorSubStyleType,
   StyleKeyType,
 } from '../store/common/type';
 import initialLayers from './rendering-data/defaultStyle';
@@ -106,7 +104,6 @@ function checkStyle(input: StyleActionPayload): boolean {
   const keys = Object.keys(input) as StyleKeyType[];
   for (const key of keys) {
     if (!(key in StyleKeyType)) return false;
-
     const style = input[key];
     switch (key) {
       case StyleKeyType.color:
