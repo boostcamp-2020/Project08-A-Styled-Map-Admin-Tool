@@ -111,7 +111,7 @@ function useStyleType(): UseStyleHookType {
   const onStyleChange = useCallback(
     (key: StyleDefaultKeyType, value: string | number) => {
       if (!feature || !subFeature || !element || !map) return;
-      const initColor = 'init' as const;
+      const initColor = 'transparent' as const;
 
       /** 한개의 초기 색상을 바꿀 때 , 가시성 상속 표기 */
       let initialColor = '';
@@ -124,7 +124,6 @@ function useStyleType(): UseStyleHookType {
         });
         initialColor = style.color;
       }
-
       let parentVisibility = '';
       if (value === VisibilityType.inherit) {
         if (subElement) {
