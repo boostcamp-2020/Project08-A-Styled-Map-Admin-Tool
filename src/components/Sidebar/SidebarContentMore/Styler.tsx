@@ -1,15 +1,19 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import useStyleType, {
-  UseStyleHookType,
-} from '../../../hooks/sidebar/useStyleType';
-import { hexToHSL } from '../../../utils/colorFormat';
-
 import ColorStyle from './ColorStyle';
 import SaturationStyle from './SaturationStyle';
 import LightnessStyle from './LightnessStyle';
 import WeightStyle from './WeightStyle';
 import VisibilityStyle from './VisibilityStyle';
+
+// Type
+import useStyleType, {
+  UseStyleHookType,
+} from '../../../hooks/sidebar/useStyleType';
+
+// Utils
+import { hexToHSL } from '../../../utils/colorFormat';
 
 const StylerWrapper = styled.div`
   height: 100%;

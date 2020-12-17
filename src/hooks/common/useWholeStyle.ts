@@ -1,8 +1,17 @@
+// Dependencies
+import { useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
+
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { setWholeStyle, replaceWholeStyle } from '../../store/style/action';
 import { addLog } from '../../store/history/action';
+
+// Util
+import setFeatureStyle from '../../utils/setFeatureStyle';
+
+// Type
 import {
   WholeStyleActionPayload,
   FeatureState,
@@ -10,8 +19,6 @@ import {
   StyleStoreType,
   ReplaceType,
 } from '../../store/common/type';
-import { useEffect, useState } from 'react';
-import setFeatureStyle from '../../utils/setFeatureStyle';
 
 type LogInfoType = { changedKey: ReplaceType; changedValue?: string };
 type FlagType = LogInfoType | boolean;

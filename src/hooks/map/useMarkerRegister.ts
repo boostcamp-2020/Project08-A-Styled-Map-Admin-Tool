@@ -1,19 +1,26 @@
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
-import mapboxgl from 'mapbox-gl';
-import getRandomId from '../../utils/getRandomId';
-import {
-  deleteMarkerOfLocalStorage,
-  updateMarkerOfLocalStorage,
-  setNewMarkerToLocalStorage,
-} from '../../utils/updateMarkerStorage';
+import { RootState } from '../../store';
 import {
   addMarker,
   updateMarker,
   removeMarker,
   MarkerInstanceType,
 } from '../../store/marker/action';
+
+// Util
+import {
+  deleteMarkerOfLocalStorage,
+  updateMarkerOfLocalStorage,
+  setNewMarkerToLocalStorage,
+} from '../../utils/updateMarkerStorage';
+import getRandomId from '../../utils/getRandomId';
+
+// Hook
 import { MarkerLngLatType } from './useMarkerPosition';
-import { RootState } from '../../store';
+
+// Type
+import mapboxgl from 'mapbox-gl';
 import { ReduxStateType, URLPathNameType } from '../../store/common/type';
 
 export interface RegisterMarkerType {

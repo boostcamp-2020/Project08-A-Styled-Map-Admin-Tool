@@ -1,14 +1,16 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import useSidebarHeader, {
-  useSidebarHeaderType,
-} from '../../../hooks/sidebar/useSidebarHeader';
-import useUndoRedo from '../../../hooks/sidebar/useUndoRedo';
-
 import UndoIcon from '../../Icon/UndoIcon';
 import RedoIcon from '../../Icon/RedoIcon';
 import MoreVertIcon from '../../Icon/MoreVertIcon';
 import SidebarDropdown from './SidebarDropdown';
+
+// Hook
+import useUndoRedo from '../../../hooks/sidebar/useUndoRedo';
+import useSidebarHeader, {
+  useSidebarHeaderType,
+} from '../../../hooks/sidebar/useSidebarHeader';
 
 const HeaderWrapper = styled.header`
   flex: 0 0 auto;

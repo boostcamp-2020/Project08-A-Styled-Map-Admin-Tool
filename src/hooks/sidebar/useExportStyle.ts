@@ -1,5 +1,10 @@
+// Redux
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { getDefaultStyle } from '../../store/style/properties';
+import { MarkerInstanceType, MarkerType } from '../../store/marker/action';
+
+// Type
 import mapboxgl from 'mapbox-gl';
 import {
   ElementNameType,
@@ -11,8 +16,8 @@ import {
   ReduxStateType,
   StyleStoreType,
 } from '../../store/common/type';
-import { getDefaultStyle } from '../../store/style/properties';
-import { MarkerInstanceType, MarkerType } from '../../store/marker/action';
+
+// Util
 import { jsonToURL } from '../../utils/urlParsing';
 
 export interface StoreDataType {

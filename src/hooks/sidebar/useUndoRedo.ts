@@ -1,6 +1,14 @@
-import mapboxgl from 'mapbox-gl';
+// Dependencies
+import { getDefaultStyle } from '../../store/style/properties';
+
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { setCurrentIndex } from '../../store/history/action';
+import { setStyle } from '../../store/style/action';
+import { initDepthTheme } from '../../store/depth-theme/action';
+
+// Type
 import {
   HistoryState,
   HistorySetLogType,
@@ -12,11 +20,12 @@ import {
   ColorSubStyleType,
   StyleKeyType,
 } from '../../store/common/type';
-import { getDefaultStyle } from '../../store/style/properties';
-import { setCurrentIndex } from '../../store/history/action';
-import { setStyle } from '../../store/style/action';
-import { initDepthTheme } from '../../store/depth-theme/action';
+import mapboxgl from 'mapbox-gl';
+
+// Util
 import * as mapStyling from '../../utils/map-styling';
+
+// Hook
 import useWholeStyle from '../common/useWholeStyle';
 import useInitAllColor from './useInitAllColor';
 

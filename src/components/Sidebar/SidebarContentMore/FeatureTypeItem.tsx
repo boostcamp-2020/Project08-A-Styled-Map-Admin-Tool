@@ -1,8 +1,13 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import { FeaturesType } from '../../../utils/rendering-data/featureTypeData';
-import { FeatureNameType, ElementNameType } from '../../../store/common/type';
 import useFeatureTypeItemHook from '../../../hooks/sidebar/useFeatureTypeItem';
+
+// Data
+import { FeaturesType } from '../../../utils/rendering-data/featureTypeData';
+
+// Type
+import { FeatureNameType, ElementNameType } from '../../../store/common/type';
 
 interface ListProps {
   isChecked: boolean;
