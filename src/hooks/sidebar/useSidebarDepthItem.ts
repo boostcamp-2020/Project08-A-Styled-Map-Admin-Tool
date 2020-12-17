@@ -15,7 +15,6 @@ import useWholeStyle from '../common/useWholeStyle';
 import { replaceFeatureStyle } from '../../store/style/action';
 import setFeatureStyle from '../../utils/setFeatureStyle';
 import { addLog } from '../../store/history/action';
-import deepCopy from '../../utils/deepCopy';
 
 export enum DepthItemKeyTypes {
   administrative = 'administrativeDepth',
@@ -60,7 +59,7 @@ const getChangeStyle = (
   visibility: VisibilityValueType,
   style: StyleStoreType
 ): WholeStyleActionPayload => {
-  const changeStyle = deepCopy(style);
+  const changeStyle = JSON.parse(JSON.stringify(style));
 
   subfeatures.forEach((subFeature) => {
     if (feature === FeatureNameType.road) {
