@@ -18,6 +18,7 @@ import { setStyle } from '../../store/style/action';
 import { initDepthTheme } from '../../store/depth-theme/action';
 import * as mapStyling from '../../utils/map-styling';
 import useWholeStyle from '../common/useWholeStyle';
+import useInitAllColor from './useInitAllColor';
 
 interface UseUndoRedoType {
   undoHandler: () => void;
@@ -36,6 +37,7 @@ function useUndoRedo(): UseUndoRedoType {
     log: state.history.log,
     currentIdx: state.history.currentIdx,
   })) as ReduxStateType;
+  const { initAllColor } = useInitAllColor();
 
   const undoHandler = () => {
     if (!map || !log || currentIdx === null || currentIdx < 0) return;
@@ -62,7 +64,7 @@ function useUndoRedo(): UseUndoRedoType {
         ? StyleKeyType.color
         : changedKey;
 
-    let beforeStyle;
+    let beforeStyle: StyleType;
     if (currentIdx === 0) {
       beforeStyle = subElement
         ? getDefaultStyle({
@@ -74,12 +76,29 @@ function useUndoRedo(): UseUndoRedoType {
         : getDefaultStyle({ feature, subFeature, element });
     } else {
       const { wholeStyle } = log[undoIdx];
-      beforeStyle =
-        subElement && wholeStyle
-          ? (wholeStyle[feature][subFeature][element] as SubElementType)[
-              subElement
-            ]
-          : wholeStyle[feature][subFeature][element];
+      beforeStyle = (subElement && wholeStyle
+        ? (wholeStyle[feature][subFeature][element] as SubElementType)[
+            subElement
+          ]
+        : wholeStyle[feature][subFeature][element]) as StyleType;
+    }
+
+    /** All color 초기화 상태로 돌리는 경우 */
+    if (
+      changedKey === StyleKeyType.color &&
+      subFeature === 'all' &&
+      beforeStyle.color === 'transparent'
+    ) {
+      const { wholeStyle } = currentIdx === 0 ? log[currentIdx] : log[undoIdx];
+      initAllColor({
+        features: wholeStyle,
+        feature,
+        element,
+        subElement: subElement as SubElementNameType,
+        style: beforeStyle,
+        key: changedKey,
+      });
+      return;
     }
 
     /** 변경된 사항만 그리는 경우 */
@@ -124,6 +143,24 @@ function useUndoRedo(): UseUndoRedoType {
       changedKey === ColorSubStyleType.lightness
         ? StyleKeyType.color
         : changedKey;
+
+    /** All color 초기화 상태로 돌리는 경우 */
+    if (
+      changedKey === StyleKeyType.color &&
+      subFeature === 'all' &&
+      style.color === 'transparent'
+    ) {
+      const { wholeStyle } = log[redoIdx]; // 이거 맞을까오...
+      initAllColor({
+        features: wholeStyle,
+        feature,
+        element,
+        subElement: subElement as SubElementNameType,
+        style,
+        key: changedKey,
+      });
+      return;
+    }
 
     /** 변경된 사항에만 그리는 경우 */
     mapStyling[feature]({
