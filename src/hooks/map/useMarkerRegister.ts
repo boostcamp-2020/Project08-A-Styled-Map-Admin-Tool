@@ -12,7 +12,7 @@ import {
   removeMarker,
   MarkerInstanceType,
 } from '../../store/marker/action';
-import { MarkerLngLatType } from './useMarkerFeature';
+import { MarkerLngLatType } from './useMarkerPosition';
 import { RootState } from '../../store';
 import { ReduxStateType, URLPathNameType } from '../../store/common/type';
 
