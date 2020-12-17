@@ -89,9 +89,12 @@ function setElementStyle({
   style,
   isInit,
 }: setElementStyleProps): void {
-  if (!style.isChanged && !isInit) return;
+  // if (!isInit) return;
   const keys = Object.keys(style) as StyleKeyType[];
   keys.forEach((key) => {
+    if (key === 'color' && style[key] === 'transparent') {
+      return;
+    }
     mapStyling[feature]({
       map,
       subFeature,
