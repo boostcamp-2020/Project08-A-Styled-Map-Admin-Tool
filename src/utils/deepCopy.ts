@@ -6,7 +6,6 @@ function deepCopy(obj: objType): objType {
   }
 
   const result: objType = Array.isArray(obj) ? [] : {};
-
   Object.keys(obj).forEach((key) => {
     result[key] = deepCopy(obj[key]);
   });
