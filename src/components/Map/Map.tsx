@@ -8,7 +8,7 @@ import useCompareFeature from '../../hooks/map/useCompareFeature';
 import LowerButtons from './ButtonGroup/LowerButtons';
 import UpperButtons from './ButtonGroup/UpperButtons';
 import History from './History/History';
-import useMarkerFeature from '../../hooks/map/useMarkerFeature';
+import useMarkerFeature from '../../hooks/map/useMarkerPosition';
 import MarkerPopUp from './Marker/MarkerPopup';
 import { URLPathNameType } from '../../store/common/type';
 

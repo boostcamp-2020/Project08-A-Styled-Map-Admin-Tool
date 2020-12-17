@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { ReplaceType } from '../../store/common/type';
+import { initDepthTheme } from '../../store/depth-theme/action';
 import useWholeStyle from '../common/useWholeStyle';
 
 interface SidebarDropdownProps {
@@ -17,6 +19,7 @@ function useSidebarDropdown({
   isOpened,
   dropdownToggleHandler,
 }: SidebarDropdownProps): useSidebarDropdownType {
+  const dispatch = useDispatch();
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const { changeStyle } = useWholeStyle();
 
@@ -28,6 +31,7 @@ function useSidebarDropdown({
   const resetClickHandler = () => {
     if (isOpened) dropdownToggleHandler();
     changeStyle({}, { changedKey: ReplaceType.init });
+    dispatch(initDepthTheme());
   };
 
   return {

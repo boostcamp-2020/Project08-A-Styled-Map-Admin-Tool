@@ -1,5 +1,5 @@
 import useMarkerRegister from './useMarkerRegister';
-import { MarkerLngLatType } from './useMarkerFeature';
+import { MarkerLngLatType } from './useMarkerPosition';
 
 interface MarkerPopUpHookType {
   onClickButton: () => void;

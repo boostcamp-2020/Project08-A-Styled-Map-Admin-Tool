@@ -3,7 +3,7 @@ import styled from '../../../utils/styles/styled';
 import useInputText from '../../../hooks/common/useInputText';
 import useMarkerPopUp from '../../../hooks/map/useMarkerPopUp';
 import CloseIcon from '../../Icon/CloseIcon';
-import { MarkerLngLatType } from '../../../hooks/map/useMarkerFeature';
+import { MarkerLngLatType } from '../../../hooks/map/useMarkerPosition';
 
 const LIMIT_LENGTH = 10;
 interface WrapperProps {
