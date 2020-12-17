@@ -3,6 +3,7 @@ import styled from '../../../utils/styles/styled';
 import useInputText from '../../../hooks/common/useInputText';
 import useMarkerPopUp from '../../../hooks/map/useMarkerPopUp';
 import CloseIcon from '../../Icon/CloseIcon';
+import { MarkerLngLatType } from '../../../hooks/map/useMarkerFeature';
 
 const LIMIT_LENGTH = 10;
 interface WrapperProps {
@@ -10,10 +11,6 @@ interface WrapperProps {
     x: number | null;
     y: number | null;
   };
-}
-interface MarkerLngLatType {
-  lng: number | null;
-  lat: number | null;
 }
 export interface RegisterMarkerType {
   id?: string;
@@ -71,20 +68,21 @@ const CloseIconTag = styled(CloseIcon)`
 interface MarkerPopUpProps {
   markerPosition: { x: number | null; y: number | null };
   resetMarkerPos: () => void;
-  registerMarker: ({ id, text, lngLat }: RegisterMarkerType) => void;
+  markerLngLat: MarkerLngLatType;
 }
 
 function MarkerPopUp({
   markerPosition,
   resetMarkerPos,
-  registerMarker,
+  markerLngLat,
 }: MarkerPopUpProps): React.ReactElement {
   const { inputText, onInputChange } = useInputText();
   const { onClickButton } = useMarkerPopUp({
     inputText,
     resetMarkerPos,
-    registerMarker,
+    markerLngLat,
   });
+
   if (markerPosition.x && markerPosition.y)
     return (
       <Wrapper

@@ -63,10 +63,8 @@ interface MapProps {
 }
 
 function Map({ pathname }: MapProps): React.ReactElement {
-  const { markerPosition, resetMarkerPos, registerMarker } = useMarkerFeature();
-  const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap({
-    registerMarker,
-  });
+  const { markerPosition, resetMarkerPos, markerLngLat } = useMarkerFeature();
+  const { containerRef, afterMapRef, beforeMapRef }: MapHookType = useMap();
 
   const { isHistoryOpen, historyBtnHandler } = useHistoryMap();
   const { logId, setLogId, comparisonButtonClickHandler } = useCompareFeature({
@@ -84,7 +82,7 @@ function Map({ pathname }: MapProps): React.ReactElement {
         <MarkerPopUp
           markerPosition={markerPosition}
           resetMarkerPos={resetMarkerPos}
-          registerMarker={registerMarker}
+          markerLngLat={markerLngLat}
         />
       </CurrentMapWrapper>
       <History

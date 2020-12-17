@@ -2,7 +2,7 @@ import { RefObject, useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initMap } from '../../store/map/action';
 import useWholeStyle from '../../hooks/common/useWholeStyle';
-import { RegisterMarkerType } from '../../hooks/map/useMarkerFeature';
+import { RegisterMarkerType } from '../../hooks/map/useMarkerRegister';
 import { urlToJson } from '../../utils/urlParsing';
 import validateStyle from '../../utils/validateStyle';
 import {
@@ -15,6 +15,7 @@ import { RootState } from '../../store/index';
 import { initMarker, MarkerState } from '../../store/marker/action';
 import { initHistory } from '../../store/history/action';
 import { getInitialMarkersFromLocalStorage } from '../../utils/updateMarkerStorage';
+import useMarkerRegister from './useMarkerRegister';
 
 export interface MapHookType {
   containerRef: RefObject<HTMLDivElement>;
@@ -27,11 +28,7 @@ interface ReduxStateType {
   marker: MarkerState;
 }
 
-interface UseMapProps {
-  registerMarker: ({ id, text, lngLat, instance }: RegisterMarkerType) => void;
-}
-
-function useMap({ registerMarker }: UseMapProps): MapHookType {
+function useMap(): MapHookType {
   const dispatch = useDispatch();
   const containerRef = useRef<HTMLDivElement>(null);
   const afterMapRef = useRef<HTMLDivElement>(null);
@@ -45,6 +42,7 @@ function useMap({ registerMarker }: UseMapProps): MapHookType {
   })) as ReduxStateType;
 
   const { changeStyle, replaceStyle } = useWholeStyle();
+  const { registerMarker } = useMarkerRegister();
   const [flag, setFlag] = useState(false);
   const { pathname } = window.location;
 
