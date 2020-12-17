@@ -29,6 +29,7 @@ function useSidebarDropdown({
   };
 
   const resetClickHandler = () => {
+    if (isOpened) dropdownToggleHandler();
     changeStyle({}, { changedKey: ReplaceType.init });
     dispatch(initDepthTheme());
   };
