@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import useInputRange from '../../../hooks/common/useInputRange';
-import { StyleKeyType } from '../../../store/common/type';
+import { StyleDefaultKeyType, StyleKeyType } from '../../../store/common/type';
 
 const ColorWrapper = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ const Button = styled.button`
 
 interface ColorStyleProps {
   color: string;
-  onStyleChange: (key: StyleKeyType, value: string | number) => void;
+  onStyleChange: (key: StyleDefaultKeyType, value: string | number) => void;
 }
 
 function ColorStyle({

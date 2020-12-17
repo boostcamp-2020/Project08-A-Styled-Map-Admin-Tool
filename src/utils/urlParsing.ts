@@ -69,7 +69,7 @@ export function jsonToURL({
 }: ExportType): string {
   const url =
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/show?='
+      ? 'http://localhost:3000/show?'
       : process.env.REACT_APP_DEPLOY_URL;
   const styleQueryString = isNotEmptyObject(filteredStyle)
     ? `style=${encodeURIComponent(
@@ -86,6 +86,12 @@ export function jsonToURL({
     : ``;
 
   return url + locationQueryString + styleQueryString + markerQueryString;
+}
+
+function stringToNumber(style: string): number | string {
+  const result = Number(style);
+  if (Number.isNaN(result)) return style;
+  return result;
 }
 
 function urlToJsonGetStyleJson(styleParams: string): URLJsonFeatureType {
@@ -130,14 +136,18 @@ function urlToJsonGetStyleJson(styleParams: string): URLJsonFeatureType {
           element
         ] as URLJsonSubFeatureType)[
           value as StyleKeyType
-        ] as URLJsonStyleType) = values[index + 1] as URLJsonStyleType;
+        ] as URLJsonStyleType) = stringToNumber(
+          values[index + 1]
+        ) as URLJsonStyleType;
         return;
       }
       ((((state[feature] as URLJsonSubFeatureType)[subFeature][
         element
       ] as URLJsonSubFeatureType)[subElement] as URLJsonStyleType)[
         value as StyleKeyType
-      ] as URLJsonStyleType) = values[index + 1] as URLJsonStyleType;
+      ] as URLJsonStyleType) = stringToNumber(
+        values[index + 1]
+      ) as URLJsonStyleType;
     }
   });
   return state as URLJsonFeatureType;

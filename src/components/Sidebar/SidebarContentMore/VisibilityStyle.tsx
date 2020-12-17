@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import { StyleKeyType, VisibilityValueType } from '../../../store/common/type';
+import {
+  VisibilityValueType,
+  StyleDefaultKeyType,
+  StyleKeyType,
+} from '../../../store/common/type';
 
 interface CheckedProp {
   checked: boolean;
@@ -48,7 +52,7 @@ const Circle = styled.div<CheckedProp>`
 interface VisibilityStyleProps {
   visibility: string;
   subFeature: string | null;
-  onStyleChange: (key: StyleKeyType, value: string | number) => void;
+  onStyleChange: (key: StyleDefaultKeyType, value: string | number) => void;
 }
 
 function VisibilityStyle({
@@ -57,7 +61,7 @@ function VisibilityStyle({
   subFeature,
 }: VisibilityStyleProps): React.ReactElement {
   const list = [
-    { title: '상위요소 상속', value: 'inherit' },
+    { title: '상위와 동일', value: 'inherit' },
     { title: '보임', value: 'visible' },
     { title: '숨김', value: 'none' },
   ];
@@ -71,7 +75,9 @@ function VisibilityStyle({
         return (
           <VisibilityItem
             key={item.value}
-            onClick={() => onStyleChange(StyleKeyType.visibility, item.value)}
+            onClick={() => {
+              onStyleChange(StyleKeyType.visibility, item.value);
+            }}
           >
             <Checkbox checked={visibility === item.value}>
               <Circle checked={visibility === item.value} />

@@ -20,6 +20,7 @@ export interface mapProps {
 
 export interface useComparisonButtonType {
   logId: string | undefined;
+  setLogId: (id: string | undefined) => void;
   comparisonButtonClickHandler: (id: string) => void;
 }
 
@@ -36,37 +37,40 @@ function useCompareFeature({
   beforeMapRef,
 }: useCompareFeatureProps): useComparisonButtonType {
   const [logId, setLogId] = useState<string>();
+  const [beforeMap, setBeforeMap] = useState<mapboxgl.Map | null>(null);
   const { map, log } = useSelector<RootState>((state) => ({
     map: state.map.map,
     log: state.history.log,
   })) as ReduxStateType;
 
   useEffect(() => {
-    if (!map || !logId) return;
+    if (!map) return;
 
-    const beforeMap = new mapboxgl.Map({
+    const newMap = new mapboxgl.Map({
       container: beforeMapRef.current as HTMLDivElement,
       style: initLayers as mapboxgl.Style,
       center: [map.getCenter().lng, map.getCenter().lat],
       zoom: map.getZoom(),
     });
 
-    beforeMap.on('load', () => {
-      if (!log || !beforeMap) return;
+    setBeforeMap(newMap);
+  }, [map]);
 
-      const [item] = log?.filter((val) => val.id === logId) || [];
-      const { wholeStyle } = item;
+  useEffect(() => {
+    if (!map || !logId || !beforeMap || !log) return;
 
-      for (const feature in wholeStyle) {
-        setFeatureStyle({
-          map: beforeMap as mapboxgl.Map,
-          feature: feature as FeatureNameType,
-          featureState: item.wholeStyle[
-            feature as FeatureNameType
-          ] as FeatureState,
-        });
-      }
-    });
+    const [item] = log?.filter((val) => val.id === logId) || [];
+    const { wholeStyle } = item;
+
+    for (const feature in wholeStyle) {
+      setFeatureStyle({
+        map: beforeMap as mapboxgl.Map,
+        feature: feature as FeatureNameType,
+        featureState: item.wholeStyle[
+          feature as FeatureNameType
+        ] as FeatureState,
+      });
+    }
     const compare = getCompareMap(beforeMap, map, containerRef.current);
 
     // eslint-disable-next-line consistent-return
@@ -85,6 +89,7 @@ function useCompareFeature({
 
   return {
     logId,
+    setLogId,
     comparisonButtonClickHandler,
   };
 }

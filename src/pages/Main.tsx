@@ -20,6 +20,7 @@ const MainWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  min-width: 500px;
 `;
 
 function Main({ location: { pathname } }: MainProps): React.ReactElement {

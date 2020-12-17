@@ -1,4 +1,3 @@
-import mapboxgl from 'mapbox-gl';
 import { useSelector, useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
 import { RootState } from '../../store';
@@ -6,90 +5,66 @@ import {
   SubElementType,
   StyleType,
   StyleKeyType,
+  ColorSubStyleType,
+  StyleDefaultKeyType,
   ElementNameType,
   SubElementNameType,
   ReduxStateType,
   StyleStoreType,
 } from '../../store/common/type';
-import { setStyle, initColors } from '../../store/style/action';
+import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
 
 import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
-import useHistoryFeature from '../map/useHistoryFeature';
 import { VisibilityType } from '../../utils/applyStyle';
 import { getDefaultStyle } from '../../store/style/properties';
 import removeNullFromObject from '../../utils/removeNullFromObject';
+import deepCopy from '../../utils/deepCopy';
+import { addLog } from '../../store/history/action';
+import useInitAllColor from './useInitAllColor';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
-  onStyleChange: (key: StyleKeyType, value: string | number) => void;
+  onStyleChange: (key: StyleDefaultKeyType, value: string | number) => void;
   element: ElementNameType | null;
   subFeature: string | null;
 }
 
-const colorRelatedKeysArr: StyleKeyType[] = [
-  StyleKeyType.color,
-  StyleKeyType.lightness,
-  StyleKeyType.saturation,
-];
-
 const getNewColorStyle = (
-  key: StyleKeyType,
+  key: StyleDefaultKeyType,
   value: string | number,
   styleElement: StyleType
 ) => {
-  const { color, saturation, lightness } = styleElement;
-  const newStyleObj = {
-    color,
-    saturation,
-    lightness,
-  };
-
+  let { color } = styleElement;
+  if (color === 'transparent') color = '#000000';
   const { h: beforeColor, s: beforeSaturation, l: beforeLight } = hexToHSL(
     color
   );
 
   switch (key) {
-    case StyleKeyType.saturation:
-      newStyleObj.saturation = value as number;
-      newStyleObj.color = hslToHEX(
-        `hsl(${beforeColor}, ${value}%, ${beforeLight}%)`
-      );
+    case ColorSubStyleType.saturation:
+      color = hslToHEX(`hsl(${beforeColor}, ${value}%, ${beforeLight}%)`);
       break;
 
-    case StyleKeyType.lightness:
-      newStyleObj.lightness = value as number;
-      newStyleObj.color = hslToHEX(
-        `hsl(${beforeColor}, ${beforeSaturation}%, ${value}%)`
-      );
-      break;
-
-    case StyleKeyType.color:
-      // eslint-disable-next-line no-case-declarations
-      const { s: newSaturation, l: newLightness } = hexToHSL(value as string);
-      newStyleObj.color = value as string;
-      newStyleObj.saturation =
-        newStyleObj.color === 'transparent' ? 0 : newSaturation;
-      newStyleObj.lightness =
-        newStyleObj.color === 'transparent' ? 0 : newLightness;
+    case ColorSubStyleType.lightness:
+      color = hslToHEX(`hsl(${beforeColor}, ${beforeSaturation}%, ${value}%)`);
       break;
 
     default:
       break;
   }
 
-  return newStyleObj;
+  return color;
 };
 
 interface changedObjType {
-  key?: StyleKeyType;
+  key?: StyleDefaultKeyType;
   value?: string | number;
 }
 
 function useStyleType(): UseStyleHookType {
   const dispatch = useDispatch();
   const [changedObj, setChangedObj] = useState<changedObjType>({});
-  const { addHistory } = useHistoryFeature();
   const {
     map,
     sidebar: { feature, subFeature, element, subElement },
@@ -102,6 +77,7 @@ function useStyleType(): UseStyleHookType {
       features,
     };
   }) as ReduxStateType;
+  const { initAllColor } = useInitAllColor();
 
   const styleElement = useSelector<RootState>((state) => {
     if (!feature || !subFeature || !element) {
@@ -116,7 +92,7 @@ function useStyleType(): UseStyleHookType {
   useEffect(() => {
     const { key, value } = changedObj;
     if (key && value && feature && subFeature && element) {
-      addHistory({
+      const info = {
         changedKey: key,
         changedValue: value,
         feature,
@@ -127,19 +103,17 @@ function useStyleType(): UseStyleHookType {
           ...styleElement,
           [key]: value,
         },
-        wholeStyle: removeNullFromObject(
-          JSON.parse(JSON.stringify(features))
-        ) as StyleStoreType,
-      });
-
+        wholeStyle: removeNullFromObject(deepCopy(features)) as StyleStoreType,
+      };
+      dispatch(addLog(info));
       setChangedObj({});
     }
   }, [changedObj]);
 
   const onStyleChange = useCallback(
-    (key: StyleKeyType, value: string | number) => {
+    (key: StyleDefaultKeyType, value: string | number) => {
       if (!feature || !subFeature || !element || !map) return;
-      const initColor = 'init' as const;
+      const initColor = 'transparent' as const;
 
       /** 한개의 초기 색상을 바꿀 때 , 가시성 상속 표기 */
       let initialColor = '';
@@ -152,7 +126,6 @@ function useStyleType(): UseStyleHookType {
         });
         initialColor = style.color;
       }
-
       let parentVisibility = '';
       if (value === VisibilityType.inherit) {
         if (subElement) {
@@ -165,33 +138,35 @@ function useStyleType(): UseStyleHookType {
         }
       }
 
-      const newStyleObj = colorRelatedKeysArr.includes(key)
-        ? getNewColorStyle(key, initialColor || value, styleElement)
-        : { [key]: initialColor || value };
+      let newStyleKey: StyleKeyType;
+      let newStyleValue = initialColor || value;
+
+      if (
+        key === ColorSubStyleType.saturation ||
+        key === ColorSubStyleType.lightness
+      ) {
+        newStyleKey = StyleKeyType.color;
+        newStyleValue = getNewColorStyle(
+          key,
+          initialColor || value,
+          styleElement
+        );
+      } else newStyleKey = key;
+
+      const newStyleObj = { [newStyleKey]: newStyleValue };
 
       /** all의 색상을 바꿀 때 */
       if (value === initColor && subFeature === 'all' && subElement) {
-        dispatch(initColors(feature, element, subElement));
-        Object.keys(features[feature]).forEach((subFeatureName) => {
-          const style = getDefaultStyle({
-            feature,
-            subFeature: subFeatureName,
-            element,
-            subElement,
-          });
-
-          mapStyling[feature]({
-            map,
-            subFeature: subFeatureName,
-            key,
-            element,
-            subElement: subElement as SubElementNameType,
-            style: {
-              ...styleElement,
-              ...newStyleObj,
-              color: style.color,
-            },
-          });
+        initAllColor({
+          features,
+          feature,
+          element,
+          subElement,
+          style: {
+            ...styleElement,
+            ...newStyleObj,
+          },
+          key: newStyleKey,
         });
         setChangedObj({
           key,
@@ -217,17 +192,19 @@ function useStyleType(): UseStyleHookType {
       mapStyling[feature]({
         map,
         subFeature,
-        key,
+        key: newStyleKey,
         element,
         subElement: subElement as SubElementNameType,
         style: {
           ...styleElement,
           ...newStyleObj,
-          [key]: parentVisibility || initialColor || value,
+          [newStyleKey]: parentVisibility || initialColor || newStyleValue,
         },
       });
-
-      setChangedObj({ key, value: initialColor || parentVisibility || value });
+      setChangedObj({
+        key,
+        value: initialColor || parentVisibility || value,
+      });
     },
     [feature, subFeature, element, subElement, styleElement]
   );

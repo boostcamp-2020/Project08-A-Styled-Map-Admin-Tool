@@ -2,10 +2,8 @@ import { RefObject, useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initMap } from '../../store/map/action';
 import useWholeStyle from '../../hooks/common/useWholeStyle';
-import useMarkerFeature, {
-  getInitialMarkersFromLocalStorage,
-} from '../../hooks/map/useMarkerFeature';
 import { urlToJson } from '../../utils/urlParsing';
+import validateStyle from '../../utils/validateStyle';
 import {
   WholeStyleActionPayload,
   HistoryState,
@@ -15,6 +13,8 @@ import {
 import { RootState } from '../../store/index';
 import { initMarker, MarkerState } from '../../store/marker/action';
 import { initHistory } from '../../store/history/action';
+import { getInitialMarkersFromLocalStorage } from '../../utils/updateMarkerStorage';
+import useMarkerRegister from './useMarkerRegister';
 
 export interface MapHookType {
   containerRef: RefObject<HTMLDivElement>;
@@ -41,28 +41,31 @@ function useMap(): MapHookType {
   })) as ReduxStateType;
 
   const { changeStyle, replaceStyle } = useWholeStyle();
+  const { registerMarker } = useMarkerRegister();
   const [flag, setFlag] = useState(false);
-  const { search, pathname } = window.location;
-  const { registerMarker } = useMarkerFeature();
+  const { pathname } = window.location;
 
   const initializeMap = (map: mapboxgl.Map): void => {
-    if (search && pathname === URLPathNameType.show) {
-      const { filteredStyle, mapCoordinate } = urlToJson();
+    const { filteredStyle, mapCoordinate } = urlToJson();
 
-      // 이부분에 문제가 있는 것 같습니다. 없애면 에러 안나고 잘 되는데 있으면 안되요
-      // if (validateStyle(states.filteredStyle as WholeStyleActionPayload)) {
+    if (validateStyle(filteredStyle as WholeStyleActionPayload)) {
       changeStyle(filteredStyle as WholeStyleActionPayload);
-      // }
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('URL에 잘못된 속성이 포함되어 있습니다.');
+    }
+
+    if (mapCoordinate) {
       const { zoom, lng, lat } = mapCoordinate as LocationType;
       if (zoom && lng && lat) {
         map.setCenter({ lng, lat });
         map.setZoom(zoom);
       }
-
-      return;
     }
 
-    dispatch(initHistory());
+    if (pathname !== URLPathNameType.show) {
+      dispatch(initHistory());
+    }
 
     const storedMarkers = getInitialMarkersFromLocalStorage();
     dispatch(initMarker(storedMarkers));
@@ -72,7 +75,6 @@ function useMap(): MapHookType {
 
   const printMarker = (): void => {
     if (!marker) return;
-
     marker.markers.forEach((item) => {
       registerMarker({
         id: item.id,
