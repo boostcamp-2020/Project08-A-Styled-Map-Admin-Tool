@@ -35,7 +35,7 @@ function useInputRange({
   };
 
   const initStyle = (key: StyleDefaultKeyType) => {
-    onStyleChange(key, 'init');
+    onStyleChange(key, 'transparent');
   };
 
   return {
