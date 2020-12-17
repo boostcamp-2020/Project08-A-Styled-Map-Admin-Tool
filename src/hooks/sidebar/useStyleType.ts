@@ -12,7 +12,7 @@ import {
   ReduxStateType,
   StyleStoreType,
 } from '../../store/common/type';
-import { setStyle, initColors } from '../../store/style/action';
+import { setStyle } from '../../store/style/action';
 import * as mapStyling from '../../utils/map-styling';
 
 import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
@@ -21,6 +21,7 @@ import { getDefaultStyle } from '../../store/style/properties';
 import removeNullFromObject from '../../utils/removeNullFromObject';
 import deepCopy from '../../utils/deepCopy';
 import { addLog } from '../../store/history/action';
+import useInitAllColor from './useInitAllColor';
 
 export interface UseStyleHookType {
   styleElement: StyleType;
@@ -76,6 +77,7 @@ function useStyleType(): UseStyleHookType {
       features,
     };
   }) as ReduxStateType;
+  const { initAllColor } = useInitAllColor();
 
   const styleElement = useSelector<RootState>((state) => {
     if (!feature || !subFeature || !element) {
@@ -155,27 +157,16 @@ function useStyleType(): UseStyleHookType {
 
       /** all의 색상을 바꿀 때 */
       if (value === initColor && subFeature === 'all' && subElement) {
-        dispatch(initColors(feature, element, subElement));
-        Object.keys(features[feature]).forEach((subFeatureName) => {
-          const style = getDefaultStyle({
-            feature,
-            subFeature: subFeatureName,
-            element,
-            subElement,
-          });
-
-          mapStyling[feature]({
-            map,
-            subFeature: subFeatureName,
-            key: newStyleKey,
-            element,
-            subElement: subElement as SubElementNameType,
-            style: {
-              ...styleElement,
-              ...newStyleObj,
-              color: style.color,
-            },
-          });
+        initAllColor({
+          features,
+          feature,
+          element,
+          subElement,
+          style: {
+            ...styleElement,
+            ...newStyleObj,
+          },
+          key: newStyleKey,
         });
         setChangedObj({
           key,
