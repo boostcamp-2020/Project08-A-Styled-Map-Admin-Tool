@@ -2,7 +2,10 @@ import React from 'react';
 import styled from '../../../utils/styles/styled';
 import { Range } from '../SidebarContentFewer/DepthItem';
 import useInputRange from '../../../hooks/common/useInputRange';
-import { StyleKeyType } from '../../../store/common/type';
+import {
+  StyleDefaultKeyType,
+  ColorSubStyleType,
+} from '../../../store/common/type';
 
 const SaturationWrapper = styled.div`
   display: flex;
@@ -24,7 +27,7 @@ const SaturationControlBar = styled(Range)`
 
 interface SaturationStyleProps {
   saturation: number;
-  onStyleChange: (key: StyleKeyType, value: string | number) => void;
+  onStyleChange: (key: StyleDefaultKeyType, value: string | number) => void;
 }
 
 function SaturationStyle({
@@ -47,7 +50,7 @@ function SaturationStyle({
         id="styler__saturation"
         value={curRange}
         onChange={(e) => rangeChangeHandler(e)}
-        onMouseUp={() => rangeMouseUpHandler(StyleKeyType.saturation)}
+        onMouseUp={() => rangeMouseUpHandler(ColorSubStyleType.saturation)}
       />
     </SaturationWrapper>
   );

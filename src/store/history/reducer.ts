@@ -50,22 +50,7 @@ function historyReducer(
       newState.log.push({ id, ...action.payload });
       newState.currentIdx = newState.log.length - 1;
 
-      const storedLog =
-        localStorage.getItem(logKey) === null
-          ? []
-          : JSON.parse(localStorage.getItem(logKey) as string);
-
-      // TODO: localstorage update before Event(refresh, close..)
-      // localstorage에 업로드 할때 100개만 가져가면 되지 않을까요?
-      if (storedLog !== undefined) {
-        storedLog.push({
-          id,
-          ...JSON.parse(JSON.stringify(action.payload)),
-        });
-        localStorage.setItem('log', JSON.stringify(storedLog));
-      }
-
-      return newState;
+      return newState as HistoryState;
     }
 
     case SET_CURRENT_INDEX: {
@@ -75,8 +60,6 @@ function historyReducer(
     }
 
     case RESET_HISTORY: {
-      localStorage.setItem('log', JSON.stringify([]));
-
       return { ...state, log: [], currentIdx: null };
     }
     default:

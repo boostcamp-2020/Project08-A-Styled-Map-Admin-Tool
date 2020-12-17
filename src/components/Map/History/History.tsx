@@ -1,16 +1,13 @@
 import React, { ReactElement } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import styled from '../../../utils/styles/styled';
-import { RootState } from '../../../store/index';
 import {
-  HistoryState,
   HistorySetLogType,
   HistoryReplaceLogType,
   ReplaceType,
 } from '../../../store/common/type';
 import SetHistoryContent from './SetHistoryContent';
 import ReplaceHistoryContent from './ReplaceHistoryContent';
-import { resetHistory } from '../../../store/history/action';
+import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
 
 const HistoryWapper = styled.div`
   z-index: 30;
@@ -81,18 +78,16 @@ interface HistoryProps {
   isHistoryOpen: boolean;
   comparisonButtonClickHandler: (id: string) => void;
   compareId: string | undefined;
+  setLogId: (id: string | undefined) => void;
 }
 
 function History({
   isHistoryOpen,
   comparisonButtonClickHandler,
   compareId,
+  setLogId,
 }: HistoryProps): ReactElement {
-  const { log, currentIdx } = useSelector<RootState>(
-    (state) => state.history
-  ) as HistoryState;
-  const dispatch = useDispatch();
-
+  const { log, currentIdx, resetHistoryAndStyle } = useHistoryFeature();
   if (!isHistoryOpen) return <></>;
 
   return (
@@ -102,8 +97,8 @@ function History({
         <Explain>클릭 시 현재 화면과 비교 가능</Explain>
       </HistoryTitle>
       <HistoryList>
-        {(log || [])
-          .map((item, idx) => (
+        {log
+          ?.map((item, idx) => (
             <HistoryItem
               key={item.id}
               isCurrent={currentIdx === idx}
@@ -119,7 +114,12 @@ function History({
           ))
           .reverse()}
       </HistoryList>
-      <ResetHistory onClick={() => dispatch(resetHistory())}>
+      <ResetHistory
+        onClick={() => {
+          setLogId(undefined);
+          resetHistoryAndStyle();
+        }}
+      >
         History Reset
       </ResetHistory>
     </HistoryWapper>

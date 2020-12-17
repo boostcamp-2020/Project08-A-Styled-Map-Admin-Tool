@@ -144,7 +144,7 @@ const defaultStyle: DefaultWholeStyle = {
     country: {
       section: {
         fill: { color: 'transparent', weight: 0 },
-        stroke: { color: 'hsl(230, 8%, 51%)', weight: 7 },
+        stroke: { color: 'hsl(230, 8%, 51%)', weight: 3 },
       },
       labelText: {
         fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },
@@ -154,7 +154,7 @@ const defaultStyle: DefaultWholeStyle = {
     state: {
       section: {
         fill: { color: 'transparent', weight: 0 },
-        stroke: { color: 'hsl(230, 14%, 77%)', weight: 7 },
+        stroke: { color: 'hsl(230, 14%, 77%)', weight: 3 },
       },
       labelText: {
         fill: { color: 'hsl(0, 0%, 0%)', weight: 0 },

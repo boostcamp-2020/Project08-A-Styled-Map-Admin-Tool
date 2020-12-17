@@ -2,7 +2,10 @@ import React from 'react';
 import styled from '../../../utils/styles/styled';
 import { Range } from '../SidebarContentFewer/DepthItem';
 import useInputRange from '../../../hooks/common/useInputRange';
-import { StyleKeyType } from '../../../store/common/type';
+import {
+  ColorSubStyleType,
+  StyleDefaultKeyType,
+} from '../../../store/common/type';
 
 const LightnessWrapper = styled.div`
   display: flex;
@@ -24,7 +27,7 @@ const LightnessControlBar = styled(Range)`
 
 interface LightnessPropsInterface {
   lightness: number;
-  onStyleChange: (key: StyleKeyType, value: string | number) => void;
+  onStyleChange: (key: StyleDefaultKeyType, value: string | number) => void;
 }
 
 function LightnessStyle({
@@ -48,7 +51,7 @@ function LightnessStyle({
           id="styler__lightness"
           value={curRange}
           onChange={(e) => rangeChangeHandler(e)}
-          onMouseUp={() => rangeMouseUpHandler(StyleKeyType.lightness)}
+          onMouseUp={() => rangeMouseUpHandler(ColorSubStyleType.lightness)}
         />
       </LightnessWrapper>
     </div>

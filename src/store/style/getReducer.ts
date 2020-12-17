@@ -9,6 +9,7 @@ import {
   objType,
   ElementNameType,
   SubElementType,
+  StyleType,
 } from '../common/type';
 import { getDefaultFeature, getDefaultStyle } from './properties';
 import {
@@ -128,6 +129,12 @@ export default function getReducer(IDX: number): ReducerType {
             subFeature,
           });
 
+          if (element === ElementNameType.labelIcon) {
+            const style = newState[subFeature][element] as StyleType;
+            style.color = defaultStyle.color;
+            style.isChanged = checkStyleIsChanged({ defaultStyle, style });
+            return;
+          }
           const style = (newState[subFeature][element] as SubElementType)[
             subElement
           ];
