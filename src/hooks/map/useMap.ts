@@ -2,7 +2,6 @@ import { RefObject, useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initMap } from '../../store/map/action';
 import useWholeStyle from '../../hooks/common/useWholeStyle';
-import { RegisterMarkerType } from '../../hooks/map/useMarkerRegister';
 import { urlToJson } from '../../utils/urlParsing';
 import validateStyle from '../../utils/validateStyle';
 import {

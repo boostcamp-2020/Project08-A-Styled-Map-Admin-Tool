@@ -1,5 +1,6 @@
 import mapboxgl from 'mapbox-gl';
 import { MarkerInstanceType, MARKER } from '../store/marker/action';
+import getRandomId from './getRandomId';
 
 const initialLocalStorageMarkers: MarkerInstanceType[] = [];
 
@@ -7,16 +8,16 @@ const getMarkersFromLocalStorage = (): MarkerInstanceType[] => {
   return JSON.parse(localStorage.getItem(MARKER) as string);
 };
 
-const setMarkersToLocalStorage = (markers: MarkerInstanceType[]): void => {
+export const setMarkersToLocalStorage = (
+  markers: MarkerInstanceType[]
+): void => {
   localStorage.setItem(MARKER, JSON.stringify(markers));
 };
 
-export function getInitialMarkersFromLocalStorage(): MarkerInstanceType[] {
-  const storedMarkers = getMarkersFromLocalStorage();
-
-  if (!storedMarkers) return initialLocalStorageMarkers;
-
-  const newState = storedMarkers.reduce(
+export function initMarkerInstances(
+  markers: MarkerInstanceType[]
+): MarkerInstanceType[] {
+  const newMarkers = markers.reduce(
     (
       acc: MarkerInstanceType[],
       marker: MarkerInstanceType
@@ -26,12 +27,20 @@ export function getInitialMarkersFromLocalStorage(): MarkerInstanceType[] {
       })
         .setLngLat([marker.lng, marker.lat])
         .setPopup(new mapboxgl.Popup().setHTML(`<p>${marker.text}</p>`));
-      acc.push({ ...marker, instance: newMarker });
+      const newMarkerId = marker.id || getRandomId(8);
+
+      acc.push({ ...marker, id: newMarkerId, instance: newMarker });
       return acc;
     },
     []
   );
+  return newMarkers;
+}
 
+export function getInitialMarkersFromLocalStorage(): MarkerInstanceType[] {
+  const storedMarkers = getMarkersFromLocalStorage();
+  if (!storedMarkers) return initialLocalStorageMarkers;
+  const newState = initMarkerInstances(storedMarkers);
   return newState;
 }
 

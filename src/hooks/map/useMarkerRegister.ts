@@ -24,18 +24,44 @@ export interface RegisterMarkerType {
 }
 
 export interface MarkerRegisterHookType {
+  marker: MarkerInstanceType[];
+  addInstanceToMap: ({ id, text, instance }: AddInstanceToMapProps) => void;
   registerMarker: ({ text, lngLat }: RegisterMarkerType) => void;
 }
 
 const LIMIT_MARKER_NUMBER = 30;
 const { pathname } = window.location;
 
+interface AddInstanceToMapProps {
+  id: string;
+  text: string;
+  instance: mapboxgl.Marker;
+}
+
 function useMarkerRegister(): MarkerRegisterHookType {
   const dispatch = useDispatch();
   const { map, marker } = useSelector<RootState>((state) => ({
     map: state.map.map,
-    marker: state.marker,
+    marker: state.marker.markers,
   })) as ReduxStateType;
+
+  const addInstanceToMap = ({ id, text, instance }: AddInstanceToMapProps) => {
+    instance.getElement().addEventListener('contextmenu', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      instance.remove();
+      dispatch(removeMarker(id));
+      deleteMarkerOfLocalStorage(id);
+    });
+    instance.addTo(map);
+    instance.on('dragend', () => {
+      if (pathname === URLPathNameType.show) return;
+      const { lng, lat } = instance.getLngLat();
+      const changedData = { id, text, lng, lat };
+      dispatch(updateMarker(changedData));
+      updateMarkerOfLocalStorage(changedData);
+    });
+  };
 
   const registerMarker = ({
     id = getRandomId(8),
@@ -43,27 +69,13 @@ function useMarkerRegister(): MarkerRegisterHookType {
     lngLat,
     instance,
   }: RegisterMarkerType): void => {
-    if (!map) return;
+    if (!map || !marker) return;
     if (!lngLat?.lng || !lngLat?.lat) return;
     const { lng, lat } = lngLat;
 
     /** 새로고침 할 때 */
     if (instance) {
-      instance.getElement().addEventListener('contextmenu', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        instance.remove();
-        dispatch(removeMarker(id));
-        deleteMarkerOfLocalStorage(id);
-      });
-      instance.addTo(map);
-      instance.on('dragend', () => {
-        if (pathname === URLPathNameType.show) return;
-        const lnglat = instance.getLngLat();
-        const changedData = { id, text, lng: lnglat.lng, lat: lnglat.lat };
-        dispatch(updateMarker(changedData));
-        updateMarkerOfLocalStorage(changedData);
-      });
+      addInstanceToMap({ instance, id, text });
       return;
     }
 
@@ -72,33 +84,13 @@ function useMarkerRegister(): MarkerRegisterHookType {
       alert(`최대 ${LIMIT_MARKER_NUMBER}개의 marker만 등록할 수 있습니다.`);
       return;
     }
+
     const newMarker = new mapboxgl.Marker({ draggable: true })
       .setLngLat([lng, lat])
       .setPopup(new mapboxgl.Popup().setHTML(`<p>${text}</p>`))
       .addTo(map);
 
-    newMarker.on('dragend', () => {
-      if (pathname === URLPathNameType.show) return;
-      const lnglat = newMarker.getLngLat();
-      const updateInfo = {
-        id,
-        text,
-        lng: lnglat.lng,
-        lat: lnglat.lat,
-      };
-      dispatch(updateMarker(updateInfo));
-      updateMarkerOfLocalStorage(updateInfo);
-    });
-
-    newMarker.getElement().addEventListener('contextmenu', (e) => {
-      if (pathname === URLPathNameType.show) return;
-      e.stopPropagation();
-      e.preventDefault();
-      newMarker.remove();
-
-      dispatch(removeMarker(id));
-      deleteMarkerOfLocalStorage(id);
-    });
+    addInstanceToMap({ id, text, instance: newMarker });
 
     // 새로운 마커 추가
     const newMarkerInstance: MarkerInstanceType = {
@@ -115,6 +107,8 @@ function useMarkerRegister(): MarkerRegisterHookType {
   };
 
   return {
+    marker,
+    addInstanceToMap,
     registerMarker,
   };
 }
