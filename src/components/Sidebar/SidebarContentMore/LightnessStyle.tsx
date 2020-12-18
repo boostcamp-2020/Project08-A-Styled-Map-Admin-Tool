@@ -1,7 +1,12 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import { Range } from '../SidebarContentFewer/DepthItem';
+
+// Hook
 import useInputRange from '../../../hooks/common/useInputRange';
+
+// Type
 import {
   ColorSubStyleType,
   StyleDefaultKeyType,

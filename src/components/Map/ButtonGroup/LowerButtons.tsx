@@ -1,9 +1,11 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-
 import Button from './Button';
 import PlusIcon from '../../Icon/AddIcon';
 import MinusIcon from '../../Icon/RemoveIcon';
+
+// Hook
 import useLowerButtons, {
   LowerButtonsHookType,
 } from '../../../hooks/map/useLowerButtons';

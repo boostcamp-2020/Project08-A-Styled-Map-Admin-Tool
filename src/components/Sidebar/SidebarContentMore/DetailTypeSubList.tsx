@@ -1,6 +1,9 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import ListItem, { paddingStepType, paddingStep } from './DetailTypeItem';
+
+// Type
 import {
   ElementNameType,
   SubElementNameType,

@@ -1,20 +1,29 @@
+// Dependencies
 import { RefObject, useRef, useEffect, useState } from 'react';
+
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
+import { initMarker, MarkerState } from '../../store/marker/action';
+import { initHistory } from '../../store/history/action';
+import { RootState } from '../../store/index';
 import { initMap } from '../../store/map/action';
-import useWholeStyle from '../../hooks/common/useWholeStyle';
+
+// Util
+import { getInitialMarkersFromLocalStorage } from '../../utils/updateMarkerStorage';
 import { urlToJson } from '../../utils/urlParsing';
 import validateStyle from '../../utils/validateStyle';
+
+// Hook
+import useMarkerRegister from './useMarkerRegister';
+import useWholeStyle from '../common/useWholeStyle';
+
+// Type
 import {
   WholeStyleActionPayload,
   HistoryState,
   LocationType,
   URLPathNameType,
 } from '../../store/common/type';
-import { RootState } from '../../store/index';
-import { initMarker, MarkerState } from '../../store/marker/action';
-import { initHistory } from '../../store/history/action';
-import { getInitialMarkersFromLocalStorage } from '../../utils/updateMarkerStorage';
-import useMarkerRegister from './useMarkerRegister';
 
 export interface MapHookType {
   containerRef: RefObject<HTMLDivElement>;

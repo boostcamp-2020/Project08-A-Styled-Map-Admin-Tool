@@ -1,9 +1,12 @@
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setSidebarProperties,
   initSidebarProperties,
 } from '../../store/sidebar/action';
 import { RootState } from '../../store/index';
+
+// Type
 import {
   FeatureNameType,
   ElementNameType,

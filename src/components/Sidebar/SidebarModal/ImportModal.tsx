@@ -1,12 +1,6 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import useSidebarImportModal, {
-  useModalStatusProps,
-  useModalStatusType,
-} from '../../../hooks/sidebar/useImportModalStatus';
-import useInputText, {
-  InputTextHookType,
-} from '../../../hooks/common/useInputText';
 import Overlay from '../../common/Overlay';
 import CloseIcon from '../../Icon/CloseIcon';
 import {
@@ -15,6 +9,15 @@ import {
   ModalTitle,
   ModalCloseButton,
 } from './common';
+
+// Hook
+import useSidebarImportModal, {
+  useModalStatusProps,
+  useModalStatusType,
+} from '../../../hooks/sidebar/useImportModalStatus';
+import useInputText, {
+  InputTextHookType,
+} from '../../../hooks/common/useInputText';
 
 const ModalInput = styled.textarea`
   width: 100%;

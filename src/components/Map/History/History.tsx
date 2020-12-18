@@ -1,13 +1,20 @@
+// Dependencies
 import React, { ReactElement } from 'react';
 import styled from '../../../utils/styles/styled';
+
+// Components
+import SetHistoryContent from './SetHistoryContent';
+import ReplaceHistoryContent from './ReplaceHistoryContent';
+
+// Hook
+import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
+
+// Type
 import {
   HistorySetLogType,
   HistoryReplaceLogType,
   ReplaceType,
 } from '../../../store/common/type';
-import SetHistoryContent from './SetHistoryContent';
-import ReplaceHistoryContent from './ReplaceHistoryContent';
-import useHistoryFeature from '../../../hooks/map/useHistoryFeature';
 
 const HistoryWapper = styled.div`
   z-index: 30;

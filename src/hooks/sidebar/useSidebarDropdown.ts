@@ -1,7 +1,12 @@
+// Dependencies
 import { useState } from 'react';
+
+// Redux
 import { useDispatch } from 'react-redux';
 import { ReplaceType } from '../../store/common/type';
 import { initDepthTheme } from '../../store/depth-theme/action';
+
+// Hook
 import useWholeStyle from '../common/useWholeStyle';
 
 interface SidebarDropdownProps {
