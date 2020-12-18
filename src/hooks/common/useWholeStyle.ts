@@ -29,7 +29,7 @@ interface WholeStyleHook {
     inputStyle: WholeStyleActionPayload,
     logInfo?: LogInfoType
   ) => void;
-  replaceStyle: (inputStyle: StyleStoreType, logInfo?: LogInfoType) => void;
+  replaceStyle: (inputStyle: StyleStoreType) => void;
 }
 
 function useWholeStyle(): WholeStyleHook {

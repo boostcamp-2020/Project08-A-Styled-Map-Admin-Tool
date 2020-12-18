@@ -2,6 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
 import { resetHistory } from '../../store/history/action';
+import { initDepthTheme } from '../../store/depth-theme/action';
 
 // Type
 import { HistoryState, HistoryInfoPropsType } from '../../store/common/type';
@@ -25,6 +26,7 @@ function useHistoryFeature(): useHistoryFeatureType {
 
   const resetHistoryAndStyle = () => {
     dispatch(resetHistory());
+    dispatch(initDepthTheme());
     changeStyle({});
   };
 
