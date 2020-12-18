@@ -1,7 +1,12 @@
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
-import { HistoryState, HistoryInfoPropsType } from '../../store/common/type';
 import { resetHistory } from '../../store/history/action';
+
+// Type
+import { HistoryState, HistoryInfoPropsType } from '../../store/common/type';
+
+// Hook
 import useWholeStyle from '../common/useWholeStyle';
 
 export interface useHistoryFeatureType {

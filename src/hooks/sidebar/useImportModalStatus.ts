@@ -1,14 +1,23 @@
+// Dependencies
 import { useState, useEffect } from 'react';
+
+// Redux
 import { useDispatch } from 'react-redux';
-import useWholeStyle from '../common/useWholeStyle';
-import validateStyle from '../../utils/validateStyle';
-import { ReplaceType } from '../../store/common/type';
+import { initMarker, MarkerInstanceType } from '../../store/marker/action';
+
+// Hook
 import useMarkerRegister from '../map/useMarkerRegister';
+import useWholeStyle from '../common/useWholeStyle';
+
+// Utils
 import {
   initMarkerInstances,
   setMarkersToLocalStorage,
 } from '../../utils/updateMarkerStorage';
-import { initMarker, MarkerInstanceType } from '../../store/marker/action';
+import validateStyle from '../../utils/validateStyle';
+
+// Type
+import { ReplaceType } from '../../store/common/type';
 
 export interface useModalStatusProps {
   importModalToggleHandler: () => void;

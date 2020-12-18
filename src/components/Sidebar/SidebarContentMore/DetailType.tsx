@@ -1,5 +1,10 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import DetailTypeSubList from './DetailTypeSubList';
+import Styler from './Styler';
+
+// Hook
 import useSidebarType, {
   SidebarHookType,
 } from '../../../hooks/sidebar/useSidebarType';
@@ -7,13 +12,12 @@ import ListItem from './DetailTypeItem';
 import useDetailType, {
   UseDetailHookType,
 } from '../../../hooks/sidebar/useDetailType';
-import Styler from './Styler';
+
+// Type
 import {
   ElementNameType,
   SubElementNameType,
 } from '../../../store/common/type';
-
-import DetailTypeSubList from './DetailTypeSubList';
 
 const DetailWrapper = styled.div`
   width: 230px;

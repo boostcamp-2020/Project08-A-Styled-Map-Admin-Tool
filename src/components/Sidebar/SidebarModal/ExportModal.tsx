@@ -1,20 +1,22 @@
+// Dependencies
 import React, { useEffect } from 'react';
 import styled from '../../../utils/styles/styled';
+import CloseIcon from '../../Icon/CloseIcon';
+import Copy from '../../Icon/Copy';
+import Overlay from '../../common/Overlay';
 import {
   ModalWrapper,
   ModalHeader,
   ModalTitle,
   ModalCloseButton,
 } from './common';
-import CloseIcon from '../../Icon/CloseIcon';
-import Copy from '../../Icon/Copy';
-import Overlay from '../../common/Overlay';
+
+// Hook
 import {
   ExportType,
   getStringifyStyleObject,
   geturlParsedStyle,
 } from '../../../hooks/sidebar/useExportStyle';
-import { FeatureNameType } from '../../../store/common/type';
 import useCopyToClipboard from '../../../hooks/sidebar/useCopyToClipboard';
 
 const ExportModalWrapper = styled(ModalWrapper)``;
@@ -67,9 +69,6 @@ const CopyBtn = styled(Copy)`
 const CopyStatus = styled.div`
   color: black;
 `;
-interface StoreDataType {
-  [key: string]: FeatureNameType | undefined;
-}
 
 function ExportModal({
   isOpen,

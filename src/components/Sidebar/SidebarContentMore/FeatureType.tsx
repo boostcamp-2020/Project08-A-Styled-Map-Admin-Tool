@@ -1,13 +1,16 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import FeatureTypeItem from './FeatureTypeItem';
+import DetailType from './DetailType';
+
+// Data
 import data from '../../../utils/rendering-data/featureTypeData';
 
-import DetailType from './DetailType';
+// Type
 import useSidebarType, {
   SidebarHookType,
 } from '../../../hooks/sidebar/useSidebarType';
-
-import FeatureTypeItem from './FeatureTypeItem';
 
 interface WrapperProps {
   isFeatureName: string | null;

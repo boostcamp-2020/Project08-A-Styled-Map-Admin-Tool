@@ -1,15 +1,21 @@
+// Dependencies
 import React from 'react';
 import styled from '../../utils/styles/styled';
 import 'mapbox-gl-compare/style.css';
+
+// Components
+import LowerButtons from './ButtonGroup/LowerButtons';
+import UpperButtons from './ButtonGroup/UpperButtons';
+import History from './History/History';
+import MarkerPopUp from './Marker/MarkerPopup';
+
+// Hook
+import useMarkerFeature from '../../hooks/map/useMarkerPosition';
 import useMap, { MapHookType } from '../../hooks/map/useMap';
 import useHistoryMap from '../../hooks/map/useHistoryMap';
 import useCompareFeature from '../../hooks/map/useCompareFeature';
 
-import LowerButtons from './ButtonGroup/LowerButtons';
-import UpperButtons from './ButtonGroup/UpperButtons';
-import History from './History/History';
-import useMarkerFeature from '../../hooks/map/useMarkerPosition';
-import MarkerPopUp from './Marker/MarkerPopup';
+// Type
 import { URLPathNameType } from '../../store/common/type';
 
 interface CurrentMapWrapperProps {

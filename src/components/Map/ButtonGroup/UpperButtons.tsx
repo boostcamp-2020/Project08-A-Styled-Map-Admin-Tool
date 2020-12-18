@@ -1,12 +1,13 @@
 import React, { ReactElement, RefObject } from 'react';
 import styled from '../../../utils/styles/styled';
-import useUpperButtons, {
-  useUpperButtonsType,
-} from '../../../hooks/map/useUpperButtons';
-
 import Button from './Button';
 import FullScreenIcon from '../../Icon/FullScreen';
 import SmallScreenIcon from '../../Icon/SmallScreen';
+
+// Hook
+import useUpperButtons, {
+  useUpperButtonsType,
+} from '../../../hooks/map/useUpperButtons';
 
 interface UpperButtonsProps {
   mapRef: RefObject<HTMLDivElement>;

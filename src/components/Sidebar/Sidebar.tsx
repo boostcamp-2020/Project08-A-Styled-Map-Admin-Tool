@@ -1,13 +1,15 @@
+// Dependencies
 import React, { memo } from 'react';
 import styled from '../../utils/styles/styled';
-import useSidebar, {
-  ToggleStatusHook,
-} from '../../hooks/sidebar/useToggleStatus';
-
 import SidebarHeader from './SidebarHeader/SidebarHeader';
 import SidebarContentFewer from './SidebarContentFewer/SidebarContent';
 import SidebarContentMore from './SidebarContentMore/SidebarContent';
 import SidebarFooter from './SidebarFooter/SidebarFooter';
+
+// Hook
+import useSidebar, {
+  ToggleStatusHook,
+} from '../../hooks/sidebar/useToggleStatus';
 
 const SidebarWrapper = styled.div`
   display: flex;

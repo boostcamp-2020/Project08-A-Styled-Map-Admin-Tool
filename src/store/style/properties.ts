@@ -9,7 +9,6 @@ import {
   DefaultStyleType,
 } from '../common/type';
 import { hslToHEX } from '../../utils/colorFormat';
-
 import defaultStyle from '../../utils/rendering-data/defaultStyle';
 
 const style: StyleType = {
