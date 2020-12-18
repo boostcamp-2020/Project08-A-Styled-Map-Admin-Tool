@@ -1,6 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux';
+// Dependencies
 import { useCallback, useEffect, useState } from 'react';
+import { getDefaultStyle } from '../../store/style/properties';
+
+// Redux
+import { setStyle } from '../../store/style/action';
+import { addLog } from '../../store/history/action';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+
+// Type
 import {
   SubElementType,
   StyleType,
@@ -12,16 +20,16 @@ import {
   ReduxStateType,
   StyleStoreType,
 } from '../../store/common/type';
-import { setStyle } from '../../store/style/action';
-import * as mapStyling from '../../utils/map-styling';
 
-import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
-import { VisibilityType } from '../../utils/applyStyle';
-import { getDefaultStyle } from '../../store/style/properties';
-import removeNullFromObject from '../../utils/removeNullFromObject';
-import deepCopy from '../../utils/deepCopy';
-import { addLog } from '../../store/history/action';
+// Hook
 import useInitAllColor from './useInitAllColor';
+
+// Util
+import deepCopy from '../../utils/deepCopy';
+import * as mapStyling from '../../utils/map-styling';
+import { VisibilityType } from '../../utils/applyStyle';
+import { hexToHSL, hslToHEX } from '../../utils/colorFormat';
+import removeNullFromObject from '../../utils/removeNullFromObject';
 
 export interface UseStyleHookType {
   styleElement: StyleType;

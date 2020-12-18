@@ -1,16 +1,23 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
+// Dependencies
 import { useState, RefObject, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
-import initLayers from '../../utils/rendering-data/layers/init';
 import getCompareMap from './getCompareMap';
+
+// Redux
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+
+// Type
 import {
   HistoryState,
   FeatureNameType,
   FeatureState,
 } from '../../store/common/type';
+
+// Util
+import initLayers from '../../utils/rendering-data/layers/init';
 import setFeatureStyle from '../../utils/setFeatureStyle';
 
 export interface mapProps {

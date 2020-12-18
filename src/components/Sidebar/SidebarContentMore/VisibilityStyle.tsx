@@ -1,5 +1,8 @@
+// Dependencies
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+
+// Type
 import {
   VisibilityValueType,
   StyleDefaultKeyType,

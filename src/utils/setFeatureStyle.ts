@@ -89,7 +89,7 @@ function setElementStyle({
   style,
   isInit,
 }: setElementStyleProps): void {
-  // if (!isInit) return;
+  if (!style.isChanged && !isInit) return;
   const keys = Object.keys(style) as StyleKeyType[];
   keys.forEach((key) => {
     if (key === 'color' && style[key] === 'transparent') {

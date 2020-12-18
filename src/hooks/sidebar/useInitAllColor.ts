@@ -1,8 +1,13 @@
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { initColors } from '../../store/style/action';
 import { getDefaultStyle } from '../../store/style/properties';
+
+// Util
 import * as mapStyling from '../../utils/map-styling';
+
+// Type
 import {
   FeatureNameType,
   ElementNameType,

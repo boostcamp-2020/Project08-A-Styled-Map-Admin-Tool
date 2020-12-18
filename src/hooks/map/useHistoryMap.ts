@@ -1,7 +1,12 @@
-import { useSelector } from 'react-redux';
-import { HistoryState } from '../../store/common/type';
+// Dependencies
 import { useState, useEffect } from 'react';
+
+// Redux
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
+
+// Type
+import { HistoryState } from '../../store/common/type';
 
 export interface useHistoryMapType {
   isHistoryOpen: boolean;

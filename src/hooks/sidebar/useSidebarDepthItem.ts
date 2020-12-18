@@ -1,6 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
+// Dependencies
 import { useEffect, useState } from 'react';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { setShowDepthProperties } from '../../store/depth-theme/action';
+import { replaceFeatureStyle } from '../../store/style/action';
+import { addLog } from '../../store/history/action';
+
+// Util
+import setFeatureStyle from '../../utils/setFeatureStyle';
+
+// Hook
+import useWholeStyle from '../common/useWholeStyle';
+
+// Type
 import {
   AdministrativeNameType,
   ReplaceType,
@@ -10,11 +24,6 @@ import {
   WholeStyleActionPayload,
   FeatureNameType,
 } from '../../store/common/type';
-import { setShowDepthProperties } from '../../store/depth-theme/action';
-import useWholeStyle from '../common/useWholeStyle';
-import { replaceFeatureStyle } from '../../store/style/action';
-import setFeatureStyle from '../../utils/setFeatureStyle';
-import { addLog } from '../../store/history/action';
 
 export enum DepthItemKeyTypes {
   administrative = 'administrativeDepth',
