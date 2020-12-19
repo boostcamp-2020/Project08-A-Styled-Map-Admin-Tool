@@ -55,7 +55,11 @@ function useModalStatus({
     try {
       if (!inputStatus) return;
       const { markers: importedMarker, ...input } = JSON.parse(inputText);
-      if (importedMarker.length > 30) throw new Error('InvalidStyle');
+      if (
+        importedMarker &&
+        (!Array.isArray(importedMarker) || importedMarker.length > 30)
+      )
+        throw new Error('InvalidStyle');
       if (!validateStyle(input)) throw new Error('InvalidStyle');
 
       changeStyle(input, { changedKey: ReplaceType.import });
