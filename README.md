@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-    <img src="https://github.com/qkrdmstlr3/svg-icon-animation/blob/master/map-icon/map-icon.svg" height="300" />
+    <img src="https://github.com/qkrdmstlr3/techstack-generator/blob/master/techs/map-icon/map-icon.gif" height="300" />
 </p>
 
 ![react](https://img.shields.io/badge/react-17.0.1-9cf?logo=react)
