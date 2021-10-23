@@ -1,9 +1,10 @@
 <p align="center">
-    <img src="https://github.com/qkrdmstlr3/techstack-generator/blob/master/techs/map-icon.svg" width="549" />
+    <img src="https://user-images.githubusercontent.com/26402298/99673762-8a71e080-2ab8-11eb-84ca-909703fae826.png"
+    width="549" />
 </p>
 
 <p align="center">
-    <img src="https://github.com/qkrdmstlr3/techstack-generator/blob/master/techs/map-icon/map-icon.gif" height="300" />
+    <img src="https://github.com/qkrdmstlr3/techstack-generator/blob/master/techs/map-icon.svg" height="300" />
 </p>
 
 ![react](https://img.shields.io/badge/react-17.0.1-9cf?logo=react)
